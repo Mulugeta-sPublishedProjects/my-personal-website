@@ -42,11 +42,7 @@ export default function Greeting() {
           {/* Greeting Title */}
           <h1 className="text-xl md:text-xl font-bold text-black dark:text-white transition-colors hover:text-primary-500">
             Hey there!{" "}
-            <span
-              className="wave"
-              role="img"
-              aria-label="waving hand emoji, greeting"
-            >
+            <span className="wave" aria-label="waving hand emoji, greeting">
               👋🏻
             </span>
           </h1>
@@ -57,7 +53,7 @@ export default function Greeting() {
           </h2>
 
           {/* Typing Animation Section */}
-          <p className="text-lg md:text-xl mt-3 text-gray-600 dark:text-gray-400">
+          <div className="text-lg md:text-xl mt-3 text-gray-600 dark:text-gray-400">
             <span className="text-primary-500">
               <Typewriter
                 options={{
@@ -73,7 +69,7 @@ export default function Greeting() {
                 }}
               />
             </span>
-          </p>
+          </div>
 
           {/* Description Section */}
           <p className="text-base md:text-lg mt-4 text-gray-900 font-semibold dark:text-gray-300 leading-relaxed">
