@@ -32,18 +32,14 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable}  antialiased dark:bg-gray-900 text-black bg-gray-100 dark:text-white`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased dark:bg-gray-900 text-black bg-gray-100 dark:text-white`}
       >
         <RootWrapper>
-          {/* Header */}
           <Header />
-
-          {/* Main content area with responsive padding and flex behavior */}
-          <main className="flex-grow min-h-screen px-4 my-8 md:px-8 lg:px-16 py-8 md:py-12">
+          <main className="px-4 md:px-8 lg:px-16 flex-grow min-h-screen my-24">
             {children}
           </main>
 
-          {/* Footer */}
           <Footer />
         </RootWrapper>
       </body>

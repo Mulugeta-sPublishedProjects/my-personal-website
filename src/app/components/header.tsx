@@ -14,7 +14,7 @@ export default function Header() {
   };
 
   return (
-    <header className="fixed top-0 left-0 w-full z-50 transition-colors duration-300 bg-gray-100 dark:bg-gray-900 ">
+    <header className="fixed top-0 left-0 px-4 md:px-8 lg:px-16 w-full z-50 transition-colors duration-300 bg-gray-100 dark:bg-gray-900 ">
       <div className="max-w-screen-2xl mx-auto px-4 md:px-8 flex items-center justify-between py-4">
         {/* Logo */}
         <Link href={"/"}>

@@ -4,22 +4,24 @@ import { motion } from "framer-motion";
 import Typewriter from "typewriter-effect";
 import Image from "next/image";
 import Link from "next/link";
+import SocialMediaIcons from "./social-media";
 
 export default function Greeting() {
   return (
-    <motion.div
-      initial={{ opacity: 0, y: -50 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 1.5 }}
-      className="w-11/12 max-w-screen-xl mx-auto mt-12"
-    >
-      <div className="flex flex-col md:flex-row items-center justify-start gap-1">
-        {/* Greeting Image Section */}
+    <div>
+      <motion.div
+        initial={{ opacity: 0, y: -50 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1.5 }}
+        className="w-full mx-8  flex flex-col md:flex-row items-start
+       gap-24 "
+      >
+        {/* Left: Image Section */}
         <motion.div
           initial={{ opacity: 0, x: -50 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 1.2 }}
-          className="flex-1 max-w-full flex justify-center md:justify-start mb-8 md:mb-0"
+          className="flex justify-center md:justify-start"
         >
           <Image
             src="/portifolio-website.jpg"
@@ -37,23 +39,19 @@ export default function Greeting() {
           />
         </motion.div>
 
-        {/* Greeting Text Section */}
-        <div className="flex flex-col items-start flex-1 text-left">
-          {/* Greeting Title */}
-          <h1 className="text-xl md:text-xl font-bold text-black dark:text-white transition-colors hover:text-primary-500">
+        {/* Center: Greeting Text Section */}
+        <div className="flex-1 flex flex-col items-start space-y-4">
+          <h1 className="text-xl font-bold text-black dark:text-white hover:text-primary-500">
             Hey there!{" "}
             <span className="wave" aria-label="waving hand emoji, greeting">
               👋🏻
             </span>
           </h1>
-
-          {/* Name Header */}
-          <h2 className="text-2xl md:text-3xl mt-2 text-gray-700 dark:text-gray-300 font-bold">
+          <h2 className="text-2xl md:text-3xl mt-1 text-gray-700 dark:text-gray-300 font-bold">
             I&apos;m Mulugeta Adamu
           </h2>
 
-          {/* Typing Animation Section */}
-          <div className="text-lg md:text-xl mt-3 text-gray-600 dark:text-gray-400">
+          <div className="text-lg md:text-xl mt-2 text-gray-600 dark:text-gray-400">
             <span className="text-primary-500">
               <Typewriter
                 options={{
@@ -71,8 +69,7 @@ export default function Greeting() {
             </span>
           </div>
 
-          {/* Description Section */}
-          <p className="text-base md:text-lg mt-4 text-gray-900 font-semibold dark:text-gray-300 leading-relaxed">
+          <p className="text-base md:text-lg mt-2 text-gray-900 font-semibold dark:text-gray-300 leading-relaxed">
             I&apos;m a Senior Frontend Developer who loves tackling challenging
             projects with innovative teams. My expertise spans{" "}
             <span className="font-semibold">ReactJS</span>,{" "}
@@ -92,8 +89,7 @@ export default function Greeting() {
           </p>
 
           {/* Button Group */}
-          <div className="flex mt-6 space-x-4">
-            {/* Download Resume Button */}
+          <div className="flex mt-4 space-x-4">
             <a
               href="/resume.pdf" // Update with actual resume file path
               download
@@ -102,8 +98,6 @@ export default function Greeting() {
             >
               Download Resume
             </a>
-
-            {/* Contact Button */}
             <Link href="/contact" passHref>
               <button
                 aria-label="Contact"
@@ -114,7 +108,12 @@ export default function Greeting() {
             </Link>
           </div>
         </div>
-      </div>
-    </motion.div>
+
+        {/* Right: Social Media Icons Column */}
+        <div className="md:ml-auto space-y-4 mt-6 md:mt-0">
+          <SocialMediaIcons />
+        </div>
+      </motion.div>
+    </div>
   );
 }
