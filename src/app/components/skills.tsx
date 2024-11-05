@@ -58,19 +58,44 @@ export default function SkillsPage() {
         Skills & Tools
       </h2>
       <div className="relative overflow-hidden bg-gradient-to-b rounded-lg p-2">
-        <Marquee gradient={false} speed={50} pauseOnHover={true}>
-          {skillsData.map((skill, index) => (
+        {/* Grid layout for small screens, Marquee on medium and larger screens */}
+        <div className="block md:hidden grid grid-cols-3 gap-4">
+          {skillsData.map((skill) => (
             <div
-              key={index}
-              className="flex bg-gray-800 flex-col items-center m-4 p-4 rounded-lg shadow-lg hover:scale-105 transition-transform duration-300 cursor-pointer bg-opacity-10 "
+              key={skill.name}
+              className="flex flex-col items-center p-2 rounded-lg shadow-lg hover:scale-105 transition-transform duration-300 cursor-pointer bg-gray-800 bg-opacity-10"
             >
-              <div className="text-4xl" style={{ color: skill.color }}>
+              <div className="text-3xl" style={{ color: skill.color }}>
                 {skill.icon}
               </div>
-              <p className="mt-2 text-sm font-semibold">{skill.name}</p>
+              <p className="mt-1 text-xs font-semibold text-center">
+                {skill.name}
+              </p>
             </div>
           ))}
-        </Marquee>
+        </div>
+
+        {/* Marquee for medium and larger screens */}
+        <div className="hidden md:block">
+          <Marquee gradient={false} speed={50} pauseOnHover={true}>
+            <div className="flex items-center">
+              {skillsData.map((skill) => (
+                <div
+                  key={skill.name}
+                  className="flex flex-col items-center m-4 p-4 rounded-lg shadow-lg hover:scale-105 transition-transform duration-300 cursor-pointer bg-gray-800 bg-opacity-10"
+                  style={{ minWidth: "120px" }}
+                >
+                  <div className="text-4xl" style={{ color: skill.color }}>
+                    {skill.icon}
+                  </div>
+                  <p className="mt-2 text-sm font-semibold text-center">
+                    {skill.name}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </Marquee>
+        </div>
       </div>
     </div>
   );

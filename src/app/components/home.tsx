@@ -1,4 +1,5 @@
 "use client";
+
 import React from "react";
 import { motion } from "framer-motion";
 import Typewriter from "typewriter-effect";
@@ -8,13 +9,12 @@ import SocialMediaIcons from "./social-media";
 
 export default function Greeting() {
   return (
-    <div>
+    <div className="mt-24">
       <motion.div
         initial={{ opacity: 0, y: -50 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1.5 }}
-        className="w-full mx-8  flex flex-col md:flex-row items-start
-       gap-24 "
+        className="w-full mx-8 flex flex-col md:flex-row items-start gap-24 "
       >
         {/* Left: Image Section */}
         <motion.div
@@ -30,8 +30,8 @@ export default function Greeting() {
             height={350}
             className="shadow-lg transition-transform hover:scale-105"
             style={{
-              width: "350px",
-              height: "350px",
+              width: 350,
+              height: 350,
               filter: "grayscale(100%)",
               borderRadius: "10% 30% 50% 70%",
               border: "10px solid #fff",

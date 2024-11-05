@@ -10,7 +10,6 @@ import { EducationTimeline } from "./educations";
 import { ExperienceTimeline } from "./experiences";
 import SkillsPage from "./skills";
 import { Experience } from "../models/experience";
-import Image from "next/image";
 
 export const SkillsExperiences = () => {
   const experienceData: Experience[] = [
@@ -21,6 +20,8 @@ export const SkillsExperiences = () => {
       description:
         "Worked on building responsive and scalable frontend applications.",
       icon: <FaLaptopCode />,
+      employmentType: "Full-Time",
+      locationType: "Remote",
     },
     {
       role: "Backend Developer",
@@ -28,6 +29,8 @@ export const SkillsExperiences = () => {
       period: "2018 - 2020",
       description: "Developed RESTful APIs and managed database integrations.",
       icon: <FaServer />,
+      employmentType: "Full-Time",
+      locationType: "Onsite",
     },
     {
       role: "Software Engineer",
@@ -36,6 +39,8 @@ export const SkillsExperiences = () => {
       description:
         "Collaborated on full-stack projects with cross-functional teams.",
       icon: <FaCode />,
+      employmentType: "Part-Time",
+      locationType: "Remote",
     },
   ];
 
@@ -55,24 +60,21 @@ export const SkillsExperiences = () => {
       description: "Focused on science, math, and computer studies.",
       icon: <FaSchool />,
     },
+    {
+      institution: "Wegide High School-S/Wollo",
+      degree: "High School Diploma4",
+      period: "2011 - 2017",
+      description: "Focused on science, math, and computer studies8.",
+      icon: <FaSchool />,
+    },
   ];
 
   return (
     <div className="flex flex-col">
       <SkillsPage />
-      <div className="flex flex-col md:flex-row justify-between items-start">
-        <ExperienceTimeline experiences={experienceData} />
-
-        {/*  <div className="w-full flex justify-center">
-          <Image
-            src="/image.png"
-            alt="Separator Image"
-            width={300}
-            height={300}
-            className="rounded-lg shadow-lg object-cover"
-          />
-        </div> */}
-        <EducationTimeline education={educationData} />
+      <div className="flex my-2 flex-row gap-8">
+        <ExperienceTimeline experiences={experienceData as any} />
+        <EducationTimeline education={educationData as any} />
       </div>
     </div>
   );

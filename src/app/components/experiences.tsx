@@ -8,6 +8,8 @@ type Experience = {
   period: string;
   description: string;
   icon: JSX.Element;
+  employmentType: "Full-Time" | "Part-Time";
+  locationType: "Remote" | "Onsite";
 };
 
 type ExperienceProps = {
@@ -23,37 +25,9 @@ export const ExperienceTimeline: React.FC<ExperienceProps> = ({
     subtitle: exp.company,
     period: exp.period,
     description: exp.description,
+    employmentType: exp.employmentType,
+    locationType: exp.locationType,
   }));
 
   return <Timeline items={experienceItems} sectionTitle="Experience" />;
 };
-
-// Example usage
-const experienceData: Experience[] = [
-  {
-    role: "Frontend Developer",
-    company: "Tech Solutions",
-    period: "2020 - Present",
-    description: "Developed responsive and scalable frontend applications.",
-    icon: <FaLaptopCode />,
-  },
-  {
-    role: "Backend Developer",
-    company: "DataCorp",
-    period: "2018 - 2020",
-    description: "Worked on RESTful APIs and database management.",
-    icon: <FaServer />,
-  },
-  {
-    role: "Software Engineer",
-    company: "Innovatech",
-    period: "2016 - 2018",
-    description:
-      "Collaborated with cross-functional teams on full-stack projects.",
-    icon: <FaCode />,
-  },
-];
-
-export default function ExperiencePage() {
-  return <ExperienceTimeline experiences={experienceData} />;
-}

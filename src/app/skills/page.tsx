@@ -1,6 +1,7 @@
 import { SkillsExperiences } from "../components/educations-expereinces";
 
-export const page = () => {
+const Skills = () => {
   return <SkillsExperiences />;
 };
-export default page;
+
+export default Skills;

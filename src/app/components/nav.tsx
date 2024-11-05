@@ -45,7 +45,7 @@ export default function Nav({ menus, closeMenu }: NavProps) {
               key={menu.id}
               href={menu.href}
               onClick={closeMenu}
-              className={`relative text-lg py-2 font-bold transition-colors duration-200 ${
+              className={`relative text-lg py-2 flex-grow-1 font-bold transition-colors duration-200 ${
                 pathName === menu.href
                   ? "text-primary-500 font-semibold"
                   : "text-gray-700 hover:text-primary-500 dark:text-gray-300"
