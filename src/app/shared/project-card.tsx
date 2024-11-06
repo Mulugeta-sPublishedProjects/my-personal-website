@@ -20,14 +20,22 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
   githubLink,
 }) => {
   return (
-    <div className="bg-white hover:cursor-pointer dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden transform transition duration-300 hover:scale-105 flex-grow max-w-md sm:max-w-none mx-4 my-4">
-      <div className="w-full h-48 sm:h-64 md:h-80 relative">
+    <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden transform transition duration-300 hover:scale-105 flex-grow max-w-md sm:max-w-none mx-4 my-4">
+      <div className="relative w-full h-48 sm:h-64 md:h-80 overflow-hidden rounded-t-xl">
         <Image
           src={image}
           alt={title}
-          layout="fill"
-          objectFit="cover"
-          className="rounded-t-xl"
+          objectFit="contain"
+          className="rounded-xl"
+          width={350}
+          height={350}
+          priority
+          style={{
+            width: "100%",
+            height: "100%",
+            filter: "grayscale(100%)",
+            border: "10px solid #fff",
+          }}
         />
       </div>
       <div className="p-4 sm:p-6">

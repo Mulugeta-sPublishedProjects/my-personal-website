@@ -1,3 +1,4 @@
+"use client";
 import {
   FaCode,
   FaLaptopCode,
@@ -11,6 +12,7 @@ import { ExperienceTimeline } from "./experiences";
 import SkillsPage from "./skills";
 import { Experience } from "../models/experience";
 import { Certifications } from "./certifications";
+import { motion } from "framer-motion";
 
 export const SkillsExperiences = () => {
   const experienceData: Experience[] = [
@@ -71,15 +73,22 @@ export const SkillsExperiences = () => {
   ];
 
   return (
-    <div className="flex flex-col">
-      <SkillsPage />
-      <div className="flex my-2 flex-row gap-8">
-        <ExperienceTimeline experiences={experienceData as any} />
-        <EducationTimeline education={educationData as any} />
+    <motion.div
+      initial={{ opacity: 0, y: -50 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 1.5 }}
+      className="w-full mx-8 flex flex-col md:flex-row items-start gap-24 "
+    >
+      <div className="flex flex-col">
+        <SkillsPage />
+        <div className="flex my-2 flex-row gap-8">
+          <ExperienceTimeline experiences={experienceData as any} />
+          <EducationTimeline education={educationData as any} />
+        </div>
+        <div className="flex my-2">
+          <Certifications />
+        </div>
       </div>
-      <div className="flex my-2">
-        <Certifications />
-      </div>
-    </div>
+    </motion.div>
   );
 };

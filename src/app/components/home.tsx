@@ -6,7 +6,6 @@ import Typewriter from "typewriter-effect";
 import Image from "next/image";
 import Link from "next/link";
 import SocialMediaIcons from "./social-media";
-import ResponsiveImage from "../shared/image-viewer";
 
 export default function Greeting() {
   return (

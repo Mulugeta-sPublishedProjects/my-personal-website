@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import ProjectCard from "../shared/project-card";
+import { motion } from "framer-motion";
 
 interface Project {
   id: number;
@@ -78,52 +79,59 @@ export const PortfolioProjects: React.FC = () => {
   };
 
   return (
-    <div className="p-6 mx-auto">
-      <h1 className="text-4xl font-bold text-center text-gray-900 dark:text-white mb-10">
-        My Projects
-      </h1>
+    <motion.div
+      initial={{ opacity: 0, y: -50 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 1.5 }}
+      className="w-full mx-8 flex flex-col md:flex-row items-start gap-24 "
+    >
+      <div className="p-6 mx-auto">
+        <h1 className="text-4xl font-bold text-center text-gray-900 dark:text-white mb-10">
+          My Projects
+        </h1>
 
-      {/* Category Tabs */}
-      <div className="flex justify-center mb-10 space-x-4">
-        {categories.map((category) => (
+        {/* Category Tabs */}
+        <div className="flex justify-center mb-10 space-x-4">
+          {categories.map((category) => (
+            <button
+              key={category}
+              onClick={() => setSelectedCategory(category)}
+              className={`px-4 py-2 rounded-lg font-semibold transition ${
+                selectedCategory === category
+                  ? "bg-primary-500 text-white"
+                  : "bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-300"
+              }`}
+            >
+              {category}
+            </button>
+          ))}
+        </div>
+
+        {/* Project Cards */}
+        <div className="grid grid-cols-1  grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2">
+          {filteredProjects.map((project) => (
+            <ProjectCard
+              key={project.id}
+              title={project.title}
+              description={project.description}
+              techStack={project.techStack}
+              image={project.image}
+              liveLink={project.liveLink}
+              githubLink={project.githubLink}
+            />
+          ))}
+        </div>
+
+        {/* Show More Button */}
+        <div className="flex justify-center mt-10">
           <button
-            key={category}
-            onClick={() => setSelectedCategory(category)}
-            className={`px-4 py-2 rounded-lg font-semibold transition ${
-              selectedCategory === category
-                ? "bg-primary-500 text-white"
-                : "bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-300"
-            }`}
+            onClick={handleShowMoreClick}
+            className="px-6 py-3 bg-primary-500 text-white rounded-lg font-semibold transition hover:bg-primary-600"
           >
-            {category}
+            Show More
           </button>
-        ))}
+        </div>
       </div>
-
-      {/* Project Cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2">
-        {filteredProjects.map((project) => (
-          <ProjectCard
-            key={project.id}
-            title={project.title}
-            description={project.description}
-            techStack={project.techStack}
-            image={project.image}
-            liveLink={project.liveLink}
-            githubLink={project.githubLink}
-          />
-        ))}
-      </div>
-
-      {/* Show More Button */}
-      <div className="flex justify-center mt-10">
-        <button
-          onClick={handleShowMoreClick}
-          className="px-6 py-3 bg-primary-500 text-white rounded-lg font-semibold transition hover:bg-primary-600"
-        >
-          Show More
-        </button>
-      </div>
-    </div>
+    </motion.div>
   );
 };
