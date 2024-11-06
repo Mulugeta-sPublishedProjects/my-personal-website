@@ -10,6 +10,7 @@ import { EducationTimeline } from "./educations";
 import { ExperienceTimeline } from "./experiences";
 import SkillsPage from "./skills";
 import { Experience } from "../models/experience";
+import { Certifications } from "./certifications";
 
 export const SkillsExperiences = () => {
   const experienceData: Experience[] = [
@@ -75,6 +76,9 @@ export const SkillsExperiences = () => {
       <div className="flex my-2 flex-row gap-8">
         <ExperienceTimeline experiences={experienceData as any} />
         <EducationTimeline education={educationData as any} />
+      </div>
+      <div className="flex my-2">
+        <Certifications />
       </div>
     </div>
   );
