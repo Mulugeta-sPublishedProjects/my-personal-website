@@ -5,6 +5,7 @@ import "./globals.css";
 import Header from "./components/header";
 import Footer from "./components/footer";
 import RootWrapper from "./shared/root-wrapper";
+import Transition from "./shared/top-nav-transition";
 
 // Font configuration
 const geistSans = localFont({
@@ -35,12 +36,14 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased dark:bg-gray-900 text-black bg-gray-100 dark:text-white`}
       >
         <RootWrapper>
-          <Header />
-          <main className="px-4 md:px-8 lg:px-16 flex-grow min-h-screen my-24">
-            {children}
-          </main>
+          <Transition>
+            <Header />
+            <main className="px-4 md:px-8 lg:px-16 flex-grow min-h-screen my-24">
+              {children}
+            </main>
 
-          <Footer />
+            <Footer />
+          </Transition>
         </RootWrapper>
       </body>
     </html>

@@ -1,6 +1,7 @@
 import { PortfolioProjects } from "../components/projects";
+import type { NextPage } from "next";
 
-export const Page = () => {
+const Page: NextPage = () => {
   return <PortfolioProjects />;
 };
 
