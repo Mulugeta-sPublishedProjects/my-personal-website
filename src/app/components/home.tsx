@@ -28,10 +28,8 @@ export default function Greeting() {
             alt="Profile"
             width={350}
             height={350}
-            className="shadow-lg transition-transform hover:scale-105"
+            className="shadow-md transition-transform hover:scale-105 w-72 h-72 sm:w-64 sm:h-64 md:w-80 md:h-80 rounded-lg object-cover"
             style={{
-              width: 350,
-              height: 350,
               filter: "grayscale(100%)",
               borderRadius: "10% 30% 50% 70%",
               border: "10px solid #fff",
@@ -40,18 +38,19 @@ export default function Greeting() {
         </motion.div>
 
         {/* Center: Greeting Text Section */}
-        <div className="flex-1 flex flex-col items-start space-y-4">
-          <h1 className="text-xl font-bold text-black dark:text-white hover:text-primary-500">
+        <div className="flex-1 flex flex-col items-start space-y-4 px-4 md:px-0">
+          <h1 className="text-lg sm:text-xl md:text-2xl font-bold text-black dark:text-white hover:text-primary-500">
             Hey there!{" "}
             <span className="wave" aria-label="waving hand emoji, greeting">
               👋🏻
             </span>
           </h1>
-          <h2 className="text-2xl md:text-3xl mt-1 text-gray-700 dark:text-gray-300 font-bold">
+
+          <h2 className="text-2xl sm:text-3xl md:text-4xl mt-1 text-gray-700 dark:text-gray-300 font-bold">
             I&apos;m Mulugeta Adamu
           </h2>
 
-          <div className="text-lg md:text-xl mt-2 text-gray-600 dark:text-gray-400">
+          <div className="text-base sm:text-lg md:text-xl mt-2 text-gray-600 dark:text-gray-400">
             <span className="text-primary-500">
               <Typewriter
                 options={{
@@ -69,7 +68,7 @@ export default function Greeting() {
             </span>
           </div>
 
-          <p className="text-base md:text-lg mt-2 text-gray-900 font-semibold dark:text-gray-300 leading-relaxed">
+          <p className="text-sm sm:text-base md:text-lg mt-2 text-gray-900 font-semibold dark:text-gray-300 leading-relaxed">
             I&apos;m a Senior Frontend Developer who loves tackling challenging
             projects with innovative teams. My expertise spans{" "}
             <span className="font-semibold">ReactJS</span>,{" "}
@@ -94,14 +93,14 @@ export default function Greeting() {
               href="/resume.pdf" // Update with actual resume file path
               download
               aria-label="Download Resume"
-              className="bg-gradient-to-r from-primary-500 to-gray-500 text-white font-semibold py-3 px-6 rounded-full shadow-lg transition-all duration-200 ease-in-out hover:from-primary-600 hover:to-indigo-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+              className="bg-gradient-to-r from-primary-500 to-gray-500 text-white font-semibold py-2 px-4 sm:py-3 sm:px-6 rounded-full shadow-lg transition-all duration-200 ease-in-out hover:from-primary-600 hover:to-indigo-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
             >
               Download Resume
             </a>
             <Link href="/contact" passHref>
               <button
                 aria-label="Contact"
-                className="bg-gradient-to-r from-primary-400 to-gray-700 text-white font-semibold py-3 px-6 rounded-full shadow-lg transition-all duration-200 ease-in-out hover:from-primary-500 hover:to-teal-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500"
+                className="bg-gradient-to-r from-primary-400 to-gray-700 text-white font-semibold py-2 px-4 sm:py-3 sm:px-6 rounded-full shadow-lg transition-all duration-200 ease-in-out hover:from-primary-500 hover:to-teal-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500"
               >
                 Contact
               </button>

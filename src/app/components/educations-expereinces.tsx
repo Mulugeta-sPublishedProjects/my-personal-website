@@ -1,4 +1,5 @@
 "use client";
+
 import {
   FaCode,
   FaLaptopCode,
@@ -63,13 +64,6 @@ export const SkillsExperiences = () => {
       description: "Focused on science, math, and computer studies.",
       icon: <FaSchool />,
     },
-    {
-      institution: "Wegide High School-S/Wollo",
-      degree: "High School Diploma4",
-      period: "2011 - 2017",
-      description: "Focused on science, math, and computer studies8.",
-      icon: <FaSchool />,
-    },
   ];
 
   return (
@@ -77,17 +71,23 @@ export const SkillsExperiences = () => {
       initial={{ opacity: 0, y: -50 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 1.5 }}
-      className="w-full mx-8 flex flex-col md:flex-row items-start gap-24 "
+      className="w-full px-4 md:px-8 flex flex-col items-start space-y-12 md:space-y-0"
     >
-      <div className="flex flex-col">
+      <div className="w-full md:w-1/3 lg:w-1/4">
         <SkillsPage />
-        <div className="flex my-2 flex-row gap-8">
+      </div>
+
+      <div className="w-full flex flex-col md:flex-row gap-12">
+        <div className="w-full md:w-1/2">
           <ExperienceTimeline experiences={experienceData as any} />
+        </div>
+        <div className="w-full md:w-1/2">
           <EducationTimeline education={educationData as any} />
         </div>
-        <div className="flex my-2">
-          <Certifications />
-        </div>
+      </div>
+
+      <div className="w-full flex justify-center md:justify-start mt-4">
+        <Certifications />
       </div>
     </motion.div>
   );

@@ -40,8 +40,10 @@ export const SocialMediaIcons = ({
 
   return (
     <div
-      className={`flex ${
-        orientation === "vertical" ? "flex-col space-y-4" : "flex-row space-x-4"
+      className={`flex  ${
+        orientation === "vertical"
+          ? " flex flex-row justify-center mx-2 space-x-4 md:flex-col md:items-center md:space-y-4"
+          : "flex-row space-x-4"
       }`}
     >
       {socials.map((social) => (

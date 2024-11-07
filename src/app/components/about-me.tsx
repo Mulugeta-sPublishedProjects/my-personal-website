@@ -1,11 +1,12 @@
 "use client";
+
 import { motion } from "framer-motion";
 import Image from "next/image";
 import React from "react";
 
 export default function AboutMe() {
   return (
-    <div className="mx-8 mt-12 flex flex-col md:flex-row items-start md:items-center space-y-8 md:space-y-0 md:space-x-12">
+    <div className="mt-12 px-4 md:px-8 flex flex-col md:flex-row justify-center items-center space-y-8 md:space-y-0 md:space-x-12">
       {/* Left Column: About Description and Personal Details */}
       <motion.div
         className="flex-1"
@@ -14,7 +15,7 @@ export default function AboutMe() {
         transition={{ duration: 1 }}
       >
         {/* About Me Description */}
-        <h2 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">
+        <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
           About Me
         </h2>
         <p className="text-base md:text-lg text-gray-700 dark:text-gray-300 leading-relaxed mb-6">
@@ -84,17 +85,20 @@ export default function AboutMe() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1, delay: 0.3 }}
       >
-        <Image
-          src="/image.png" // Replace with the actual path to your image
-          alt="Mulugeta Adamu"
-          width={320}
-          height={320}
-          style={{
-            filter: "grayscale(100%)",
-            borderRadius: "25% 15% 65% 40%",
-          }}
-          className="rounded-lg shadow-lg object-cover w-full h-full max-w-xs md:max-w-sm border-t-8 border-r-4 border-l-2 border-primary-500"
-        />
+        <div className="w-64 h-64 md:w-80 md:h-80 relative">
+          <Image
+            src="/image.png" // Replace with the actual path to your image
+            alt="Mulugeta Adamu"
+            objectFit="cover"
+            height={350}
+            width={350}
+            style={{
+              filter: "grayscale(100%)",
+              borderRadius: "25% 15% 65% 40%",
+            }}
+            className="rounded-lg shadow-lg border-t-8 border-r-4 border-l-2 border-primary-500"
+          />
+        </div>
       </motion.div>
     </div>
   );

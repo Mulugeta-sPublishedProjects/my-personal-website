@@ -13,14 +13,17 @@ interface BlogCardProps {
 const BlogCard: React.FC<BlogCardProps> = ({ post }) => {
   const { title, description, link, categories } = post;
 
-  const imageUrl = description.match(/<img.*?src="(.*?)"/)?.[1];
+  const imageUrl = new RegExp(/<img.*?src="(.*?)"/).exec(description)?.[1];
 
   return (
     <a
       href={link}
       target="_blank"
       rel="noopener noreferrer"
-      className="flex shadow-md bg-gray-200 flex-col sm:flex-row items-center p-5 border border-gray-400 rounded-lg mb-5 hover:shadow-lg transition-shadow sm:gap-4 hover:bg-gray-100 dark:hover:bg-gray-800 dark:border-gray-700"
+      className="flex shadow-md bg-gray-200 dark:bg-gray-900 
+      flex-col sm:flex-row items-center p-5 border border-gray-400
+       dark:border-gray-700 rounded-lg mb-5 hover:shadow-lg transition-shadow
+        sm:gap-4 hover:bg-gray-100 dark:hover:bg-gray-800"
     >
       {imageUrl && (
         <Image
@@ -35,7 +38,7 @@ const BlogCard: React.FC<BlogCardProps> = ({ post }) => {
         <h3 className="text-xl font-semibold text-primary-600 dark:text-primary-200">
           {title}
         </h3>
-        <p className="text-gray-700 mt-2 dark:text-gray-300">
+        <p className="text-gray-700 dark:text-gray-300 mt-2">
           {description.replaceAll(/<[^>]+>/g, "").slice(0, 100)}...
         </p>
 

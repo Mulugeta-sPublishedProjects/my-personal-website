@@ -28,11 +28,11 @@ const certificationsData = [
 
 export const Certifications: React.FC = () => {
   return (
-    <div className="p-6 mx-auto max-w-6xl">
-      <h1 className="text-4xl font-bold text-center text-gray-900 dark:text-white mb-12">
+    <div className="p-4 sm:p-6 lg:p-8 mx-auto max-w-screen-xl">
+      <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-center text-gray-900 dark:text-white mb-8 sm:mb-12">
         Certifications
       </h1>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
         {certificationsData.map((cert, index) => (
           <CertificationCard
             key={index}

@@ -75,7 +75,7 @@ export const PortfolioProjects: React.FC = () => {
       : projectsData.filter((project) => project.category === selectedCategory);
 
   const handleShowMoreClick = () => {
-    router.push("https://github.com/muleA"); // Replace 'username' with your GitHub username
+    router.push("https://github.com/muleA");
   };
 
   return (
@@ -83,20 +83,20 @@ export const PortfolioProjects: React.FC = () => {
       initial={{ opacity: 0, y: -50 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 1.5 }}
-      className="w-full mx-8 flex flex-col md:flex-row items-start gap-24 "
+      className="w-full px-4 sm:px-8 lg:px-12 flex flex-col items-center md:items-start"
     >
-      <div className="p-6 mx-auto">
-        <h1 className="text-4xl font-bold text-center text-gray-900 dark:text-white mb-10">
+      <div className="w-full max-w-screen-lg p-4 sm:p-6 lg:p-8 mx-auto">
+        <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-center text-gray-900 dark:text-white mb-8">
           My Projects
         </h1>
 
         {/* Category Tabs */}
-        <div className="flex justify-center mb-10 space-x-4">
+        <div className="flex flex-wrap justify-center mb-8 space-x-2 sm:space-x-4">
           {categories.map((category) => (
             <button
               key={category}
               onClick={() => setSelectedCategory(category)}
-              className={`px-4 py-2 rounded-lg font-semibold transition ${
+              className={`px-3 py-2 space-x-4 sm:px-4 sm:py-2 rounded-lg font-semibold transition ${
                 selectedCategory === category
                   ? "bg-primary-500 text-white"
                   : "bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-300"
@@ -108,7 +108,7 @@ export const PortfolioProjects: React.FC = () => {
         </div>
 
         {/* Project Cards */}
-        <div className="grid grid-cols-1  grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 mb-12">
           {filteredProjects.map((project) => (
             <ProjectCard
               key={project.id}
@@ -123,7 +123,7 @@ export const PortfolioProjects: React.FC = () => {
         </div>
 
         {/* Show More Button */}
-        <div className="flex justify-center mt-10">
+        <div className="flex justify-center mt-8">
           <button
             onClick={handleShowMoreClick}
             className="px-6 py-3 bg-primary-500 text-white rounded-lg font-semibold transition hover:bg-primary-600"

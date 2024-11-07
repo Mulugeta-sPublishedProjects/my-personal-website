@@ -1,5 +1,4 @@
 import React from "react";
-import { FaCode, FaLaptopCode, FaServer } from "react-icons/fa"; // Icons for different roles
 import Timeline from "./time-line";
 
 type Experience = {

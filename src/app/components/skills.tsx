@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import Marquee from "react-fast-marquee";
 import { FaReact, FaDatabase, FaMobileAlt, FaGitAlt } from "react-icons/fa";
@@ -57,9 +59,9 @@ export default function SkillsPage() {
       <h2 className="text-3xl font-bold dark:text-white mb-6 text-center">
         Skills & Tools
       </h2>
-      <div className="relative overflow-hidden bg-gradient-to-b rounded-lg p-2">
+      <div className="relative overflow-hidden bg-gradient-to-b from-gray-100 to-gray-200 dark:from-gray-800 dark:to-gray-900 rounded-lg p-2">
         {/* Grid layout for small screens, Marquee on medium and larger screens */}
-        <div className="block md:hidden grid grid-cols-3 gap-4">
+        <div className="grid grid-cols-3 gap-4 sm:grid-cols-4 md:hidden">
           {skillsData.map((skill) => (
             <div
               key={skill.name}
@@ -78,11 +80,11 @@ export default function SkillsPage() {
         {/* Marquee for medium and larger screens */}
         <div className="hidden md:block">
           <Marquee gradient={false} speed={50} pauseOnHover={true}>
-            <div className="flex items-center">
+            <div className="flex items-center space-x-6">
               {skillsData.map((skill) => (
                 <div
                   key={skill.name}
-                  className="flex flex-col items-center m-4 p-4 rounded-lg shadow-lg hover:scale-105 transition-transform duration-300 cursor-pointer bg-gray-800 bg-opacity-10"
+                  className="flex flex-col items-center p-4 rounded-lg shadow-lg hover:scale-105 transition-transform duration-300 cursor-pointer bg-gray-800 bg-opacity-10"
                   style={{ minWidth: "120px" }}
                 >
                   <div className="text-4xl" style={{ color: skill.color }}>
