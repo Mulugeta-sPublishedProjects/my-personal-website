@@ -28,7 +28,7 @@ const certificationsData = [
 
 export const Certifications: React.FC = () => {
   return (
-    <div className="p-4 sm:p-6 lg:p-8 mx-auto max-w-screen-xl">
+    <div className="p-4 sm:p-6 lg:p-8 w-full">
       <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-center text-gray-900 dark:text-white mb-8 sm:mb-12">
         Certifications
       </h1>

@@ -83,9 +83,9 @@ export const PortfolioProjects: React.FC = () => {
       initial={{ opacity: 0, y: -50 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 1.5 }}
-      className="w-full px-4 sm:px-8 lg:px-12 flex flex-col items-center md:items-start"
+      className="w-full flex flex-col items-center md:items-start"
     >
-      <div className="w-full max-w-screen-lg p-4 sm:p-6 lg:p-8 mx-auto">
+      <div className="w-full  md:p-4 sm:p-6 lg:p-8 md:mx-auto">
         <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-center text-gray-900 dark:text-white mb-8">
           My Projects
         </h1>
@@ -96,7 +96,7 @@ export const PortfolioProjects: React.FC = () => {
             <button
               key={category}
               onClick={() => setSelectedCategory(category)}
-              className={`px-3 py-2 space-x-4 sm:px-4 sm:py-2 rounded-lg font-semibold transition ${
+              className={`px-3 py-2 my-2 space-x-4 sm:px-4 hover:bg-primary-500 sm:py-2 rounded-lg font-semibold transition ${
                 selectedCategory === category
                   ? "bg-primary-500 text-white"
                   : "bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-300"

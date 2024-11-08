@@ -37,7 +37,7 @@ const Timeline: React.FC<TimelineProps> = ({ items, sectionTitle }) => {
             className="relative flex flex-col md:flex-row items-start w-full max-w-full"
           >
             {/* Centered icon node with connecting line */}
-            <div className="flex flex-col items-center mb-4 md:mb-0 md:mr-4">
+            <div className=" hidden md:block  flex-col items-center mb-4 md:mb-0 md:mr-4">
               <div className="relative">
                 <div
                   className={`w-8 h-8 sm:w-10 sm:h-10 flex items-center justify-center text-white rounded-full ${

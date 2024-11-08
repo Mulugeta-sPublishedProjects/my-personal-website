@@ -22,7 +22,7 @@ export default function Header() {
           <div className="flex text-xs text-primary-500 font-bold flex-row">
             <FaPhone /> +251983054774
           </div>
-          <div className="text-2xl hover:cursor-pointer text-primary-600 font-bold  dark:text-primary-400">
+          <div className="text-2xl hover:cursor-pointer text-black font-bold  dark:text-primary-400">
             Mulugeta Adamu
           </div>
         </Link>

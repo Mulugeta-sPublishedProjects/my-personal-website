@@ -4,7 +4,7 @@ import { AiOutlineDownload } from "react-icons/ai";
 
 const ResumePage: React.FC = () => {
   // Use URL parameters to adjust viewer settings
-  const resumeUrl = "/Profile.pdf#toolbar=1&navpanes=0&scrollbar=0&zoom=100";
+  const resumeUrl = "/cv.pdf#toolbar=1&navpanes=0&scrollbar=0&zoom=100";
 
   return (
     <motion.div
@@ -26,16 +26,12 @@ const ResumePage: React.FC = () => {
         </a>
       </div>
 
-      {/* Full-width PDF Viewer */}
-      <div className="w-full flex-grow">
+      {/* Centered PDF Viewer */}
+      <div className="w-full flex-grow p-4 flex justify-center">
         <iframe
           src={resumeUrl}
           title="Resume"
-          className="w-full h-[75vh] sm:h-[85vh] border-none"
-          style={{
-            border: "none",
-            backgroundColor: "white",
-          }}
+          className="w-full max-w-screen h-[75vh] sm:h-[85vh] bg-primary-100 rounded-lg shadow-lg filter grayscale"
         ></iframe>
       </div>
     </motion.div>

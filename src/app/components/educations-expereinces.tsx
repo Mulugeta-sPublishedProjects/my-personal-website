@@ -73,20 +73,20 @@ export const SkillsExperiences = () => {
       transition={{ duration: 1.5 }}
       className="w-full px-4 md:px-8 flex flex-col items-start space-y-12 md:space-y-0"
     >
-      <div className="w-full md:w-1/3 lg:w-1/4">
+      <div className="w-full md:w-auto">
         <SkillsPage />
       </div>
 
-      <div className="w-full flex flex-col md:flex-row gap-12">
-        <div className="w-full md:w-1/2">
+      <div className="flex flex-col md:flex-row gap-12 w-full">
+        <div className="md:flex-1">
           <ExperienceTimeline experiences={experienceData as any} />
         </div>
-        <div className="w-full md:w-1/2">
+        <div className="md:flex-1">
           <EducationTimeline education={educationData as any} />
         </div>
       </div>
 
-      <div className="w-full flex justify-center md:justify-start mt-4">
+      <div className="flex justify-center md:justify-start mt-4 w-full">
         <Certifications />
       </div>
     </motion.div>

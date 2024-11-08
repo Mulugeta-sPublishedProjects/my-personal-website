@@ -10,9 +10,9 @@ export default function ServicesPage() {
       initial={{ opacity: 0, y: -50 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 1.5 }}
-      className="w-full px-4 sm:px-8 lg:px-12 flex flex-col items-center md:items-start"
+      className="w-full flex flex-col items-center md:items-start"
     >
-      <div className="w-full max-w-screen-lg p-4 sm:p-6 lg:p-8">
+      <div className="w-full p-4 sm:p-6 lg:p-8">
         {/* Main Header */}
         <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-center md:text-left text-gray-900 dark:text-white mb-6 md:mb-8">
           My Services

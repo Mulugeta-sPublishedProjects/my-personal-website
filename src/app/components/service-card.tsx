@@ -8,10 +8,10 @@ type serviceProps = {
 
 const ServiceCard = ({ title, description, icon }: serviceProps) => {
   return (
-    <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 transform transition duration-300 hover:scale-105 hover:shadow-2xl hover:bg-gradient-to-r from-gray-100 via-primary-200 to-gray-500 dark:hover:bg-gradient-to-r dark:from-indigo-600 dark:to-blue-500">
+    <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 transform transition duration-300 hover:scale-105 hover:shadow-2xl hover:bg-gradient-to-r from-gray-100 via-primary-200 to-gray-500 dark:hover:bg-gradient-to-r dark:from-primary-600 dark:to-primary-500">
       <div className="flex items-center">
         {/* Icon on the Left */}
-        <div className="text-primary-500 text-4xl md:text-5xl mr-4 flex-shrink-0">
+        <div className="text-primary-500 hidden md:block text-4xl md:text-5xl mr-4 flex-shrink-0">
           {icon}
         </div>
 
