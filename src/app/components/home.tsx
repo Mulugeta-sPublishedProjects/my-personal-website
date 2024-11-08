@@ -9,7 +9,7 @@ import SocialMediaIcons from "./social-media";
 
 export default function Greeting() {
   return (
-    <div className="mt-24">
+    <div className="mt-36">
       <motion.div
         initial={{ opacity: 0, y: -50 }}
         animate={{ opacity: 1, y: 0 }}
@@ -48,7 +48,7 @@ export default function Greeting() {
             I&apos;m Mulugeta Adamu
           </h2>
 
-          {/* Simplified Typewriter */}
+          {/* Fixed Width Typewriter to Reduce Shifts */}
           <div className="w-64 md:w-72 lg:w-80 text-primary-500">
             <Typewriter
               options={{
@@ -61,6 +61,7 @@ export default function Greeting() {
                 ],
                 autoStart: true,
                 loop: true,
+                cursor: "", // Disable cursor to reduce visual shifts
               }}
             />
           </div>

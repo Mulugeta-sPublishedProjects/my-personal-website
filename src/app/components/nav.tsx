@@ -42,6 +42,7 @@ export default function Nav({ menus, closeMenu }: NavProps) {
         <div className="flex flex-col md:flex-row flex-grow justify-center space-y-4 md:space-y-0 md:space-x-10">
           {menus.map((menu) => (
             <Link
+              prefetch
               key={menu.id}
               href={menu.href}
               onClick={closeMenu}
