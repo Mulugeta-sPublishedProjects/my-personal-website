@@ -1,26 +1,23 @@
-@import url("https://fonts.googleapis.com/css2?family=Raleway:wght@500&display=swap");
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
 @layer utilities {
+  /* Slide In Animation (using scaleX to avoid layout shift) */
   @keyframes slideIn {
     from {
-      width: 0;
+      transform: scaleX(0);
     }
     to {
-      width: 100%;
+      transform: scaleX(1);
     }
   }
   .animate-slideIn {
     animation: slideIn 0.3s ease-out forwards;
-  }
-}
-
-@layer utilities {
-  .animate-scale {
-    animation: scale 1.5s ease-in-out infinite;
+    transform-origin: left; /* Ensure scaling from the left */
   }
 
+  /* Scale Animation */
   @keyframes scale {
     0%,
     100% {
@@ -30,26 +27,30 @@
       transform: scale(1.1);
     }
   }
-}
-@layer utilities {
-  .animate-spin-slow {
-    animation: spin 3s linear infinite;
+  .animate-scale {
+    animation: scale 1.5s ease-in-out infinite;
   }
-}
-@keyframes spin-slow {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
 
-.animate-spin-slow {
-  animation: spin-slow 2s linear infinite;
-}
-/* global.css */
-.rounded-custom {
-  border-radius: 10% 30% 50% 70%;
-  border: 10px solid #fff;
+  /* Slow Spin Animation */
+  @keyframes spin-slow {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  .animate-spin-slow {
+    animation: spin-slow 2s linear infinite;
+  }
+
+  .rounded-custom {
+    border-radius: 10% 30% 50% 70%;
+    border: 10px solid #fff;
+  }
+  .static-cursor {
+    display: inline-block;
+    opacity: 1;
+    animation: none;
+  }
 }

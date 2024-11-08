@@ -1,4 +1,3 @@
-// app/layout.tsx
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
@@ -7,16 +6,18 @@ import Footer from "./components/footer";
 import RootWrapper from "./shared/root-wrapper";
 import Transition from "./shared/top-nav-transition";
 
-// Font configuration
+// Font configuration with font-display swap to reduce CLS
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
   variable: "--font-geist-sans",
   weight: "100 900",
+  display: "swap", // Enables font-display swap
 });
 const geistMono = localFont({
   src: "./fonts/GeistMonoVF.woff",
   variable: "--font-geist-mono",
   weight: "100 900",
+  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -24,7 +25,6 @@ export const metadata: Metadata = {
   description: "My Portfolio",
 };
 
-// Root Layout
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -41,7 +41,6 @@ export default function RootLayout({
             <main className="px-4 md:px-8 lg:px-16 flex-grow min-h-screen my-24">
               {children}
             </main>
-
             <Footer />
           </Transition>
         </RootWrapper>
