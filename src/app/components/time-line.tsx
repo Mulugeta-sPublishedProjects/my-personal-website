@@ -26,7 +26,7 @@ const Timeline: React.FC<TimelineProps> = ({ items, sectionTitle }) => {
   ]; // Define a set of colors for nodes
 
   return (
-    <div className="space-y-12 w-full px-4 sm:px-8">
+    <div className="space-y-12 w-full">
       <h2 className="text-2xl sm:text-3xl font-bold text-center text-gray-900 dark:text-white mb-6">
         {sectionTitle}
       </h2>

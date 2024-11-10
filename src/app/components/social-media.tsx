@@ -2,6 +2,7 @@ import React from "react";
 import { BsTelegram } from "react-icons/bs";
 import { AiFillGithub, AiFillLinkedin, AiFillYoutube } from "react-icons/ai";
 import { FaMedium } from "react-icons/fa";
+import Link from "next/link";
 
 type SocialMediaIconsProps = {
   orientation?: "vertical" | "horizontal";
@@ -12,17 +13,17 @@ export const SocialMediaIcons = ({
 }: SocialMediaIconsProps) => {
   const socials = [
     {
-      href: "https://github.com",
+      href: "https://github.com/muleA",
       label: "GitHub",
       icon: <AiFillGithub />,
     },
     {
-      href: "https://linkedin.com",
+      href: "https://www.linkedin.com/in/mulugeta-adamu/",
       label: "LinkedIn",
       icon: <AiFillLinkedin />,
     },
     {
-      href: "https://t.me",
+      href: "https://t.me/mulugeta_adamu",
       label: "Telegram",
       icon: <BsTelegram />,
     },
@@ -47,16 +48,16 @@ export const SocialMediaIcons = ({
       }`}
     >
       {socials.map((social) => (
-        <a
+        <Link
           key={social.href}
           href={social.href}
           target="_blank"
           rel="noopener noreferrer"
           aria-label={social.label}
-          className="p-3 rounded-full bg-gray-800 text-white hover:bg-primary-500 dark:hover:bg-primary-400 transition-transform transform hover:scale-110"
+          className="p-3 rounded-full bg-gray-600 text-white hover:bg-primary-500 dark:hover:bg-primary-400 transition-transform transform hover:scale-110"
         >
           {React.cloneElement(social.icon, { size: 20 })}
-        </a>
+        </Link>
       ))}
     </div>
   );

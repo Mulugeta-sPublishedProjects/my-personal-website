@@ -6,4 +6,5 @@ export const menuItems = [
   { id: 5, href: "/resume", label: "Resume/CV" },
   { id: 6, href: "/testimonials", label: "Testimonials" },
   { id: 7, href: "/blogs", label: "Blog" },
+  { id: 8, href: "/github", label: "My Github" },
 ];

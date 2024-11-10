@@ -59,13 +59,13 @@ export default function SkillsPage() {
       <h2 className="text-3xl font-bold dark:text-white mb-6 text-center">
         Skills & Tools
       </h2>
-      <div className="relative overflow-hidden bg-gradient-to-b from-gray-100 to-gray-200 dark:from-gray-800 dark:to-gray-900 rounded-lg p-2">
+      <div className="relative overflow-hidden  dark:from-gray-800 dark:to-gray-900 rounded-lg p-2">
         {/* Grid layout for small screens, Marquee on medium and larger screens */}
         <div className="grid grid-cols-3 gap-4 sm:grid-cols-4 md:hidden">
           {skillsData.map((skill) => (
             <div
               key={skill.name}
-              className="flex flex-col items-center p-2 rounded-lg shadow-lg hover:scale-105 transition-transform duration-300 cursor-pointer bg-gray-800 bg-opacity-10"
+              className="flex flex-col  gap-2 items-center p-2 rounded-lg shadow-lg hover:scale-105 transition-transform duration-300 cursor-pointer bg-gray-800 bg-opacity-10"
             >
               <div className="text-3xl" style={{ color: skill.color }}>
                 {skill.icon}
