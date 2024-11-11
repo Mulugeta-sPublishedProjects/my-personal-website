@@ -4,6 +4,5 @@ export interface Experience {
   period: string;
   description: string;
   icon: JSX.Element;
-  employmentType?: "Full-Time" | "Part-Time" | undefined;
-  locationType?: "Remote" | "Onsite" | undefined;
+  employmentType?: "Full Time" | "Part Time" | undefined;
 }

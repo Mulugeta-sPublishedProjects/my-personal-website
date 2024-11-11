@@ -1,5 +1,4 @@
 "use client";
-
 import {
   FaCode,
   FaLaptopCode,
@@ -18,50 +17,73 @@ import { motion } from "framer-motion";
 export const SkillsExperiences = () => {
   const experienceData: Experience[] = [
     {
-      role: "Frontend Developer",
-      company: "Tech Solutions",
-      period: "2020 - Present",
+      role: "Senior Frontend Developer",
+      company: "Tria PLC",
+      period: "May 2023 - Present",
       description:
-        "Worked on building responsive and scalable frontend applications.",
+        "Leading the development of responsive and scalable frontend applications using modern frameworks and technologies.",
       icon: <FaLaptopCode />,
-      employmentType: "Full-Time",
-      locationType: "Remote",
+      employmentType: "Part Time",
     },
     {
-      role: "Backend Developer",
-      company: "DataCorp",
-      period: "2018 - 2020",
-      description: "Developed RESTful APIs and managed database integrations.",
-      icon: <FaServer />,
-      employmentType: "Full-Time",
-      locationType: "Onsite",
-    },
-    {
-      role: "Software Engineer",
-      company: "Innovatech",
-      period: "2016 - 2018",
+      role: "Senior Frontend Developer",
+      company: "Top Link Technology PLC",
+      period: "March 2023 - Present",
       description:
-        "Collaborated on full-stack projects with cross-functional teams.",
+        "Architecting and implementing user interfaces, ensuring optimal performance and user experience.",
+      icon: <FaServer />,
+      employmentType: "Full Time",
+    },
+    {
+      role: "Junior Frontend Developer",
+      company: "Perago Systems PLC",
+      period: "Jan 2022 - March 2023",
+      description:
+        "Collaborated with cross-functional teams to develop and maintain web applications, focusing on code quality and best practices.",
       icon: <FaCode />,
-      employmentType: "Part-Time",
-      locationType: "Remote",
+      employmentType: "Full Time",
+    },
+    {
+      role: "Intern Frontend Developer",
+      company: "Perago Systems PLC",
+      period: "Dec 2021 - Jan 2022",
+      description:
+        "Assisted in the development of web components and gained hands-on experience with frontend technologies.",
+      icon: <FaCode />,
+      employmentType: "Full Time",
     },
   ];
-
   const educationData: Education[] = [
     {
       institution: "Addis Ababa University",
       degree: "Bachelor of Information Technology",
-      period: "2015 - 2019",
+      period: "Sep 2018 - Sep 2022",
       description:
-        "Specialized in software engineering, web development, and data science.",
+        "Achieved a CGPA of 3.73 with a specialization in Software Engineering, Web Development, and Data Science.",
       icon: <FaUniversity />,
     },
     {
-      institution: "Wegide High School-S/Wollo",
-      degree: "High School Diploma",
-      period: "2011 - 2015",
-      description: "Focused on science, math, and computer studies.",
+      institution: "Wegide Preparatory School - South Wollo",
+      degree: "Preparatory Education",
+      period: "Aug 2016 - Aug 2018",
+      description:
+        "Concentrated on Science, Mathematics, and Computer Studies. Achieved a University Entrance Exam score of 504/700.",
+      icon: <FaSchool />,
+    },
+    {
+      institution: "Wegide High School - South Wollo",
+      degree: "Secondary Education",
+      period: "Aug 2014 - Aug 2016",
+      description:
+        "Focused on core subjects, including Science, Mathematics, and Computer Studies. Scored 9 A's in the Grade 10 Matriculation Exam.",
+      icon: <FaSchool />,
+    },
+    {
+      institution: "Kabi Wobo School",
+      degree: "Primary Education (Grades 1-8)",
+      period: "2006 - 2014",
+      description:
+        "Completed foundational education with strong performance across subjects. Scored 76/100 in the Grade 8 Regional Exam with a percentile rank of 99.9%.",
       icon: <FaSchool />,
     },
   ];

@@ -21,7 +21,7 @@ ChartJS.register(
   BarElement,
   Title,
   Tooltip,
-  Legend
+  Legend,
 );
 
 interface Repo {
@@ -66,7 +66,7 @@ const RepoList: React.FC = () => {
       acc[language] = (acc[language] || 0) + 1;
       return acc;
     },
-    {} as Record<string, number>
+    {} as Record<string, number>,
   );
 
   const chartData = {

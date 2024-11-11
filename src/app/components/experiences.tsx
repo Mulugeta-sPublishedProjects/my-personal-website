@@ -8,7 +8,6 @@ type Experience = {
   description: string;
   icon: JSX.Element;
   employmentType: "Full-Time" | "Part-Time";
-  locationType: "Remote" | "Onsite";
 };
 
 type ExperienceProps = {
@@ -25,7 +24,6 @@ export const ExperienceTimeline: React.FC<ExperienceProps> = ({
     period: exp.period,
     description: exp.description,
     employmentType: exp.employmentType,
-    locationType: exp.locationType,
   }));
 
   return <Timeline items={experienceItems} sectionTitle="Experience" />;

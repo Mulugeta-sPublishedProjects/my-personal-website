@@ -7,7 +7,6 @@ type TimelineItem = {
   period: string;
   description?: string;
   employmentType?: "Full-Time" | "Part-Time" | undefined;
-  locationType?: "Remote" | "Onsite" | undefined;
 };
 
 type TimelineProps = {
@@ -71,23 +70,8 @@ const Timeline: React.FC<TimelineProps> = ({ items, sectionTitle }) => {
                 </div>
                 {/* Employment Type and Location Type indicators */}
                 <div className="flex flex-col items-start md:items-end text-xs sm:text-sm text-gray-600 dark:text-gray-400 mt-4 md:mt-0">
-                  <span
-                    className={`${
-                      item.employmentType === "Full-Time"
-                        ? "text-green-600"
-                        : "text-blue-600"
-                    } font-semibold`}
-                  >
+                  <span className={`${"text-primary-600"} font-semibold`}>
                     {item.employmentType}
-                  </span>
-                  <span
-                    className={`${
-                      item.locationType === "Remote"
-                        ? "text-purple-600"
-                        : "text-orange-600"
-                    } font-semibold`}
-                  >
-                    {item.locationType}
                   </span>
                 </div>
               </div>

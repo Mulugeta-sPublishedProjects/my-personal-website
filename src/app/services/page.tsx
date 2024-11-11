@@ -10,17 +10,19 @@ export default function ServicesPage() {
       initial={{ opacity: 0, y: -50 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 1.5 }}
-      className="w-full flex flex-col items-center md:items-start"
+      className="w-full flex flex-col items-center"
     >
       <div className="w-full p-4 sm:p-6 lg:p-8">
-        {/* Main Header */}
-        <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-center md:text-left text-gray-900 dark:text-white mb-6 md:mb-8">
-          My Services
-        </h1>
-        <p className="text-center md:text-left text-base sm:text-lg text-gray-600 dark:text-gray-300 mb-8 md:mb-12">
-          I offer a range of services to help you build and optimize your
-          digital products. Here’s what I can do for you.
-        </p>
+        {/* Centered Header */}
+        <div className="mx-auto text-center">
+          <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
+            My Services
+          </h1>
+          <p className="text-base sm:text-lg text-gray-600 dark:text-gray-300 mb-8">
+            I offer a range of services to help you build and optimize your
+            digital products. Here’s what I can do for you.
+          </p>
+        </div>
 
         {/* Service Cards */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 sm:gap-8 mb-12">

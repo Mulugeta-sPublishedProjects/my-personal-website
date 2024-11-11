@@ -91,7 +91,7 @@ export default function Greeting() {
           {/* Button Group */}
           <div className="flex mt-4 space-x-4">
             <a
-              href="/resume.pdf"
+              href="/cv.pdf"
               download
               aria-label="Download Resume"
               className="bg-gradient-to-r from-primary-500 to-gray-500 text-white font-semibold py-2 px-4 sm:py-3 sm:px-6 rounded-full shadow-lg transition-all duration-200 ease-in-out hover:from-primary-600 hover:to-gray-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500"

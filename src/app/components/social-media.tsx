@@ -28,14 +28,9 @@ export const SocialMediaIcons = ({
       icon: <BsTelegram />,
     },
     {
-      href: "https://medium.com/@yourusername",
+      href: "https://medium.com/@mulugeta.adamu97",
       label: "Medium",
       icon: <FaMedium />,
-    },
-    {
-      href: "https://www.youtube.com/channel/yourchannel",
-      label: "YouTube",
-      icon: <AiFillYoutube />,
     },
   ];
 

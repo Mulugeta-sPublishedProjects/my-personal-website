@@ -59,18 +59,21 @@ export default function SkillsPage() {
       <h2 className="text-3xl font-bold dark:text-white mb-6 text-center">
         Skills & Tools
       </h2>
-      <div className="relative overflow-hidden  dark:from-gray-800 dark:to-gray-900 rounded-lg p-2">
+      <div className="relative overflow-hidden dark:from-gray-800 dark:to-gray-900 rounded-lg p-2">
         {/* Grid layout for small screens, Marquee on medium and larger screens */}
-        <div className="grid grid-cols-3 gap-4 sm:grid-cols-4 md:hidden">
+        <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:hidden">
           {skillsData.map((skill) => (
             <div
               key={skill.name}
-              className="flex flex-col  gap-2 items-center p-2 rounded-lg shadow-lg hover:scale-105 transition-transform duration-300 cursor-pointer bg-gray-800 bg-opacity-10"
+              className="flex flex-col gap-2 items-center p-2 rounded-lg shadow-lg hover:scale-105 transition-transform duration-300 cursor-pointer bg-gray-800 bg-opacity-10"
             >
-              <div className="text-3xl" style={{ color: skill.color }}>
+              <div
+                className="text-3xl sm:text-4xl"
+                style={{ color: skill.color }}
+              >
                 {skill.icon}
               </div>
-              <p className="mt-1 text-xs font-semibold text-center">
+              <p className="mt-1 text-xs sm:text-sm font-semibold text-center">
                 {skill.name}
               </p>
             </div>
@@ -87,10 +90,13 @@ export default function SkillsPage() {
                   className="flex flex-col items-center p-4 rounded-lg shadow-lg hover:scale-105 transition-transform duration-300 cursor-pointer bg-gray-800 bg-opacity-10"
                   style={{ minWidth: "120px" }}
                 >
-                  <div className="text-4xl" style={{ color: skill.color }}>
+                  <div
+                    className="text-4xl sm:text-5xl"
+                    style={{ color: skill.color }}
+                  >
                     {skill.icon}
                   </div>
-                  <p className="mt-2 text-sm font-semibold text-center">
+                  <p className="mt-2 text-sm sm:text-md font-semibold text-center">
                     {skill.name}
                   </p>
                 </div>
