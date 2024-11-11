@@ -28,12 +28,12 @@ export default function AboutMe() {
           <span className="font-semibold text-primary-500">Next.js</span>, and
           modern web technologies.
         </p>
-        <p className="text-base md:text-lg text-gray-700 dark:text-gray-300 leading-relaxed mb-6">
+        {/*   <p className="text-base md:text-lg text-gray-700 dark:text-gray-300 leading-relaxed mb-6">
           I am dedicated to continuous learning and love exploring advancements
           in frontend architecture, performance optimization, and the latest
           UI/UX practices. My goal is to contribute to meaningful projects and
           help businesses thrive in a digital-first world.
-        </p>
+        </p> */}
 
         {/* Personal Details */}
         <div className="space-y-4 text-base md:text-lg text-gray-900 dark:text-gray-300">

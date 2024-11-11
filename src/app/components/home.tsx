@@ -16,7 +16,6 @@ export default function Greeting() {
         transition={{ duration: 1.5 }}
         className="w-full mx-8 flex flex-col md:flex-row items-start gap-24"
       >
-        {/* Left: Image Section */}
         <motion.div
           initial={{ opacity: 0, x: -50 }}
           animate={{ opacity: 1, x: 0 }}
@@ -98,7 +97,7 @@ export default function Greeting() {
             >
               Download Resume
             </a>
-            <Link href="/contact" passHref>
+            <Link target="_blank" href="https://t.me/mulugeta_adamu" passHref>
               <button
                 aria-label="Contact"
                 className="bg-gradient-to-r from-primary-700 to-gray-500 text-white font-semibold py-2 px-4 sm:py-3 sm:px-6 rounded-full shadow-lg transition-all duration-200 ease-in-out hover:from-gray-600 hover:to-primary-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500"
@@ -109,7 +108,6 @@ export default function Greeting() {
           </div>
         </div>
 
-        {/* Right: Social Media Icons Column */}
         <div className=" space-y-4 mt-6 md:mt-0">
           <SocialMediaIcons />
         </div>

@@ -108,8 +108,8 @@ const projectsData: Project[] = [
 const categories = [
   "All",
   "Web Development",
-  "Mobile Development",
-  "Data Science",
+  /*   "Mobile Development",
+  "Data Science", */
 ];
 
 export const PortfolioProjects: React.FC = () => {

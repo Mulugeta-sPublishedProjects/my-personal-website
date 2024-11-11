@@ -4,25 +4,28 @@ import CertificationCard from "../shared/certificate-card";
 
 const certificationsData = [
   {
-    title: "Machine Learning",
+    title: "Meta FrontEnd  Developer",
     platform: "Coursera",
-    completionDate: "September 10, 2023",
-    certificateLink: "https://coursera.org/certificate/machine-learning",
-    image: "/images/machine-learning-cover.jpg",
+    completionDate: " Oct 14, 2023",
+    certificateLink:
+      "https://coursera.org/share/ea7ba395b0574c1699e377f93a03c207",
+    image: "/certificates/meta-front-end.png",
   },
   {
-    title: "Introduction to Data Science",
+    title: "Advanced React",
     platform: "Coursera",
-    completionDate: "October 5, 2023",
-    certificateLink: "https://coursera.org/certificate/data-science",
-    image: "/images/data-science-cover.jpg",
+    completionDate: "March 5, 2023",
+    certificateLink:
+      "https://www.coursera.org/account/accomplishments/verify/RPF6X7K6E8VY",
+    image: "/certificates/advanced-react.png",
   },
   {
-    title: "React Development",
+    title: "Introduction To Backends",
     platform: "Coursera",
-    completionDate: "August 15, 2023",
-    certificateLink: "https://coursera.org/certificate/react-development",
-    image: "/images/react-development-cover.jpg",
+    completionDate: "Feb 18, 2023",
+    certificateLink:
+      "https://www.coursera.org/account/accomplishments/certificate/6Y2U3RY3EAGR",
+    image: "/certificates/intro-backend.png",
   },
 ];
 
