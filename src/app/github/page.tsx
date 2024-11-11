@@ -1,8 +1,7 @@
 /* eslint-disable unicorn/prevent-abbreviations */
-// pages/github.tsx
 "use client";
 
-import { useState, ChangeEvent } from "react";
+import { useState } from "react";
 import EventList from "../components/git-info/events";
 import FollowerList from "../components/git-info/follower";
 import FollowingList from "../components/git-info/following";
@@ -22,7 +21,7 @@ type ComponentOptions =
   | "StarredList"
   | "SubscriptionList";
 
-export const Page = () => {
+const Page = () => {
   const [selectedComponent, setSelectedComponent] =
     useState<ComponentOptions>("GitHubProfile");
 
@@ -51,12 +50,12 @@ export const Page = () => {
   const renderSelectedComponent = () =>
     componentMap[selectedComponent] || undefined;
 
-  const handleSelectChange = (e: ChangeEvent<HTMLSelectElement>) => {
+  const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedComponent(e.target.value as ComponentOptions);
   };
 
   return (
-    <div className="container mx-auto p-8  to-pink-500 text-white rounded-lg ">
+    <div className="container mx-auto p-8 to-pink-500 text-white rounded-lg">
       <h1 className="text-3xl font-bold mb-6 text-center text-primary-400">
         GitHub Dashboard
       </h1>
