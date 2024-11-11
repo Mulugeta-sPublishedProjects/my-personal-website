@@ -66,7 +66,7 @@ export default function Nav({ menus, closeMenu }: NavProps) {
           aria-label="Toggle theme"
           className="p-2 rounded-full bg-gray-300 dark:bg-primary-700 hover:bg-gray-400 dark:hover:bg-primary-600 transition-colors"
         >
-          {theme === "dark" ? "🌞 Light Mode" : "🌙 Dark Mode"}
+          {theme === "dark" ? "🌞 Light" : "🌙 Dark"}
         </button>
       </div>
     </>
