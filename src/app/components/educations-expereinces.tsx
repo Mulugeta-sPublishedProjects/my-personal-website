@@ -93,17 +93,17 @@ export const SkillsExperiences = () => {
       initial={{ opacity: 0, y: -50 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 1.5 }}
-      className="w-full px-4 md:px-8 flex flex-col items-start space-y-12 md:space-y-0"
+      className="w-full px-4 md:px-8 flex flex-col items-start space-y-12"
     >
       <div className="w-full md:w-auto">
         <SkillsPage />
       </div>
 
-      <div className="flex flex-col md:flex-row gap-12 w-full">
-        <div className="md:flex-1">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-12 w-full">
+        <div className="md:col-span-1">
           <ExperienceTimeline experiences={experienceData as any} />
         </div>
-        <div className="md:flex-1">
+        <div className="md:col-span-1">
           <EducationTimeline education={educationData as any} />
         </div>
       </div>

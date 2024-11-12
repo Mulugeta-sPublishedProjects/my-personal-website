@@ -60,7 +60,7 @@ const ResumePage: React.FC = () => {
           className="bg-primary-600 text-white px-4 py-2 rounded-md shadow-md flex items-center space-x-2 hover:bg-primary-700 transition"
         >
           <AiOutlineDownload className="text-lg" />
-          <span className="text-sm">Download {selectedDocument}</span>
+          <span className="text-sm"> {selectedDocument}</span>
         </a>
       </div>
 
