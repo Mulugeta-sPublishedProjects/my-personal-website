@@ -16,7 +16,7 @@ export default function Home() {
         transition={{ duration: 1.5 }}
         className="w-full flex flex-col items-center"
       >
-        <div className="w-full  p-4 sm:p-6 lg:p-8">
+        <div className="w-full p-4 sm:p-6 lg:p-8">
           {/* Centered Header */}
           <div className="mx-auto text-center">
             <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-6">
@@ -24,15 +24,19 @@ export default function Home() {
             </h1>
           </div>
 
-          {/* Service Cards */}
+          {/* Service Cards Section */}
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 sm:gap-8">
             {servicesData.map((service) => (
-              <ServiceCard
-                key={service.id}
-                title={service.title}
-                description={service.description}
-                icon={service.icon}
-              />
+              <div key={service.id}>
+                <h2 className="text-xl md:text-2xl font-bold text-gray-900 dark:text-white mb-2 text-left">
+                  {service.title}
+                </h2>
+                <ServiceCard
+                  title={service.title}
+                  description={service.description}
+                  icon={service.icon}
+                />
+              </div>
             ))}
           </div>
         </div>

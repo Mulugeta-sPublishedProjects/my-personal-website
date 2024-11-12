@@ -24,22 +24,25 @@ export default function Footer() {
   }, []);
 
   return (
-    <footer className="relative dark:bg-gray-800  px-4 md:px-8 lg:px-16 bg-gray-200 py-12">
+    <footer className="relative dark:bg-gray-800 px-4 md:px-8 lg:px-16 bg-gray-100 py-12">
       <div className="container mx-auto flex flex-col md:flex-row items-center justify-between text-center md:text-left space-y-4 md:space-y-0">
         {/* Left Section: Contact Information */}
-        <div className="text-sm font-semibold text-gray-600 dark:text-gray-400 order-1 md:order-1">
+        <div className="text-sm font-semibold text-gray-700 dark:text-gray-300 order-1 md:order-1">
           <p>
             Contact:{" "}
             <a
               href="mailto:mulugeta.adamu97@gmail.com"
-              className="hover:underline"
+              className="hover:underline text-primary-600 dark:text-primary-400"
             >
               mulugeta.adamu97@gmail.com
             </a>
           </p>
           <p>
             Phone:{" "}
-            <a href="tel:+251983054774" className="hover:underline">
+            <a
+              href="tel:+251983054774"
+              className="hover:underline text-primary-600 dark:text-primary-400"
+            >
               +251 983 054 774
             </a>
           </p>
@@ -47,10 +50,10 @@ export default function Footer() {
 
         {/* Center Section: Name and Copyright */}
         <div className="order-2">
-          <p className="text-lg font-bold text-gray-700 dark:text-gray-300">
+          <p className="text-lg font-bold text-gray-800 dark:text-gray-100">
             Mulugeta Adamu - Frontend Developer
           </p>
-          <p className="text-xs font-semibold text-gray-500 dark:text-gray-500 mt-1">
+          <p className="text-xs font-semibold text-gray-600 dark:text-gray-400 mt-1">
             &copy; {new Date().getFullYear()} Mulugeta Adamu. All rights
             reserved.
           </p>
