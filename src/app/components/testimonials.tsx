@@ -29,7 +29,9 @@ const TestimonialPage: React.FC = () => {
   });
   const [profilePhoto, setProfilePhoto] = useState<File | null>();
   const [photoPreview, setPhotoPreview] = useState<string | null>();
-
+  const [isMessageExpanded, setIsMessageExpanded] = useState<boolean>(false);
+  const [selectedTestimonial, setSelectedTestimonial] =
+    useState<Testimonial | null>();
   // Fetch testimonials from Supabase
   const fetchTestimonials = async () => {
     setIsLoading(true);
@@ -120,6 +122,17 @@ const TestimonialPage: React.FC = () => {
       setIsSubmitting(false);
     }
   };
+  // Handle "See More" button click to open the modal
+  const handleSeeMoreClick = (testimonial: Testimonial) => {
+    setSelectedTestimonial(testimonial);
+    setIsModalOpen(true);
+  };
+
+  // Close the modal
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+    setSelectedTestimonial(undefined);
+  };
 
   return (
     <div className="min-h-screen bg-gray-100 dark:bg-gray-900 ">
@@ -177,37 +190,58 @@ const TestimonialPage: React.FC = () => {
               key={testimonial.id}
               className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 flex flex-col md:flex-row items-center md:items-start transition-all hover:scale-105 hover:shadow-2xl border border-gray-200 dark:border-gray-700"
             >
-              {/* Left Section: Image and Details */}
+              {/* Right Top - Added Date */}
+              <p className="text-xs text-gray-500 dark:text-gray-400 absolute top-4 right-6 italic">
+                Added on:{" "}
+                {new Date(testimonial.created_at).toLocaleDateString()}
+              </p>
+
+              {/* Left Section: Image */}
               <div className="flex-shrink-0 mb-4 md:mb-0 md:mr-6 text-center md:text-left">
                 <div className="relative w-24 h-24 rounded-full overflow-hidden border-4 border-primary-500 shadow-md">
                   <Image
                     height={100}
                     width={100}
-                    src={testimonial.image_url || "/images/default-avatar.png"}
+                    src={testimonial.image_url ?? "/images/default-avatar.png"}
                     alt={`${testimonial.name}'s profile`}
                     className="object-cover w-full h-full"
                   />
                 </div>
-                <p className="text-primary-500 text-sm font-medium mt-4">
-                  {testimonial.company}
-                </p>
-                <p className="text-xs text-gray-500 dark:text-gray-400 mt-2 italic">
-                  Added on:{" "}
-                  {new Date(testimonial.created_at).toLocaleDateString()}
-                </p>
               </div>
 
-              {/* Right Section: Message */}
-              <div className="flex flex-col text-center md:text-left">
+              {/* Right Section: Details */}
+              <div className="flex flex-col text-center md:text-left w-full">
                 <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-100 mb-1">
                   {testimonial.name}
                 </h3>
                 <p className="text-primary-500 text-xs sm:text-sm font-medium mb-2 italic">
                   {testimonial.email}
                 </p>
-                <p className="text-gray-600 dark:text-gray-300 text-sm sm:text-base leading-relaxed">
-                  {testimonial.message}
+                <p className="text-primary-500 text-sm sm:text-base font-medium mb-2">
+                  {testimonial.current_role} at {testimonial.company}
                 </p>
+
+                {/* Message Section with Toggle for More Content */}
+                <div className="relative">
+                  <p
+                    className={`text-gray-600 dark:text-gray-300 text-sm sm:text-base leading-relaxed transition-all ${
+                      isMessageExpanded
+                        ? "max-h-full"
+                        : "max-h-16 overflow-hidden"
+                    }`}
+                  >
+                    {testimonial.message}
+                  </p>
+
+                  {testimonial.message.length > 100 && (
+                    <button
+                      onClick={() => handleSeeMoreClick(testimonial)}
+                      className="text-primary-500 mt-2"
+                    >
+                      See More
+                    </button>
+                  )}
+                </div>
               </div>
             </div>
           ))}
@@ -332,6 +366,27 @@ const TestimonialPage: React.FC = () => {
                 </button>
               </div>
             </form>
+          </div>
+        </div>
+      )}
+      {/* Modal */}
+      {isModalOpen && selectedTestimonial && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm w-11/12 max-w-lg p-8">
+            <p className="text-primary-500 text-xs font-medium mb-4">
+              {selectedTestimonial.current_role} at{" "}
+              {selectedTestimonial.company}
+            </p>
+            <p className="text-gray-600 dark:text-gray-300 text-sm sm:text-base leading-relaxed">
+              {selectedTestimonial.message}
+            </p>
+
+            <button
+              onClick={handleCloseModal}
+              className="mt-4 bg-primary-500 text-white px-6 py-3 rounded-lg shadow-md hover:bg-primary-600"
+            >
+              Close
+            </button>
           </div>
         </div>
       )}
