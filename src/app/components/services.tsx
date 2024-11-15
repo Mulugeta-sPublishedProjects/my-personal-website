@@ -6,29 +6,28 @@ export const servicesData = [
     id: 1,
     title: "Frontend Development",
     description:
-      "Building responsive and interactive web applications using the latest frontend technologies like React, Vue,Next JS, and Angular.",
+      "Crafting modern, responsive, and user-friendly web applications using cutting-edge frameworks like React, Vue.js, Next.js, and Angular. Specialized in delivering seamless user experiences with optimized performance.",
     icon: <FaCode />,
   },
   {
     id: 2,
     title: "Mobile Development",
     description:
-      "Creating high-quality mobile applications for iOS and Android platforms with a focus on performance and user experience Using React Native",
+      "Designing and building high-performance mobile applications for iOS and Android using React Native, ensuring smooth functionality and exceptional user experience across all devices.",
     icon: <FaMobileAlt />,
   },
-
   {
     id: 4,
     title: "Backend Development",
     description:
-      "Developing robust and scalable backend systems using Node.js, Express, Nest JS and various databases like MongoDB and PostgreSQL.",
+      "Building scalable, secure, and efficient backend systems with Node.js, Express, and Nest.js. Proficient in managing databases such as MongoDB, PostgreSQL, and MySQL for robust application support.",
     icon: <FaDatabase />,
   },
   {
     id: 7,
-    title: "Remote Work",
+    title: "Remote Collaboration",
     description:
-      "Available for remote collaboration, supporting your team from anywhere with modern tools.",
+      "Empowering teams with reliable remote collaboration using modern tools. Fully equipped to support your projects and contribute effectively from any location.",
     icon: <FaLaptopCode />,
   },
 ];

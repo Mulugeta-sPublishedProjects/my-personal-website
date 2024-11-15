@@ -28,9 +28,6 @@ export default function Home() {
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 sm:gap-8">
             {servicesData.map((service) => (
               <div key={service.id}>
-                <h2 className="text-xl md:text-2xl font-bold text-gray-900 dark:text-white mb-2 text-left">
-                  {service.title}
-                </h2>
                 <ServiceCard
                   title={service.title}
                   description={service.description}

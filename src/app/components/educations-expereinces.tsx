@@ -1,4 +1,5 @@
 "use client";
+
 import {
   FaCode,
   FaLaptopCode,
@@ -93,22 +94,34 @@ export const SkillsExperiences = () => {
       initial={{ opacity: 0, y: -50 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 1.5 }}
-      className="w-full px-4 md:px-8 flex flex-col items-start space-y-12"
+      className="w-full px-4 sm:px-8 md:px-12 lg:px-16 flex flex-col items-start space-y-12"
     >
-      <div className="w-full md:w-auto">
+      {/* Skills Section */}
+      <div className="w-full">
         <SkillsPage />
       </div>
 
+      {/* Experiences and Education Section */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-12 w-full">
         <div className="md:col-span-1">
+          <h2 className="text-lg md:text-xl font-semibold mb-4 text-gray-800 dark:text-white">
+            Professional Experience
+          </h2>
           <ExperienceTimeline experiences={experienceData as any} />
         </div>
         <div className="md:col-span-1">
+          <h2 className="text-lg md:text-xl font-semibold mb-4 text-gray-800 dark:text-white">
+            Education
+          </h2>
           <EducationTimeline education={educationData as any} />
         </div>
       </div>
 
-      <div className="flex justify-center md:justify-start mt-4 w-full">
+      {/* Certifications Section */}
+      <div className="w-full">
+        <h2 className="text-lg md:text-xl font-semibold mb-4 text-gray-800 dark:text-white">
+          Certifications
+        </h2>
         <Certifications />
       </div>
     </motion.div>

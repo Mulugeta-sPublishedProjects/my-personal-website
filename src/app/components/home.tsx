@@ -16,28 +16,31 @@ export default function Greeting() {
         transition={{ duration: 1.5 }}
         className="w-full mx-8 flex flex-col md:flex-row items-start gap-24"
       >
+        {/* Left Section: Profile Image */}
         <motion.div
           initial={{ opacity: 0, x: -50 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 1.2 }}
           className="flex justify-center md:justify-start"
         >
-          <Image
-            src="/portifolio-website.jpg"
-            alt="Profile"
-            width={350}
-            height={350}
-            style={{
-              filter: "grayscale(100%)",
-              borderRadius: "10% 30% 50% 70%",
-              border: "10px solid #fff",
-            }}
-            loading="lazy"
-            className="shadow-md transition-transform hover:scale-105 w-72 h-72 sm:w-64 sm:h-64 md:w-80 md:h-80 rounded-lg object-cover grayscale border-10 border-white"
-          />
+          <div className="relative w-72 h-72 sm:w-64 sm:h-64 md:w-80 md:h-80">
+            <Image
+              src="/portifolio-website.jpg"
+              alt="Profile"
+              fill
+              style={{
+                objectFit: "cover",
+                filter: "grayscale(100%)",
+                borderRadius: "10% 30% 50% 70%",
+                border: "10px solid #fff",
+              }}
+              className="shadow-md transition-transform hover:scale-105 rounded-lg"
+              loading="lazy"
+            />
+          </div>
         </motion.div>
 
-        {/* Center: Greeting Text Section */}
+        {/* Center Section: Greeting Text */}
         <div className="flex-1 flex flex-col items-start space-y-4 px-4 md:px-0">
           <h1 className="text-lg sm:text-xl md:text-2xl font-bold text-black dark:text-white hover:text-primary-500">
             Hey there! <span className="wave">👋🏻</span>
@@ -47,8 +50,8 @@ export default function Greeting() {
             I&apos;m Mulugeta Adamu
           </h2>
 
-          {/* Fixed Width Typewriter to Reduce Shifts */}
-          <div className="w-72 md:w-100 lg:w-150 text-primary-500 text-md">
+          {/* Fixed Width for Typewriter Effect */}
+          <div className="w-72 md:w-96 lg:w-[28rem] text-primary-500 text-md">
             <Typewriter
               options={{
                 strings: [
@@ -63,6 +66,7 @@ export default function Greeting() {
             />
           </div>
 
+          {/* About Section */}
           <div className="text-gray-900 dark:text-gray-300 text-base md:text-lg font-semibold leading-relaxed mt-2 font-sans">
             As a Senior Frontend Developer, I thrive on tackling complex
             projects with innovative teams. My skill set includes{" "}
@@ -71,19 +75,14 @@ export default function Greeting() {
             <strong className="font-bold">React Native</strong>,{" "}
             <strong className="font-bold">JavaScript</strong>,{" "}
             <strong className="font-bold">TypeScript</strong>, and{" "}
-            <strong className="font-bold">TailwindCSS</strong>. I have a solid
-            background in{" "}
+            <strong className="font-bold">TailwindCSS</strong>. I specialize in{" "}
             <strong className="font-bold">frontend architecture</strong> and{" "}
-            <strong className="font-bold">monorepo management</strong>{" "}
-            (leveraging <strong className="font-bold">TurboRepo</strong> and{" "}
-            <strong className="font-bold">Nx</strong>), along with a deep focus
-            on <strong className="font-bold">performance optimization</strong>{" "}
-            through <strong className="font-bold">lazy loading</strong> and{" "}
-            <strong className="font-bold">code splitting</strong>. My core
-            strengths are delivering{" "}
-            <strong className="font-bold">high-quality</strong>,{" "}
-            <strong className="font-bold">scalable</strong> solutions that
-            ensure{" "}
+            <strong className="font-bold">monorepo management</strong> with{" "}
+            <strong className="font-bold">TurboRepo</strong> and{" "}
+            <strong className="font-bold">Nx</strong>. My strengths lie in{" "}
+            <strong className="font-bold">performance optimization</strong>,{" "}
+            delivering <strong className="font-bold">high-quality</strong>,{" "}
+            <strong className="font-bold">scalable</strong> solutions for
             <strong className="font-bold">seamless user experiences</strong>.
           </div>
 
@@ -108,7 +107,8 @@ export default function Greeting() {
           </div>
         </div>
 
-        <div className=" space-y-4 mt-6 md:mt-0">
+        {/* Social Media Section */}
+        <div className="space-y-4 mt-6 md:mt-0">
           <SocialMediaIcons />
         </div>
       </motion.div>
