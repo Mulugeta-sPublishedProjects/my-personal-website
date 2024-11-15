@@ -217,8 +217,12 @@ const TestimonialPage: React.FC = () => {
                 <p className="text-primary-500 text-xs sm:text-sm font-medium mb-2 italic">
                   {testimonial.email}
                 </p>
-                <p className="text-primary-500 text-sm sm:text-base font-medium mb-2">
-                  {testimonial.current_role} at {testimonial.company}
+                <p className=" text-sm sm:text-base font-medium mb-2">
+                  {testimonial.current_role} at{" "}
+                  <span className="text-primary-500">
+                    {" "}
+                    {testimonial.company}
+                  </span>
                 </p>
 
                 {/* Message Section with Toggle for More Content */}
