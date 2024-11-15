@@ -202,7 +202,7 @@ const TestimonialPage: React.FC = () => {
                   <Image
                     height={100}
                     width={100}
-                    src={testimonial.image_url ?? "/images/default-avatar.png"}
+                    src={testimonial.image_url ?? "/person.webp"}
                     alt={`${testimonial.name}'s profile`}
                     className="object-cover w-full h-full"
                   />

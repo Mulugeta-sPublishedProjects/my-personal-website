@@ -16,10 +16,8 @@ interface NavProps {
 }
 
 export default function Nav({ menus, closeMenu }: NavProps) {
-  const [theme, setTheme] = useState("light");
+  const [theme, setTheme] = useState("light"); // Default to light theme
   const pathName = usePathname();
-  console.log("pathname", pathName);
-  console.log("menus", menus);
 
   const toggleTheme = () => {
     const newTheme = theme === "dark" ? "light" : "dark";
@@ -29,7 +27,8 @@ export default function Nav({ menus, closeMenu }: NavProps) {
   };
 
   useEffect(() => {
-    const savedTheme = localStorage.getItem("theme") ?? "dark";
+    // Check for saved theme in localStorage and set it accordingly.
+    const savedTheme = localStorage.getItem("theme") ?? "light"; // Default to light if not found
     setTheme(savedTheme);
     document.documentElement.classList.toggle("dark", savedTheme === "dark");
   }, []);
@@ -46,7 +45,7 @@ export default function Nav({ menus, closeMenu }: NavProps) {
               key={menu.id}
               href={menu.href}
               onClick={closeMenu}
-              className={`relative text-lg py-2 flex flex-grow-1 flex-grow-1 font-bold transition-colors duration-200 ${
+              className={`relative text-lg py-2 flex flex-grow-1 font-bold transition-colors duration-200 ${
                 pathName === menu.href
                   ? "text-primary-500 font-semibold"
                   : "text-gray-700 hover:text-primary-500 dark:text-gray-300"
