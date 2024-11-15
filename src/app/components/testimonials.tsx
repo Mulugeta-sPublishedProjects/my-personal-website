@@ -191,7 +191,7 @@ const TestimonialPage: React.FC = () => {
               className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 flex flex-col md:flex-row items-center md:items-start transition-all hover:scale-105 hover:shadow-2xl border border-gray-200 dark:border-gray-700"
             >
               {/* Right Top - Added Date */}
-              <p className="text-xs text-gray-500 dark:text-gray-400 absolute top-4 right-6 italic">
+              <p className="text-xs text-primary-500 dark:text-gray-400 absolute top-4 right-6 italic">
                 Added on:{" "}
                 {new Date(testimonial.created_at).toLocaleDateString()}
               </p>
