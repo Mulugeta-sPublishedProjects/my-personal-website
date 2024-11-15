@@ -1,3 +1,4 @@
+/* eslint-disable unicorn/consistent-function-scoping */
 /* eslint-disable unicorn/prevent-abbreviations */
 "use client";
 import React, { useState, useEffect, FormEvent } from "react";
@@ -122,22 +123,27 @@ const TestimonialPage: React.FC = () => {
       setIsSubmitting(false);
     }
   };
-  // Handle "See More" button click to open the modal
   const handleSeeMoreClick = (testimonial: Testimonial) => {
     setSelectedTestimonial(testimonial);
-    setIsModalOpen(true);
+    setIsMessageExpanded(true);
   };
 
-  // Close the modal
   const handleCloseModal = () => {
-    setIsModalOpen(false);
+    setIsMessageExpanded(false);
     setSelectedTestimonial(undefined);
   };
 
+  const truncateAtSentence = (text: string, maxLength: number): string => {
+    if (text.length <= maxLength) return text;
+
+    const truncated = text.slice(0, maxLength);
+    const lastPeriod = truncated.lastIndexOf(".");
+    return lastPeriod === -1 ? truncated : truncated.slice(0, lastPeriod + 1);
+  };
   return (
     <div className="min-h-screen bg-gray-100 dark:bg-gray-900 ">
       <div className="flex flex-col md:flex-row justify-center items-center space-x-24 text-center py-12">
-        <div className="text-2xl font-semibold text-gray-800 dark:text-gray-100">
+        <div className="text-2xl font-semibold hidden md:block text-gray-800 dark:text-gray-100">
           Hear From Those I`ve Worked With
         </div>
 
@@ -202,7 +208,7 @@ const TestimonialPage: React.FC = () => {
                   <Image
                     height={100}
                     width={100}
-                    src={testimonial.image_url ?? "/person.webp"}
+                    src={testimonial.image_url || "/person.webp"}
                     alt={`${testimonial.name}'s profile`}
                     className="object-cover w-full h-full"
                   />
@@ -228,13 +234,10 @@ const TestimonialPage: React.FC = () => {
                 {/* Message Section with Toggle for More Content */}
                 <div className="relative">
                   <p
-                    className={`text-gray-600 dark:text-gray-300 text-sm sm:text-base leading-relaxed transition-all ${
-                      isMessageExpanded
-                        ? "max-h-full"
-                        : "max-h-16 overflow-hidden"
-                    }`}
+                    className={`text-gray-600 dark:text-gray-300 text-sm sm:text-base leading-relaxed transition-all 
+                    max-h-16 overflow-hidden`}
                   >
-                    {testimonial.message}
+                    {truncateAtSentence(testimonial.message, 100)}
                   </p>
 
                   {testimonial.message.length > 100 && (
@@ -254,78 +257,146 @@ const TestimonialPage: React.FC = () => {
 
       {/* Modal */}
       {isModalOpen && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-          <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg w-11/12 max-w-lg p-8">
-            <h3 className="text-xl font-semibold text-gray-800 dark:text-gray-100 mb-6">
+        <div className="fixed inset-0 my-auto bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <div className="bg-gray-50 dark:bg-gray-800 rounded-lg shadow-lg w-11/12 max-w-lg">
+            <h3 className="text-xl font-bold text-gray-800 dark:text-gray-100 mb-6 text-center">
               Add a Testimonial
             </h3>
-            <form onSubmit={handleAddTestimonial} className="space-y-4">
-              <input
-                type="text"
-                placeholder="Name"
-                value={newTestimonial.name}
-                onChange={(e) =>
-                  setNewTestimonial({ ...newTestimonial, name: e.target.value })
-                }
-                required
-                className="w-full p-3 border rounded text-sm focus:ring-2 focus:ring-primary-500"
-              />
-              <input
-                type="email"
-                placeholder="Email"
-                value={newTestimonial.email}
-                onChange={(e) =>
-                  setNewTestimonial({
-                    ...newTestimonial,
-                    email: e.target.value,
-                  })
-                }
-                required
-                className="w-full p-3 border rounded text-sm focus:ring-2 focus:ring-primary-500"
-              />
-              <input
-                type="text"
-                placeholder="Current Role"
-                value={newTestimonial.current_role}
-                onChange={(e) =>
-                  setNewTestimonial({
-                    ...newTestimonial,
-                    current_role: e.target.value,
-                  })
-                }
-                required
-                className="w-full p-3 border rounded text-sm focus:ring-2 focus:ring-primary-500"
-              />
-              <input
-                type="text"
-                placeholder="Company"
-                value={newTestimonial.company}
-                onChange={(e) =>
-                  setNewTestimonial({
-                    ...newTestimonial,
-                    company: e.target.value,
-                  })
-                }
-                required
-                className="w-full p-3 border rounded text-sm focus:ring-2 focus:ring-primary-500"
-              />
-              <textarea
-                placeholder="Message"
-                value={newTestimonial.message}
-                rows={5}
-                onChange={(e) =>
-                  setNewTestimonial({
-                    ...newTestimonial,
-                    message: e.target.value,
-                  })
-                }
-                required
-                className="w-full p-3 border rounded text-sm focus:ring-2 focus:ring-primary-500"
-              ></textarea>
-              <div className="w-full p-2 border rounded text-sm">
+            <form
+              onSubmit={handleAddTestimonial}
+              className=" bg-gray-50 dark:bg-gray-700 p-6 rounded-lg shadow-inner"
+            >
+              {/* Name */}
+              <div>
+                <label
+                  htmlFor="name"
+                  className="block text-sm font-medium text-gray-600 dark:text-gray-300 mb-1"
+                >
+                  Name
+                </label>
+                <input
+                  id="name"
+                  type="text"
+                  placeholder="Your Name"
+                  value={newTestimonial.name}
+                  onChange={(e) =>
+                    setNewTestimonial({
+                      ...newTestimonial,
+                      name: e.target.value,
+                    })
+                  }
+                  required
+                  className="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-700 dark:text-gray-200 bg-white dark:bg-gray-800 focus:ring-2 focus:ring-primary-500"
+                />
+              </div>
+
+              {/* Email */}
+              <div>
+                <label
+                  htmlFor="email"
+                  className="block text-sm font-medium text-gray-600 dark:text-gray-300 mb-1"
+                >
+                  Email
+                </label>
+                <input
+                  id="email"
+                  type="email"
+                  placeholder="Your Email"
+                  value={newTestimonial.email}
+                  onChange={(e) =>
+                    setNewTestimonial({
+                      ...newTestimonial,
+                      email: e.target.value,
+                    })
+                  }
+                  required
+                  className="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-700 dark:text-gray-200 bg-white dark:bg-gray-800 focus:ring-2 focus:ring-primary-500"
+                />
+              </div>
+
+              {/* Current Role */}
+              <div>
+                <label
+                  htmlFor="role"
+                  className="block text-sm font-medium text-gray-600 dark:text-gray-300 mb-1"
+                >
+                  Current Role
+                </label>
+                <input
+                  id="role"
+                  type="text"
+                  placeholder="Your Role"
+                  value={newTestimonial.current_role}
+                  onChange={(e) =>
+                    setNewTestimonial({
+                      ...newTestimonial,
+                      current_role: e.target.value,
+                    })
+                  }
+                  required
+                  className="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-700 dark:text-gray-200 bg-white dark:bg-gray-800 focus:ring-2 focus:ring-primary-500"
+                />
+              </div>
+
+              {/* Company */}
+              <div>
+                <label
+                  htmlFor="company"
+                  className="block text-sm font-medium text-gray-600 dark:text-gray-300 mb-1"
+                >
+                  Company
+                </label>
+                <input
+                  id="company"
+                  type="text"
+                  placeholder="Company Name"
+                  value={newTestimonial.company}
+                  onChange={(e) =>
+                    setNewTestimonial({
+                      ...newTestimonial,
+                      company: e.target.value,
+                    })
+                  }
+                  required
+                  className="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-700 dark:text-gray-200 bg-white dark:bg-gray-800 focus:ring-2 focus:ring-primary-500"
+                />
+              </div>
+
+              {/* Message */}
+              <div>
+                <label
+                  htmlFor="message"
+                  className="block text-sm font-medium text-gray-600 dark:text-gray-300 mb-1"
+                >
+                  Message
+                </label>
+                <textarea
+                  id="message"
+                  placeholder="Your Message"
+                  value={newTestimonial.message}
+                  rows={4}
+                  onChange={(e) =>
+                    setNewTestimonial({
+                      ...newTestimonial,
+                      message: e.target.value,
+                    })
+                  }
+                  required
+                  className="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-700 dark:text-gray-200 bg-white dark:bg-gray-800 focus:ring-2 focus:ring-primary-500"
+                ></textarea>
+              </div>
+
+              {/* Profile Photo */}
+              <div>
                 <label
                   htmlFor="profilePhoto"
-                  className="block bg-gray-500 text-white text-center py-2 rounded-lg cursor-pointer hover:bg-primary-600 transition duration-300"
+                  className="block text-sm font-medium text-gray-600 dark:text-gray-300 mb-1"
+                >
+                  Profile Photo
+                </label>
+                <label
+                  htmlFor="profilePhoto"
+                  className="block bg-primary-500 text-white text-center py-2 rounded-lg cursor-pointer hover:bg-primary-600 transition duration-300"
                 >
                   Choose Photo
                 </label>
@@ -337,7 +408,7 @@ const TestimonialPage: React.FC = () => {
                   className="hidden"
                 />
                 {photoPreview && (
-                  <div className="flex justify-center mt-4">
+                  <div className="flex justify-center mt-2">
                     <Image
                       src={photoPreview}
                       alt="Profile Photo Preview"
@@ -349,7 +420,8 @@ const TestimonialPage: React.FC = () => {
                 )}
               </div>
 
-              <div className="flex justify-between">
+              {/* Buttons */}
+              <div className="flex my-4 justify-between">
                 <button
                   type="button"
                   className="bg-gray-400 text-white px-4 py-2 rounded-lg hover:bg-gray-500 transition duration-300"
@@ -373,8 +445,9 @@ const TestimonialPage: React.FC = () => {
           </div>
         </div>
       )}
+
       {/* Modal */}
-      {isModalOpen && selectedTestimonial && (
+      {isMessageExpanded && selectedTestimonial && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
           <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm w-11/12 max-w-lg p-8">
             <p className="text-primary-500 text-xs font-medium mb-4">
