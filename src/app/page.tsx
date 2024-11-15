@@ -10,12 +10,7 @@ export default function Home() {
     <div className="mt-12 px-4 sm:px-6 lg:px-8">
       <Greeting />
       <AboutMe />
-      <motion.div
-        initial={{ opacity: 0, y: -50 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 1.5 }}
-        className="w-full flex flex-col items-center"
-      >
+      <div className="w-full flex mt-24 md:mt-0  flex-col items-center">
         <div className="w-full p-4 sm:p-6 lg:p-8">
           {/* Centered Header */}
           <div className="mx-auto text-center">
@@ -25,7 +20,7 @@ export default function Home() {
           </div>
 
           {/* Service Cards Section */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 sm:gap-8">
+          <div className="grid grid-cols-1  sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 sm:gap-8">
             {servicesData.map((service) => (
               <div key={service.id}>
                 <ServiceCard
@@ -37,7 +32,7 @@ export default function Home() {
             ))}
           </div>
         </div>
-      </motion.div>
+      </div>
     </div>
   );
 }

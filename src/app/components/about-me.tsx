@@ -7,7 +7,7 @@ import { FiExternalLink } from "react-icons/fi"; // Icon for external links
 
 export default function AboutMe() {
   return (
-    <div className="mt-12 px-4 md:px-8 flex flex-col md:flex-row justify-center items-center space-y-8 md:space-y-0 md:space-x-12">
+    <div className="mt-12 mb-10 px-4 md:px-8 flex flex-col md:flex-row justify-center items-center space-y-8 md:space-y-0 md:space-x-12">
       {/* Left Column: About Description and Personal Details */}
       <motion.div
         className="flex-1"

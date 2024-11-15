@@ -93,12 +93,12 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
           >
             <FaGithub className="mr-1 sm:mr-2" /> GitHub
           </a>
-          <button
+          {/*    <button
             onClick={() => router.push(detailsLink)}
             className="bg-primary-500 text-white font-semibold py-1 sm:py-2 px-4 sm:px-6 rounded-full transition duration-200 hover:bg-primary-600 text-sm sm:text-base mt-2 sm:mt-0"
           >
             Details
-          </button>
+          </button> */}
         </div>
       </div>
     </div>

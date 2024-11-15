@@ -93,7 +93,7 @@ const projectsData: Project[] = [
   {
     id: 6,
     title: "Seralance ",
-    description: "Fidel Academy is E learning Website",
+    description: "Seralance  is Upwork like website",
     techStack: ["Html", "Css", "JS", "Php", "YenePay", "Bootstrap"],
     image: "/projects/project6.png",
     liveLink:
@@ -114,7 +114,6 @@ const categories = [
 
 export const PortfolioProjects: React.FC = () => {
   const [selectedCategory, setSelectedCategory] = useState("All");
-  const router = useRouter();
 
   const filteredProjects =
     selectedCategory === "All"
