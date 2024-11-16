@@ -15,16 +15,19 @@ export default function Header() {
   };
 
   return (
-    <header className="fixed top-0 left-0 w-full z-50 bg-gray-100 dark:bg-gray-900  transition-all duration-300 ease-in-out">
+    <header className="fixed top-0 left-0 w-full z-50 bg-gray-100 dark:bg-gray-900 transition-all duration-300 ease-in-out">
       <div className="max-w-screen-2xl mx-auto flex items-center justify-between px-4 sm:px-6 md:px-8 lg:px-16 py-4">
         {/* Logo Section */}
         <Link href={"/"}>
           <div className="flex flex-col md:flex-col items-start md:items-center space-y-1 md:space-y-0 md:space-x-2">
-            <div className="flex items-center space-x-2 text-primary-500 font-bold dark:text-primary-400">
-              <FaPhone size={12} />
+            {/* Phone Number Section */}
+            <div className="flex items-center space-x-2 text-primary-700 font-bold dark:text-primary-300">
+              <FaPhone size={14} />
               <span className="text-sm">+251983054774</span>
             </div>
-            <div className="text-xl font-bold text-black dark:text-white hover:cursor-pointer">
+
+            {/* Logo Text */}
+            <div className="text-xl font-bold text-gray-800 dark:text-gray-100 hover:cursor-pointer">
               Mulugeta Adamu
             </div>
           </div>
@@ -40,7 +43,7 @@ export default function Header() {
           <button
             onClick={toggleMobileMenu}
             aria-label="Toggle mobile menu"
-            className="text-primary-800 dark:text-gray-200 focus:outline-none"
+            className="text-gray-800 dark:text-gray-200 focus:outline-none"
           >
             {isMobileMenuOpen ? <FiX size={24} /> : <FiMenu size={24} />}
           </button>

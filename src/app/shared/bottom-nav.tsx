@@ -14,13 +14,19 @@ export default function BottomNavbar() {
           <Link
             key={menu.id}
             href={menu.href}
+            aria-label={`Navigate to ${menu.label}`} // Add a descriptive name
             className={`flex flex-col items-center text-sm font-medium ${
               pathName === menu.href
                 ? "text-primary-500 dark:text-primary-400"
                 : "text-gray-700 dark:text-gray-300 hover:text-primary-500"
             }`}
           >
-            <div className="text-lg">{menu.icon}</div>
+            {/* Icon */}
+            <div className="text-lg" aria-hidden="true">
+              {menu.icon}
+            </div>
+            {/* Label */}
+            <span className="sr-only">{menu.label}</span>
           </Link>
         ))}
       </div>

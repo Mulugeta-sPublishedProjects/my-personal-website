@@ -12,12 +12,13 @@ export default function Home() {
 
       {/* Services Section */}
       <section className="w-full flex flex-col items-center mt-24 md:mt-16">
-        <div className="w-full  px-4 sm:px-6 lg:px-8">
+        <div className="w-full px-4 sm:px-6 lg:px-8">
           {/* Section Header */}
           <div className="text-center">
-            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-6">
+            {/* Change h1 to h2 if it's a subsection of a higher-level h1 */}
+            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-6">
               My Services
-            </h1>
+            </h2>
             <p className="text-gray-600 dark:text-gray-300 text-base sm:text-lg max-w-3xl mx-auto">
               Explore the wide range of professional services I offer, tailored
               to meet your specific needs.
