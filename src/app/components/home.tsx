@@ -41,7 +41,7 @@ export default function Greeting() {
         </motion.div>
 
         {/* Center Section: Greeting Text */}
-        <div className="flex-1 flex flex-col items-start space-y-4 px-4 md:px-0">
+        <div className="flex-1 flex flex-col items-start space-y-4  px-4 md:px-0">
           <h1 className="text-lg sm:text-xl md:text-2xl font-bold text-black dark:text-white hover:text-primary-500">
             Hey there! <span className="wave">👋🏻</span>
           </h1>

@@ -5,6 +5,8 @@ import Header from "./components/header";
 import Footer from "./components/footer";
 import RootWrapper from "./shared/root-wrapper";
 import Transition from "./shared/top-nav-transition";
+import Script from "next/script";
+import Analytics from "./analytic";
 
 // Font configuration with font-display swap to reduce CLS
 const geistSans = localFont({
@@ -35,10 +37,23 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased dark:bg-gray-900 text-black bg-gray-100 dark:text-white`}
       >
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-3H00YQHYES"
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-3H00YQHYES');
+          `}
+        </Script>
         <RootWrapper>
           <Transition>
             <Header />
             <main className="px-4 md:px-8 lg:px-16 flex-grow min-h-screen my-24">
+              <Analytics />
               {children}
             </main>
             <Footer />
