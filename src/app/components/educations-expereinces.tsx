@@ -104,15 +104,9 @@ export const SkillsExperiences = () => {
       {/* Experiences and Education Section */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-12 w-full">
         <div className="md:col-span-1">
-          <h2 className="text-lg md:text-xl font-semibold mb-4 text-gray-800 dark:text-white">
-            Professional Experience
-          </h2>
           <ExperienceTimeline experiences={experienceData as any} />
         </div>
         <div className="md:col-span-1">
-          <h2 className="text-lg md:text-xl font-semibold mb-4 text-gray-800 dark:text-white">
-            Education
-          </h2>
           <EducationTimeline education={educationData as any} />
         </div>
       </div>

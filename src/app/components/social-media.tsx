@@ -1,6 +1,6 @@
 import React from "react";
 import { BsTelegram } from "react-icons/bs";
-import { AiFillGithub, AiFillLinkedin, AiFillYoutube } from "react-icons/ai";
+import { AiFillGithub, AiFillLinkedin } from "react-icons/ai";
 import { FaMedium } from "react-icons/fa";
 import Link from "next/link";
 
@@ -36,10 +36,10 @@ export const SocialMediaIcons = ({
 
   return (
     <div
-      className={`flex  ${
+      className={`flex ${
         orientation === "vertical"
-          ? " flex flex-row justify-center mx-2 space-x-4 md:flex-col md:items-center md:space-y-4"
-          : "flex-row space-x-4"
+          ? "flex-col items-center space-y-4"
+          : "flex-row justify-center space-x-4"
       }`}
     >
       {socials.map((social) => (
@@ -48,10 +48,10 @@ export const SocialMediaIcons = ({
           href={social.href}
           target="_blank"
           rel="noopener noreferrer"
-          aria-label={social.label}
-          className="p-3 rounded-full bg-gray-600 text-white hover:bg-primary-500 dark:hover:bg-primary-400 transition-transform transform hover:scale-110"
+          aria-label={`Visit my ${social.label} profile`}
+          className="p-3 rounded-full bg-gray-600 text-white hover:bg-primary-500 dark:hover:bg-primary-400 transition-transform transform hover:scale-110 shadow-md"
         >
-          {React.cloneElement(social.icon, { size: 20 })}
+          {React.cloneElement(social.icon, { size: 24 })}
         </Link>
       ))}
     </div>

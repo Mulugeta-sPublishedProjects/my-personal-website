@@ -7,19 +7,19 @@ import { FiExternalLink } from "react-icons/fi"; // Icon for external links
 
 export default function AboutMe() {
   return (
-    <div className="mt-12 mb-10 px-4 md:px-8 flex flex-col md:flex-row justify-center items-center space-y-8 md:space-y-0 md:space-x-12">
+    <section className="mt-12 mb-10 px-4 md:px-8 flex flex-col md:flex-row justify-between items-center space-y-12 md:space-y-0 md:space-x-12">
       {/* Left Column: About Description and Personal Details */}
       <motion.div
-        className="flex-1"
+        className="flex-1 max-w-lg"
         initial={{ opacity: 0, y: -50 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1 }}
       >
         {/* About Me Description */}
-        <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
+        <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-6">
           About Me
         </h2>
-        <p className="text-base md:text-lg text-gray-700 dark:text-gray-300 leading-relaxed mb-6">
+        <p className="text-base md:text-lg text-gray-700 dark:text-gray-300 leading-relaxed mb-8">
           Hi! I’m Mulugeta Adamu, a passionate Senior Frontend Developer with
           over 3 years of experience in building optimized and scalable web
           applications. My journey in tech began with a fascination for creating
@@ -85,7 +85,7 @@ export default function AboutMe() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1, delay: 0.3 }}
       >
-        <div className="w-64 h-64 md:w-80 md:h-80 relative">
+        <div className="w-64 h-64 sm:w-72 sm:h-72 md:w-80 md:h-80 relative">
           <Image
             src="/image.png" // Replace with the actual path to your image
             alt="Mulugeta Adamu"
@@ -100,6 +100,6 @@ export default function AboutMe() {
           />
         </div>
       </motion.div>
-    </div>
+    </section>
   );
 }

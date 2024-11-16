@@ -5,15 +5,13 @@ import Header from "./components/header";
 import Footer from "./components/footer";
 import RootWrapper from "./shared/root-wrapper";
 import Transition from "./shared/top-nav-transition";
-import Script from "next/script";
-import Analytics from "./analytic";
+import BottomNavbar from "./shared/bottom-nav";
 
-// Font configuration with font-display swap to reduce CLS
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
   variable: "--font-geist-sans",
   weight: "100 900",
-  display: "swap", // Enables font-display swap
+  display: "swap",
 });
 const geistMono = localFont({
   src: "./fonts/GeistMonoVF.woff",
@@ -23,8 +21,41 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "Mulugeta Adamu",
-  description: "My Portfolio",
+  title: "Mulugeta Adamu | Portfolio",
+  description:
+    "Explore Mulugeta Adamu's portfolio, showcasing expertise in software development and creative solutions.",
+  keywords: [
+    "Mulugeta Adamu",
+    "Portfolio",
+    "Software Developer",
+    "Web Developer",
+  ],
+  authors: [{ name: "Mulugeta Adamu" }],
+  creator: "Mulugeta Adamu",
+  openGraph: {
+    title: "Mulugeta Adamu | Portfolio",
+    description:
+      "Explore Mulugeta Adamu's portfolio, showcasing expertise in software development and creative solutions.",
+    url: "https://mulugetaadamu.vercel.app/",
+    siteName: "Mulugeta Adamu Portfolio",
+    type: "website",
+    images: [
+      {
+        url: "https://mulugetaadamu.vercel.app/hero.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Mulugeta Adamu Portfolio",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Mulugeta Adamu | Portfolio",
+    description:
+      "Explore Mulugeta Adamu's portfolio, showcasing expertise in software development and creative solutions.",
+    images: ["https://mulugetaadamu.vercel.app/hero.jpg"],
+    site: "@mulugetaadamu",
+  },
 };
 
 export default function RootLayout({
@@ -33,29 +64,38 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased dark:bg-gray-900 text-black bg-gray-100 dark:text-white`}
-      >
-        <Script
-          src="https://www.googletagmanager.com/gtag/js?id=G-3H00YQHYES"
-          strategy="afterInteractive"
+    <html lang="en" className="scroll-smooth">
+      <head>
+        <link
+          rel="preconnect"
+          href="https://fisvimgyzujfdndsqeoq.supabase.co"
+          crossOrigin="anonymous"
         />
-        <Script id="google-analytics" strategy="afterInteractive">
-          {`
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', 'G-3H00YQHYES');
-          `}
-        </Script>
+        <link
+          rel="dns-prefetch"
+          href="https://fisvimgyzujfdndsqeoq.supabase.co"
+        />
+        <link rel="icon" href="/favicon.ico" sizes="any" />
+        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+        <meta name="theme-color" content="#ffffff" />
+        <meta
+          name="theme-color"
+          content="#1a202c"
+          media="(prefers-color-scheme: dark)"
+        />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+      </head>
+      <body
+        className={`${geistSans.variable} ${geistMono.variable} antialiased dark:bg-gray-900 text-black bg-gray-100 dark:text-white font-sans`}
+      >
         <RootWrapper>
           <Transition>
             <Header />
             <main className="px-4 md:px-8 lg:px-16 flex-grow min-h-screen my-24">
-              <Analytics />
               {children}
             </main>
+            <BottomNavbar />
+
             <Footer />
           </Transition>
         </RootWrapper>
