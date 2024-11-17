@@ -6,6 +6,7 @@ import Image from "next/image";
 import supabase from "../shared/supabse";
 import { Testimonial } from "../models/testimonial";
 import { Splash } from "../shared/loader";
+import { EmptyState } from "../shared/empty-state";
 
 interface NewTestimonial {
   name: string;
@@ -140,233 +141,219 @@ const TestimonialPage: React.FC = () => {
     const lastPeriod = truncated.lastIndexOf(".");
     return lastPeriod === -1 ? truncated : truncated.slice(0, lastPeriod + 1);
   };
+  if (isLoading) {
+    return (
+      <div className="flex justify-center items-center h-64">
+        <Splash />
+      </div>
+    );
+  }
+
+  if (testimonials.length === 0) {
+    return <EmptyState />;
+  }
   return (
     <div className="min-h-screen bg-gray-100 dark:bg-gray-900 ">
-      <div className="flex flex-col md:flex-row justify-center items-center space-x-24 text-center py-12">
-        <div className="text-2xl font-semibold hidden md:block text-gray-800 dark:text-gray-100">
+      <div className="flex flex-col md:flex-row justify-center items-center space-x-0 md:space-x-24 text-center py-6 md:py-12">
+        {/* Heading */}
+        <div className="hidden sm:block text-lg md:text-2xl font-semibold text-gray-800 dark:text-gray-100">
           Hear From Those I`ve Worked With
         </div>
 
+        {/* Button */}
         <div>
           <button
-            className="bg-primary-500 text-white px-6 py-3 
-      rounded-lg shadow-lg hover:bg-primary-600 transition duration-300"
+            className="bg-primary-500 text-white px-6 py-3 rounded-lg shadow-lg hover:bg-primary-600 transition duration-300"
             onClick={() => setIsModalOpen(true)}
+            aria-label="Open Add Testimonial Modal"
           >
             Add Testimonial
           </button>
         </div>
       </div>
-      {isLoading ? (
-        <div className="flex justify-center items-center">
-          <div className="loader">
-            <Splash />
-          </div>
-        </div>
-      ) : testimonials.length === 0 ? (
-        <div className="flex flex-col items-center justify-center mt-12">
-          <svg
-            width="200px"
-            height="200px"
-            viewBox="0 0 312 312"
-            xmlns="http://www.w3.org/2000/svg"
+
+      <div className="mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 px-6 md:px-12">
+        {testimonials.map((testimonial) => (
+          <article
+            key={testimonial.id}
+            className="relative bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 flex flex-col md:flex-row items-center md:items-start transition-transform hover:scale-105 hover:shadow-2xl border border-gray-200 dark:border-gray-700"
+            aria-labelledby={`testimonial-${testimonial.id}`}
           >
-            <g
-              id="empty_inbox"
-              data-name="empty inbox"
-              transform="translate(-2956.982 -3048.416)"
-            >
-              <path
-                id="Path_26"
-                data-name="Path 26"
-                d="M3268.982,3078.286a29.869,29.869,0,0,0-29.869-29.87H2986.851a29.869,29.869,0,0,0-29.869,29.87v252.259a29.87,29.87,0,0,0,29.869,29.871h252.262a29.87,29.87,0,0,0,29.869-29.871Zm-281.9-4.87H3239.3a5.378,5.378,0,0,1,5.684,5.268v141.732h-73.54a12.038,12.038,0,0,0-12.114,12.025,47.854,47.854,0,0,1-95.668,1.918,11.273,11.273,0,0,0,.162-1.906,12.049,12.049,0,0,0-12.116-12.037h-70.724V3078.684C2980.982,3075.574,2983.97,3073.416,2987.08,3073.416Zm252.218,263H2987.08c-3.11,0-6.1-2.4-6.1-5.514v-86.486h59.426a72.092,72.092,0,0,0,142.13,0h62.444V3330.9A5.577,5.577,0,0,1,3239.3,3336.416Z"
-                fill="#FF6B6B"
-              />
-            </g>
-          </svg>
+            {/* Right Top - Added Date */}
+            <p className="text-xs text-primary-500 dark:text-gray-400 absolute top-4 right-4 italic">
+              Added on: {new Date(testimonial.created_at).toLocaleDateString()}
+            </p>
 
-          <p className="text-gray-700 dark:text-gray-300 text-lg mt-4">
-            No testimonials yet.
-          </p>
-        </div>
-      ) : (
-        <div className="mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 px-6 md:px-12">
-          {testimonials.map((testimonial) => (
-            <div
-              key={testimonial.id}
-              className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 flex flex-col md:flex-row items-center md:items-start transition-all hover:scale-105 hover:shadow-2xl border border-gray-200 dark:border-gray-700"
-            >
-              {/* Right Top - Added Date */}
-              <p className="text-xs text-primary-500 dark:text-gray-400 absolute top-4 right-6 italic">
-                Added on:{" "}
-                {new Date(testimonial.created_at).toLocaleDateString()}
-              </p>
-
-              {/* Left Section: Image */}
-              <div className="flex-shrink-0 mb-4 md:mb-0 md:mr-6 text-center md:text-left">
-                <div className="relative w-24 h-24 rounded-full overflow-hidden border-4 border-primary-500 shadow-md">
-                  <Image
-                    height={100}
-                    width={100}
-                    src={testimonial.image_url || "/person.webp"}
-                    alt={`${testimonial.name}'s profile`}
-                    className="object-cover w-full h-full"
-                  />
-                </div>
+            {/* Left Section: Image */}
+            <div className="flex-shrink-0 mb-4 md:mb-0 md:mr-6 text-center md:text-left">
+              <div className="relative w-24 h-24 rounded-full overflow-hidden border-4 border-primary-500 shadow-md">
+                <Image
+                  height={100}
+                  width={100}
+                  src={testimonial.image_url || "/person.webp"}
+                  alt={`${testimonial.name}'s profile`}
+                  className="object-cover w-full h-full"
+                />
               </div>
+            </div>
 
-              {/* Right Section: Details */}
-              <div className="flex flex-col text-center md:text-left w-full">
-                <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-100 mb-1">
-                  {testimonial.name}
-                </h3>
-                <p className="text-primary-500 text-xs sm:text-sm font-medium mb-2 italic">
-                  {testimonial.email}
-                </p>
-                <p className=" text-sm sm:text-base font-medium mb-2">
+            {/* Right Section: Details */}
+            <div className="flex flex-col text-center md:text-left w-full">
+              <h3
+                id={`testimonial-${testimonial.id}`}
+                className="text-lg font-semibold text-gray-800 dark:text-gray-100 mb-1 truncate"
+              >
+                {testimonial.name}
+              </h3>
+              <p className="text-primary-500 text-xs sm:text-sm font-medium mb-2 italic truncate">
+                {testimonial.email}
+              </p>
+              {testimonial.current_role && testimonial.company && (
+                <p className="text-sm sm:text-base font-medium mb-2">
                   {testimonial.current_role} at{" "}
                   <span className="text-primary-500">
-                    {" "}
                     {testimonial.company}
                   </span>
                 </p>
+              )}
 
-                {/* Message Section with Toggle for More Content */}
-                <div className="relative">
-                  <p
-                    className={`text-gray-600 dark:text-gray-300 text-sm sm:text-base leading-relaxed transition-all 
-                    max-h-16 overflow-hidden`}
+              {/* Message Section */}
+              <div className="relative">
+                <p className="text-gray-600 dark:text-gray-300 text-sm sm:text-base leading-relaxed transition-all line-clamp-3">
+                  {truncateAtSentence(testimonial.message, 200)}
+                </p>
+
+                {testimonial.message.length > 100 && (
+                  <button
+                    onClick={() => handleSeeMoreClick(testimonial)}
+                    className="text-primary-500 mt-2 hover:underline"
+                    aria-label={`Read full testimonial from ${testimonial.name}`}
                   >
-                    {truncateAtSentence(testimonial.message, 100)}
-                  </p>
-
-                  {testimonial.message.length > 100 && (
-                    <button
-                      onClick={() => handleSeeMoreClick(testimonial)}
-                      className="text-primary-500 mt-2"
-                    >
-                      See More
-                    </button>
-                  )}
-                </div>
+                    See More
+                  </button>
+                )}
               </div>
             </div>
-          ))}
-        </div>
-      )}
+          </article>
+        ))}
+      </div>
 
       {/* Modal */}
       {isModalOpen && (
-        <div className="fixed inset-0 my-auto bg-black bg-opacity-50 flex items-center justify-center z-50">
-          <div className="bg-gray-50 dark:bg-gray-800 rounded-lg shadow-lg w-11/12 max-w-lg">
-            <h3 className="text-xl font-bold text-gray-800 dark:text-gray-100 mb-6 text-center">
-              Add a Testimonial
-            </h3>
+        <div
+          className="fixed inset-0 my-4 lg:my-12 bg-black bg-opacity-50 flex items-center justify-center z-50 overflow-y-auto"
+          tabIndex={-1}
+        >
+          <div className="bg-gray-50 dark:bg-gray-800 rounded-lg shadow-lg w-11/12 max-w-xl">
             <form
               onSubmit={handleAddTestimonial}
-              className=" bg-gray-50 dark:bg-gray-700 p-6 rounded-lg shadow-inner"
+              className="bg-gray-50 dark:bg-gray-700 p-6 rounded-lg "
             >
-              {/* Name */}
-              <div>
-                <label
-                  htmlFor="name"
-                  className="block text-sm font-medium text-gray-600 dark:text-gray-300 mb-1"
-                >
-                  Name
-                </label>
-                <input
-                  id="name"
-                  type="text"
-                  placeholder="Your Name"
-                  value={newTestimonial.name}
-                  onChange={(e) =>
-                    setNewTestimonial({
-                      ...newTestimonial,
-                      name: e.target.value,
-                    })
-                  }
-                  required
-                  className="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-700 dark:text-gray-200 bg-white dark:bg-gray-800 focus:ring-2 focus:ring-primary-500"
-                />
-              </div>
+              <h3 className="text-xl font-bold py-2 text-gray-800 dark:text-gray-100 mb-6 text-center">
+                Add a Testimonial
+              </h3>{" "}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                {/* Name */}
+                <div>
+                  <label
+                    htmlFor="name"
+                    className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-2"
+                  >
+                    Name
+                  </label>
+                  <input
+                    id="name"
+                    type="text"
+                    placeholder="Your Name"
+                    value={newTestimonial.name}
+                    onChange={(e) =>
+                      setNewTestimonial({
+                        ...newTestimonial,
+                        name: e.target.value,
+                      })
+                    }
+                    required
+                    className="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-700 dark:text-gray-200 bg-white dark:bg-gray-800 focus:ring-2 "
+                  />
+                </div>
 
-              {/* Email */}
-              <div>
-                <label
-                  htmlFor="email"
-                  className="block text-sm font-medium text-gray-600 dark:text-gray-300 mb-1"
-                >
-                  Email
-                </label>
-                <input
-                  id="email"
-                  type="email"
-                  placeholder="Your Email"
-                  value={newTestimonial.email}
-                  onChange={(e) =>
-                    setNewTestimonial({
-                      ...newTestimonial,
-                      email: e.target.value,
-                    })
-                  }
-                  required
-                  className="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-700 dark:text-gray-200 bg-white dark:bg-gray-800 focus:ring-2 focus:ring-primary-500"
-                />
-              </div>
+                {/* Email */}
+                <div>
+                  <label
+                    htmlFor="email"
+                    className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-2"
+                  >
+                    Email
+                  </label>
+                  <input
+                    id="email"
+                    type="email"
+                    placeholder="Your Email"
+                    value={newTestimonial.email}
+                    onChange={(e) =>
+                      setNewTestimonial({
+                        ...newTestimonial,
+                        email: e.target.value,
+                      })
+                    }
+                    required
+                    className="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-700 dark:text-gray-200 bg-white dark:bg-gray-800 focus:ring-2 "
+                  />
+                </div>
 
-              {/* Current Role */}
-              <div>
-                <label
-                  htmlFor="role"
-                  className="block text-sm font-medium text-gray-600 dark:text-gray-300 mb-1"
-                >
-                  Current Role
-                </label>
-                <input
-                  id="role"
-                  type="text"
-                  placeholder="Your Role"
-                  value={newTestimonial.current_role}
-                  onChange={(e) =>
-                    setNewTestimonial({
-                      ...newTestimonial,
-                      current_role: e.target.value,
-                    })
-                  }
-                  required
-                  className="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-700 dark:text-gray-200 bg-white dark:bg-gray-800 focus:ring-2 focus:ring-primary-500"
-                />
-              </div>
+                {/* Current Role */}
+                <div>
+                  <label
+                    htmlFor="role"
+                    className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-2"
+                  >
+                    Current Role
+                  </label>
+                  <input
+                    id="role"
+                    type="text"
+                    placeholder="Your Role"
+                    value={newTestimonial.current_role}
+                    onChange={(e) =>
+                      setNewTestimonial({
+                        ...newTestimonial,
+                        current_role: e.target.value,
+                      })
+                    }
+                    required
+                    className="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-700 dark:text-gray-200 bg-white dark:bg-gray-800 focus:ring-2 "
+                  />
+                </div>
 
-              {/* Company */}
-              <div>
-                <label
-                  htmlFor="company"
-                  className="block text-sm font-medium text-gray-600 dark:text-gray-300 mb-1"
-                >
-                  Company
-                </label>
-                <input
-                  id="company"
-                  type="text"
-                  placeholder="Company Name"
-                  value={newTestimonial.company}
-                  onChange={(e) =>
-                    setNewTestimonial({
-                      ...newTestimonial,
-                      company: e.target.value,
-                    })
-                  }
-                  required
-                  className="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-700 dark:text-gray-200 bg-white dark:bg-gray-800 focus:ring-2 focus:ring-primary-500"
-                />
+                {/* Company */}
+                <div>
+                  <label
+                    htmlFor="company"
+                    className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-2"
+                  >
+                    Company
+                  </label>
+                  <input
+                    id="company"
+                    type="text"
+                    placeholder="Company Name"
+                    value={newTestimonial.company}
+                    onChange={(e) =>
+                      setNewTestimonial({
+                        ...newTestimonial,
+                        company: e.target.value,
+                      })
+                    }
+                    required
+                    className="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-700 dark:text-gray-200 bg-white dark:bg-gray-800 focus:ring-2 "
+                  />
+                </div>
               </div>
-
               {/* Message */}
-              <div>
+              <div className="mt-4">
                 <label
                   htmlFor="message"
-                  className="block text-sm font-medium text-gray-600 dark:text-gray-300 mb-1"
+                  className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-2"
                 >
                   Message
                 </label>
@@ -382,15 +369,14 @@ const TestimonialPage: React.FC = () => {
                     })
                   }
                   required
-                  className="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-700 dark:text-gray-200 bg-white dark:bg-gray-800 focus:ring-2 focus:ring-primary-500"
+                  className="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-700 dark:text-gray-200 bg-white dark:bg-gray-800 focus:ring-2 "
                 ></textarea>
               </div>
-
               {/* Profile Photo */}
-              <div>
+              <div className="mt-4">
                 <label
                   htmlFor="profilePhoto"
-                  className="block text-sm font-medium text-gray-600 dark:text-gray-300 mb-1"
+                  className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-2"
                 >
                   Profile Photo
                 </label>
@@ -413,15 +399,14 @@ const TestimonialPage: React.FC = () => {
                       src={photoPreview}
                       alt="Profile Photo Preview"
                       width={100}
-                      height={100}
-                      className="rounded-full object-cover border-2 border-primary-500"
+                      height={50}
+                      className="rounded-md object-contain border-2 border-primary-500"
                     />
                   </div>
                 )}
               </div>
-
               {/* Buttons */}
-              <div className="flex my-4 justify-between">
+              <div className="flex justify-end space-x-4 mt-6">
                 <button
                   type="button"
                   className="bg-gray-400 text-white px-4 py-2 rounded-lg hover:bg-gray-500 transition duration-300"

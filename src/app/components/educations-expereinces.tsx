@@ -54,6 +54,7 @@ export const SkillsExperiences = () => {
       employmentType: "Full Time",
     },
   ];
+
   const educationData: Education[] = [
     {
       institution: "Addis Ababa University",
@@ -103,19 +104,16 @@ export const SkillsExperiences = () => {
 
       {/* Experiences and Education Section */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-12 w-full">
-        <div className="md:col-span-1">
+        <div>
           <ExperienceTimeline experiences={experienceData as any} />
         </div>
-        <div className="md:col-span-1">
+        <div>
           <EducationTimeline education={educationData as any} />
         </div>
       </div>
 
       {/* Certifications Section */}
       <div className="w-full">
-        <h2 className="text-lg md:text-xl font-semibold mb-4 text-gray-800 dark:text-white">
-          Certifications
-        </h2>
         <Certifications />
       </div>
     </motion.div>

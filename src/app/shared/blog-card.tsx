@@ -1,6 +1,11 @@
 import Image from "next/image";
 import React from "react";
 
+// Utility function moved to the module scope
+function cleanDescription(desc: string, length: number): string {
+  return desc.replaceAll(/<[^>]+>/g, "").slice(0, length) + "...";
+}
+
 interface BlogCardProps {
   post: {
     title: string;
@@ -13,17 +18,18 @@ interface BlogCardProps {
 const BlogCard: React.FC<BlogCardProps> = ({ post }) => {
   const { title, description, link, categories } = post;
 
-  const imageUrl = new RegExp(/<img.*?src="(.*?)"/).exec(description)?.[1];
+  // Extract the image URL or use a fallback image
+  const imageUrl =
+    new RegExp(/<img.*?src="(.*?)"/).exec(description)?.[1] ||
+    "/default-image.png";
 
   return (
     <a
       href={link}
       target="_blank"
       rel="noopener noreferrer"
-      className="flex shadow-md bg-gray-200 dark:bg-gray-900 
-      flex-col sm:flex-row items-center p-5 border border-gray-400
-       dark:border-gray-700 rounded-lg mb-5 hover:shadow-lg transition-shadow
-        sm:gap-4 hover:bg-gray-100 dark:hover:bg-gray-800"
+      aria-label={`Read the blog post titled "${title}"`}
+      className="flex shadow-md bg-gray-200 dark:bg-gray-900 flex-col sm:flex-row items-center p-5 border border-gray-400 dark:border-gray-700 rounded-lg mb-5 hover:shadow-lg transition-shadow sm:gap-4 hover:bg-gray-100 dark:hover:bg-gray-800"
     >
       {imageUrl && (
         <Image
@@ -39,20 +45,22 @@ const BlogCard: React.FC<BlogCardProps> = ({ post }) => {
           {title}
         </h3>
         <p className="text-gray-700 dark:text-gray-300 mt-2">
-          {description.replaceAll(/<[^>]+>/g, "").slice(0, 100)}...
+          {cleanDescription(description, 100)}
         </p>
 
         {/* Display categories as badges */}
-        <div className="flex flex-wrap justify-center sm:justify-start gap-2 mt-4">
-          {categories.map((category, index) => (
-            <span
-              key={index}
-              className="px-3 py-1 text-sm font-medium border border-gray-300 text-primary-700 bg-white rounded-full dark:border-gray-200 dark:bg-primary-800 dark:text-primary-100"
-            >
-              {category}
-            </span>
-          ))}
-        </div>
+        {categories && categories.length > 0 && (
+          <div className="flex flex-wrap justify-center sm:justify-start gap-2 mt-4">
+            {categories.map((category, index) => (
+              <span
+                key={index}
+                className="px-3 py-1 text-sm font-medium border border-gray-300 text-primary-700 bg-white rounded-full dark:border-gray-200 dark:bg-primary-800 dark:text-primary-100"
+              >
+                {category}
+              </span>
+            ))}
+          </div>
+        )}
       </div>
     </a>
   );

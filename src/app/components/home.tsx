@@ -23,7 +23,7 @@ export default function Greeting() {
           transition={{ duration: 1.2 }}
           className="flex justify-center md:justify-start"
         >
-          <div className="relative w-64 h-64 sm:w-72 sm:h-72 md:w-80 md:h-80 lg:w-96 lg:h-96">
+          <div className="relative w-48 h-48 sm:w-64 sm:h-64 md:w-72 md:h-72 lg:w-80 lg:h-80">
             <Image
               src="/portifolio-website.jpg"
               alt="Profile"
@@ -41,11 +41,14 @@ export default function Greeting() {
 
         {/* Center Section: Greeting Text */}
         <div className="flex-1 flex flex-col items-start space-y-6">
-          <h1 className="text-lg sm:text-xl md:text-2xl font-bold text-black dark:text-white">
-            Hey there! <span className="wave">👋🏻</span>
+          <h1 className="text-base sm:text-lg md:text-2xl font-bold text-black dark:text-white">
+            Hey there!{" "}
+            <span className="wave" aria-hidden="true">
+              👋🏻
+            </span>
           </h1>
 
-          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-gray-700 dark:text-gray-300 font-bold">
+          <h2 className="text-xl sm:text-3xl md:text-4xl lg:text-5xl text-gray-700 dark:text-gray-300 font-bold">
             I&apos;m Mulugeta Adamu
           </h2>
 
@@ -81,26 +84,26 @@ export default function Greeting() {
           {/* Button Group */}
           <div className="flex flex-wrap gap-4 mt-6">
             <a
-              href="/cv.pdf"
+              href="/resume-two.pdf"
               download
               aria-label="Download Resume"
-              className="bg-primary-600 text-white font-semibold py-2 px-4 sm:py-3 sm:px-6 rounded-full shadow-lg transition-transform duration-200 hover:scale-105 hover:bg-primary-600"
+              className="bg-primary-600 text-white font-semibold py-2 px-4 sm:py-3 sm:px-6 rounded-full shadow-lg transition-transform duration-200 hover:scale-105 hover:bg-primary-800"
             >
               Download Resume
             </a>
             <Link href="https://t.me/mulugeta_adamu" passHref>
-              <button
+              <div
                 aria-label="Contact"
                 className="bg-primary-600 text-white font-semibold py-2 px-4 sm:py-3 sm:px-6 rounded-full shadow-lg transition-transform duration-200 hover:scale-105 hover:bg-primary-800"
               >
                 Contact
-              </button>
+              </div>
             </Link>
           </div>
         </div>
 
         {/* Social Media Section */}
-        <div className="mt-8 md:mt-0">
+        <div className="mt-8 md:mt-0 md:ml-auto">
           <SocialMediaIcons />
         </div>
       </motion.div>

@@ -22,13 +22,7 @@ import { DiJavascript1, DiCss3, DiHtml5 } from "react-icons/di";
 import { GrDeploy } from "react-icons/gr";
 import { BsDiagram3 } from "react-icons/bs";
 
-type Skill = {
-  name: string;
-  icon: JSX.Element;
-  color: string;
-};
-
-const skillsData: Skill[] = [
+const skillsData = [
   { name: "JavaScript", icon: <DiJavascript1 />, color: "#F7DF1E" },
   { name: "TypeScript", icon: <SiTypescript />, color: "#3178C6" },
   { name: "React", icon: <FaReact />, color: "#61DAFB" },
@@ -55,17 +49,18 @@ const skillsData: Skill[] = [
 
 export default function SkillsPage() {
   return (
-    <div className="py-4 max-w-screen-2xl mx-auto">
-      <h2 className="text-3xl font-bold dark:text-white mb-6 text-center">
+    <div className="py-8 max-w-screen-2xl mx-auto">
+      <h2 className="text-3xl font-bold dark:text-white mb-8 text-center">
         Skills & Tools
       </h2>
-      <div className="relative overflow-hidden dark:from-gray-800 dark:to-gray-900 rounded-lg p-2">
-        {/* Grid layout for small screens, Marquee on medium and larger screens */}
-        <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:hidden">
+      <div className="relative overflow-hidden dark:from-gray-800 dark:to-gray-900 rounded-lg p-4">
+        {/* Grid layout for small screens */}
+        <div className="grid grid-cols-2 gap-6 sm:grid-cols-3 md:hidden max-w-5xl mx-auto">
           {skillsData.map((skill) => (
             <div
               key={skill.name}
-              className="flex flex-col gap-2 items-center p-2 rounded-lg shadow-lg hover:scale-105 transition-transform duration-300 cursor-pointer bg-gray-800 bg-opacity-10"
+              className="flex flex-col gap-2 items-center p-3 rounded-lg shadow-lg hover:scale-105 hover:bg-gray-100 dark:hover:bg-gray-700 transition-transform duration-300 cursor-pointer bg-gray-800 bg-opacity-10"
+              aria-label={`Skill: ${skill.name}`}
             >
               <div
                 className="text-3xl sm:text-4xl"
@@ -73,7 +68,7 @@ export default function SkillsPage() {
               >
                 {skill.icon}
               </div>
-              <p className="mt-1 text-xs sm:text-sm font-semibold text-center">
+              <p className="mt-2 text-xs sm:text-sm font-semibold text-center">
                 {skill.name}
               </p>
             </div>
@@ -82,12 +77,13 @@ export default function SkillsPage() {
 
         {/* Marquee for medium and larger screens */}
         <div className="hidden md:block">
-          <Marquee gradient={false} speed={50} pauseOnHover={true}>
-            <div className="flex items-center space-x-6">
+          <Marquee gradient={false} speed={50} pauseOnHover>
+            <div className="flex items-center space-x-12">
               {skillsData.map((skill) => (
                 <div
                   key={skill.name}
                   className="flex flex-col items-center p-4 rounded-lg shadow-lg hover:scale-105 transition-transform duration-300 cursor-pointer bg-gray-800 bg-opacity-10"
+                  aria-label={`Skill: ${skill.name}`}
                   style={{ minWidth: "120px" }}
                 >
                   <div

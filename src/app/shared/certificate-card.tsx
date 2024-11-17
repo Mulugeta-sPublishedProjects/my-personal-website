@@ -8,6 +8,7 @@ interface CertificationProps {
   completionDate: string;
   certificateLink: string;
   image: string;
+  className: string;
 }
 
 const CertificationCard: React.FC<CertificationProps> = ({
@@ -16,9 +17,12 @@ const CertificationCard: React.FC<CertificationProps> = ({
   completionDate,
   certificateLink,
   image,
+  className,
 }) => {
   return (
-    <div className="bg-white dark:bg-gray-800 shadow-lg rounded-lg overflow-hidden transform transition duration-300 hover:scale-105 hover:shadow-2xl">
+    <div
+      className={`bg-white ${className} dark:bg-gray-800 shadow-lg rounded-lg overflow-hidden transform transition duration-300 hover:scale-105 hover:shadow-2xl`}
+    >
       {/* Image Section with Padding */}
       <div className="p-4">
         <div className="rounded-lg overflow-hidden">
