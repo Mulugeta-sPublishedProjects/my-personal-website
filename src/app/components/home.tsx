@@ -68,7 +68,10 @@ export default function Greeting() {
           </div>
 
           {/* About Section */}
-          <div className="text-gray-900 dark:text-gray-300 text-base md:text-lg font-medium leading-relaxed mt-4">
+          <div
+            className="text-gray-900 dark:text-gray-300 text-base md:text-lg font-medium leading-relaxed mt-4"
+            style={{ minHeight: "calc(1em * 3)" }}
+          >
             As a Senior Frontend Developer, I thrive on tackling complex
             projects with innovative teams. My skill set includes{" "}
             <strong>ReactJS</strong>, <strong>Next.js</strong>,{" "}
@@ -91,7 +94,7 @@ export default function Greeting() {
             >
               Download Resume
             </a>
-            <Link href="https://t.me/mulugeta_adamu" passHref>
+            <Link href="https://t.me/mulugeta_adamu" target="_blank" passHref>
               <div
                 aria-label="Contact"
                 className="bg-primary-600 text-white font-semibold py-2 px-4 sm:py-3 sm:px-6 rounded-full shadow-lg transition-transform duration-200 hover:scale-105 hover:bg-primary-800"

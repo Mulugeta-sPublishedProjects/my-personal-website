@@ -1,6 +1,6 @@
 "use client";
 import Greeting from "./components/home";
-import { servicesData } from "./components/services";
+import { servicesData } from "./shared/utils/services";
 import ServiceCard from "./components/service-card";
 
 export default function Home() {
