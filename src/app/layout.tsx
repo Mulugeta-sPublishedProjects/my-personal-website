@@ -41,7 +41,7 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: "https://mulugetaadamu.vercel.app/hero.jpg",
+        url: "https://mulugetaadamu.vercel.app/portifolio-website.jpg",
         width: 1200,
         height: 630,
         alt: "Mulugeta Adamu Portfolio",
@@ -53,7 +53,7 @@ export const metadata: Metadata = {
     title: "Mulugeta Adamu | Portfolio",
     description:
       "Explore Mulugeta Adamu's portfolio, showcasing expertise in software development and creative solutions.",
-    images: ["https://mulugetaadamu.vercel.app/hero.jpg"],
+    images: ["https://mulugetaadamu.vercel.app/portifolio-website.jpg"],
     site: "@mulugetaadamu",
   },
 };
