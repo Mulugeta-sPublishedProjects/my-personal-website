@@ -1,7 +1,8 @@
 "use client";
-import React, { ReactNode, Suspense } from "react";
-import useMounted from "../hooks/use-mounted";
+
+import React, { ReactNode, Suspense, useEffect, useState } from "react";
 import { Splash } from "./loader";
+import useMounted from "../hooks/use-mounted";
 
 type RootWrapperProps = {
   children: ReactNode;
@@ -9,16 +10,11 @@ type RootWrapperProps = {
 
 const RootWrapper = ({ children }: RootWrapperProps) => {
   const mounted = useMounted();
+  if (!mounted) {
+    return <Splash />;
+  }
 
-  return (
-    <>
-      {mounted ? (
-        <Suspense fallback={<Splash />}>{children}</Suspense>
-      ) : (
-        <Splash />
-      )}
-    </>
-  );
+  return <Suspense fallback={<Splash />}>{children}</Suspense>;
 };
 
 export default RootWrapper;

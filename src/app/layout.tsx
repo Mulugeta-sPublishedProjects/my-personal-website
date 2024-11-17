@@ -88,8 +88,9 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased dark:bg-gray-900 text-black bg-gray-100 dark:text-white font-sans`}
       >
-        <RootWrapper>
-          <Transition>
+        {" "}
+        <Transition>
+          <RootWrapper>
             <Header />
             <main className="px-4 md:px-8 lg:px-16 flex-grow min-h-screen my-24">
               {children}
@@ -97,8 +98,8 @@ export default function RootLayout({
             <BottomNavbar />
 
             <Footer />
-          </Transition>
-        </RootWrapper>
+          </RootWrapper>
+        </Transition>
       </body>
     </html>
   );

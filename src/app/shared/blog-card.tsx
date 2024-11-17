@@ -12,11 +12,12 @@ interface BlogCardProps {
     description: string;
     link: string;
     categories: string[];
+    pubDate: string; // Publication date
   };
 }
 
 const BlogCard: React.FC<BlogCardProps> = ({ post }) => {
-  const { title, description, link, categories } = post;
+  const { title, description, link, categories, pubDate } = post;
 
   // Extract the image URL or use a fallback image
   const imageUrl =
@@ -46,6 +47,11 @@ const BlogCard: React.FC<BlogCardProps> = ({ post }) => {
         </h3>
         <p className="text-gray-700 dark:text-gray-300 mt-2">
           {cleanDescription(description, 100)}
+        </p>
+
+        {/* Publication Date */}
+        <p className="text-sm text-primary-500 dark:text-gray-400 mt-2">
+          Published on: {pubDate}
         </p>
 
         {/* Display categories as badges */}

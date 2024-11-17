@@ -103,7 +103,7 @@ export default function Greeting() {
         </div>
 
         {/* Social Media Section */}
-        <div className="mt-8 md:mt-0 md:ml-auto">
+        <div className="md:mt-0  md:ml-auto">
           <SocialMediaIcons />
         </div>
       </motion.div>
