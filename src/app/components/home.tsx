@@ -84,6 +84,7 @@ export default function Greeting() {
             >
               Download Resume
             </a>
+
             <Link href="https://t.me/mulugeta_adamu" target="_blank" passHref>
               <div
                 aria-label="Contact"
