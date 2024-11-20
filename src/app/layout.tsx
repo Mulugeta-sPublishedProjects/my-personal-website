@@ -7,17 +7,20 @@ import RootWrapper from "./shared/root-wrapper";
 import Transition from "./shared/top-nav-transition";
 import BottomNavbar from "./shared/bottom-nav";
 
+// Load fonts with optimized settings
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
   variable: "--font-geist-sans",
   weight: "100 900",
-  display: "swap",
+  display: "swap", // Ensures fallback font is displayed while loading
+  preload: true, // Preload font for performance
 });
 const geistMono = localFont({
   src: "./fonts/GeistMonoVF.woff",
   variable: "--font-geist-mono",
   weight: "100 900",
   display: "swap",
+  preload: true,
 });
 
 export const metadata: Metadata = {
@@ -66,6 +69,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="scroll-smooth">
       <head>
+        {/* Preconnect and DNS Prefetch for faster resource resolution */}
         <link
           rel="preconnect"
           href="https://fisvimgyzujfdndsqeoq.supabase.co"
@@ -75,20 +79,22 @@ export default function RootLayout({
           rel="dns-prefetch"
           href="https://fisvimgyzujfdndsqeoq.supabase.co"
         />
+        {/* Favicon and Apple Touch Icon */}
         <link rel="icon" href="/favicon.ico" sizes="any" />
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+        {/* Theme Colors */}
         <meta name="theme-color" content="#ffffff" />
         <meta
           name="theme-color"
           content="#1a202c"
           media="(prefers-color-scheme: dark)"
         />
+        {/* Viewport Meta */}
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased dark:bg-gray-900 text-black bg-gray-100 dark:text-white font-sans`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased dark:bg-gray-900 text-gray-800 bg-white dark:text-gray-100 font-sans`}
       >
-        {" "}
         <Transition>
           <RootWrapper>
             <Header />
@@ -96,7 +102,6 @@ export default function RootLayout({
               {children}
             </main>
             <BottomNavbar />
-
             <Footer />
           </RootWrapper>
         </Transition>

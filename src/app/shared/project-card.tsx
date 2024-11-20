@@ -2,7 +2,6 @@
 
 import Image from "next/image";
 import React from "react";
-import { FaExternalLinkAlt, FaGithub } from "react-icons/fa";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 
@@ -34,7 +33,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4 }}
-      className="bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden transform transition duration-300 hover:scale-105 flex flex-col mx-auto sm:max-w-xs md:max-w-sm lg:max-w-md xl:max-w-lg m-4"
+      className="bg-gray-100 dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden transform transition duration-300 hover:scale-105 flex flex-col mx-auto sm:max-w-xs md:max-w-sm lg:max-w-md xl:max-w-lg m-4"
     >
       {/* Image Section */}
       <div className="relative w-full h-48 sm:h-56 md:h-64 lg:h-72">
@@ -95,7 +94,15 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
             rel="noopener noreferrer"
             className="text-primary-500 hover:text-primary-700 dark:hover:text-primary-300 transition duration-200 flex items-center text-sm sm:text-base"
           >
-            <FaExternalLinkAlt className="mr-1 sm:mr-2" /> Live Project
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+              className="w-4 h-4 mr-1 sm:mr-2"
+            >
+              <path d="M13 2h9v9h-2V5.41l-9.9 9.9-1.42-1.42 9.9-9.9H13V2zM3 5h9v2H5v12h12v-7h2v9H3V5z" />
+            </svg>
+            Live Project
           </a>
           <a
             href={githubLink}
@@ -103,7 +110,15 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
             rel="noopener noreferrer"
             className="text-gray-900 dark:text-gray-300 hover:text-gray-700 dark:hover:text-gray-400 transition duration-200 flex items-center text-sm sm:text-base"
           >
-            <FaGithub className="mr-1 sm:mr-2" /> GitHub
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+              className="w-4 h-4 mr-1 sm:mr-2"
+            >
+              <path d="M12 2a10 10 0 00-3.16 19.47c.5.09.68-.22.68-.48v-1.71c-2.78.6-3.37-1.3-3.37-1.3-.45-1.13-1.1-1.43-1.1-1.43-.9-.62.07-.61.07-.61 1 .07 1.53 1.04 1.53 1.04.89 1.53 2.34 1.09 2.91.83.09-.65.35-1.1.63-1.35-2.22-.25-4.56-1.11-4.56-4.95 0-1.09.39-1.98 1.03-2.68-.1-.26-.45-1.3.1-2.7 0 0 .84-.27 2.75 1.02a9.5 9.5 0 015 0c1.91-1.29 2.75-1.02 2.75-1.02.55 1.4.2 2.44.1 2.7.64.7 1.03 1.6 1.03 2.68 0 3.85-2.35 4.7-4.59 4.94.36.31.68.92.68 1.85v2.74c0 .27.18.58.69.48A10 10 0 0012 2z" />
+            </svg>
+            GitHub
           </a>
         </div>
       </div>

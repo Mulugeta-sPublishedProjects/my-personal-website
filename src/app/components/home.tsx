@@ -6,6 +6,7 @@ import Typewriter from "typewriter-effect";
 import Image from "next/image";
 import Link from "next/link";
 import SocialMediaIcons from "./social-media";
+import AboutText from "./about-text";
 
 export default function Greeting() {
   return (
@@ -23,18 +24,20 @@ export default function Greeting() {
           transition={{ duration: 1.2 }}
           className="flex justify-center md:justify-start"
         >
-          <div className="relative w-48 h-48 sm:w-64 sm:h-64 md:w-72 md:h-72 lg:w-80 lg:h-80">
+          <div
+            className="relative w-48 h-48 sm:w-64 sm:h-64 md:w-72 md:h-72 lg:w-80 lg:h-80"
+            style={{ minWidth: "192px", minHeight: "192px" }} // Prevent layout shifts
+          >
             <Image
-              src="/portifolio-website.jpg"
+              src="/portifolio-website.webp"
               alt="Profile"
               fill
               style={{
                 objectFit: "cover",
-                filter: "grayscale(100%)",
-                borderRadius: "10% 30% 50% 70%",
               }}
-              className="shadow-md rounded-lg transition-transform hover:scale-105"
-              loading="lazy"
+              className="shadow-md rounded-[10%_30%_50%_70%] transition-transform hover:scale-105"
+              priority
+              sizes="(max-width: 640px) 12rem, (max-width: 768px) 16rem, 20rem"
             />
           </div>
         </motion.div>
@@ -53,7 +56,8 @@ export default function Greeting() {
           </h2>
 
           {/* Typewriter Effect */}
-          <div className="w-full max-w-lg text-primary-500 text-md">
+          <div className="w-full max-w-lg text-primary-600 text-md">
+            <noscript>Senior Frontend Developer</noscript>
             <Typewriter
               options={{
                 strings: [
@@ -68,21 +72,7 @@ export default function Greeting() {
           </div>
 
           {/* About Section */}
-          <div
-            className="text-gray-900 dark:text-gray-300 text-base md:text-lg font-medium leading-relaxed mt-4"
-            style={{ minHeight: "calc(1em * 3)" }}
-          >
-            As a Senior Frontend Developer, I thrive on tackling complex
-            projects with innovative teams. My skill set includes{" "}
-            <strong>ReactJS</strong>, <strong>Next.js</strong>,{" "}
-            <strong>React Native</strong>, <strong>JavaScript</strong>,{" "}
-            <strong>TypeScript</strong>, and <strong>TailwindCSS</strong>. I
-            specialize in <strong>frontend architecture</strong> and{" "}
-            <strong>monorepo management</strong> with <strong>TurboRepo</strong>{" "}
-            and <strong>Nx</strong>. My strengths lie in delivering{" "}
-            <strong>high-quality, scalable</strong> solutions for{" "}
-            <strong>seamless user experiences</strong>.
-          </div>
+          <AboutText />
 
           {/* Button Group */}
           <div className="flex flex-wrap gap-4 mt-6">
@@ -90,14 +80,14 @@ export default function Greeting() {
               href="/resume-two.pdf"
               download
               aria-label="Download Resume"
-              className="bg-primary-600 text-white font-semibold py-2 px-4 sm:py-3 sm:px-6 rounded-full shadow-lg transition-transform duration-200 hover:scale-105 hover:bg-primary-800"
+              className="bg-primary-800 text-white font-semibold py-2 px-4 sm:py-3 sm:px-6 rounded-full shadow-lg transition-transform duration-200 hover:scale-105 hover:bg-primary-700"
             >
               Download Resume
             </a>
             <Link href="https://t.me/mulugeta_adamu" target="_blank" passHref>
               <div
                 aria-label="Contact"
-                className="bg-primary-600 text-white font-semibold py-2 px-4 sm:py-3 sm:px-6 rounded-full shadow-lg transition-transform duration-200 hover:scale-105 hover:bg-primary-800"
+                className="bg-primary-700 text-white font-semibold py-2 px-4 sm:py-3 sm:px-6 rounded-full shadow-lg transition-transform duration-200 hover:scale-105 hover:bg-primary-700"
               >
                 Contact
               </div>
@@ -106,7 +96,7 @@ export default function Greeting() {
         </div>
 
         {/* Social Media Section */}
-        <div className="md:mt-0  md:ml-auto">
+        <div className="md:mt-0 md:ml-auto">
           <SocialMediaIcons />
         </div>
       </motion.div>

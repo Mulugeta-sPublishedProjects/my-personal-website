@@ -153,17 +153,17 @@ const TestimonialPage: React.FC = () => {
     return <EmptyState />;
   }
   return (
-    <div className="min-h-screen bg-gray-100 dark:bg-gray-900 ">
+    <div className="min-h-screen  dark:bg-gray-900 ">
       <div className="flex flex-col md:flex-row justify-center items-center space-x-0 md:space-x-24 text-center py-6 md:py-12">
         {/* Heading */}
-        <div className="hidden sm:block text-lg md:text-2xl font-semibold text-gray-800 dark:text-gray-100">
+        <div className="hidden sm:block text-lg md:text-xl  text-gray-700 dark:text-gray-100">
           Hear From Those I`ve Worked With
         </div>
 
         {/* Button */}
         <div>
           <button
-            className="bg-primary-500 text-white px-6 py-3 rounded-lg shadow-lg hover:bg-primary-600 transition duration-300"
+            className="bg-primary-500 text-white px-6 py-3 rounded-lg  hover:bg-primary-600 transition duration-300"
             onClick={() => setIsModalOpen(true)}
             aria-label="Open Add Testimonial Modal"
           >
@@ -176,11 +176,11 @@ const TestimonialPage: React.FC = () => {
         {testimonials.map((testimonial) => (
           <article
             key={testimonial.id}
-            className="relative bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 flex flex-col md:flex-row items-center md:items-start transition-transform hover:scale-105 hover:shadow-2xl border border-gray-200 dark:border-gray-700"
+            className="relative bg-gray-50 dark:bg-gray-800 rounded-lg shadow-lg p-6 flex flex-col md:flex-row items-center md:items-start transition-transform hover:scale-105 hover:shadow-2xl border border-gray-200 dark:border-gray-700"
             aria-labelledby={`testimonial-${testimonial.id}`}
           >
             {/* Right Top - Added Date */}
-            <p className="text-xs text-primary-500 dark:text-gray-400 absolute top-4 right-4 italic">
+            <p className="text-xs text-black dark:text-gray-400 absolute top-4 right-4 italic">
               Added on: {new Date(testimonial.created_at).toLocaleDateString()}
             </p>
 
@@ -205,7 +205,7 @@ const TestimonialPage: React.FC = () => {
               >
                 {testimonial.name}
               </h3>
-              <p className="text-primary-500 text-xs sm:text-sm font-medium mb-2 italic truncate">
+              <p className="text-gray-900 text-xs sm:text-sm font-medium mb-2 italic truncate">
                 {testimonial.email}
               </p>
               {testimonial.current_role && testimonial.company && (

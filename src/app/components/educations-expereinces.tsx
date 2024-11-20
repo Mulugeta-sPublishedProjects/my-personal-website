@@ -1,12 +1,5 @@
 "use client";
 
-import {
-  FaCode,
-  FaLaptopCode,
-  FaSchool,
-  FaServer,
-  FaUniversity,
-} from "react-icons/fa";
 import { Education } from "../models/education";
 import { EducationTimeline } from "./educations";
 import { ExperienceTimeline } from "./experiences";
@@ -23,7 +16,16 @@ export const SkillsExperiences = () => {
       period: "May 2023 - Present",
       description:
         "Leading the development of responsive and scalable frontend applications using modern frameworks and technologies.",
-      icon: <FaLaptopCode />,
+      icon: (
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          fill="currentColor"
+          className="w-6 h-6"
+        >
+          <path d="M5 3h14v4H5V3zm14 6v12H5V9h14zM7 15h4v4H7v-4zm6 0h4v4h-4v-4zm-6-6h4v4H7v-4zm6 0h4v4h-4v-4z" />
+        </svg>
+      ),
       employmentType: "Part Time",
     },
     {
@@ -32,7 +34,16 @@ export const SkillsExperiences = () => {
       period: "March 2023 - Present",
       description:
         "Architecting and implementing user interfaces, ensuring optimal performance and user experience.",
-      icon: <FaServer />,
+      icon: (
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          fill="currentColor"
+          className="w-6 h-6"
+        >
+          <path d="M3 3h18v4H3V3zm18 6v12H3V9h18zm-2 2H5v8h14v-8z" />
+        </svg>
+      ),
       employmentType: "Full Time",
     },
     {
@@ -41,7 +52,16 @@ export const SkillsExperiences = () => {
       period: "Jan 2022 - March 2023",
       description:
         "Collaborated with cross-functional teams to develop and maintain web applications, focusing on code quality and best practices.",
-      icon: <FaCode />,
+      icon: (
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          fill="currentColor"
+          className="w-6 h-6"
+        >
+          <path d="M2 2h20v4H2V2zm20 6v14H2V8h20zm-2 2H4v10h16V10z" />
+        </svg>
+      ),
       employmentType: "Full Time",
     },
     {
@@ -50,7 +70,16 @@ export const SkillsExperiences = () => {
       period: "Dec 2021 - Jan 2022",
       description:
         "Assisted in the development of web components and gained hands-on experience with frontend technologies.",
-      icon: <FaCode />,
+      icon: (
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          fill="currentColor"
+          className="w-6 h-6"
+        >
+          <path d="M4 4h16v4H4V4zm16 6v10H4V10h16zm-2 2H6v6h12v-6z" />
+        </svg>
+      ),
       employmentType: "Full Time",
     },
   ];
@@ -62,7 +91,16 @@ export const SkillsExperiences = () => {
       period: "Sep 2018 - Sep 2022",
       description:
         "Achieved a CGPA of 3.73 with a specialization in Software Engineering, Web Development, and Data Science.",
-      icon: <FaUniversity />,
+      icon: (
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          fill="currentColor"
+          className="w-6 h-6"
+        >
+          <path d="M12 2l9 4v2h-6v4H9V8H3V6l9-4zM3 10v10h18V10H3zm4 2h10v6H7v-6z" />
+        </svg>
+      ),
     },
     {
       institution: "Wegide Preparatory School - South Wollo",
@@ -70,7 +108,16 @@ export const SkillsExperiences = () => {
       period: "Aug 2016 - Aug 2018",
       description:
         "Concentrated on Science, Mathematics, and Computer Studies. Achieved a University Entrance Exam score of 504/700.",
-      icon: <FaSchool />,
+      icon: (
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          fill="currentColor"
+          className="w-6 h-6"
+        >
+          <path d="M4 4h16v4H4V4zm16 6v10H4V10h16zm-2 2H6v6h12v-6z" />
+        </svg>
+      ),
     },
     {
       institution: "Wegide High School - South Wollo",
@@ -78,7 +125,16 @@ export const SkillsExperiences = () => {
       period: "Aug 2014 - Aug 2016",
       description:
         "Focused on core subjects, including Science, Mathematics, and Computer Studies. Scored 9 A's in the Grade 10 Matriculation Exam.",
-      icon: <FaSchool />,
+      icon: (
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          fill="currentColor"
+          className="w-6 h-6"
+        >
+          <path d="M4 4h16v4H4V4zm16 6v10H4V10h16zm-2 2H6v6h12v-6z" />
+        </svg>
+      ),
     },
     {
       institution: "Kabi Wobo School",
@@ -86,7 +142,16 @@ export const SkillsExperiences = () => {
       period: "2006 - 2014",
       description:
         "Completed foundational education with strong performance across subjects. Scored 76/100 in the Grade 8 Regional Exam with a percentile rank of 99.9%.",
-      icon: <FaSchool />,
+      icon: (
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          fill="currentColor"
+          className="w-6 h-6"
+        >
+          <path d="M4 4h16v4H4V4zm16 6v10H4V10h16zm-2 2H6v6h12v-6z" />
+        </svg>
+      ),
     },
   ];
 

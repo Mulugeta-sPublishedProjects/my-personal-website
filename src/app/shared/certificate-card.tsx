@@ -21,7 +21,7 @@ const CertificationCard: React.FC<CertificationProps> = ({
 }) => {
   return (
     <div
-      className={`bg-white ${className} dark:bg-gray-800 shadow-lg rounded-lg overflow-hidden transform transition duration-300 hover:scale-105 hover:shadow-2xl`}
+      className={`bg-gray-100 ${className} dark:bg-gray-800 shadow-lg rounded-lg overflow-hidden transform transition duration-300 hover:scale-105 hover:shadow-2xl`}
     >
       {/* Image Section with Padding */}
       <div className="p-4">

@@ -1,6 +1,5 @@
 "use client";
 import { motion } from "framer-motion";
-import { AiOutlineDownload } from "react-icons/ai";
 import React, { useState } from "react";
 
 const ResumePage: React.FC = () => {
@@ -38,7 +37,8 @@ const ResumePage: React.FC = () => {
           id="document-select"
           value={selectedDocument}
           onChange={handleDocumentChange}
-          className="bg-white dark:bg-gray-700 text-gray-800 dark:text-white px-4 py-2 rounded-md shadow-md focus:outline-none w-full sm:w-auto"
+          className=" border-solid border-2 border-primary-600 dark:bg-gray-700 text-gray-800 dark:text-white px-4 py-2 rounded-md 
+           focus:outline-none w-full sm:w-auto"
         >
           {Object.keys(documents).map((document) => (
             <option key={document} value={document}>
@@ -54,8 +54,22 @@ const ResumePage: React.FC = () => {
           rel="noopener noreferrer"
           className="bg-primary-600 text-white px-4 py-2 rounded-md shadow-md flex items-center space-x-2 hover:bg-primary-700 transition w-full sm:w-auto"
         >
-          <AiOutlineDownload className="text-lg" />
-          <span className="text-sm sm:text-base">{selectedDocument}</span>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            className="w-6 h-6"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              d="M12 4v12m0 0l-4-4m4 4l4-4m0 6H8"
+            />
+          </svg>
+
+          <span className=" ml-2 text-sm sm:text-base">{selectedDocument}</span>
         </a>
       </div>
 
@@ -64,7 +78,7 @@ const ResumePage: React.FC = () => {
         <iframe
           src={documents[selectedDocument]}
           title={selectedDocument as string}
-          className="w-full max-w-screen h-[65vh] sm:h-[75vh] md:h-[85vh] bg-primary-100 rounded-lg shadow-lg filter grayscale"
+          className="w-full max-w-screen h-[65vh] sm:h-[75vh] md:h-[85vh] rounded-lg shadow-lg filter grayscale"
         ></iframe>
       </div>
     </motion.div>

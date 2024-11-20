@@ -1,6 +1,6 @@
 "use client";
+
 import { useState, useEffect } from "react";
-import { BsArrowUp } from "react-icons/bs";
 import SocialMediaIcons from "./social-media";
 
 // Scroll to top functionality (moved outside of Footer component)
@@ -22,6 +22,22 @@ export default function Footer() {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  // Inline SVG for scroll-to-top arrow
+  const scrollUpIcon = (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+      fill="currentColor"
+      className="w-5 h-5"
+    >
+      <path
+        fillRule="evenodd"
+        d="M4.293 10.293a1 1 0 011.414 0L12 16.586l6.293-6.293a1 1 0 011.414 1.414l-7 7a1 1 0 01-1.414 0l-7-7a1 1 0 010-1.414z"
+        clipRule="evenodd"
+      />
+    </svg>
+  );
 
   return (
     <footer className="relative dark:bg-gray-800 px-4 md:px-8 lg:px-16 bg-gray-100 py-12">
@@ -72,7 +88,7 @@ export default function Footer() {
           className="fixed bottom-6 right-6 p-3 rounded-full bg-primary-500 text-white hover:bg-primary-600 dark:bg-primary-400 dark:hover:bg-primary-500 shadow-lg transition-all"
           aria-label="Scroll to top"
         >
-          <BsArrowUp size={20} />
+          {scrollUpIcon}
         </button>
       )}
     </footer>

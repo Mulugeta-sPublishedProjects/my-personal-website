@@ -15,7 +15,6 @@ export default function Home() {
             key={service.id}
             title={service.title}
             description={service.description}
-            icon={service.icon}
           />
         ))}
       </div>

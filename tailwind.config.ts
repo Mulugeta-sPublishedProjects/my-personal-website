@@ -12,16 +12,16 @@ const config: Config = {
       // **Colors**
       colors: {
         primary: {
-          50: "#E3F2FD", // Lightest blue
-          100: "#BBDEFB",
-          200: "#90CAF9",
-          300: "#64B5F6",
-          400: "#42A5F5", // Soft accent
-          500: "#2196F3", // Main primary
-          600: "#1E88E5",
-          700: "#1976D2", // Darker accent
-          800: "#1565C0",
-          900: "#0D47A1", // Deep blue
+          50: "#ebf1ff", // Lightest blue
+          100: "#d3dff9",
+          200: "#a2bcf6",
+          300: "#6e97f5",
+          400: "#4778f4", // Soft accent
+          500: "#3264f4", // Main primary
+          600: "#285af5",
+          700: "#1e4bda", // Darker accent
+          800: "#1542c3",
+          900: "#0139ac", // Deep blue
         },
         secondary: {
           50: "#F0F4FF", // Complementary soft blue

@@ -44,13 +44,15 @@ export default function Nav({ menus, closeMenu }: NavProps) {
               key={menu.id}
               href={menu.href}
               onClick={closeMenu}
-              className={`relative text-lg py-2 font-bold transition-colors duration-200 ${
+              className={`relative py-2 font-bold transition-colors duration-200 ${
                 pathName === menu.href
                   ? "text-primary-500 font-semibold"
                   : "text-gray-700 hover:text-primary-500 dark:text-gray-300"
               }`}
             >
-              {menu.label}
+              <span className="text-base sm:text-sm md:text-md lg:text-xl">
+                {menu.label}
+              </span>
               {pathName === menu.href && (
                 <span className="absolute left-0 -bottom-1 w-full h-1 bg-primary-500 rounded-full animate-slideIn"></span>
               )}
