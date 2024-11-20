@@ -50,8 +50,8 @@ const BlogCard: React.FC<BlogCardProps> = ({ post }) => {
         </p>
 
         {/* Publication Date */}
-        <p className="text-sm text-primary-500 dark:text-gray-400 mt-2">
-          Published on: {pubDate}
+        <p className="text-sm  dark:text-gray-400 mt-2">
+          Published on: <span className="text-primary-600">{pubDate}</span>
         </p>
 
         {/* Display categories as badges */}
