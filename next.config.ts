@@ -27,14 +27,5 @@ module.exports = withBundleAnalyzer({
     ];
   },
 
-  webpack: (config: { resolve: { alias: any } }, { isServer }: any) => {
-    if (!isServer) {
-      config.resolve.alias = {
-        ...config.resolve.alias,
-        react: "react/esm",
-        "react-dom": "react-dom/esm",
-      };
-    }
-    return config;
-  },
+  
 });
