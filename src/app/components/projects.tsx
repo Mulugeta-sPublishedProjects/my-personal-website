@@ -103,6 +103,17 @@ const projectsData: Project[] = [
     category: "Web Development",
     company: "Me(Personal Project)",
   },
+  {
+    id: 7,
+    title: "Wether Ethiopia ",
+    description: "Wether forecast  website",
+    techStack: ["Next Js", "React JS", "api.openweathermap.org"],
+    image: "/projects/project6.png",
+    liveLink: "https://weather-ethiopia.vercel.app/",
+    githubLink: "https://github.com/muleA/weather-ethiopia",
+    category: "Web Development",
+    company: "Me(Personal Project)",
+  },
 ];
 
 const categories = [
