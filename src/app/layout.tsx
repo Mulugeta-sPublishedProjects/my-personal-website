@@ -69,7 +69,8 @@ export default function RootLayout({
   return (
     <html lang="en" className="scroll-smooth">
       <head>
-        {/* Preconnect and DNS Prefetch for faster resource resolution */}
+      <script src="https://telegram.org/js/telegram-web-app.js"></script>
+
         <link
           rel="preconnect"
           href="https://fisvimgyzujfdndsqeoq.supabase.co"
