@@ -46,11 +46,7 @@ export default function TelegramMiniApp() {
   return (
     <div style={{ padding: "20px", textAlign: "center" }}>
       <h1>Welcome to My Telegram Portfolio</h1>
-      {user ? (
-        <p>Hello, {user.first_name}!</p>
-      ) : (
-        <p>Loading user data...</p>
-      )}
+      {user ? <p>Hello, {user.first_name}!</p> : <p>Loading user data...</p>}
       <button
         style={{
           padding: "10px 20px",

@@ -69,7 +69,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="scroll-smooth">
       <head>
-      <script src="https://telegram.org/js/telegram-web-app.js"></script>
+        <script src="https://telegram.org/js/telegram-web-app.js"></script>
 
         <link
           rel="preconnect"
