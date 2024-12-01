@@ -20,8 +20,15 @@
     ],
     "paths": {
       "@portal/*": ["./src/*"]
-    }
+    },
+    "baseUrl": "."
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts",
+    "src/global.d.ts"
+, "src/app/telegram/page.tsx"  ],
   "exclude": ["node_modules"]
 }

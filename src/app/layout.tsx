@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 import localFont from "next/font/local";
 import "./globals.css";
 import Header from "./components/header";
@@ -12,8 +13,8 @@ const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
   variable: "--font-geist-sans",
   weight: "100 900",
-  display: "swap", // Ensures fallback font is displayed while loading
-  preload: true, // Preload font for performance
+  display: "swap",
+  preload: true,
 });
 const geistMono = localFont({
   src: "./fonts/GeistMonoVF.woff",
@@ -69,8 +70,6 @@ export default function RootLayout({
   return (
     <html lang="en" className="scroll-smooth">
       <head>
-        <script src="https://telegram.org/js/telegram-web-app.js"></script>
-
         <link
           rel="preconnect"
           href="https://fisvimgyzujfdndsqeoq.supabase.co"
@@ -96,6 +95,13 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased dark:bg-gray-900 text-gray-800 bg-white dark:text-gray-100 font-sans`}
       >
+        {/* Load Telegram Web App script asynchronously */}
+        <Script
+          src="https://telegram.org/js/telegram-web-app.js"
+          strategy="lazyOnload"
+          onLoad={() => console.log("Telegram Web App script loaded")}
+        />
+
         <Transition>
           <RootWrapper>
             <Header />
