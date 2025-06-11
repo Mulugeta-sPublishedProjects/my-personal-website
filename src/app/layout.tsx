@@ -94,8 +94,6 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased dark:bg-gray-900 text-gray-800 bg-white dark:text-gray-100 font-sans`}
       >
-    
-
         <Transition>
           <RootWrapper>
             <Header />
