@@ -13,7 +13,7 @@ export const SkillsExperiences = () => {
     {
       role: "Senior Frontend Developer",
       company: "Tria PLC",
-      period: "May 2023 - Present",
+      period: "May 2023 - june 2025",
       description:
         "Leading the development of responsive and scalable frontend applications using modern frameworks and technologies.",
       icon: (
