@@ -29,6 +29,6 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     "src/global.d.ts"
-, "src/app/telegram/page.tsx"  ],
+, "src/app/telegram/page.tsx", "tailwind.config.js"  ],
   "exclude": ["node_modules"]
 }

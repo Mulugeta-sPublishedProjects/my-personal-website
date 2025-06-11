@@ -62,7 +62,7 @@ export default function Header() {
 
   return (
     <header className="fixed top-0 left-0 w-full z-50 bg-white dark:bg-gray-900 transition-all duration-300 ease-in-out">
-      <div className="max-w-screen-2xl mx-auto flex items-center justify-between px-4 sm:px-6 md:px-8 lg:px-16 py-4">
+      <div className="max-w-(--breakpoint-2xl) mx-auto flex items-center justify-between px-4 sm:px-6 md:px-8 lg:px-16 py-4">
         <Link href={"/"}>
           <div className="flex flex-col items-start md:items-center md:space-x-4">
             {/* Phone Number Section */}
@@ -82,7 +82,7 @@ export default function Header() {
         </Link>
 
         {/* Desktop & Tablet Navigation */}
-        <nav className="hidden sm:flex flex-grow justify-center space-x-6 md:space-x-8">
+        <nav className="hidden sm:flex grow justify-center space-x-6 md:space-x-8">
           <Nav menus={menuItems} />
         </nav>
 
@@ -91,7 +91,7 @@ export default function Header() {
           <button
             onClick={toggleMobileMenu}
             aria-label="Toggle mobile menu"
-            className="text-gray-800 dark:text-gray-200 focus:outline-none"
+            className="text-gray-800 dark:text-gray-200 focus:outline-hidden"
           >
             {isMobileMenuOpen ? <CloseIcon /> : <MenuIcon />}
           </button>

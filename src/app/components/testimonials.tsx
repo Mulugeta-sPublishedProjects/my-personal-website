@@ -185,7 +185,7 @@ const TestimonialPage: React.FC = () => {
             </p>
 
             {/* Left Section: Image */}
-            <div className="flex-shrink-0 mb-4 md:mb-0 md:mr-6 text-center md:text-left">
+            <div className="shrink-0 mb-4 md:mb-0 md:mr-6 text-center md:text-left">
               <div className="relative w-24 h-24 rounded-full overflow-hidden border-4 border-primary-500 shadow-md">
                 <Image
                   height={100}
@@ -434,7 +434,7 @@ const TestimonialPage: React.FC = () => {
       {/* Modal */}
       {isMessageExpanded && selectedTestimonial && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-          <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm w-11/12 max-w-lg p-8">
+          <div className="bg-white dark:bg-gray-800 rounded-lg shadow-xs w-11/12 max-w-lg p-8">
             <p className="text-primary-500 text-xs font-medium mb-4">
               {selectedTestimonial.current_role} at{" "}
               {selectedTestimonial.company}

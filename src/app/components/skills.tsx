@@ -231,7 +231,7 @@ const skillsData = [
 
 export default function SkillsPage() {
   return (
-    <div className="py-8 max-w-screen-2xl mx-auto">
+    <div className="py-8 max-w-(--breakpoint-2xl) mx-auto">
       <h2 className="text-3xl font-bold dark:text-white mb-8 text-center">
         Skills & Tools
       </h2>
@@ -240,7 +240,9 @@ export default function SkillsPage() {
           {skillsData.map((skill) => (
             <div
               key={skill.name}
-              className="flex flex-col gap-2 items-center p-3 rounded-lg shadow-lg hover:scale-105 hover:bg-gray-100 dark:hover:bg-gray-700 transition-transform duration-300 cursor-pointer bg-gray-800 bg-opacity-10"
+              className="flex flex-col gap-2 items-center p-3 rounded-lg shadow-lg hover:scale-105
+               hover:bg-gray-100 dark:hover:bg-gray-700 transition-transform duration-300 cursor-pointer
+                "
               aria-label={`Skill: ${skill.name}`}
             >
               <div
@@ -262,7 +264,8 @@ export default function SkillsPage() {
               {skillsData.map((skill) => (
                 <div
                   key={skill.name}
-                  className="flex flex-col items-center p-4 rounded-lg shadow-lg hover:scale-105 transition-transform duration-300 cursor-pointer bg-gray-800 bg-opacity-10"
+                  className="flex flex-col items-center p-4 rounded-lg shadow-lg hover:scale-105
+                   transition-transform duration-300 cursor-pointer bg-gray-300"
                   aria-label={`Skill: ${skill.name}`}
                   style={{ minWidth: "120px" }}
                 >

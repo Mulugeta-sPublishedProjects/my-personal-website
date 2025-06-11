@@ -8,19 +8,31 @@ import Link from "next/link";
 import SocialMediaIcons from "./social-media";
 import AboutText from "./about-text";
 
-export default function Greeting() {
+const Greeting = () => {
+  const containerVariants = {
+    hidden: { opacity: 0, y: -50 },
+    visible: { opacity: 1, y: 0 },
+  };
+
+  const profileImageVariants = {
+    hidden: { opacity: 0, x: -50 },
+    visible: { opacity: 1, x: 0 },
+  };
+
   return (
     <div className="mt-36">
       <motion.div
-        initial={{ opacity: 0, y: -50 }}
-        animate={{ opacity: 1, y: 0 }}
+        initial="hidden"
+        animate="visible"
+        variants={containerVariants}
         transition={{ duration: 1.5 }}
         className="w-full mx-auto flex flex-col md:flex-row items-center md:items-start gap-10 md:gap-24 px-6 md:px-8"
       >
         {/* Left Section: Profile Image */}
         <motion.div
-          initial={{ opacity: 0, x: -50 }}
-          animate={{ opacity: 1, x: 0 }}
+          initial="hidden"
+          animate="visible"
+          variants={profileImageVariants}
           transition={{ duration: 1.2 }}
           className="flex justify-center md:justify-start"
         >
@@ -103,4 +115,6 @@ export default function Greeting() {
       </motion.div>
     </div>
   );
-}
+};
+
+export default Greeting;

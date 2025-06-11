@@ -114,6 +114,17 @@ const projectsData: Project[] = [
     category: "Web Development",
     company: "Me(Personal Project)",
   },
+  {
+    id: 8,
+    title: "Agri Bot Ethiopia ",
+    description: "AI Based Agriculture chat  Bot",
+    techStack: ["Next Js", "React JS", "Deep Seek Ai"],
+    image: "/projects/project7.png",
+    liveLink: "https://ethiopian-agri-chatbot.vercel.app/",
+    githubLink: "https://github.com/muleA/ethiopian-agri-chatbot",
+    category: "Web Development",
+    company: "Me(Personal Project)",
+  },
 ];
 
 const categories = [

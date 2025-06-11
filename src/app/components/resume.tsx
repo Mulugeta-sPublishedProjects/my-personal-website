@@ -38,7 +38,7 @@ const ResumePage: React.FC = () => {
           value={selectedDocument}
           onChange={handleDocumentChange}
           className=" border-solid border-2 border-primary-600 dark:bg-gray-700 text-gray-800 dark:text-white px-4 py-2 rounded-md 
-           focus:outline-none w-full sm:w-auto"
+           focus:outline-hidden w-full sm:w-auto"
         >
           {Object.keys(documents).map((document) => (
             <option key={document} value={document}>
@@ -74,7 +74,7 @@ const ResumePage: React.FC = () => {
       </div>
 
       {/* PDF Viewer */}
-      <div className="w-full flex-grow flex justify-center">
+      <div className="w-full grow flex justify-center">
         <iframe
           src={documents[selectedDocument]}
           title={selectedDocument as string}

@@ -37,7 +37,7 @@ export default function Nav({ menus, closeMenu }: NavProps) {
     <nav className="w-full">
       <div className="flex flex-col md:flex-row items-center md:space-x-10 w-full">
         {/* Navigation Links */}
-        <div className="flex flex-col md:flex-row flex-grow justify-center items-center space-y-4 md:space-y-0 md:space-x-6">
+        <div className="flex flex-col md:flex-row grow justify-center items-center space-y-4 md:space-y-0 md:space-x-6">
           {menus.map((menu) => (
             <Link
               prefetch

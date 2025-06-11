@@ -1,9 +1,126 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+:root {
+  --color-primary-50: #ebf1ff;
+  --color-primary-100: #d3dff9;
+  --color-primary-200: #a2bcf6;
+  --color-primary-300: #6e97f5;
+  --color-primary-400: #4778f4;
+  --color-primary-500: #3264f4;
+  --color-primary-600: #285af5;
+  --color-primary-700: #1e4bda;
+  --color-primary-800: #1542c3;
+  --color-primary-900: #0139ac;
+
+  --color-secondary-50: #f0f4ff;
+  --color-secondary-100: #e0e9ff;
+  --color-secondary-200: #c7d4ff;
+  --color-secondary-300: #afc0ff;
+  --color-secondary-400: #97abff;
+  --color-secondary-500: #7f97ff;
+  --color-secondary-600: #667bff;
+  --color-secondary-700: #4d5fff;
+  --color-secondary-800: #3444e5;
+  --color-secondary-900: #212e99;
+
+  --color-success: #4caf50;
+  --color-error: #f44336;
+  --color-warning: #ffc107;
+  --color-info: #03a9f4;
+
+  --color-gray-light: #f3f4f6;
+  --color-gray: #9ca3af;
+  --color-gray-dark: #374151;
+
+  --font-sans: Inter, Arial, sans-serif;
+  --font-serif: Merriweather, Georgia, serif;
+  --font-mono: Fira Code, monospace;
+
+  --radius-none: 0px;
+  --radius-sm: 4px;
+  --radius: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+  --radius-full: 9999px;
+
+  --breakpoint-xs: 480px;
+  --breakpoint-sm: 640px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 1024px;
+  --breakpoint-xl: 1280px;
+  --breakpoint-2xl: 1536px;
+}
+
+/*
+  The default border color has changed to `currentColor` in Tailwind CSS v4,
+  so we've added these compatibility styles to make sure everything still
+  looks the same as it did with Tailwind CSS v3.
+
+  If we ever want to remove these styles, we need to add an explicit border
+  color utility to any element that depends on these defaults.
+*/
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentColor);
+  }
+}
+
+@utility animate-slideIn {
+  /* Slide In Animations */
+  animation: slideIn 0.3s ease-out forwards;
+  transform-origin: left;
+}
+
+@utility animate-slideIn-right {
+  animation: slideIn 0.3s ease-out forwards;
+  transform-origin: right;
+}
+
+@utility animate-scale {
+  /* Scale Animation */
+  animation: scale 1.5s ease-in-out infinite;
+}
+
+@utility animate-spin-slow {
+  /* Slow Spin Animation */
+  animation: spin-slow 2s linear infinite;
+}
+
+@utility animate-spin-slow-5s {
+  animation: spin-slow 5s linear infinite;
+}
+
+@utility rounded-custom {
+  /* Custom Utilities */
+  border-radius: 10% 30% 50% 70%;
+  border: 10px solid #fff;
+}
+
+@utility static-cursor {
+  display: inline-block;
+  opacity: 1;
+  animation: none;
+}
+
+@utility sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
 
 @layer utilities {
-  /* Slide In Animations */
   @keyframes slideIn {
     from {
       transform: scaleX(0);
@@ -12,16 +129,6 @@
       transform: scaleX(1);
     }
   }
-  .animate-slideIn {
-    animation: slideIn 0.3s ease-out forwards;
-    transform-origin: left;
-  }
-  .animate-slideIn-right {
-    animation: slideIn 0.3s ease-out forwards;
-    transform-origin: right;
-  }
-
-  /* Scale Animation */
   @keyframes scale {
     0%,
     100% {
@@ -31,11 +138,6 @@
       transform: scale(1.1);
     }
   }
-  .animate-scale {
-    animation: scale 1.5s ease-in-out infinite;
-  }
-
-  /* Slow Spin Animation */
   @keyframes spin-slow {
     from {
       transform: rotate(0deg);
@@ -43,33 +145,5 @@
     to {
       transform: rotate(360deg);
     }
-  }
-  .animate-spin-slow {
-    animation: spin-slow 2s linear infinite;
-  }
-  .animate-spin-slow-5s {
-    animation: spin-slow 5s linear infinite;
-  }
-
-  /* Custom Utilities */
-  .rounded-custom {
-    border-radius: 10% 30% 50% 70%;
-    border: 10px solid #fff;
-  }
-  .static-cursor {
-    display: inline-block;
-    opacity: 1;
-    animation: none;
-  }
-  .sr-only {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    white-space: nowrap;
-    border: 0;
   }
 }

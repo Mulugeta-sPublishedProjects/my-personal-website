@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Script from "next/script";
 import localFont from "next/font/local";
 import "./globals.css";
 import Header from "./components/header";
@@ -95,17 +94,12 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased dark:bg-gray-900 text-gray-800 bg-white dark:text-gray-100 font-sans`}
       >
-        {/* Load Telegram Web App script asynchronously */}
-        <Script
-          src="https://telegram.org/js/telegram-web-app.js"
-          strategy="lazyOnload"
-          onLoad={() => console.log("Telegram Web App script loaded")}
-        />
+    
 
         <Transition>
           <RootWrapper>
             <Header />
-            <main className="px-4 md:px-8 lg:px-16 flex-grow min-h-screen my-24">
+            <main className="px-4 md:px-8 lg:px-16 grow min-h-screen my-24">
               {children}
             </main>
             <BottomNavbar />
