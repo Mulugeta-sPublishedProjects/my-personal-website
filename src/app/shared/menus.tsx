@@ -23,7 +23,7 @@ export const menuItems = [
   {
     id: 2,
     href: "/skills",
-    label: "Education & Experience",
+    label: "Experience",
     icon: (
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -44,7 +44,7 @@ export const menuItems = [
   {
     id: 4,
     href: "/projects",
-    label: "Portfolio",
+    label: "Projects",
     icon: (
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -65,7 +65,7 @@ export const menuItems = [
   {
     id: 5,
     href: "/resume",
-    label: "Resume & Documents",
+    label: "Resume",
     icon: (
       <svg
         xmlns="http://www.w3.org/2000/svg"
