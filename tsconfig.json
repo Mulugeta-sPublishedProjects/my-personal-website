@@ -19,7 +19,7 @@
       }
     ],
     "paths": {
-      "@portal/*": ["./src/*"]
+      "@/*": ["./src/*"]
     },
     "baseUrl": "."
   },
@@ -30,7 +30,7 @@
     ".next/types/**/*.ts",
     "src/global.d.ts",
     "src/app/telegram/page.tsx",
-    "tailwind.config.js"
+    "tailwind.config.ts"
   ],
   "exclude": ["node_modules"]
 }
