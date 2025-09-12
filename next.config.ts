@@ -11,7 +11,14 @@ module.exports = withBundleAnalyzer({
       { protocol: "https", hostname: "medium.com" },
       { protocol: "https", hostname: "avatars.githubusercontent.com" },
       { protocol: "https", hostname: "fisvimgyzujfdndsqeoq.supabase.co" },
+      {
+        protocol: "https",
+        hostname: "images.unsplash.com",
+        port: "",
+        pathname: "/**", // allow all paths
+      },
     ],
+    formats: ["image/webp", "image/avif"],
   },
   async headers() {
     return [
@@ -25,5 +32,12 @@ module.exports = withBundleAnalyzer({
         ],
       },
     ];
+  },
+
+  experimental: {
+    optimizePackageImports: ["lucide-react", "framer-motion"],
+  },
+  compiler: {
+    removeConsole: process.env.NODE_ENV === "production",
   },
 });

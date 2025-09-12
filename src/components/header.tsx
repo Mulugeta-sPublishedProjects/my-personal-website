@@ -1,312 +1,309 @@
 "use client";
 import { useState, useEffect, useRef } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import {
-  Menu,
-  X,
-  Phone,
-  MapPin,
-  Send,
-  Code,
-  User,
-  Briefcase,
-  Star,
-  MessageSquare,
-} from "lucide-react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
-import { ThemeToggle } from "@/components/theme-toggle";
+import { Send, Menu, X, ChevronDown } from "lucide-react";
+import { ThemeToggle } from "./theme-toggle";
 
 const navItems = [
-  { href: "#home", label: "Home", icon: User },
-  { href: "#about", label: "About", icon: User },
-  { href: "#experience", label: "Experience", icon: Briefcase },
-  { href: "#projects", label: "Projects", icon: Code },
-  { href: "#testimonials", label: "Testimonials", icon: Star },
-  { href: "#contact", label: "Contact", icon: MessageSquare },
+  { name: "Home", href: "/" }, // Changed from "#" to "/" for consistency
+  { name: "About", href: "#about" },
+  { name: "Work", href: "#work" },
+  { name: "Contact", href: "#contact" },
+  { name: "Blog", href: "#blog" },
 ];
 
-export function Navigation() {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [activeSection, setActiveSection] = useState("home");
-  const [scrolled, setScrolled] = useState(false);
-  const [isVisible, setIsVisible] = useState(true);
-  const [lastScrollY, setLastScrollY] = useState(0);
-  const navRef = useRef<HTMLElement>(null);
+export function Header() {
+  const [activeSection, setActiveSection] = useState("Home");
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [isHoveringLogo, setIsHoveringLogo] = useState(false);
+  const headerRef = useRef<HTMLElement>(null);
+  const pathname = usePathname();
 
-  // Track scroll for header hide/show & active section
   useEffect(() => {
-    let ticking = false;
     const handleScroll = () => {
-      if (!ticking) {
-        window.requestAnimationFrame(() => {
-          const currentScrollY = window.scrollY;
-          const scrollPosition = currentScrollY + window.innerHeight / 3;
-          let current = "home";
-          navItems.forEach((item) => {
-            const section = document.querySelector(item.href);
-            if (section) {
-              const offsetTop = (section as HTMLElement).offsetTop;
-              if (scrollPosition >= offsetTop)
-                current = item.href.replace("#", "");
+      setIsScrolled(window.scrollY > 10);
+      // Handle active section detection for single page navigation
+      if (pathname === "/") {
+        const sections = navItems.map((item) =>
+          item.href.startsWith("#") ? item.href.substring(1) : ""
+        );
+        const scrollPosition = window.scrollY + 100;
+
+        // Check if we're at the top of the page
+        if (window.scrollY < 100) {
+          setActiveSection("Home");
+          return;
+        }
+
+        for (const section of sections) {
+          if (!section) continue;
+          const element = document.getElementById(section);
+          if (element) {
+            const offsetTop = element.offsetTop;
+            const offsetBottom = offsetTop + element.offsetHeight;
+            if (scrollPosition >= offsetTop && scrollPosition < offsetBottom) {
+              setActiveSection(
+                section.charAt(0).toUpperCase() + section.slice(1)
+              );
+              return;
             }
-          });
-          setActiveSection(current);
-          setScrolled(currentScrollY > 20);
-          setIsVisible(!(currentScrollY > lastScrollY && currentScrollY > 100));
-          setLastScrollY(currentScrollY);
-          ticking = false;
-        });
-        ticking = true;
+          }
+        }
+      } else {
+        // For other pages, set active section based on pathname
+        const activeItem = navItems.find((item) => item.href === pathname);
+        if (activeItem) {
+          setActiveSection(activeItem.name);
+        }
       }
     };
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    handleScroll();
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, [lastScrollY]);
 
-  // Close mobile menu on outside click
+    handleScroll();
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [pathname]);
+
+  // Close mobile menu when resizing to desktop
   useEffect(() => {
-    const handleClickOutside = (e: MouseEvent) => {
+    const handleResize = () => {
+      if (window.innerWidth >= 768 && mobileMenuOpen) {
+        setMobileMenuOpen(false);
+      }
+    };
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, [mobileMenuOpen]);
+
+  // Close mobile menu when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
       if (
-        isMenuOpen &&
-        navRef.current &&
-        !navRef.current.contains(e.target as Node)
+        headerRef.current &&
+        !headerRef.current.contains(event.target as Node) &&
+        mobileMenuOpen
       ) {
-        setIsMenuOpen(false);
+        setMobileMenuOpen(false);
       }
     };
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, [isMenuOpen]);
+  }, [mobileMenuOpen]);
 
-  // Close mobile menu on Escape key
-  useEffect(() => {
-    const handleEscape = (e: KeyboardEvent) => {
-      if (e.key === "Escape" && isMenuOpen) setIsMenuOpen(false);
-    };
-    document.addEventListener("keydown", handleEscape);
-    return () => document.removeEventListener("keydown", handleEscape);
-  }, [isMenuOpen]);
+  const handleNavClick = (href: string, name: string) => {
+    setActiveSection(name);
+    setMobileMenuOpen(false);
 
-  const handleNavClick = (href: string) => {
-    setIsMenuOpen(false);
-    const element = document.querySelector(href);
-    if (element)
-      window.scrollTo({
-        top: (element as HTMLElement).offsetTop - 80,
-        behavior: "smooth",
-      });
+    if (href === "/") {
+      // Scroll to top for home link
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    } else if (href.startsWith("#")) {
+      // For anchor links on the home page
+      if (pathname === "/") {
+        // Get the ID from the href (remove the #)
+        const id = href.substring(1);
+        if (id) {
+          const element = document.getElementById(id);
+          if (element) {
+            element.scrollIntoView({ behavior: "smooth", block: "start" });
+          }
+        } else {
+          // If no ID (just "#"), scroll to top
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        }
+      } else {
+        // Navigate to home page with anchor
+        window.location.href = `/${href}`;
+      }
+    } else {
+      // For regular navigation
+      window.location.href = href;
+    }
   };
 
-  const handleTelegramClick = () => {
-    setIsMenuOpen(false);
-    window.open("https://t.me/mulugeta_dev", "_blank");
+  // Keyboard navigation support
+  const handleKeyDown = (
+    e: React.KeyboardEvent,
+    href: string,
+    name: string
+  ) => {
+    if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
+      handleNavClick(href, name);
+    }
   };
 
   return (
-    <motion.header
-      ref={navRef}
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled
-          ? "py-3 backdrop-blur-xl bg-background/80 border-b border-border/20 shadow-lg"
-          : "py-5 bg-transparent"
-      }`}
-      initial={{ y: -100 }}
-      animate={{ y: isVisible ? 0 : -100, opacity: isVisible ? 1 : 0 }}
-      transition={{ duration: 0.3, ease: "easeInOut" }}
-    >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between">
+    <>
+      <header
+        ref={headerRef}
+        className={cn(
+          "sticky top-0 z-50 w-full border-b transition-all duration-300 ease-out",
+          isScrolled
+            ? "bg-background/95 backdrop-blur-lg shadow-sm py-1"
+            : "bg-background/80 backdrop-blur-md py-3"
+        )}
+      >
+        <div className="mx-auto flex max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
           {/* Logo */}
-          <motion.a
-            href="#home"
-            onClick={(e) => {
-              e.preventDefault();
-              handleNavClick("#home");
-            }}
-            className="flex items-center gap-3 group"
-            whileHover={{ scale: 1.02 }}
-            transition={{ duration: 0.2 }}
+          <Link
+            href="/"
+            className="flex items-center gap-2 transition-all group"
+            onClick={() => handleNavClick("/", "Home")}
+            onMouseEnter={() => setIsHoveringLogo(true)}
+            onMouseLeave={() => setIsHoveringLogo(false)}
+            aria-label="Home"
           >
-            <div className="relative">
-              <motion.div
-                className="absolute -top-1 -right-1 w-3 h-3 bg-green-500 rounded-full"
-                animate={{ scale: [1, 1.2, 1] }}
-                transition={{ duration: 2, repeat: Infinity }}
-              />
+            <div
+              className={cn(
+                "flex h-9 w-9 items-center justify-center rounded-full bg-gradient-to-br from-primary to-primary/80 text-primary-foreground font-bold shadow-md transition-transform duration-300",
+                isHoveringLogo && "scale-105 rotate-3"
+              )}
+              aria-hidden="true"
+            >
+              M
             </div>
             <div className="hidden sm:block">
-              <div className="flex items-baseline gap-2">
-                <span className="font-heading font-bold text-xl text-foreground">
-                  Mulugeta
-                </span>
-                <span className="font-heading font-semibold text-lg text-primary">
-                  Adamu
-                </span>
-              </div>
-              <div className="flex items-center gap-3 text-xs text-muted-foreground mt-1">
-                <div className="flex items-center gap-1">
-                  <Phone className="h-3 w-3" /> +251 983 054 774
-                </div>
-                <div className="flex items-center gap-1">
-                  <MapPin className="h-3 w-3" /> Addis Ababa
-                </div>
-              </div>
+              <p className="font-semibold transition-colors group-hover:text-primary">
+                Mulugeta
+              </p>
+              <p className="text-xs text-muted-foreground transition-colors group-hover:text-foreground/80">
+                Frontend Engineer
+              </p>
             </div>
-          </motion.a>
-
-          {/* Desktop Menu */}
-          <div className="hidden lg:flex items-center gap-8">
-            <nav className="flex items-center gap-1 relative">
-              {navItems.map((item) => (
-                <Button
-                  key={item.href}
-                  variant="ghost"
-                  size="sm"
-                  className={`relative text-sm font-medium transition-colors px-4 py-2 rounded-full group ${
-                    activeSection === item.href.replace("#", "")
-                      ? "text-primary"
-                      : "text-muted-foreground hover:text-foreground"
-                  }`}
-                  onClick={() => handleNavClick(item.href)}
-                >
-                  <div className="flex items-center gap-2">
-                    <item.icon className="h-4 w-4" />
-                    {item.label}
-                  </div>
-                  {activeSection === item.href.replace("#", "") && (
-                    <motion.div
-                      layoutId="activeNav"
-                      className="absolute inset-0 bg-primary/10 rounded-full"
-                      transition={{
-                        type: "spring",
-                        stiffness: 500,
-                        damping: 30,
-                      }}
-                    />
+          </Link>
+          {/* Desktop Nav */}
+          <nav
+            className="hidden md:flex items-center gap-1"
+            aria-label="Main navigation"
+          >
+            {navItems.map((item) => {
+              const isActive = activeSection === item.name;
+              return (
+                <Link
+                  key={item.name}
+                  href={item.href}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    handleNavClick(item.href, item.name);
+                  }}
+                  onKeyDown={(e) => handleKeyDown(e, item.href, item.name)}
+                  tabIndex={0}
+                  className={cn(
+                    "relative text-sm font-medium px-3 py-2 rounded-md transition-all duration-200 group/nav-item focus:outline-none focus:ring-2 focus:ring-primary/50",
+                    isActive
+                      ? "text-primary font-semibold"
+                      : "text-muted-foreground hover:text-foreground hover:bg-accent/50"
                   )}
-                </Button>
-              ))}
-            </nav>
-            <div className="flex items-center gap-4">
-              <ThemeToggle />
+                  aria-current={isActive ? "page" : undefined}
+                >
+                  {item.name}
+                  <span
+                    className={cn(
+                      "absolute -bottom-0.5 left-3 right-3 h-0.5 bg-primary transition-all duration-300 origin-center",
+                      isActive
+                        ? "scale-x-100"
+                        : "scale-x-0 group-hover/nav-item:scale-x-50"
+                    )}
+                    aria-hidden="true"
+                  />
+                </Link>
+              );
+            })}
+          </nav>
+          {/* Right Section */}
+          <div className="flex items-center gap-3">
+            <ThemeToggle />
+            {/* Desktop Hire Me Button */}
+            <Button
+              className="hidden md:flex items-center gap-1.5 transition-all hover:shadow-md hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-primary/50"
+              onClick={() => handleNavClick("#contact", "Contact")}
+              aria-label="Contact me for hiring"
+            >
+              <Send className="h-4 w-4" aria-hidden="true" />
+              <span>Hire Me</span>
+            </Button>
+            {/* Mobile Menu Toggle */}
+            <Button
+              variant="ghost"
+              size="icon"
+              className="md:hidden ml-1 focus:outline-none focus:ring-2 focus:ring-primary/50"
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
+              aria-expanded={mobileMenuOpen}
+              aria-controls="mobile-navigation"
+            >
+              {mobileMenuOpen ? (
+                <X className="h-5 w-5" aria-hidden="true" />
+              ) : (
+                <Menu className="h-5 w-5" aria-hidden="true" />
+              )}
+            </Button>
+          </div>
+        </div>
+        {/* Mobile Nav */}
+        <div
+          id="mobile-navigation"
+          className={cn(
+            "md:hidden overflow-hidden transition-all duration-300 ease-in-out bg-background/95 backdrop-blur-lg",
+            mobileMenuOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
+          )}
+          aria-hidden={!mobileMenuOpen}
+        >
+          <nav
+            className="px-4 pb-4 pt-2 border-t"
+            aria-label="Mobile navigation"
+          >
+            <div className="grid gap-1">
+              {navItems.map((item) => {
+                const isActive = activeSection === item.name;
+                return (
+                  <Link
+                    key={item.name}
+                    href={item.href}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      handleNavClick(item.href, item.name);
+                    }}
+                    onKeyDown={(e) => handleKeyDown(e, item.href, item.name)}
+                    tabIndex={mobileMenuOpen ? 0 : -1}
+                    className={cn(
+                      "flex items-center justify-between px-4 py-3 rounded-md text-base font-medium transition-colors group focus:outline-none focus:ring-2 focus:ring-primary/50",
+                      isActive
+                        ? "text-primary bg-primary/10"
+                        : "text-muted-foreground hover:text-foreground hover:bg-accent"
+                    )}
+                    aria-current={isActive ? "page" : undefined}
+                  >
+                    {item.name}
+                    <ChevronDown
+                      className={cn(
+                        "h-4 w-4 transition-transform duration-300",
+                        isActive
+                          ? "rotate-180"
+                          : "rotate-0 group-hover:translate-x-0.5"
+                      )}
+                      aria-hidden="true"
+                    />
+                  </Link>
+                );
+              })}
+              {/* Mobile Hire Me Button */}
               <Button
-                variant="default"
-                size="sm"
-                className="rounded-full bg-primary text-primary-foreground hover:bg-primary/90 shadow-md hover:shadow-lg transition-all group"
-                onClick={handleTelegramClick}
+                className="mt-2 w-full flex items-center justify-center gap-1.5 py-3 focus:outline-none focus:ring-2 focus:ring-primary/50"
+                onClick={() => handleNavClick("#contact", "Contact")}
+                aria-label="Contact me for hiring"
               >
-                <Send className="h-4 w-4 mr-1 group-hover:translate-x-0.5 transition-transform" />
-                Let's Talk
+                <Send className="h-4 w-4" aria-hidden="true" />
+                <span>Hire Me</span>
               </Button>
             </div>
-          </div>
-
-          {/* Mobile Menu Button */}
-          <Button
-            variant="ghost"
-            size="icon"
-            className="lg:hidden rounded-full"
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-            aria-label={isMenuOpen ? "Close menu" : "Open menu"}
-            aria-expanded={isMenuOpen}
-          >
-            <motion.div
-              animate={{ rotate: isMenuOpen ? 180 : 0 }}
-              transition={{ duration: 0.3 }}
-            >
-              {isMenuOpen ? (
-                <X className="h-5 w-5" />
-              ) : (
-                <Menu className="h-5 w-5" />
-              )}
-            </motion.div>
-          </Button>
+          </nav>
         </div>
-      </div>
-
-      {/* Mobile Menu */}
-      <AnimatePresence>
-        {isMenuOpen && (
-          <motion.div
-            className="lg:hidden bg-background/95 backdrop-blur-xl border-t border-border/20 shadow-lg"
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: "auto", opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.3, ease: "easeInOut" }}
-          >
-            <div className="px-4 py-6 space-y-3">
-              <div className="flex items-center justify-between pb-4 border-b border-border/20">
-                <div className="flex items-center gap-3">
-                  <div className="relative">
-                    <motion.div
-                      className="absolute -top-1 -right-1 w-2 h-2 bg-green-500 rounded-full"
-                      animate={{ scale: [1, 1.2, 1] }}
-                      transition={{ duration: 2, repeat: Infinity }}
-                    />
-                  </div>
-                  <div>
-                    <div className="flex items-baseline gap-1">
-                      <span className="font-heading font-bold text-lg">
-                        Mulugeta
-                      </span>
-                      <span className="font-heading font-semibold text-base text-primary">
-                        Adamu
-                      </span>
-                    </div>
-                    <div className="flex items-center gap-1 text-xs text-muted-foreground">
-                      <Phone className="h-3 w-3" /> +251 983 054 774
-                    </div>
-                  </div>
-                </div>
-                <ThemeToggle />
-              </div>
-
-              {navItems.map((item, index) => (
-                <motion.div
-                  key={item.href}
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.05 + index * 0.05 }}
-                >
-                  <Button
-                    variant={
-                      activeSection === item.href.replace("#", "")
-                        ? "default"
-                        : "ghost"
-                    }
-                    size="lg"
-                    className="w-full justify-start rounded-lg font-heading"
-                    onClick={() => handleNavClick(item.href)}
-                  >
-                    <div className="flex items-center gap-3">
-                      <item.icon className="h-5 w-5" />
-                      {item.label}
-                    </div>
-                  </Button>
-                </motion.div>
-              ))}
-
-              <motion.div
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.4 }}
-                className="pt-4 border-t border-border/20"
-              >
-                <Button
-                  variant="default"
-                  size="lg"
-                  className="w-full rounded-full bg-primary text-primary-foreground hover:bg-primary/90 group"
-                  onClick={handleTelegramClick}
-                >
-                  <Send className="h-4 w-4 mr-2 group-hover:translate-x-0.5 transition-transform" />
-                  Let's Talk
-                </Button>
-              </motion.div>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </motion.header>
+      </header>
+    </>
   );
 }
