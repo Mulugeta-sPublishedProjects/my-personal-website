@@ -111,7 +111,7 @@ export function ScrollMoreButton({
           className={cn(
             "absolute left-1/2 -translate-x-1/2 z-10",
             positionClass,
-            className
+            className,
           )}
         >
           <Button
@@ -121,7 +121,7 @@ export function ScrollMoreButton({
             size="sm"
             className={cn(
               "rounded-full bg-background/80 backdrop-blur-sm border-border/50 shadow-sm hover:bg-accent/20 hover:text-foreground transition-all duration-300 hover:shadow-md hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-primary/50",
-              "group"
+              "group",
             )}
           >
             <motion.span
@@ -167,7 +167,7 @@ function ScrollMoreButtonEnhanced({
       className={cn(
         "absolute left-1/2 -translate-x-1/2 z-10",
         positionClass,
-        className
+        className,
       )}
     >
       <Button
@@ -177,7 +177,7 @@ function ScrollMoreButtonEnhanced({
         size="sm"
         className={cn(
           "rounded-full bg-background/60 backdrop-blur-md border-0 shadow-none hover:bg-background/80 transition-all duration-300 group",
-          "focus:outline-none focus:ring-2 focus:ring-primary/50"
+          "focus:outline-none focus:ring-2 focus:ring-primary/50",
         )}
       >
         <motion.div
@@ -224,7 +224,7 @@ function ScrollMoreButtonMinimal({
       className={cn(
         "absolute left-1/2 -translate-x-1/2 z-10",
         positionClass,
-        className
+        className,
       )}
     >
       <Button
@@ -234,7 +234,7 @@ function ScrollMoreButtonMinimal({
         size="icon"
         className={cn(
           "rounded-full h-10 w-10 bg-background/40 backdrop-blur-sm border-0 shadow-none hover:bg-background/60 transition-all duration-300",
-          "focus:outline-none focus:ring-2 focus:ring-primary/50"
+          "focus:outline-none focus:ring-2 focus:ring-primary/50",
         )}
       >
         <motion.div variants={bounceVariants} animate="animate">

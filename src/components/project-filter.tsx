@@ -58,34 +58,88 @@ export const ProjectFilter = ({
 
   const techCategories = useMemo(
     () => [
-      { id: "all", label: "All Projects", icon: Globe, color: "bg-blue-500/10 text-blue-500" },
-      { id: "frontend", label: "Frontend", icon: Code, color: "bg-green-500/10 text-green-500" },
-      { id: "backend", label: "Backend", icon: Server, color: "bg-orange-500/10 text-orange-500" },
-      { id: "mobile", label: "Mobile", icon: Smartphone, color: "bg-purple-500/10 text-purple-500" },
-      { id: "fullstack", label: "Full Stack", icon: Zap, color: "bg-yellow-500/10 text-yellow-500" },
-      { id: "database", label: "Database", icon: Database, color: "bg-cyan-500/10 text-cyan-500" },
+      {
+        id: "all",
+        label: "All Projects",
+        icon: Globe,
+        color: "bg-blue-500/10 text-blue-500",
+      },
+      {
+        id: "frontend",
+        label: "Frontend",
+        icon: Code,
+        color: "bg-green-500/10 text-green-500",
+      },
+      {
+        id: "backend",
+        label: "Backend",
+        icon: Server,
+        color: "bg-orange-500/10 text-orange-500",
+      },
+      {
+        id: "mobile",
+        label: "Mobile",
+        icon: Smartphone,
+        color: "bg-purple-500/10 text-purple-500",
+      },
+      {
+        id: "fullstack",
+        label: "Full Stack",
+        icon: Zap,
+        color: "bg-yellow-500/10 text-yellow-500",
+      },
+      {
+        id: "database",
+        label: "Database",
+        icon: Database,
+        color: "bg-cyan-500/10 text-cyan-500",
+      },
     ],
-    []
+    [],
   );
 
   const difficultyLevels = useMemo(
     () => [
       { id: "all", label: "All Levels", color: "bg-gray-500/10 text-gray-500" },
-      { id: "beginner", label: "Beginner", color: "bg-green-500/10 text-green-500" },
-      { id: "intermediate", label: "Intermediate", color: "bg-yellow-500/10 text-yellow-500" },
-      { id: "advanced", label: "Advanced", color: "bg-red-500/10 text-red-500" },
+      {
+        id: "beginner",
+        label: "Beginner",
+        color: "bg-green-500/10 text-green-500",
+      },
+      {
+        id: "intermediate",
+        label: "Intermediate",
+        color: "bg-yellow-500/10 text-yellow-500",
+      },
+      {
+        id: "advanced",
+        label: "Advanced",
+        color: "bg-red-500/10 text-red-500",
+      },
     ],
-    []
+    [],
   );
 
   const statusOptions = useMemo(
     () => [
       { id: "all", label: "All Status", color: "bg-gray-500/10 text-gray-500" },
-      { id: "completed", label: "Completed", color: "bg-green-500/10 text-green-500" },
-      { id: "in-progress", label: "In Progress", color: "bg-blue-500/10 text-blue-500" },
-      { id: "planned", label: "Planned", color: "bg-orange-500/10 text-orange-500" },
+      {
+        id: "completed",
+        label: "Completed",
+        color: "bg-green-500/10 text-green-500",
+      },
+      {
+        id: "in-progress",
+        label: "In Progress",
+        color: "bg-blue-500/10 text-blue-500",
+      },
+      {
+        id: "planned",
+        label: "Planned",
+        color: "bg-orange-500/10 text-orange-500",
+      },
     ],
-    []
+    [],
   );
 
   // Get all unique tech stack items safely
@@ -103,13 +157,17 @@ export const ProjectFilter = ({
         searchQuery === "" ||
         project.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
         project.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        project.techStack?.some((tech) => tech.toLowerCase().includes(searchQuery.toLowerCase()));
+        project.techStack?.some((tech) =>
+          tech.toLowerCase().includes(searchQuery.toLowerCase()),
+        );
 
       const matchesCategory =
-        selectedCategory === "all" || project.categories?.includes(selectedCategory);
+        selectedCategory === "all" ||
+        project.categories?.includes(selectedCategory);
 
       const matchesDifficulty =
-        selectedDifficulty === "all" || project.difficulty === selectedDifficulty;
+        selectedDifficulty === "all" ||
+        project.difficulty === selectedDifficulty;
 
       const matchesStatus =
         selectedStatus === "all" || project.status === selectedStatus;
@@ -118,9 +176,22 @@ export const ProjectFilter = ({
         selectedTech.length === 0 ||
         selectedTech.some((tech) => project.techStack?.includes(tech));
 
-      return matchesSearch && matchesCategory && matchesDifficulty && matchesStatus && matchesTech;
+      return (
+        matchesSearch &&
+        matchesCategory &&
+        matchesDifficulty &&
+        matchesStatus &&
+        matchesTech
+      );
     });
-  }, [projects, searchQuery, selectedCategory, selectedDifficulty, selectedStatus, selectedTech]);
+  }, [
+    projects,
+    searchQuery,
+    selectedCategory,
+    selectedDifficulty,
+    selectedStatus,
+    selectedTech,
+  ]);
 
   // Notify parent when filtered projects change
   useEffect(() => {
@@ -128,7 +199,9 @@ export const ProjectFilter = ({
   }, [filteredProjects, onFilteredProjects]);
 
   const handleTechToggle = (tech: string) => {
-    setSelectedTech((prev) => (prev.includes(tech) ? prev.filter((t) => t !== tech) : [...prev, tech]));
+    setSelectedTech((prev) =>
+      prev.includes(tech) ? prev.filter((t) => t !== tech) : [...prev, tech],
+    );
   };
 
   const clearFilters = () => {
@@ -165,12 +238,21 @@ export const ProjectFilter = ({
         {techCategories.map((category) => {
           const Icon = category.icon;
           return (
-            <motion.div key={category.id} whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+            <motion.div
+              key={category.id}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
               <Button
-                variant={selectedCategory === category.id ? "gradient" : "glass"}
+                variant={
+                  selectedCategory === category.id ? "gradient" : "glass"
+                }
                 size="lg"
                 onClick={() => setSelectedCategory(category.id)}
-                className={cn("rounded-2xl font-semibold transition-all duration-300", selectedCategory === category.id && "shadow-glow")}
+                className={cn(
+                  "rounded-2xl font-semibold transition-all duration-300",
+                  selectedCategory === category.id && "shadow-glow",
+                )}
               >
                 <Icon className="h-4 w-4 mr-2" />
                 {category.label}
@@ -181,7 +263,10 @@ export const ProjectFilter = ({
       </div>
 
       {/* Advanced Filters Toggle */}
-      <div className="flex items-center justify-between" aria-label="Filter controls">
+      <div
+        className="flex items-center justify-between"
+        aria-label="Filter controls"
+      >
         <Button
           variant="glass"
           onClick={() => setShowAdvanced(!showAdvanced)}
@@ -191,11 +276,20 @@ export const ProjectFilter = ({
         >
           <Filter className="h-4 w-4 mr-2" />
           Advanced Filters
-          <ChevronDown className={cn("h-4 w-4 ml-2 transition-transform duration-300", showAdvanced && "rotate-180")} />
+          <ChevronDown
+            className={cn(
+              "h-4 w-4 ml-2 transition-transform duration-300",
+              showAdvanced && "rotate-180",
+            )}
+          />
         </Button>
 
         {hasActiveFilters && (
-          <Button variant="outline" onClick={clearFilters} className="rounded-2xl font-semibold hover:bg-destructive/10 hover:text-destructive">
+          <Button
+            variant="outline"
+            onClick={clearFilters}
+            className="rounded-2xl font-semibold hover:bg-destructive/10 hover:text-destructive"
+          >
             <X className="h-4 w-4 mr-2" />
             Clear Filters
           </Button>
@@ -217,12 +311,16 @@ export const ProjectFilter = ({
           >
             {/* Difficulty Filter */}
             <div>
-              <h3 className="text-lg font-semibold mb-3 gradient-text">Difficulty Level</h3>
+              <h3 className="text-lg font-semibold mb-3 gradient-text">
+                Difficulty Level
+              </h3>
               <div className="flex flex-wrap gap-2">
                 {difficultyLevels.map((level) => (
                   <Button
                     key={level.id}
-                    variant={selectedDifficulty === level.id ? "default" : "outline"}
+                    variant={
+                      selectedDifficulty === level.id ? "default" : "outline"
+                    }
                     size="sm"
                     onClick={() => setSelectedDifficulty(level.id)}
                     className="rounded-xl font-medium"
@@ -235,12 +333,16 @@ export const ProjectFilter = ({
 
             {/* Status Filter */}
             <div>
-              <h3 className="text-lg font-semibold mb-3 gradient-text-secondary">Project Status</h3>
+              <h3 className="text-lg font-semibold mb-3 gradient-text-secondary">
+                Project Status
+              </h3>
               <div className="flex flex-wrap gap-2">
                 {statusOptions.map((status) => (
                   <Button
                     key={status.id}
-                    variant={selectedStatus === status.id ? "default" : "outline"}
+                    variant={
+                      selectedStatus === status.id ? "default" : "outline"
+                    }
                     size="sm"
                     onClick={() => setSelectedStatus(status.id)}
                     className="rounded-xl font-medium"
@@ -253,13 +355,20 @@ export const ProjectFilter = ({
 
             {/* Tech Stack Filter */}
             <div>
-              <h3 className="text-lg font-semibold mb-3 gradient-text">Technologies</h3>
+              <h3 className="text-lg font-semibold mb-3 gradient-text">
+                Technologies
+              </h3>
               <div className="flex flex-wrap gap-2">
                 {allTechStack.map((tech) => (
                   <Badge
                     key={tech}
-                    variant={selectedTech.includes(tech) ? "default" : "outline"}
-                    className={cn("cursor-pointer transition-all duration-300 hover:scale-105", selectedTech.includes(tech) && "glass-strong shadow-glow")}
+                    variant={
+                      selectedTech.includes(tech) ? "default" : "outline"
+                    }
+                    className={cn(
+                      "cursor-pointer transition-all duration-300 hover:scale-105",
+                      selectedTech.includes(tech) && "glass-strong shadow-glow",
+                    )}
                     onClick={() => handleTechToggle(tech)}
                   >
                     {tech}
@@ -272,9 +381,17 @@ export const ProjectFilter = ({
       </AnimatePresence>
 
       {/* Results Count */}
-      <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="text-center">
+      <motion.div
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="text-center"
+      >
         <p className="text-muted-foreground">
-          Showing <span className="font-semibold text-primary">{filteredProjects.length}</span> of <span className="font-semibold">{projects.length}</span> projects
+          Showing{" "}
+          <span className="font-semibold text-primary">
+            {filteredProjects.length}
+          </span>{" "}
+          of <span className="font-semibold">{projects.length}</span> projects
         </p>
       </motion.div>
     </div>

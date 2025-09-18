@@ -27,7 +27,7 @@ export const InteractiveBackground = ({
   const backgroundOpacity = useTransform(
     scrollYProgress,
     [0, 0.5, 1],
-    [0.3, 0.6, 0.3]
+    [0.3, 0.6, 0.3],
   );
 
   const gradientRotation = useTransform(scrollYProgress, [0, 1], [0, 360]);

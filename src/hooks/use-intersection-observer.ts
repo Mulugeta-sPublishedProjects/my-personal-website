@@ -1,4 +1,4 @@
-import { RefObject, useEffect, useState } from 'react';
+import { RefObject, useEffect, useState } from "react";
 
 type IntersectionOptions = {
   root?: Element | null;
@@ -10,11 +10,11 @@ type IntersectionOptions = {
 
 export function useIntersectionObserver(
   ref: RefObject<Element>,
-  options: IntersectionOptions = {}
+  options: IntersectionOptions = {},
 ): boolean {
   const {
     root = null,
-    rootMargin = '0px',
+    rootMargin = "0px",
     threshold = 0.1,
     triggerOnce = true,
     enabled = true,
@@ -35,7 +35,7 @@ export function useIntersectionObserver(
           observer.unobserve(element);
         }
       },
-      { root, rootMargin, threshold }
+      { root, rootMargin, threshold },
     );
 
     observer.observe(element);

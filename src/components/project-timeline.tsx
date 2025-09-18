@@ -88,9 +88,9 @@ export const ProjectTimeline = ({
   const years = Array.from(
     new Set(
       projects.map((project) =>
-        new Date(project.startDate).getFullYear().toString()
-      )
-    )
+        new Date(project.startDate).getFullYear().toString(),
+      ),
+    ),
   ).sort((a, b) => parseInt(b) - parseInt(a));
 
   // Filter projects by selected year
@@ -100,12 +100,12 @@ export const ProjectTimeline = ({
       : projects.filter(
           (project) =>
             new Date(project.startDate).getFullYear().toString() ===
-            selectedYear
+            selectedYear,
         );
 
   // Sort projects by start date
   const sortedProjects = filteredProjects.sort(
-    (a, b) => new Date(b.startDate).getTime() - new Date(a.startDate).getTime()
+    (a, b) => new Date(b.startDate).getTime() - new Date(a.startDate).getTime(),
   );
 
   // Transform scroll progress for timeline animation
@@ -113,7 +113,7 @@ export const ProjectTimeline = ({
   const timelineOpacity = useTransform(
     scrollYProgress,
     [0, 0.2, 0.8, 1],
-    [0, 1, 1, 0]
+    [0, 1, 1, 0],
   );
 
   return (
@@ -169,7 +169,7 @@ export const ProjectTimeline = ({
                 key={project.id}
                 className={cn(
                   "relative flex items-center",
-                  isEven ? "flex-row" : "flex-row-reverse"
+                  isEven ? "flex-row" : "flex-row-reverse",
                 )}
                 initial={{ opacity: 0, y: 50 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -182,7 +182,7 @@ export const ProjectTimeline = ({
                 <motion.div
                   className={cn(
                     "absolute left-8 w-4 h-4 rounded-full border-4 border-background z-10",
-                    hoveredProject === project.id ? "scale-125" : "scale-100"
+                    hoveredProject === project.id ? "scale-125" : "scale-100",
                   )}
                   style={{
                     background: project.featured
@@ -197,7 +197,7 @@ export const ProjectTimeline = ({
                   className={cn(
                     "flex-1 glass hover:glass-strong rounded-3xl p-6 transition-all duration-500",
                     isEven ? "ml-16 mr-8" : "mr-16 ml-8",
-                    hoveredProject === project.id && "shadow-glow-lg scale-105"
+                    hoveredProject === project.id && "shadow-glow-lg scale-105",
                   )}
                   whileHover={{ y: -5 }}
                 >
@@ -234,7 +234,7 @@ export const ProjectTimeline = ({
                           <Badge
                             className={cn(
                               "glass-strong font-semibold",
-                              statusColors[project.status]
+                              statusColors[project.status],
                             )}
                           >
                             {project.status.replace("-", " ").toUpperCase()}
@@ -242,7 +242,7 @@ export const ProjectTimeline = ({
                           <Badge
                             className={cn(
                               "glass-strong font-semibold",
-                              difficultyColors[project.difficulty]
+                              difficultyColors[project.difficulty],
                             )}
                           >
                             {project.difficulty.toUpperCase()}

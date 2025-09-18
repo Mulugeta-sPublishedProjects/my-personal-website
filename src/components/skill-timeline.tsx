@@ -112,7 +112,7 @@ const TimelineItem = ({
         setIsAnimating(true);
         setTimeout(() => setIsAnimating(false), 2000);
       },
-      10000 + index * 1000
+      10000 + index * 1000,
     );
 
     return () => clearInterval(interval);
@@ -224,7 +224,7 @@ const TimelineItem = ({
           isHovered && "shadow-glow-lg scale-105",
           milestone.featured && "border-yellow-500/20",
           milestone.trending && "border-green-500/20",
-          milestone.recent && "border-blue-500/20"
+          milestone.recent && "border-blue-500/20",
         )}
         animate={
           reducedMotion ? undefined : { y: isAnimating ? [-2, 2, -2] : 0 }
@@ -239,7 +239,7 @@ const TimelineItem = ({
             <div
               className={cn(
                 "p-3 rounded-xl glass-strong",
-                getTypeColor(milestone.type)
+                getTypeColor(milestone.type),
               )}
             >
               {getTypeIcon(milestone.type)}
@@ -416,11 +416,11 @@ const Timeline = ({ milestones }: { milestones: LearningMilestone[] }) => {
       acc[year].push(milestone);
       return acc;
     },
-    {} as Record<string, LearningMilestone[]>
+    {} as Record<string, LearningMilestone[]>,
   );
 
   const years = Object.keys(milestonesByYear).sort((a, b) =>
-    b.localeCompare(a)
+    b.localeCompare(a),
   );
 
   // Auto-play functionality
@@ -701,7 +701,7 @@ export const SkillTimeline = ({
         milestone.description
           .toLowerCase()
           .includes(searchQuery.toLowerCase()) ||
-        milestone.skill.toLowerCase().includes(searchQuery.toLowerCase())
+        milestone.skill.toLowerCase().includes(searchQuery.toLowerCase()),
     )
     .sort((a, b) => {
       let comparison = 0;

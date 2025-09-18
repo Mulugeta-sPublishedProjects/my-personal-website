@@ -30,6 +30,7 @@ const TestimonialCard: React.FC<TestimonialCardProps> = ({
           src={image_url ?? "/person.webp"}
           alt={`${name}'s profile`}
           fill
+          sizes="(max-width: 768px) 50px, 50px"
           className="object-cover"
         />
       </div>

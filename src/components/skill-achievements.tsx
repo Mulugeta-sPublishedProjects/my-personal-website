@@ -100,7 +100,7 @@ const AchievementCard = ({
         setIsAnimating(true);
         setTimeout(() => setIsAnimating(false), 2000);
       },
-      8000 + index * 1000
+      8000 + index * 1000,
     );
 
     return () => clearInterval(interval);
@@ -172,7 +172,7 @@ const AchievementCard = ({
           isHovered && "shadow-glow-lg scale-110",
           achievement.featured && "border-yellow-500/20",
           achievement.trending && "border-green-500/20",
-          achievement.recent && "border-blue-500/20"
+          achievement.recent && "border-blue-500/20",
         )}
         animate={
           reducedMotion
@@ -352,11 +352,11 @@ const AchievementTimeline = ({
       acc[year].push(achievement);
       return acc;
     },
-    {} as Record<string, Achievement[]>
+    {} as Record<string, Achievement[]>,
   );
 
   const years = Object.keys(achievementsByYear).sort((a, b) =>
-    b.localeCompare(a)
+    b.localeCompare(a),
   );
 
   return (
@@ -574,7 +574,7 @@ export const SkillAchievements = ({
   className = "",
 }: SkillAchievementsProps) => {
   const [hoveredAchievement, setHoveredAchievement] = useState<string | null>(
-    null
+    null,
   );
   const [filter, setFilter] = useState("all");
   const [sortBy, setSortBy] = useState("date");
@@ -596,7 +596,7 @@ export const SkillAchievements = ({
         achievement.description
           .toLowerCase()
           .includes(searchQuery.toLowerCase()) ||
-        achievement.issuer.toLowerCase().includes(searchQuery.toLowerCase())
+        achievement.issuer.toLowerCase().includes(searchQuery.toLowerCase()),
     )
     .sort((a, b) => {
       let comparison = 0;

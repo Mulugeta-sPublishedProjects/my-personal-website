@@ -49,7 +49,7 @@ export const TypingAnimation = ({
           }
         }
       },
-      isPaused ? pauseTime : isDeleting ? deleteSpeed : speed
+      isPaused ? pauseTime : isDeleting ? deleteSpeed : speed,
     );
 
     return () => clearTimeout(timeout);
@@ -109,7 +109,7 @@ export const AnimatedCounter = ({
       if (!startTime) startTime = currentTime;
       const progress = Math.min(
         (currentTime - startTime) / (duration * 1000),
-        1
+        1,
       );
 
       // Easing function for smooth animation

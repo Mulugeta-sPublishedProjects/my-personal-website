@@ -34,7 +34,7 @@ describe("Button (Shadcn)", () => {
     render(
       <Button asChild>
         <a href="/test">Link Button</a>
-      </Button>
+      </Button>,
     );
     const link = screen.getByRole("link");
     expect(link).toHaveAttribute("href", "/test");

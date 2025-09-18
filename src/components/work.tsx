@@ -302,7 +302,7 @@ export function Work() {
     activeCategory === "all"
       ? projects
       : projects.filter((project) =>
-          project.categories.includes(activeCategory)
+          project.categories.includes(activeCategory),
         );
 
   // Animation variants
@@ -337,6 +337,7 @@ export function Work() {
                   src={project.image}
                   alt={project.title}
                   fill
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                   className="object-cover group-hover:scale-110 transition-transform duration-700"
                 />
 

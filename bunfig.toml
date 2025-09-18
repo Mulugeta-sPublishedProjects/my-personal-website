@@ -1,0 +1,38 @@
+# Bun configuration for optimal performance
+[install]
+# Use exact versions for better reproducibility
+exact = true
+
+# Enable faster installs with concurrent downloads
+concurrent = 10
+
+# Cache packages for faster subsequent installs
+cache = true
+
+# Prefer local packages when available
+prefer-local = true
+
+[install.scopes]
+# Optimize package resolution
+"@radix-ui" = { registry = "https://registry.npmjs.org/" }
+"@vercel" = { registry = "https://registry.npmjs.org/" }
+
+[run]
+# Enable bun's native runtime for better performance
+bun = true
+
+# Set environment variables
+env = { NODE_ENV = "development" }
+
+[test]
+# Use bun's built-in test runner
+preload = ["./jest.setup.ts"]
+
+[build]
+# Optimize builds
+minify = true
+sourcemap = true
+target = "browser"
+
+# Enable experimental features
+experimental = ["macros"]

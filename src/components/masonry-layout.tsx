@@ -36,7 +36,7 @@ export const MasonryLayout = ({
       // Simulate different heights for variety (in real implementation, you'd measure actual heights)
       const height = 200 + Math.random() * 200; // Random height between 200-400px
       const shortestColumn = newColumnHeights.indexOf(
-        Math.min(...newColumnHeights)
+        Math.min(...newColumnHeights),
       );
 
       newItems.push({
@@ -176,7 +176,7 @@ export const GridMasonry = ({
 
 // Responsive masonry hook
 export const useResponsiveColumns = (
-  breakpoints: { [key: string]: number } = {}
+  breakpoints: { [key: string]: number } = {},
 ) => {
   const [columns, setColumns] = useState(3);
 
@@ -238,7 +238,7 @@ export const VirtualMasonry = ({
       const start = Math.max(0, Math.floor(scrollTop / itemHeight) - overscan);
       const end = Math.min(
         children.length - 1,
-        Math.ceil((scrollTop + containerHeight) / itemHeight) + overscan
+        Math.ceil((scrollTop + containerHeight) / itemHeight) + overscan,
       );
 
       setVisibleRange({ start, end });
@@ -253,7 +253,7 @@ export const VirtualMasonry = ({
 
   const visibleChildren = children.slice(
     visibleRange.start,
-    visibleRange.end + 1
+    visibleRange.end + 1,
   );
 
   return (

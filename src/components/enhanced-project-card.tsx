@@ -54,7 +54,7 @@ interface EnhancedProjectCardProps {
   onBookmark?: (projectId: string) => void;
   onClick?: () => void;
   className?: string;
-  variant?: 'featured' | 'default';
+  variant?: "featured" | "default";
 }
 
 export const EnhancedProjectCard = ({
@@ -65,7 +65,7 @@ export const EnhancedProjectCard = ({
   onBookmark,
   onClick,
   className = "",
-  variant = 'default',
+  variant = "default",
 }: EnhancedProjectCardProps) => {
   const [isHovered, setIsHovered] = useState(false);
   const [isLiked, setIsLiked] = useState(false);
@@ -133,7 +133,7 @@ export const EnhancedProjectCard = ({
       ref={cardRef}
       className={cn(
         "group relative focus:outline-none focus-visible:ring-2 focus-visible:ring-ring rounded-2xl",
-        className
+        className,
       )}
       style={{
         perspective: 1000,
@@ -198,7 +198,7 @@ export const EnhancedProjectCard = ({
                   }}
                   className={cn(
                     "w-8 h-8 glass-strong rounded-full flex items-center justify-center text-white hover:shadow-glow transition-all duration-300",
-                    isLiked && "text-red-500"
+                    isLiked && "text-red-500",
                   )}
                 >
                   <Heart className={cn("h-4 w-4", isLiked && "fill-current")} />
@@ -213,7 +213,7 @@ export const EnhancedProjectCard = ({
                   }}
                   className={cn(
                     "w-8 h-8 glass-strong rounded-full flex items-center justify-center text-white hover:shadow-glow transition-all duration-300",
-                    isBookmarked && "text-yellow-500"
+                    isBookmarked && "text-yellow-500",
                   )}
                 >
                   <Bookmark
@@ -242,7 +242,7 @@ export const EnhancedProjectCard = ({
                 <Badge
                   className={cn(
                     "glass-strong font-semibold",
-                    getStatusColor(project.status)
+                    getStatusColor(project.status),
                   )}
                 >
                   {project.status.replace("-", " ").toUpperCase()}
@@ -254,7 +254,7 @@ export const EnhancedProjectCard = ({
                 <Badge
                   className={cn(
                     "glass-strong font-semibold",
-                    getDifficultyColor(project.difficulty)
+                    getDifficultyColor(project.difficulty),
                   )}
                 >
                   {project.difficulty.toUpperCase()}

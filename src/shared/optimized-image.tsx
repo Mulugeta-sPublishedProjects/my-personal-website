@@ -1,8 +1,8 @@
-import { useState, useEffect } from 'react';
-import Image, { ImageProps } from 'next/image';
-import { cn } from '@/lib/utils';
+import { useState, useEffect } from "react";
+import Image, { type ImageProps } from "next/image";
+import { cn } from "@/lib/utils";
 
-type OptimizedImageProps = Omit<ImageProps, 'onLoadingComplete'> & {
+type OptimizedImageProps = Omit<ImageProps, "onLoadingComplete"> & {
   fallbackSrc?: string;
   priority?: boolean;
   className?: string;
@@ -11,8 +11,8 @@ type OptimizedImageProps = Omit<ImageProps, 'onLoadingComplete'> & {
 export function OptimizedImage({
   src,
   alt,
-  className = '',
-  fallbackSrc = '/placeholder.jpg',
+  className = "",
+  fallbackSrc = "/placeholder.jpg",
   priority = false,
   ...props
 }: OptimizedImageProps) {
@@ -35,7 +35,7 @@ export function OptimizedImage({
   };
 
   return (
-    <div className={cn('relative', className)}>
+    <div className={cn("relative", className)}>
       {isLoading && (
         <div className="absolute inset-0 bg-muted/20 animate-pulse rounded-md" />
       )}
@@ -44,14 +44,14 @@ export function OptimizedImage({
         src={imgSrc}
         alt={alt}
         className={cn(
-          'transition-opacity duration-300',
-          isLoading ? 'opacity-0' : 'opacity-100',
-          className
+          "transition-opacity duration-300",
+          isLoading ? "opacity-0" : "opacity-100",
+          className,
         )}
         onLoadingComplete={handleLoad}
         onError={handleError}
         priority={priority}
-        loading={priority ? 'eager' : 'lazy'}
+        loading={priority ? "eager" : "lazy"}
         quality={85}
       />
     </div>

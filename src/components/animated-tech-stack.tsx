@@ -79,7 +79,7 @@ const FloatingTechItem = ({
         setIsAnimating(true);
         setTimeout(() => setIsAnimating(false), 2000);
       },
-      5000 + index * 1000
+      5000 + index * 1000,
     );
 
     return () => clearInterval(interval);
@@ -112,7 +112,7 @@ const FloatingTechItem = ({
           isHovered && "shadow-glow-lg scale-110",
           tech.trending && "border-green-500/20",
           tech.learning && "border-blue-500/20",
-          tech.mastered && "border-yellow-500/20"
+          tech.mastered && "border-yellow-500/20",
         )}
         animate={{
           y: isAnimating ? [-5, 5, -5] : 0,
@@ -262,7 +262,7 @@ const TechStackCarousel = ({ techItems }: { techItems: TechItem[] }) => {
 
   const visibleItems = techItems.slice(
     currentIndex,
-    currentIndex + itemsPerView
+    currentIndex + itemsPerView,
   );
 
   return (
@@ -349,7 +349,7 @@ const TechStackCarousel = ({ techItems }: { techItems: TechItem[] }) => {
               "w-2 h-2 rounded-full transition-all duration-300",
               index === currentIndex
                 ? "bg-primary scale-125"
-                : "bg-muted-foreground/30 hover:bg-muted-foreground/50"
+                : "bg-muted-foreground/30 hover:bg-muted-foreground/50",
             )}
           />
         ))}
@@ -423,7 +423,7 @@ const TechStackCategories = ({ techItems }: { techItems: TechItem[] }) => {
     <div className="space-y-8">
       {categories.map((category) => {
         const categoryItems = techItems.filter(
-          (item) => item.category.toLowerCase() === category.id
+          (item) => item.category.toLowerCase() === category.id,
         );
 
         if (categoryItems.length === 0) return null;
@@ -475,7 +475,7 @@ export const AnimatedTechStack = ({
   className = "",
 }: AnimatedTechStackProps) => {
   const [viewMode, setViewMode] = useState<"grid" | "carousel" | "categories">(
-    "grid"
+    "grid",
   );
   const [isAnimating, setIsAnimating] = useState(true);
 
@@ -514,7 +514,7 @@ export const AnimatedTechStack = ({
                   "flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-medium transition-all duration-300",
                   viewMode === mode.id
                     ? "glass-strong shadow-glow"
-                    : "text-muted-foreground hover:text-foreground"
+                    : "text-muted-foreground hover:text-foreground",
                 )}
               >
                 {mode.icon}

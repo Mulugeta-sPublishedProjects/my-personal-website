@@ -1,16 +1,79 @@
 {
-  "name": "My Personal Website",
-  "short_name": "Portfolio",
-  "description": "Personal portfolio website showcasing my projects and skills",
+  "name": "Mulugeta Adamu - Senior Frontend Developer Portfolio",
+  "short_name": "Mulugeta Portfolio",
+  "description": "Senior Frontend Developer specializing in React, Next.js, and modern web technologies. Building scalable applications for Ethiopian businesses and global clients.",
   "start_url": "/",
   "display": "standalone",
+  "orientation": "portrait-primary",
   "background_color": "#ffffff",
-  "theme_color": "#262.1 83.3% 57.8%",
+  "theme_color": "#1f2937",
+  "scope": "/",
+  "lang": "en",
+  "categories": ["portfolio", "developer", "business"],
+  "screenshots": [
+    {
+      "src": "/og-image.png",
+      "sizes": "1200x630",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "Portfolio Homepage"
+    }
+  ],
   "icons": [
     {
       "src": "/favicon.ico",
-      "sizes": "any",
+      "sizes": "16x16 32x32 48x48",
       "type": "image/x-icon"
+    },
+    {
+      "src": "/icons/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "/icons/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable any"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "About Me",
+      "short_name": "About",
+      "description": "Learn more about Mulugeta Adamu",
+      "url": "/#about",
+      "icons": [
+        {
+          "src": "/icons/icon-192x192.png",
+          "sizes": "192x192"
+        }
+      ]
+    },
+    {
+      "name": "Projects",
+      "short_name": "Projects",
+      "description": "View my portfolio projects",
+      "url": "/#projects",
+      "icons": [
+        {
+          "src": "/icons/icon-192x192.png",
+          "sizes": "192x192"
+        }
+      ]
+    },
+    {
+      "name": "Contact",
+      "short_name": "Contact",
+      "description": "Get in touch with me",
+      "url": "/#contact",
+      "icons": [
+        {
+          "src": "/icons/icon-192x192.png",
+          "sizes": "192x192"
+        }
+      ]
     }
   ]
 }

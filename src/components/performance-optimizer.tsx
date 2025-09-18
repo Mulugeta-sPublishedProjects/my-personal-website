@@ -6,7 +6,7 @@ import { motion } from "framer-motion";
 // Intersection Observer hook for performance
 export const useIntersectionObserver = (
   ref: React.RefObject<Element>,
-  options: IntersectionObserverInit = {}
+  options: IntersectionObserverInit = {},
 ) => {
   const [isIntersecting, setIsIntersecting] = useState(false);
 
@@ -19,7 +19,7 @@ export const useIntersectionObserver = (
         threshold: 0.1,
         rootMargin: "50px",
         ...options,
-      }
+      },
     );
 
     if (ref.current) {
@@ -118,7 +118,7 @@ export const OptimizedImage = ({
 // Debounced scroll handler
 export const useDebouncedScroll = (
   callback: () => void,
-  delay: number = 100
+  delay: number = 100,
 ) => {
   useEffect(() => {
     let timeoutId: NodeJS.Timeout;

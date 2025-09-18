@@ -2,38 +2,64 @@
 
 /* ===== CUSTOM ANIMATIONS ===== */
 @keyframes gradient {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
 }
 
 @keyframes gradient-xy {
-  0% { background-position: 0% 0%; }
-  25% { background-position: 100% 0%; }
-  50% { background-position: 100% 100%; }
-  75% { background-position: 0% 100%; }
-  100% { background-position: 0% 0%; }
+  0% {
+    background-position: 0% 0%;
+  }
+  25% {
+    background-position: 100% 0%;
+  }
+  50% {
+    background-position: 100% 100%;
+  }
+  75% {
+    background-position: 0% 100%;
+  }
+  100% {
+    background-position: 0% 0%;
+  }
 }
 
 @keyframes float {
-  0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-20px); }
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
 }
 
 @keyframes pulse-glow {
-  0%, 100% { 
+  0%,
+  100% {
     box-shadow: 0 0 20px rgba(var(--primary), 0.3);
     transform: scale(1);
   }
-  50% { 
+  50% {
     box-shadow: 0 0 40px rgba(var(--primary), 0.6);
     transform: scale(1.02);
   }
 }
 
 @keyframes shimmer {
-  0% { transform: translateX(-100%); }
-  100% { transform: translateX(100%); }
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
 }
 
 @layer base {
@@ -79,6 +105,9 @@
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
     font-synthesis: none;
+    /* Performance optimizations */
+    contain: layout style paint;
+    will-change: auto;
   }
 
   /* Remove default list styles */
@@ -896,7 +925,7 @@
   }
 
   .animate-shimmer::before {
-    content: '';
+    content: "";
     position: absolute;
     top: 0;
     left: 0;
@@ -988,6 +1017,38 @@
 
   .scrollbar-thin::-webkit-scrollbar-thumb:hover {
     background: hsl(var(--foreground));
+  }
+
+  /* Enhanced responsive utilities */
+  .container-fluid {
+    width: 100%;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  @media (min-width: 640px) {
+    .container-fluid {
+      padding-left: 1.5rem;
+      padding-right: 1.5rem;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .container-fluid {
+      padding-left: 2rem;
+      padding-right: 2rem;
+    }
+  }
+
+  /* Pixel-perfect spacing */
+  .space-y-px > * + * {
+    margin-top: 1px;
+  }
+
+  .space-x-px > * + * {
+    margin-left: 1px;
   }
 }
 

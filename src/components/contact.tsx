@@ -121,7 +121,9 @@ export default function ContactPage() {
         <a
           href={method.href}
           target={method.href.startsWith("http") ? "_blank" : undefined}
-          rel={method.href.startsWith("http") ? "noopener noreferrer" : undefined}
+          rel={
+            method.href.startsWith("http") ? "noopener noreferrer" : undefined
+          }
           className="ml-auto"
           aria-label={`Contact via ${method.title}`}
         >
@@ -141,10 +143,12 @@ export default function ContactPage() {
             Get In Touch
           </Badge>
           <h2 className="text-4xl font-bold mb-2">
-            Let's Build Something <span className="text-primary">Amazing Together</span>
+            Let's Build Something{" "}
+            <span className="text-primary">Amazing Together</span>
           </h2>
           <p className="text-muted-foreground max-w-2xl mx-auto">
-            Ready to transform your ideas into reality? I create high-performance web apps with exceptional UX.
+            Ready to transform your ideas into reality? I create
+            high-performance web apps with exceptional UX.
           </p>
         </div>
 
@@ -183,23 +187,24 @@ export default function ContactPage() {
             <Sparkles className="h-5 w-5 text-primary" /> Ready to Start?
           </h3>
           <p className="text-sm text-muted-foreground mb-4">
-            Let's discuss your project and turn your vision into reality. Free consultation available!
+            Let's discuss your project and turn your vision into reality. Free
+            consultation available!
           </p>
           <div className="flex flex-col md:flex-row gap-3 justify-center">
             <Button
               asChild
               className="w-full rounded-full bg-primary text-white"
             >
-              <a href="https://t.me/mulugeta_dev" target="_blank" rel="noopener noreferrer">
+              <a
+                href="https://t.me/mulugeta_dev"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 <MessageCircle className="h-4 w-4 mr-2" />
                 Quick Chat on Telegram
               </a>
             </Button>
-            <Button
-              variant="outline"
-              asChild
-              className="w-full rounded-full"
-            >
+            <Button variant="outline" asChild className="w-full rounded-full">
               <a href="mailto:mulugeta.adamu97@gmail.com">Send Email</a>
             </Button>
           </div>

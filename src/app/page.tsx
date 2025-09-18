@@ -1,13 +1,13 @@
 "use client";
 
 import { useEffect, useRef, useState, useCallback } from "react";
-import { 
-  motion, 
-  useScroll, 
-  useTransform, 
-  useInView, 
+import {
+  motion,
+  useScroll,
+  useTransform,
+  useInView,
   useReducedMotion,
-  type Variants
+  type Variants,
 } from "framer-motion";
 import Hero from "@/components/hero";
 import { AboutUs } from "@/components/about";
@@ -23,24 +23,24 @@ const containerVariants: Variants = {
   visible: {
     transition: {
       staggerChildren: 0.15,
-      when: "beforeChildren"
+      when: "beforeChildren",
     },
   },
 };
 
 const itemVariants: Variants = {
-  hidden: { 
-    opacity: 0, 
-    y: 20, 
-    scale: 0.98 
+  hidden: {
+    opacity: 0,
+    y: 20,
+    scale: 0.98,
   },
   visible: {
     opacity: 1,
     y: 0,
     scale: 1,
-    transition: { 
-      duration: 0.5, 
-      ease: [0.16, 1, 0.3, 1] // Custom cubic-bezier for smoother animation
+    transition: {
+      duration: 0.5,
+      ease: [0.16, 1, 0.3, 1], // Custom cubic-bezier for smoother animation
     },
   },
 };
@@ -61,13 +61,13 @@ const FadeInSection = ({
   children,
   parallax = false,
   offset = 80,
-  className = ""
+  className = "",
 }: FadeInSectionProps) => {
   const ref = useRef<HTMLElement>(null);
-  const isInView = useInView(ref, { 
-    once: true, 
+  const isInView = useInView(ref, {
+    once: true,
     amount: 0.15,
-    margin: "-20% 0px -20% 0px"
+    margin: "-20% 0px -20% 0px",
   });
   const prefersReducedMotion = useReducedMotion();
   const shouldUseParallax = parallax && !prefersReducedMotion;
@@ -79,19 +79,15 @@ const FadeInSection = ({
   });
 
   // Only calculate transforms if we're using parallax
-  const y = shouldUseParallax 
-    ? useTransform(scrollYProgress, [0, 1], [0, offset]) 
+  const y = shouldUseParallax
+    ? useTransform(scrollYProgress, [0, 1], [0, offset])
     : useTransform(scrollYProgress, [0, 1], [0, 0]);
-  
-  const opacity = useTransform(
-    scrollYProgress, 
-    [0, 0.3, 1], 
-    [0.6, 1, 0.8]
-  );
+
+  const opacity = useTransform(scrollYProgress, [0, 0.3, 1], [0.6, 1, 0.8]);
 
   // Add will-change for better performance
-  const style = shouldUseParallax 
-    ? { y, opacity, willChange: 'transform, opacity' } 
+  const style = shouldUseParallax
+    ? { y, opacity, willChange: "transform, opacity" }
     : {};
 
   return (
@@ -108,8 +104,8 @@ const FadeInSection = ({
     >
       {Array.isArray(children) ? (
         children.map((child, i) => (
-          <motion.div 
-            key={i} 
+          <motion.div
+            key={i}
             variants={itemVariants}
             className="will-change-transform"
           >
@@ -117,10 +113,7 @@ const FadeInSection = ({
           </motion.div>
         ))
       ) : (
-        <motion.div 
-          variants={itemVariants}
-          className="will-change-transform"
-        >
+        <motion.div variants={itemVariants} className="will-change-transform">
           {children}
         </motion.div>
       )}
@@ -155,7 +148,7 @@ const NavigationDots = () => {
   useEffect(() => {
     const options: IntersectionObserverInit = {
       threshold: 0.5,
-      rootMargin: "-20% 0px -20% 0px"
+      rootMargin: "-20% 0px -20% 0px",
     };
 
     observerRef.current = new IntersectionObserver((entries) => {
@@ -179,14 +172,14 @@ const NavigationDots = () => {
   return (
     <nav
       aria-label="Page sections"
-      className="fixed right-6 top-1/2 -translate-y-1/2 z-50 hidden lg:block"
+      className="fixed right-6 top-1/2 -translate-y-1/2 z-40 hidden lg:block"
     >
       <ul className="flex flex-col gap-3">
         {sections.map(({ id, label }) => (
           <li key={id}>
             <button
               onClick={() => handleScroll(id)}
-              className={`w-3 h-3 rounded-full transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2
+              className={`w-3 h-3 rounded-full transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-background
                 ${
                   activeSection === id
                     ? "bg-primary scale-125"
@@ -209,24 +202,14 @@ const RootIndex = () => {
   return (
     <main className="min-h-screen">
       {/* Hero with enhanced parallax */}
-      <FadeInSection 
-        id="home" 
-        parallax 
-        offset={120}
-        className="relative z-10"
-      >
+      <FadeInSection id="home" parallax offset={120} className="relative z-10">
         <Hero />
       </FadeInSection>
 
       <NavigationDots />
 
       {/* About with subtle parallax */}
-      <FadeInSection 
-        id="about" 
-        parallax 
-        offset={60}
-        className="relative z-0"
-      >
+      <FadeInSection id="about" parallax offset={60} className="relative z-0">
         <AboutUs />
       </FadeInSection>
 
@@ -234,12 +217,7 @@ const RootIndex = () => {
         <EnhancedWork />
       </FadeInSection>
 
-      <FadeInSection 
-        id="blog"
-        parallax 
-        offset={60}
-        className="relative z-0"
-      >
+      <FadeInSection id="blog" parallax offset={60} className="relative z-0">
         <BlogList />
       </FadeInSection>
 

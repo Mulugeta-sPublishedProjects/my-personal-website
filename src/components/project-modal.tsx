@@ -192,7 +192,7 @@ export const ProjectModal = ({
               <Badge
                 className={cn(
                   "glass-strong font-semibold",
-                  getStatusColor(project.status)
+                  getStatusColor(project.status),
                 )}
               >
                 {project.status.replace("-", " ").toUpperCase()}
@@ -200,7 +200,7 @@ export const ProjectModal = ({
               <Badge
                 className={cn(
                   "glass-strong font-semibold",
-                  getDifficultyColor(project.difficulty)
+                  getDifficultyColor(project.difficulty),
                 )}
               >
                 {project.difficulty.toUpperCase()}
@@ -464,7 +464,7 @@ export const ProjectModal = ({
                 {/* Tech Stack by Category */}
                 {techCategories.map((category) => {
                   const categoryTech = project.techStack.filter((tech) =>
-                    project.categories.includes(category.id)
+                    project.categories.includes(category.id),
                   );
 
                   if (categoryTech.length === 0) return null;
@@ -485,7 +485,7 @@ export const ProjectModal = ({
                             key={tech}
                             className={cn(
                               "glass-subtle font-semibold",
-                              category.color
+                              category.color,
                             )}
                           >
                             {tech}

@@ -1,9 +1,13 @@
-import Image, { ImageProps } from 'next/image';
-import { useState, useMemo } from 'react';
-import { cn } from '@/lib/utils';
-import { getBlurDataURL, getImageDimensions, getResponsiveSizes } from '@/lib/image-utils';
+import Image, { ImageProps } from "next/image";
+import { useState, useMemo } from "react";
+import { cn } from "@/lib/utils";
+import {
+  getBlurDataURL,
+  getImageDimensions,
+  getResponsiveSizes,
+} from "@/lib/image-utils";
 
-type OptimizedImageProps = Omit<ImageProps, 'src' | 'width' | 'height'> & {
+type OptimizedImageProps = Omit<ImageProps, "src" | "width" | "height"> & {
   src: string;
   alt: string;
   width: number;
@@ -61,9 +65,9 @@ export function OptimizedImage({
   }
 
   return (
-    <div className={cn('relative overflow-hidden', containerClassName)}>
+    <div className={cn("relative overflow-hidden", containerClassName)}>
       {showSkeleton && isLoading && (
-        <div 
+        <div
           className="absolute inset-0 bg-muted/20 animate-pulse rounded-md"
           aria-hidden="true"
         />
@@ -77,11 +81,11 @@ export function OptimizedImage({
         priority={priority}
         quality={quality}
         className={cn(
-          'transition-opacity duration-300 object-cover',
-          isLoading ? 'opacity-0' : 'opacity-100',
-          className
+          "transition-opacity duration-300 object-cover",
+          isLoading ? "opacity-0" : "opacity-100",
+          className,
         )}
-        placeholder={!hasError ? 'blur' : 'empty'}
+        placeholder={!hasError ? "blur" : "empty"}
         blurDataURL={!hasError ? blurDataURL : undefined}
         onLoadingComplete={handleLoad}
         onError={handleError}
@@ -100,14 +104,17 @@ export function RemoteOptimizedImage({
   className,
   sizes: customSizes,
   ...props
-}: Omit<OptimizedImageProps, 'placeholder' | 'blurDataURL'>) {
+}: Omit<OptimizedImageProps, "placeholder" | "blurDataURL">) {
   const [isLoading, setIsLoading] = useState(true);
   const [hasError, setHasError] = useState(false);
 
-  const { dimensions, sizes } = useMemo(() => ({
-    dimensions: getImageDimensions(width, height),
-    sizes: customSizes || getResponsiveSizes(),
-  }), [width, height, customSizes]);
+  const { dimensions, sizes } = useMemo(
+    () => ({
+      dimensions: getImageDimensions(width, height),
+      sizes: customSizes || getResponsiveSizes(),
+    }),
+    [width, height, customSizes],
+  );
 
   const handleLoad = () => {
     setIsLoading(false);
@@ -125,9 +132,9 @@ export function RemoteOptimizedImage({
   }
 
   return (
-    <div className={cn('relative overflow-hidden', props.containerClassName)}>
+    <div className={cn("relative overflow-hidden", props.containerClassName)}>
       {isLoading && (
-        <div 
+        <div
           className="absolute inset-0 bg-muted/20 animate-pulse rounded-md"
           aria-hidden="true"
         />
@@ -139,9 +146,9 @@ export function RemoteOptimizedImage({
         height={dimensions.height}
         sizes={sizes}
         className={cn(
-          'transition-opacity duration-300',
-          isLoading ? 'opacity-0' : 'opacity-100',
-          className
+          "transition-opacity duration-300",
+          isLoading ? "opacity-0" : "opacity-100",
+          className,
         )}
         onLoadingComplete={handleLoad}
         onError={handleError}

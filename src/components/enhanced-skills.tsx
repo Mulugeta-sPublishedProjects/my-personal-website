@@ -209,7 +209,8 @@ const skills: Skill[] = [
     experience: "2 years",
     icon: <Server className="h-5 w-5" />,
     color: "text-red-600",
-    description: "Progressive Node.js framework for building efficient server-side applications",
+    description:
+      "Progressive Node.js framework for building efficient server-side applications",
     projects: 8,
     lastUsed: "2024",
     trending: true,
@@ -425,18 +426,22 @@ export function EnhancedSkills() {
 
   // Filter skills based on category and search
   const filteredSkills = skills.filter((skill) => {
-    const matchesCategory = selectedCategory === "all" || skill.category === selectedCategory;
-    const matchesSearch = searchQuery === "" || 
+    const matchesCategory =
+      selectedCategory === "all" || skill.category === selectedCategory;
+    const matchesSearch =
+      searchQuery === "" ||
       skill.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
       skill.description.toLowerCase().includes(searchQuery.toLowerCase());
     return matchesCategory && matchesSearch;
   });
 
   // Group skills by category
-  const groupedSkills = skillCategories.map((category) => ({
-    ...category,
-    skills: filteredSkills.filter((skill) => skill.category === category.id),
-  })).filter((category) => category.skills.length > 0);
+  const groupedSkills = skillCategories
+    .map((category) => ({
+      ...category,
+      skills: filteredSkills.filter((skill) => skill.category === category.id),
+    }))
+    .filter((category) => category.skills.length > 0);
 
   const getLevelColor = (level: number) => {
     if (level >= 90) return "text-green-500";
@@ -469,8 +474,9 @@ export function EnhancedSkills() {
               Technical Skills
             </h2>
             <p className="text-xl text-muted-foreground leading-relaxed">
-              A comprehensive overview of my technical expertise across different domains,
-              with hands-on experience in modern technologies and frameworks.
+              A comprehensive overview of my technical expertise across
+              different domains, with hands-on experience in modern technologies
+              and frameworks.
             </p>
           </motion.div>
         </div>
@@ -503,7 +509,9 @@ export function EnhancedSkills() {
             {skillCategories.map((category) => (
               <Button
                 key={category.id}
-                variant={selectedCategory === category.id ? "gradient" : "glass"}
+                variant={
+                  selectedCategory === category.id ? "gradient" : "glass"
+                }
                 size="lg"
                 onClick={() => setSelectedCategory(category.id)}
                 className="rounded-2xl font-semibold"
@@ -527,12 +535,18 @@ export function EnhancedSkills() {
             >
               {/* Category Header */}
               <div className="flex items-center gap-4">
-                <div className={cn("p-3 rounded-2xl glass-strong", category.color)}>
+                <div
+                  className={cn("p-3 rounded-2xl glass-strong", category.color)}
+                >
                   {category.icon}
                 </div>
                 <div>
-                  <h3 className="text-2xl font-bold gradient-text">{category.name}</h3>
-                  <p className="text-muted-foreground">{category.description}</p>
+                  <h3 className="text-2xl font-bold gradient-text">
+                    {category.name}
+                  </h3>
+                  <p className="text-muted-foreground">
+                    {category.description}
+                  </p>
                 </div>
               </div>
 
@@ -551,12 +565,21 @@ export function EnhancedSkills() {
                     {/* Skill Header */}
                     <div className="flex items-start justify-between mb-4">
                       <div className="flex items-center gap-3">
-                        <div className={cn("p-2 rounded-xl glass-subtle", skill.color)}>
+                        <div
+                          className={cn(
+                            "p-2 rounded-xl glass-subtle",
+                            skill.color,
+                          )}
+                        >
                           {skill.icon}
                         </div>
                         <div>
-                          <h4 className="text-lg font-bold gradient-text">{skill.name}</h4>
-                          <p className="text-sm text-muted-foreground">{skill.experience}</p>
+                          <h4 className="text-lg font-bold gradient-text">
+                            {skill.name}
+                          </h4>
+                          <p className="text-sm text-muted-foreground">
+                            {skill.experience}
+                          </p>
                         </div>
                       </div>
                       {skill.trending && (
@@ -575,15 +598,19 @@ export function EnhancedSkills() {
                     {/* Progress Bar */}
                     <div className="space-y-2 mb-4">
                       <div className="flex items-center justify-between text-sm">
-                        <span className="text-muted-foreground">Proficiency</span>
-                        <span className={cn("font-semibold", getLevelColor(skill.level))}>
+                        <span className="text-muted-foreground">
+                          Proficiency
+                        </span>
+                        <span
+                          className={cn(
+                            "font-semibold",
+                            getLevelColor(skill.level),
+                          )}
+                        >
                           {getLevelLabel(skill.level)}
                         </span>
                       </div>
-                      <Progress 
-                        value={skill.level} 
-                        className="h-2"
-                      />
+                      <Progress value={skill.level} className="h-2" />
                       <div className="text-right text-xs text-muted-foreground">
                         {skill.level}%
                       </div>
@@ -604,25 +631,28 @@ export function EnhancedSkills() {
                     </div>
 
                     {/* Certifications */}
-                    {skill.certifications && skill.certifications.length > 0 && (
-                      <div className="mt-4 pt-4 border-t border-white/10">
-                        <div className="flex items-center gap-2 text-sm">
-                          <Award className="h-4 w-4 text-yellow-500" />
-                          <span className="text-muted-foreground">Certified in:</span>
+                    {skill.certifications &&
+                      skill.certifications.length > 0 && (
+                        <div className="mt-4 pt-4 border-t border-white/10">
+                          <div className="flex items-center gap-2 text-sm">
+                            <Award className="h-4 w-4 text-yellow-500" />
+                            <span className="text-muted-foreground">
+                              Certified in:
+                            </span>
+                          </div>
+                          <div className="flex flex-wrap gap-1 mt-2">
+                            {skill.certifications.map((cert, index) => (
+                              <Badge
+                                key={index}
+                                variant="outline"
+                                className="text-xs glass-subtle"
+                              >
+                                {cert}
+                              </Badge>
+                            ))}
+                          </div>
                         </div>
-                        <div className="flex flex-wrap gap-1 mt-2">
-                          {skill.certifications.map((cert, index) => (
-                            <Badge
-                              key={index}
-                              variant="outline"
-                              className="text-xs glass-subtle"
-                            >
-                              {cert}
-                            </Badge>
-                          ))}
-                        </div>
-                      </div>
-                    )}
+                      )}
                   </motion.div>
                 ))}
               </div>
@@ -639,9 +669,12 @@ export function EnhancedSkills() {
         >
           <div className="glass rounded-3xl p-8">
             <div className="text-center mb-8">
-              <h3 className="text-3xl font-bold gradient-text mb-4">Achievements & Certifications</h3>
+              <h3 className="text-3xl font-bold gradient-text mb-4">
+                Achievements & Certifications
+              </h3>
               <p className="text-muted-foreground">
-                Professional certifications and achievements that validate my expertise
+                Professional certifications and achievements that validate my
+                expertise
               </p>
             </div>
 
@@ -659,21 +692,29 @@ export function EnhancedSkills() {
                       {achievement.icon}
                     </div>
                     <div className="flex-1">
-                      <h4 className="font-bold text-lg mb-2">{achievement.title}</h4>
+                      <h4 className="font-bold text-lg mb-2">
+                        {achievement.title}
+                      </h4>
                       <p className="text-sm text-muted-foreground mb-3 line-clamp-2">
                         {achievement.description}
                       </p>
                       <div className="space-y-2">
                         <div className="flex items-center justify-between text-xs">
-                          <span className="text-muted-foreground">{achievement.issuer}</span>
+                          <span className="text-muted-foreground">
+                            {achievement.issuer}
+                          </span>
                           <Badge
                             variant="outline"
                             className={cn(
                               "text-xs",
-                              achievement.level === "expert" && "border-green-500/20 text-green-500",
-                              achievement.level === "advanced" && "border-blue-500/20 text-blue-500",
-                              achievement.level === "intermediate" && "border-yellow-500/20 text-yellow-500",
-                              achievement.level === "beginner" && "border-orange-500/20 text-orange-500"
+                              achievement.level === "expert" &&
+                                "border-green-500/20 text-green-500",
+                              achievement.level === "advanced" &&
+                                "border-blue-500/20 text-blue-500",
+                              achievement.level === "intermediate" &&
+                                "border-yellow-500/20 text-yellow-500",
+                              achievement.level === "beginner" &&
+                                "border-orange-500/20 text-orange-500",
                             )}
                           >
                             {achievement.level}

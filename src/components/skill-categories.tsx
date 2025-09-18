@@ -113,7 +113,7 @@ const CategoryCard = ({
         className={cn(
           "glass hover:glass-strong rounded-3xl p-6 cursor-pointer transition-all duration-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-ring",
           isExpanded && "glass-strong shadow-glow-lg",
-          category.trending && "border-green-500/20"
+          category.trending && "border-green-500/20",
         )}
         whileHover={reducedMotion ? undefined : { scale: 1.02, y: -5 }}
         whileTap={reducedMotion ? undefined : { scale: 0.98 }}
@@ -246,7 +246,7 @@ const CategoryCard = ({
                         <div
                           className={cn(
                             "p-2 rounded-lg glass-strong",
-                            skill.color
+                            skill.color,
                           )}
                         >
                           {skill.icon}
@@ -471,7 +471,7 @@ export const SkillCategories = ({
     .filter(
       (category) =>
         category.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        category.description.toLowerCase().includes(searchQuery.toLowerCase())
+        category.description.toLowerCase().includes(searchQuery.toLowerCase()),
     )
     .sort((a, b) => {
       let comparison = 0;
@@ -560,7 +560,7 @@ export const SkillCategories = ({
       <div
         className={cn(
           "space-y-6",
-          viewMode === "grid" && "grid grid-cols-1 md:grid-cols-2 gap-6"
+          viewMode === "grid" && "grid grid-cols-1 md:grid-cols-2 gap-6",
         )}
       >
         {filteredCategories.map((category, index) => (

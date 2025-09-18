@@ -27,7 +27,7 @@ export function SectionWrapper({
           }
         });
       },
-      { threshold: 0.15 }
+      { threshold: 0.15 },
     );
 
     if (sectionRef.current) observer.observe(sectionRef.current);
@@ -41,7 +41,7 @@ export function SectionWrapper({
       className={cn(
         "transition-all duration-700 ease-out transform",
         isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6",
-        className
+        className,
       )}
     >
       {children}

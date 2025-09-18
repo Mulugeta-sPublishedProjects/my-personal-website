@@ -72,7 +72,7 @@ export async function POST(req: NextRequest) {
           "I apologize, but I'm having trouble connecting to my AI services right now. Please try again later.",
         sources: [],
       },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

@@ -98,16 +98,44 @@ export function AboutUs() {
 
   const skillsData = [
     { name: "JavaScript", level: "Expert", icon: <Code className="h-4 w-4" /> },
-    { name: "TypeScript", level: "Advanced", icon: <Code className="h-4 w-4" /> },
+    {
+      name: "TypeScript",
+      level: "Advanced",
+      icon: <Code className="h-4 w-4" />,
+    },
     { name: "React", level: "Expert", icon: <Code className="h-4 w-4" /> },
     { name: "Next.js", level: "Advanced", icon: <Code className="h-4 w-4" /> },
     { name: "Redux", level: "Advanced", icon: <Code className="h-4 w-4" /> },
-    { name: "HTML/CSS", level: "Expert", icon: <Palette className="h-4 w-4" /> },
-    { name: "Tailwind CSS", level: "Expert", icon: <Palette className="h-4 w-4" /> },
-    { name: "React Native", level: "Intermediate", icon: <Smartphone className="h-4 w-4" /> },
-    { name: "NestJS", level: "Intermediate", icon: <Server className="h-4 w-4" /> },
-    { name: "System Design", level: "Intermediate", icon: <Layers className="h-4 w-4" /> },
-    { name: "GraphQL", level: "Intermediate", icon: <Server className="h-4 w-4" /> },
+    {
+      name: "HTML/CSS",
+      level: "Expert",
+      icon: <Palette className="h-4 w-4" />,
+    },
+    {
+      name: "Tailwind CSS",
+      level: "Expert",
+      icon: <Palette className="h-4 w-4" />,
+    },
+    {
+      name: "React Native",
+      level: "Intermediate",
+      icon: <Smartphone className="h-4 w-4" />,
+    },
+    {
+      name: "NestJS",
+      level: "Intermediate",
+      icon: <Server className="h-4 w-4" />,
+    },
+    {
+      name: "System Design",
+      level: "Intermediate",
+      icon: <Layers className="h-4 w-4" />,
+    },
+    {
+      name: "GraphQL",
+      level: "Intermediate",
+      icon: <Server className="h-4 w-4" />,
+    },
     { name: "Git", level: "Advanced", icon: <Code className="h-4 w-4" /> },
   ];
 
@@ -142,7 +170,11 @@ export function AboutUs() {
 
   const itemVariants = {
     hidden: { y: 20, opacity: 0 },
-    visible: { y: 0, opacity: 1, transition: { duration: 0.5, ease: "easeOut" } },
+    visible: {
+      y: 0,
+      opacity: 1,
+      transition: { duration: 0.5, ease: "easeOut" },
+    },
   };
 
   const cardHoverVariants = {
@@ -153,31 +185,36 @@ export function AboutUs() {
   return (
     <section
       id="about"
-      className="py-28 bg-gradient-to-br from-background via-background to-muted/30 relative overflow-hidden z-0"
+      className="py-20 sm:py-28 bg-gradient-to-br from-background via-background to-muted/30 relative overflow-hidden"
       aria-labelledby="about-heading"
     >
-      {/* Background decorations */}
+      {/* Enhanced Background decorations */}
       <div className="absolute inset-0 bg-grid-white/[0.02] bg-[length:20px] -z-10" />
-      <motion.div
-        className="absolute top-20 left-10 w-40 h-40 bg-primary/5 rounded-full blur-3xl"
-        animate={reducedMotion ? undefined : { x: [0, 15, 0], y: [0, -15, 0] }}
-        transition={
-          reducedMotion
-            ? undefined
-            : { duration: 15, repeat: Infinity, ease: "easeInOut" }
-        }
-        aria-hidden="true"
-      />
-      <motion.div
-        className="absolute bottom-20 right-10 w-48 h-48 bg-accent/5 rounded-full blur-3xl"
-        animate={reducedMotion ? undefined : { x: [0, -15, 0], y: [0, 15, 0] }}
-        transition={
-          reducedMotion
-            ? undefined
-            : { duration: 18, repeat: Infinity, ease: "easeInOut" }
-        }
-        aria-hidden="true"
-      />
+      <div className="absolute inset-0 bg-gradient-to-r from-primary/5 via-transparent to-chart-2/5 -z-10" />
+      
+      {/* Floating elements with conditional animation */}
+      {!reducedMotion && (
+        <>
+          <motion.div
+            className="absolute top-20 left-10 w-40 h-40 bg-primary/5 rounded-full blur-3xl"
+            animate={{ x: [0, 15, 0], y: [0, -15, 0] }}
+            transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }}
+            aria-hidden="true"
+          />
+          <motion.div
+            className="absolute bottom-20 right-10 w-32 h-32 bg-chart-2/5 rounded-full blur-3xl"
+            animate={{ x: [0, -10, 0], y: [0, 10, 0] }}
+            transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
+            aria-hidden="true"
+          />
+          <motion.div
+            className="absolute top-1/2 left-1/4 w-24 h-24 bg-accent/10 rounded-full blur-2xl"
+            animate={{ scale: [1, 1.2, 1], opacity: [0.3, 0.6, 0.3] }}
+            transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+            aria-hidden="true"
+          />
+        </>
+      )}
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Header */}
@@ -243,22 +280,23 @@ export function AboutUs() {
               </motion.div>
 
               {/* Floating Sparkle */}
-              <motion.div
-                className="absolute -top-2 -left-2 w-8 h-8 rounded-full bg-accent/20 flex items-center justify-center backdrop-blur-sm"
-                animate={
-                  reducedMotion
-                    ? undefined
-                    : { y: [0, -8, 0], rotate: [0, 10, -10, 0] }
-                }
-                transition={
-                  reducedMotion
-                    ? undefined
-                    : { duration: 4, repeat: Infinity, delay: 0.5 }
-                }
-                aria-hidden="true"
-              >
-                <Sparkles className="h-4 w-4 text-accent" />
-              </motion.div>
+              {reducedMotion ? (
+                <div
+                  className="absolute -top-2 -left-2 w-8 h-8 rounded-full bg-accent/20 flex items-center justify-center backdrop-blur-sm"
+                  aria-hidden="true"
+                >
+                  <Sparkles className="h-4 w-4 text-accent" />
+                </div>
+              ) : (
+                <motion.div
+                  className="absolute -top-2 -left-2 w-8 h-8 rounded-full bg-accent/20 flex items-center justify-center backdrop-blur-sm"
+                  animate={{ y: [0, -8, 0], rotate: [0, 10, -10, 0] }}
+                  transition={{ duration: 4, repeat: Infinity, delay: 0.5 }}
+                  aria-hidden="true"
+                >
+                  <Sparkles className="h-4 w-4 text-accent" />
+                </motion.div>
+              )}
             </div>
           </motion.div>
 

@@ -119,7 +119,7 @@ export const ParticleSystem = ({
             vx: newVx,
             vy: newVy,
           };
-        })
+        }),
       );
 
       animationRef.current = requestAnimationFrame(animate);

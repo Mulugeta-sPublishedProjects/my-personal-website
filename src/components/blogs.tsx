@@ -54,7 +54,7 @@ const BlogList: React.FC = () => {
 
       if (!response.ok) {
         throw new Error(
-          `Failed to fetch: ${response.status} ${response.statusText}`
+          `Failed to fetch: ${response.status} ${response.statusText}`,
         );
       }
 
@@ -87,7 +87,7 @@ const BlogList: React.FC = () => {
     } catch (err) {
       console.error("Error fetching Medium posts:", err);
       setError(
-        err instanceof Error ? err.message : "An unknown error occurred"
+        err instanceof Error ? err.message : "An unknown error occurred",
       );
     } finally {
       setIsLoading(false);

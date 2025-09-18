@@ -11,14 +11,17 @@ type RootWrapperProps = {
 
 const RootWrapper = ({ children }: RootWrapperProps) => {
   const mounted = useMounted();
-  if (!mounted) {
-    return <Splash />;
-  }
-
+  
   return (
-    <CursorProvider>
-      <Suspense fallback={<Splash />}>{children}</Suspense>
-    </CursorProvider>
+    <div suppressHydrationWarning>
+      {!mounted ? (
+        <Splash />
+      ) : (
+        <CursorProvider>
+          <Suspense fallback={<Splash />}>{children}</Suspense>
+        </CursorProvider>
+      )}
+    </div>
   );
 };
 
