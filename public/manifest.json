@@ -1,0 +1,16 @@
+{
+  "name": "My Personal Website",
+  "short_name": "Portfolio",
+  "description": "Personal portfolio website showcasing my projects and skills",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#262.1 83.3% 57.8%",
+  "icons": [
+    {
+      "src": "/favicon.ico",
+      "sizes": "any",
+      "type": "image/x-icon"
+    }
+  ]
+}

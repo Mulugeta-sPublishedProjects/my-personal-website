@@ -1,51 +1,136 @@
 "use client";
 
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useRef, useState, useCallback } from "react";
+import { 
+  motion, 
+  useScroll, 
+  useTransform, 
+  useInView, 
+  useReducedMotion,
+  type Variants
+} from "framer-motion";
 import Hero from "@/components/hero";
 import { AboutUs } from "@/components/about";
 import BlogList from "@/components/blogs";
 import ContactPage from "@/components/contact";
-import { Work } from "@/components/work";
+import EnhancedWork from "@/components/enhanced-work";
 
-// ✅ Reusable FadeInSection wrapper
+/* ===============================
+   Animation Variants
+================================= */
+const containerVariants: Variants = {
+  hidden: {},
+  visible: {
+    transition: {
+      staggerChildren: 0.15,
+      when: "beforeChildren"
+    },
+  },
+};
+
+const itemVariants: Variants = {
+  hidden: { 
+    opacity: 0, 
+    y: 20, 
+    scale: 0.98 
+  },
+  visible: {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    transition: { 
+      duration: 0.5, 
+      ease: [0.16, 1, 0.3, 1] // Custom cubic-bezier for smoother animation
+    },
+  },
+};
+
+/* ===============================
+   Fade-in Section with Stagger & Parallax
+================================= */
+interface FadeInSectionProps {
+  id: string;
+  children: React.ReactNode;
+  parallax?: boolean;
+  offset?: number;
+  className?: string;
+}
+
 const FadeInSection = ({
   id,
   children,
-}: {
-  id: string;
-  children: React.ReactNode;
-}) => {
-  const [isVisible, setIsVisible] = useState(false);
-  const ref = useRef<HTMLDivElement | null>(null);
+  parallax = false,
+  offset = 80,
+  className = ""
+}: FadeInSectionProps) => {
+  const ref = useRef<HTMLElement>(null);
+  const isInView = useInView(ref, { 
+    once: true, 
+    amount: 0.15,
+    margin: "-20% 0px -20% 0px"
+  });
+  const prefersReducedMotion = useReducedMotion();
+  const shouldUseParallax = parallax && !prefersReducedMotion;
 
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-          observer.unobserve(entry.target); // Animate only once
-        }
-      },
-      { threshold: 0.2 }
-    );
+  // Parallax effect
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start end", "end start"],
+  });
 
-    if (ref.current) observer.observe(ref.current);
-    return () => observer.disconnect();
-  }, []);
+  // Only calculate transforms if we're using parallax
+  const y = shouldUseParallax 
+    ? useTransform(scrollYProgress, [0, 1], [0, offset]) 
+    : useTransform(scrollYProgress, [0, 1], [0, 0]);
+  
+  const opacity = useTransform(
+    scrollYProgress, 
+    [0, 0.3, 1], 
+    [0.6, 1, 0.8]
+  );
+
+  // Add will-change for better performance
+  const style = shouldUseParallax 
+    ? { y, opacity, willChange: 'transform, opacity' } 
+    : {};
 
   return (
-    <section
+    <motion.section
       id={id}
       ref={ref}
-      className={`transition-all duration-700 ease-out transform 
-        ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
+      variants={containerVariants}
+      initial="hidden"
+      animate={isInView ? "visible" : "hidden"}
+      style={style}
+      className={`w-full ${className}`}
+      aria-live="polite"
+      aria-atomic="true"
     >
-      {children}
-    </section>
+      {Array.isArray(children) ? (
+        children.map((child, i) => (
+          <motion.div 
+            key={i} 
+            variants={itemVariants}
+            className="will-change-transform"
+          >
+            {child}
+          </motion.div>
+        ))
+      ) : (
+        <motion.div 
+          variants={itemVariants}
+          className="will-change-transform"
+        >
+          {children}
+        </motion.div>
+      )}
+    </motion.section>
   );
 };
 
-// ✅ Navigation Dots (IntersectionObserver-based)
+/* ===============================
+   Navigation Dots
+================================= */
 const NavigationDots = () => {
   const sections = [
     { id: "home", label: "Home" },
@@ -53,48 +138,62 @@ const NavigationDots = () => {
     { id: "work", label: "Work" },
     { id: "blog", label: "Blog" },
     { id: "contact", label: "Contact" },
-  ];
+  ] as const;
 
-  const [activeSection, setActiveSection] = useState("about");
+  const [activeSection, setActiveSection] = useState<string>("home");
   const observerRef = useRef<IntersectionObserver | null>(null);
 
+  const handleScroll = useCallback((id: string) => {
+    const element = document.getElementById(id);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" });
+      // Update URL hash without scrolling
+      window.history.replaceState(null, "", `#${id}`);
+    }
+  }, []);
+
   useEffect(() => {
-    observerRef.current = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setActiveSection(entry.target.id);
-          }
-        });
-      },
-      { threshold: 0.5 }
-    );
+    const options: IntersectionObserverInit = {
+      threshold: 0.5,
+      rootMargin: "-20% 0px -20% 0px"
+    };
+
+    observerRef.current = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          setActiveSection(entry.target.id);
+        }
+      });
+    }, options);
 
     sections.forEach(({ id }) => {
       const el = document.getElementById(id);
       if (el) observerRef.current?.observe(el);
     });
 
-    return () => observerRef.current?.disconnect();
-  }, []);
+    return () => {
+      observerRef.current?.disconnect();
+    };
+  }, [sections]);
 
   return (
-    <nav className="fixed right-6 top-1/2 -translate-y-1/2 z-40 hidden lg:block">
-      <ul className="flex flex-col gap-2">
+    <nav
+      aria-label="Page sections"
+      className="fixed right-6 top-1/2 -translate-y-1/2 z-50 hidden lg:block"
+    >
+      <ul className="flex flex-col gap-3">
         {sections.map(({ id, label }) => (
           <li key={id}>
             <button
-              onClick={() =>
-                document
-                  .getElementById(id)
-                  ?.scrollIntoView({ behavior: "smooth" })
-              }
-              className={`w-3 h-3 rounded-full transition-all ${
-                activeSection === id
-                  ? "bg-primary scale-125"
-                  : "bg-muted-foreground/30 hover:bg-muted-foreground/50"
-              }`}
-              aria-label={`Navigate to ${label}`}
+              onClick={() => handleScroll(id)}
+              className={`w-3 h-3 rounded-full transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2
+                ${
+                  activeSection === id
+                    ? "bg-primary scale-125"
+                    : "bg-muted-foreground/30 hover:bg-muted-foreground/50"
+                }`}
+              aria-label={`Scroll to ${label} section`}
+              aria-current={activeSection === id ? "true" : "false"}
             />
           </li>
         ))}
@@ -103,36 +202,50 @@ const NavigationDots = () => {
   );
 };
 
+/* ===============================
+   Root Page
+================================= */
 const RootIndex = () => {
   return (
     <main className="min-h-screen">
-      {/* Hero */}
-      <FadeInSection id="home">
+      {/* Hero with enhanced parallax */}
+      <FadeInSection 
+        id="home" 
+        parallax 
+        offset={120}
+        className="relative z-10"
+      >
         <Hero />
       </FadeInSection>
 
-      {/* Navigation Dots */}
       <NavigationDots />
-      <FadeInSection id="about">
+
+      {/* About with subtle parallax */}
+      <FadeInSection 
+        id="about" 
+        parallax 
+        offset={60}
+        className="relative z-0"
+      >
         <AboutUs />
       </FadeInSection>
-      {/* Blog */}
 
-      {/* About */}
-
-      {/* Work */}
       <FadeInSection id="work">
-        <Work />
+        <EnhancedWork />
+      </FadeInSection>
+
+      <FadeInSection 
+        id="blog"
+        parallax 
+        offset={60}
+        className="relative z-0"
+      >
+        <BlogList />
       </FadeInSection>
 
       <FadeInSection id="contact">
         <ContactPage />
       </FadeInSection>
-      <FadeInSection id="blog">
-        <BlogList />
-      </FadeInSection>
-
-      {/* Contact */}
     </main>
   );
 };

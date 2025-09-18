@@ -1,4 +1,5 @@
 "use client";
+
 import { motion } from "framer-motion";
 import {
   Mail,
@@ -10,19 +11,23 @@ import {
   MessageCircle,
   ArrowRight,
   Sparkles,
+  Send,
+  Clock,
+  Star,
+  Zap,
 } from "lucide-react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
+import { useReducedMotion } from "@/components/performance-optimizer";
 
-// TypeScript interfaces for better type safety
 interface ContactMethod {
   icon: React.ReactNode;
   title: string;
   description: string;
   value: string;
-  href: string | null;
+  href?: string;
   color: string;
 }
 
@@ -34,38 +39,39 @@ interface SocialProfile {
 }
 
 export default function ContactPage() {
-  const contactInfo: ContactMethod[] = [
+  const prefersReducedMotion = useReducedMotion();
+
+  const contactMethods: ContactMethod[] = [
     {
       icon: <Mail className="h-5 w-5" />,
       title: "Email",
-      description: "Drop me a line anytime",
+      description: "Professional inquiries & collaborations",
       value: "mulugeta.adamu97@gmail.com",
       href: "mailto:mulugeta.adamu97@gmail.com",
-      color: "bg-blue-500/10 text-blue-500",
+      color: "bg-blue-500/10 text-blue-500 border-blue-500/20",
     },
     {
       icon: <Phone className="h-5 w-5" />,
       title: "Phone",
-      description: "Available by appointment",
+      description: "Available Mon-Fri, 9AM-6PM EAT",
       value: "+251 98 305 4774",
       href: "tel:+251983054774",
-      color: "bg-green-500/10 text-green-500",
+      color: "bg-green-500/10 text-green-500 border-green-500/20",
     },
     {
       icon: <MapPin className="h-5 w-5" />,
       title: "Location",
-      description: "Based in",
+      description: "Open to remote & on-site work",
       value: "Addis Ababa, Ethiopia",
-      href: null,
-      color: "bg-red-500/10 text-red-500",
+      color: "bg-red-500/10 text-red-500 border-red-500/20",
     },
     {
       icon: <MessageCircle className="h-5 w-5" />,
       title: "Telegram",
-      description: "Quick chat",
+      description: "Fastest response time",
       value: "@mulugeta_dev",
       href: "https://t.me/mulugeta_dev",
-      color: "bg-purple-500/10 text-purple-500",
+      color: "bg-purple-500/10 text-purple-500 border-purple-500/20",
     },
   ];
 
@@ -90,290 +96,125 @@ export default function ContactPage() {
     },
   ];
 
-  // Animation variants
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1,
-      },
-    },
-  };
-
   const itemVariants = {
-    hidden: { y: 20, opacity: 0 },
-    visible: {
-      y: 0,
-      opacity: 1,
-      transition: {
-        duration: 0.5,
-        ease: "easeOut",
-      },
-    },
+    hidden: { opacity: 0, y: 20 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
   };
 
-  // Reusable Contact Method Component
-  const ContactMethodItem = ({
-    method,
-    index,
-  }: {
-    method: ContactMethod;
-    index: number;
-  }) => (
+  const ContactItem = ({ method }: { method: ContactMethod }) => (
     <motion.div
       variants={itemVariants}
-      className={cn(
-        "group relative",
-        index % 2 === 0 ? "md:border-r border-border" : ""
-      )}
+      className="group flex items-center gap-6 p-6 glass-subtle rounded-2xl border border-transparent hover:border-primary/20 hover:shadow-glow transition"
     >
-      {method.href ? (
+      <motion.div
+        className={cn("p-4 rounded-2xl border", method.color)}
+        whileHover={{ scale: 1.1, rotate: 10 }}
+      >
+        {method.icon}
+      </motion.div>
+      <div>
+        <h3 className="text-lg font-bold">{method.title}</h3>
+        <p className="text-sm text-muted-foreground">{method.description}</p>
+        <p className="text-primary font-semibold">{method.value}</p>
+      </div>
+      {method.href && (
         <a
           href={method.href}
           target={method.href.startsWith("http") ? "_blank" : undefined}
-          rel={
-            method.href.startsWith("http") ? "noopener noreferrer" : undefined
-          }
-          className="flex items-center gap-4 p-6 hover:bg-muted/30 transition-all duration-300 group"
-          aria-label={`Contact via ${method.title}: ${method.value}`}
+          rel={method.href.startsWith("http") ? "noopener noreferrer" : undefined}
+          className="ml-auto"
+          aria-label={`Contact via ${method.title}`}
         >
-          <motion.div
-            className={cn("p-3 rounded-lg transition-colors", method.color)}
-            whileHover={{ scale: 1.1, rotate: 5 }}
-            aria-hidden="true"
-          >
-            {method.icon}
-          </motion.div>
-          <div className="flex-1">
-            <h3 className="font-semibold text-foreground group-hover:text-primary transition-colors">
-              {method.title}
-            </h3>
-            <p className="text-sm text-muted-foreground">
-              {method.description}
-            </p>
-            <p className="text-sm font-mono text-primary mt-1">
-              {method.value}
-            </p>
-          </div>
-          <ArrowRight
-            className="h-4 w-4 text-muted-foreground group-hover:text-primary group-hover:translate-x-1 transition-all"
-            aria-hidden="true"
-          />
+          <ArrowRight className="h-5 w-5 text-muted-foreground group-hover:text-primary transition" />
         </a>
-      ) : (
-        <div className="flex items-center gap-4 p-6">
-          <div
-            className={cn("p-3 rounded-lg", method.color)}
-            aria-hidden="true"
-          >
-            {method.icon}
-          </div>
-          <div>
-            <h3 className="font-semibold text-foreground">{method.title}</h3>
-            <p className="text-sm text-muted-foreground">
-              {method.description}
-            </p>
-            <p className="text-sm font-mono text-muted-foreground mt-1">
-              {method.value}
-            </p>
-          </div>
-        </div>
       )}
     </motion.div>
   );
 
   return (
-    <section
-      id="contact"
-      className="py-20 bg-gradient-to-br from-background via-background to-muted/20 relative overflow-hidden"
-      aria-labelledby="contact-heading"
-    >
-      {/* Background decorative elements */}
-      <motion.div
-        className="absolute top-20 left-10 w-40 h-40 bg-primary/5 rounded-full blur-3xl"
-        animate={{
-          x: [0, 15, 0],
-          y: [0, -15, 0],
-        }}
-        transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }}
-        aria-hidden="true"
-      />
-      <motion.div
-        className="absolute bottom-20 right-10 w-48 h-48 bg-accent/5 rounded-full blur-3xl"
-        animate={{
-          x: [0, -15, 0],
-          y: [0, 15, 0],
-        }}
-        transition={{ duration: 18, repeat: Infinity, ease: "easeInOut" }}
-        aria-hidden="true"
-      />
-
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 relative z-10">
+    <section className="py-20 bg-background relative z-0">
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 relative z-10">
         {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-50px" }}
-          className="text-center mb-16"
-        >
-          <Badge
-            className="mb-4 px-3 py-1 bg-primary/10 text-primary border-primary/20 hover:bg-primary/15"
-            aria-label="Section label"
-          >
+        <div className="text-center mb-12">
+          <Badge className="mb-4 px-4 py-2 text-primary font-semibold">
+            <Sparkles className="h-4 w-4 mr-2" />
             Get In Touch
           </Badge>
-          <h2
-            id="contact-heading"
-            className="text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r from-foreground to-foreground/70 bg-clip-text text-transparent"
-          >
-            Let's Connect
+          <h2 className="text-4xl font-bold mb-2">
+            Let's Build Something <span className="text-primary">Amazing Together</span>
           </h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Interested in working together? Have a project in mind? Reach out
-            through any of these channels.
+          <p className="text-muted-foreground max-w-2xl mx-auto">
+            Ready to transform your ideas into reality? I create high-performance web apps with exceptional UX.
           </p>
-        </motion.div>
+        </div>
 
-        {/* Main Contact Card */}
+        {/* Contact Methods */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial="hidden"
+          whileInView="visible"
           viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
+          variants={{ visible: { transition: { staggerChildren: 0.1 } } }}
+          className="grid md:grid-cols-2 gap-4 mb-8"
         >
-          <Card className="border border-border/50 shadow-xl overflow-hidden bg-card/80 backdrop-blur-sm">
-            <CardContent className="p-0">
-              {/* Contact Methods */}
-              <motion.div
-                variants={containerVariants}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true, margin: "-50px" }}
-                className="grid md:grid-cols-2 gap-1"
-              >
-                {contactInfo.map((method, index) => (
-                  <ContactMethodItem
-                    key={method.title}
-                    method={method}
-                    index={index}
-                  />
-                ))}
-              </motion.div>
-
-              {/* Divider */}
-              <div
-                className="border-t border-border mx-6"
-                aria-hidden="true"
-              ></div>
-
-              {/* Social Links & CTA */}
-              <div className="p-6">
-                <div className="flex flex-col md:flex-row gap-8">
-                  {/* Social Links */}
-                  <div className="flex-1">
-                    <h3 className="font-semibold mb-4 flex items-center gap-2">
-                      <Sparkles
-                        className="h-4 w-4 text-primary"
-                        aria-hidden="true"
-                      />
-                      Connect With Me
-                    </h3>
-                    <motion.div
-                      className="flex flex-wrap gap-2"
-                      variants={containerVariants}
-                      initial="hidden"
-                      whileInView="visible"
-                      viewport={{ once: true }}
-                    >
-                      {socialProfiles.map((social) => (
-                        <motion.div key={social.name} variants={itemVariants}>
-                          <Button
-                            variant="outline"
-                            asChild
-                            size="sm"
-                            className={cn(
-                              "rounded-full gap-2 transition-all",
-                              social.color
-                            )}
-                            aria-label={`Follow me on ${social.name}`}
-                          >
-                            <a
-                              href={social.url}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                            >
-                              {social.icon}
-                              <span>{social.name}</span>
-                            </a>
-                          </Button>
-                        </motion.div>
-                      ))}
-                    </motion.div>
-                  </div>
-
-                  {/* CTA */}
-                  <motion.div
-                    className="flex-1 flex flex-col justify-center"
-                    initial={{ opacity: 0, scale: 0.95 }}
-                    whileInView={{ opacity: 1, scale: 1 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: 0.3 }}
-                  >
-                    <div className="bg-gradient-to-r from-primary/10 to-blue-500/10 rounded-xl p-5 text-center border border-primary/20">
-                      <h3 className="font-semibold mb-2 text-foreground">
-                        Ready to Start?
-                      </h3>
-                      <p className="text-sm text-muted-foreground mb-4">
-                        Let's discuss your project and see how we can work
-                        together.
-                      </p>
-                      <Button
-                        size="sm"
-                        asChild
-                        className="w-full rounded-full bg-gradient-to-r from-primary to-primary/90 hover:from-primary/90 hover:to-primary transition-all shadow-md hover:shadow-lg group"
-                        aria-label="Message me on Telegram"
-                      >
-                        <a
-                          href="https://t.me/mulugeta_dev"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="flex items-center justify-center gap-2"
-                        >
-                          <MessageCircle
-                            className="h-4 w-4"
-                            aria-hidden="true"
-                          />
-                          Message me on Telegram
-                          <ArrowRight
-                            className="h-4 w-4 group-hover:translate-x-1 transition-transform"
-                            aria-hidden="true"
-                          />
-                        </a>
-                      </Button>
-                    </div>
-                  </motion.div>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
+          {contactMethods.map((method) => (
+            <ContactItem key={method.title} method={method} />
+          ))}
         </motion.div>
 
-        {/* Footer Note */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.4 }}
-          className="text-center mt-8 text-sm text-muted-foreground flex items-center justify-center gap-2"
-        >
-          <span
-            className="h-2 w-2 rounded-full bg-green-500 animate-pulse"
-            aria-hidden="true"
-          ></span>
-          I typically respond within 24 hours. Looking forward to hearing from
-          you!
-        </motion.div>
+        {/* Social Links */}
+        <div className="flex flex-wrap gap-3 justify-center mb-8">
+          {socialProfiles.map((social) => (
+            <Button
+              key={social.name}
+              asChild
+              size="sm"
+              className={cn("rounded-full gap-2", social.color)}
+            >
+              <a href={social.url} target="_blank" rel="noopener noreferrer">
+                {social.icon} <span>{social.name}</span>
+              </a>
+            </Button>
+          ))}
+        </div>
+
+        {/* CTA */}
+        <Card className="glass-subtle rounded-2xl p-6 text-center border border-border/20">
+          <h3 className="font-semibold mb-2 flex items-center justify-center gap-2">
+            <Sparkles className="h-5 w-5 text-primary" /> Ready to Start?
+          </h3>
+          <p className="text-sm text-muted-foreground mb-4">
+            Let's discuss your project and turn your vision into reality. Free consultation available!
+          </p>
+          <div className="flex flex-col md:flex-row gap-3 justify-center">
+            <Button
+              asChild
+              className="w-full rounded-full bg-primary text-white"
+            >
+              <a href="https://t.me/mulugeta_dev" target="_blank" rel="noopener noreferrer">
+                <MessageCircle className="h-4 w-4 mr-2" />
+                Quick Chat on Telegram
+              </a>
+            </Button>
+            <Button
+              variant="outline"
+              asChild
+              className="w-full rounded-full"
+            >
+              <a href="mailto:mulugeta.adamu97@gmail.com">Send Email</a>
+            </Button>
+          </div>
+          <div className="flex justify-center gap-6 mt-4 text-xs text-muted-foreground">
+            <span className="flex items-center gap-1">
+              <Clock className="h-3 w-3" /> 24h response
+            </span>
+            <span className="flex items-center gap-1">
+              <Star className="h-3 w-3" /> 5+ Years Experience
+            </span>
+            <span className="flex items-center gap-1">
+              <Zap className="h-3 w-3" /> Fast Delivery
+            </span>
+          </div>
+        </Card>
       </div>
     </section>
   );

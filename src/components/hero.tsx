@@ -1,265 +1,244 @@
 "use client";
+
 import * as React from "react";
-import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
+import { motion, AnimatePresence } from "framer-motion";
 import {
   Code,
   Download,
-  Sparkles,
   Github,
   Linkedin,
   BookOpen,
   Send,
-  FileText,
-  ArrowDown,
   Zap,
-  Medal,
-  Rocket,
-  Heart,
+  ArrowRight,
+  Sparkles,
+  MapPin,
   Calendar,
+  Star,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { FadeInSection } from "./fade-in-section";
+import { InteractiveBackground } from "./interactive-background";
 import { ScrollMoreButton } from "./scroll-more";
+import { useReducedMotion } from "@/components/performance-optimizer";
 
-// Animation Variants
+/**
+ * Hero - polished, accessible hero component
+ *
+ * Notes:
+ * - Keep as "use client" because it uses hooks & framer-motion.
+ * - Respects reduced motion.
+ * - Particles/extra visuals disabled on small screens or reduced-motion.
+ * - Uses Next Image `priority` for the hero image.
+ */
+
+const SOCIALS: Array<{
+  Icon: React.ComponentType<{ 
+    className?: string; 
+    "aria-hidden"?: boolean | "true" | "false" | undefined 
+  }>;
+  href: string;
+  label: string;
+}> = [
+  { Icon: Github, href: "https://github.com/mulugeta", label: "GitHub" },
+  {
+    Icon: Linkedin,
+    href: "https://linkedin.com/in/mulugeta",
+    label: "LinkedIn",
+  },
+  { Icon: BookOpen, href: "https://medium.com", label: "Medium" },
+  { Icon: Send, href: "https://t.me/mulugeta", label: "Telegram" },
+];
+
 const fadeInUp = {
   hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
-};
-
-const staggerContainer = {
-  hidden: {},
-  visible: {
-    transition: {
-      staggerChildren: 0.1,
-      delayChildren: 0.1,
+  visible: (i = 0) => ({
+    opacity: 1,
+    y: 0,
+    transition: { 
+      duration: 0.6, 
+      delay: i * 0.1,
+      ease: [0.16, 1, 0.3, 1]
     },
-  },
+  }),
 };
 
-const floatAnimation = {
+const floatingAnimation = {
   animate: {
-    y: [0, -10, 0],
-    transition: { duration: 3, repeat: Infinity, ease: "easeInOut" },
-  },
+    y: [-10, 10, -10],
+    transition: {
+      duration: 6,
+      repeat: Infinity,
+      ease: "easeInOut"
+    }
+  }
 };
 
 const pulseAnimation = {
   animate: {
     scale: [1, 1.05, 1],
-    opacity: [0.3, 0.5, 0.3],
     transition: {
-      duration: 4,
+      duration: 2,
       repeat: Infinity,
-      ease: "easeInOut",
-    },
-  },
+      ease: "easeInOut"
+    }
+  }
 };
 
 export default function Hero() {
-  const scrollToAbout = () => {
-    const aboutSection = document.querySelector("#about");
-    if (aboutSection) {
-      aboutSection.scrollIntoView({ behavior: "smooth", block: "start" });
-    }
-  };
+  const prefersReducedMotion = useReducedMotion();
+  const [enableVisuals, setEnableVisuals] = React.useState(true);
 
-  const socialLinks = [
-    {
-      icon: Github,
-      href: "https://github.com/mulugeta",
-      label: "GitHub",
-      ariaLabel: "Visit my GitHub profile",
-    },
-    {
-      icon: Linkedin,
-      href: "https://linkedin.com/in/mulugeta",
-      label: "LinkedIn",
-      ariaLabel: "Visit my LinkedIn profile",
-    },
-    {
-      icon: BookOpen,
-      href: "https://medium.com",
-      label: "Medium",
-      ariaLabel: "Visit my Medium articles",
-    },
-    {
-      icon: Send,
-      href: "https://t.me/mulugeta",
-      label: "Telegram",
-      ariaLabel: "Contact me on Telegram",
-    },
-  ];
+  React.useEffect(() => {
+    function update() {
+      const width = typeof window !== "undefined" ? window.innerWidth : 0;
+      setEnableVisuals(!prefersReducedMotion && width >= 640);
+    }
+    update();
+    window.addEventListener("resize", update, { passive: true });
+    return () => window.removeEventListener("resize", update);
+  }, [prefersReducedMotion]);
+
+  // Smooth scroll to #about
+  const scrollToAbout = React.useCallback(() => {
+    const el = document.getElementById("about");
+    if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+  }, []);
 
   return (
-    <section
-      className="relative min-h-[60vh] flex items-center justify-center px-4 sm:px-6 lg:px-20 py-16 overflow-hidden"
-      aria-label="Hero section"
-    >
-      {/* Background Glow */}
-      <div className="absolute inset-0 -z-10 overflow-hidden">
-        <motion.div
-          className="absolute top-1/4 left-1/4 w-72 h-72 bg-primary/10 rounded-full blur-3xl opacity-30"
-          variants={pulseAnimation}
-          animate="animate"
-        />
-        <motion.div
-          className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-secondary/10 rounded-full blur-3xl opacity-30"
-          variants={pulseAnimation}
-          animate="animate"
-          transition={{ delay: 1 }}
-        />
-        <div className="absolute inset-0 bg-grid-white/[0.02] bg-[length:20px]" />
-      </div>
-      <div className="container mx-auto max-w-6xl">
-        <div className="flex flex-col lg:flex-row items-center gap-10 lg:gap-16">
-          {/* Text Content */}
+    <InteractiveBackground className="min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8 py-20">
+      <div className="mx-auto w-full max-w-6xl">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+          {/* LEFT: Text content */}
           <motion.div
+            className="lg:col-span-7 space-y-8"
             initial="hidden"
             animate="visible"
-            variants={staggerContainer}
-            className="flex-1 space-y-6 text-center lg:text-left"
+            aria-labelledby="hero-heading"
+            variants={{
+              hidden: {},
+              visible: { transition: { staggerChildren: 0.06 } },
+            }}
           >
-            {/* Availability Badge */}
             <motion.div
-              variants={fadeInUp}
-              className="flex justify-center lg:justify-start"
+              variants={fadeInUp as any}
+              className="inline-flex items-center gap-3"
             >
               <Badge
-                className="px-4 py-2 bg-primary/10 text-primary rounded-full text-sm font-medium shadow-sm hover:shadow-md transition-shadow"
-                aria-label="Currently available for opportunities"
+                className="px-3 py-1 rounded-full text-sm font-medium"
+                aria-label="Open to opportunities"
               >
-                <Zap
-                  className="h-4 w-4 mr-1.5 fill-primary"
-                  aria-hidden="true"
-                />
-                Open to Opportunities
+                <Zap className="h-4 w-4 mr-2" aria-hidden="true" />
+                Available for hire
               </Badge>
             </motion.div>
-            <FadeInSection>
-              {/* Name & Title */}
-              <motion.h1
-                variants={fadeInUp}
-                className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight"
-              >
-                <span className="bg-gradient-to-r from-foreground via-foreground/90 to-foreground/80 bg-clip-text text-transparent">
-                  Mulugeta Adamu
-                </span>
-              </motion.h1>
-              <motion.div
-                variants={fadeInUp}
-                className="flex items-center justify-center lg:justify-start gap-2 text-xl md:text-2xl text-muted-foreground font-medium"
-              >
-                Senior Frontend Developer
-                <Sparkles
-                  className="h-5 w-5 md:h-6 md:w-6 text-primary"
-                  aria-hidden="true"
-                />
-              </motion.div>
-              {/* Description */}
-              <motion.p
-                variants={fadeInUp}
-                className="text-lg md:text-xl text-muted-foreground leading-relaxed max-w-2xl"
-              >
-                I build{" "}
-                <span className="font-semibold text-foreground">
-                  scalable, high-performance
-                </span>
-                , and{" "}
-                <span className="font-semibold text-foreground">
-                  accessible
-                </span>{" "}
-                web applications with modern frameworks and a focus on
-                exceptional user experiences.
-              </motion.p>
-            </FadeInSection>
-            {/* CTA Buttons */}
+
+            <motion.h1
+              id="hero-heading"
+              className="text-4xl sm:text-5xl md:text-6xl font-bold leading-tight"
+              variants={fadeInUp as any}
+            >
+              <span className="block text-foreground">Mulugeta Adamu</span>
+              <span className="block text-lg sm:text-xl font-medium text-primary mt-2">
+                Senior Frontend Engineer
+              </span>
+            </motion.h1>
+
+            <motion.p
+              variants={fadeInUp as any}
+              className="text-lg md:text-xl text-muted-foreground max-w-2xl leading-relaxed"
+            >
+              I build modern web applications with React, Next.js & TypeScript. 
+              Focused on performance, accessibility, and exceptional user experiences.
+            </motion.p>
+
+            {/* CTA row */}
             <motion.div
-              variants={fadeInUp}
-              className="flex flex-col sm:flex-row gap-4 pt-2 justify-center lg:justify-start"
+              variants={fadeInUp as any}
+              className="flex flex-col sm:flex-row gap-4 items-start sm:items-center"
+              role="group"
+              aria-label="Primary calls to action"
             >
               <Button
-                size="lg"
-                className="gap-2 py-6 text-base font-medium shadow-md hover:shadow-lg transition-shadow"
                 asChild
+                size="lg"
+                className="flex items-center gap-2"
               >
-                <Link href="#projects" className="flex items-center">
+                <Link href="#contact" onClick={(e) => e.currentTarget.blur()}>
                   <Code className="h-5 w-5" aria-hidden="true" />
-                  View My Work
+                  <span>Let's Work Together</span>
                 </Link>
               </Button>
+
               <Button
+                asChild
                 variant="outline"
                 size="lg"
-                className="gap-2 py-6 text-base font-medium hover:bg-accent/50 transition-colors"
-                asChild
+                className="flex items-center gap-2"
               >
                 <a
                   href="/resume-mulugeta-2017.pdf"
                   download="Mulugeta_Adamu_Resume.pdf"
-                  className="flex items-center"
+                  aria-label="Download resume"
                 >
                   <Download className="h-5 w-5" aria-hidden="true" />
-                  Download Resume
+                  View Resume
                 </a>
               </Button>
             </motion.div>
-            {/* Social Links */}
-            <motion.div
-              variants={fadeInUp}
-              className="flex gap-4 pt-6 justify-center lg:justify-start"
-              aria-label="Social media links"
-            >
-              {socialLinks.map(({ icon: Icon, href, label, ariaLabel }) => (
+
+            {/* social links */}
+            <motion.div variants={fadeInUp as any} className="flex items-center gap-4">
+              {SOCIALS.map(({ Icon, href, label }) => (
                 <motion.a
                   key={label}
                   href={href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  aria-label={ariaLabel}
-                  className="p-3 rounded-full bg-background border hover:bg-accent/20 transition-all duration-300 hover:-translate-y-1 hover:shadow-md focus:outline-none focus:ring-2 focus:ring-primary/50"
-                  whileHover={{ scale: 1.1 }}
+                  aria-label={label}
+                  whileHover={prefersReducedMotion ? undefined : { scale: 1.1 }}
                   whileTap={{ scale: 0.95 }}
+                  className="p-2 rounded-lg hover:bg-muted transition-colors"
                 >
-                  <Icon className="h-5 w-5 text-primary" aria-hidden="true" />
+                  <Icon className="h-5 w-5 text-muted-foreground hover:text-primary transition-colors" aria-hidden="true" />
                 </motion.a>
               ))}
             </motion.div>
           </motion.div>
-          {/* Profile Image */}
+
+          {/* RIGHT: Portrait / visual */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.7, delay: 0.2 }}
-            className="flex-1 flex justify-center relative"
+            className="lg:col-span-5 flex justify-center lg:justify-end"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.25 }}
           >
-            <div className="relative w-72 h-72 sm:w-80 sm:h-80 md:w-96 md:h-96 rounded-3xl overflow-hidden shadow-2xl group">
-              <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-secondary/10 z-0"></div>
+            <div className="relative w-72 h-72 sm:w-80 sm:h-80 md:w-96 md:h-96 rounded-2xl overflow-hidden shadow-lg group">
+              <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-transparent pointer-events-none" />
               <Image
                 src="/portifolio-website.webp"
-                alt="Portrait of Mulugeta Adamu, Senior Frontend Developer"
+                alt="Portrait of Mulugeta Adamu"
                 fill
-                className="object-cover group-hover:scale-105 transition-transform duration-500"
+                sizes="(max-width: 640px) 280px, (max-width: 1024px) 320px, 384px"
+                className="object-cover transition-transform duration-500 group-hover:scale-105"
                 priority
-                sizes="(max-width: 768px) 288px, (max-width: 1024px) 320px, 384px"
               />
-              {/* Top right badge */}
-              <div className="absolute top-4 right-4 z-10">
-                <Badge className="px-3 py-1.5 bg-primary/90 text-primary-foreground text-sm shadow-md backdrop-blur-sm flex items-center gap-1">
-                  <Calendar className="h-3.5 w-3.5" />
-                  3+ Years Experience
-                </Badge>
+              <div className="absolute left-4 bottom-4 flex gap-2">
+                <div className="rounded-lg px-3 py-1 bg-background/80 backdrop-blur text-xs font-medium">
+                  Available
+                </div>
               </div>
-              {/* Subtle overlay effect */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-0"></div>
             </div>
           </motion.div>
         </div>
-        <ScrollMoreButton onClick={scrollToAbout} label="Learn more" />
+
+        {/* Scroll hint */}
+        <div className="mt-12 flex justify-center">
+          <ScrollMoreButton onClick={scrollToAbout} label="Learn more" />
+        </div>
       </div>
-    </section>
+    </InteractiveBackground>
   );
 }

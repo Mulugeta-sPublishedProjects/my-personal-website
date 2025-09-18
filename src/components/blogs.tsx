@@ -172,11 +172,11 @@ const BlogList: React.FC = () => {
   return (
     <section
       id="blog"
-      className="container mx-auto px-4 py-12"
+      className="container mx-auto px-4 py-28 relative z-0"
       aria-labelledby="blog-heading"
     >
       <div className="text-center mb-12">
-        <h1 id="blog-heading" className="text-4xl font-bold mb-4">
+        <h1 id="blog-heading" className="text-4xl md:text-5xl font-bold mb-4">
           Latest Blog Posts
         </h1>
         <p className="text-xl text-muted-foreground max-w-2xl mx-auto">

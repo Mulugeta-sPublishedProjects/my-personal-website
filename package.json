@@ -8,6 +8,7 @@
     "start": "next start",
     "lint": "next lint",
     "format": "prettier --write .",
+    "test": "jest --watch",
     "lint:fix": "next lint --fix"
   },
   "config": {
@@ -46,6 +47,8 @@
     "@radix-ui/react-tooltip": "^1.2.8",
     "@supabase/supabase-js": "^2.46.1",
     "@tailwindcss/postcss": "^4.1.12",
+    "@vercel/analytics": "^1.5.0",
+    "@vercel/speed-insights": "^1.2.0",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "cmdk": "^1.1.1",
@@ -54,6 +57,7 @@
     "framer-motion": "^11.11.17",
     "input-otp": "^1.4.2",
     "install": "^0.13.0",
+    "jest-environment-jsdom": "^30.1.2",
     "lucide-react": "^0.542.0",
     "next": "^15.0.3",
     "next-themes": "^0.4.6",
@@ -76,6 +80,10 @@
     "zod": "^4.1.5"
   },
   "devDependencies": {
+    "@testing-library/jest-dom": "^6.8.0",
+    "@testing-library/react": "^16.3.0",
+    "@testing-library/user-event": "^14.6.1",
+    "@types/jest": "^30.0.0",
     "@types/react": "^18",
     "autoprefixer": "^10.4.21",
     "cz-conventional-changelog": "^3.3.0",
@@ -85,9 +93,12 @@
     "eslint-plugin-playwright": "^2.1.0",
     "eslint-plugin-prettier": "^5.2.1",
     "eslint-plugin-unicorn": "^56.0.1",
+    "jest": "^30.1.3",
+    "playwright": "^1.55.0",
     "postcss": "^8.5.6",
     "prettier": "^3.3.3",
     "tailwindcss": "^4.1.12",
+    "ts-jest": "^29.4.1",
     "typescript": "^5"
   },
   "browserslist": [

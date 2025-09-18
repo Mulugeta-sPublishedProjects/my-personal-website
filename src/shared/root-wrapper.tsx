@@ -3,6 +3,7 @@
 import React, { ReactNode, Suspense, useEffect, useState } from "react";
 import { Splash } from "./loader";
 import useMounted from "@/hooks/use-mounted";
+import { CursorProvider } from "@/components/interactive-cursor";
 
 type RootWrapperProps = {
   children: ReactNode;
@@ -14,7 +15,11 @@ const RootWrapper = ({ children }: RootWrapperProps) => {
     return <Splash />;
   }
 
-  return <Suspense fallback={<Splash />}>{children}</Suspense>;
+  return (
+    <CursorProvider>
+      <Suspense fallback={<Splash />}>{children}</Suspense>
+    </CursorProvider>
+  );
 };
 
 export default RootWrapper;

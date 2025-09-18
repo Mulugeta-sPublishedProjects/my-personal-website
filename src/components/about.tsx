@@ -12,7 +12,6 @@ import {
   Palette,
   Zap,
   Users,
-  Sparkles,
   Briefcase,
   CalendarDays,
   MapPin,
@@ -21,11 +20,15 @@ import {
   Smartphone,
   Server,
   Layers,
+  Sparkles,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useReducedMotion } from "@/components/performance-optimizer";
 
 export function AboutUs() {
-  // Complete experience data
+  const reducedMotion = useReducedMotion();
+
+  // ---------------------- Data ----------------------
   const experienceData = [
     {
       id: 1,
@@ -93,51 +96,21 @@ export function AboutUs() {
     },
   ];
 
-  // Expanded skills data including new technologies
   const skillsData = [
     { name: "JavaScript", level: "Expert", icon: <Code className="h-4 w-4" /> },
-    {
-      name: "TypeScript",
-      level: "Advanced",
-      icon: <Code className="h-4 w-4" />,
-    },
+    { name: "TypeScript", level: "Advanced", icon: <Code className="h-4 w-4" /> },
     { name: "React", level: "Expert", icon: <Code className="h-4 w-4" /> },
     { name: "Next.js", level: "Advanced", icon: <Code className="h-4 w-4" /> },
     { name: "Redux", level: "Advanced", icon: <Code className="h-4 w-4" /> },
-    {
-      name: "HTML/CSS",
-      level: "Expert",
-      icon: <Palette className="h-4 w-4" />,
-    },
-    {
-      name: "Tailwind CSS",
-      level: "Expert",
-      icon: <Palette className="h-4 w-4" />,
-    },
-    {
-      name: "React Native",
-      level: "Intermediate",
-      icon: <Smartphone className="h-4 w-4" />,
-    },
-    {
-      name: "NestJS",
-      level: "Intermediate",
-      icon: <Server className="h-4 w-4" />,
-    },
-    {
-      name: "System Design",
-      level: "Intermediate",
-      icon: <Layers className="h-4 w-4" />,
-    },
-    {
-      name: "GraphQL",
-      level: "Intermediate",
-      icon: <Server className="h-4 w-4" />,
-    },
+    { name: "HTML/CSS", level: "Expert", icon: <Palette className="h-4 w-4" /> },
+    { name: "Tailwind CSS", level: "Expert", icon: <Palette className="h-4 w-4" /> },
+    { name: "React Native", level: "Intermediate", icon: <Smartphone className="h-4 w-4" /> },
+    { name: "NestJS", level: "Intermediate", icon: <Server className="h-4 w-4" /> },
+    { name: "System Design", level: "Intermediate", icon: <Layers className="h-4 w-4" /> },
+    { name: "GraphQL", level: "Intermediate", icon: <Server className="h-4 w-4" /> },
     { name: "Git", level: "Advanced", icon: <Code className="h-4 w-4" /> },
   ];
 
-  // Core strengths
   const features = [
     {
       icon: <Code className="h-5 w-5" />,
@@ -161,6 +134,7 @@ export function AboutUs() {
     },
   ];
 
+  // ---------------------- Motion Variants ----------------------
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: { opacity: 1, transition: { staggerChildren: 0.1 } },
@@ -168,11 +142,7 @@ export function AboutUs() {
 
   const itemVariants = {
     hidden: { y: 20, opacity: 0 },
-    visible: {
-      y: 0,
-      opacity: 1,
-      transition: { duration: 0.5, ease: "easeOut" },
-    },
+    visible: { y: 0, opacity: 1, transition: { duration: 0.5, ease: "easeOut" } },
   };
 
   const cardHoverVariants = {
@@ -183,21 +153,29 @@ export function AboutUs() {
   return (
     <section
       id="about"
-      className="py-20 md:py-28 bg-gradient-to-br from-background via-background to-muted/30 relative overflow-hidden"
+      className="py-28 bg-gradient-to-br from-background via-background to-muted/30 relative overflow-hidden z-0"
       aria-labelledby="about-heading"
     >
       {/* Background decorations */}
       <div className="absolute inset-0 bg-grid-white/[0.02] bg-[length:20px] -z-10" />
       <motion.div
         className="absolute top-20 left-10 w-40 h-40 bg-primary/5 rounded-full blur-3xl"
-        animate={{ x: [0, 15, 0], y: [0, -15, 0] }}
-        transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }}
+        animate={reducedMotion ? undefined : { x: [0, 15, 0], y: [0, -15, 0] }}
+        transition={
+          reducedMotion
+            ? undefined
+            : { duration: 15, repeat: Infinity, ease: "easeInOut" }
+        }
         aria-hidden="true"
       />
       <motion.div
         className="absolute bottom-20 right-10 w-48 h-48 bg-accent/5 rounded-full blur-3xl"
-        animate={{ x: [0, -15, 0], y: [0, 15, 0] }}
-        transition={{ duration: 18, repeat: Infinity, ease: "easeInOut" }}
+        animate={reducedMotion ? undefined : { x: [0, -15, 0], y: [0, 15, 0] }}
+        transition={
+          reducedMotion
+            ? undefined
+            : { duration: 18, repeat: Infinity, ease: "easeInOut" }
+        }
         aria-hidden="true"
       />
 
@@ -240,7 +218,7 @@ export function AboutUs() {
             className="flex justify-center relative"
           >
             <div className="relative group">
-              <div className="relative w-64 h-64 md:w-80 md:h-80 rounded-full overflow-hidden border-4 border-primary/20 shadow-2xl transition-all duration-500">
+              <div className="relative w-64 h-64 md:w-80 md:h-80 rounded-full overflow-hidden border-4 border-primary/20 shadow-md transition-all duration-500">
                 <Image
                   src="/portifolio-website.webp"
                   alt="Mulugeta Adamu - Frontend Developer"
@@ -254,7 +232,7 @@ export function AboutUs() {
 
               {/* Experience Badge */}
               <motion.div
-                className="absolute -bottom-2 -right-2 bg-primary text-primary-foreground px-4 py-2 rounded-lg font-medium shadow-lg text-sm"
+                className="absolute -bottom-2 -right-2 bg-primary text-primary-foreground px-4 py-2 rounded-lg font-medium shadow-sm text-sm"
                 initial={{ scale: 0.8, opacity: 0 }}
                 whileInView={{ scale: 1, opacity: 1 }}
                 viewport={{ once: true }}
@@ -267,8 +245,16 @@ export function AboutUs() {
               {/* Floating Sparkle */}
               <motion.div
                 className="absolute -top-2 -left-2 w-8 h-8 rounded-full bg-accent/20 flex items-center justify-center backdrop-blur-sm"
-                animate={{ y: [0, -8, 0], rotate: [0, 10, -10, 0] }}
-                transition={{ duration: 4, repeat: Infinity, delay: 0.5 }}
+                animate={
+                  reducedMotion
+                    ? undefined
+                    : { y: [0, -8, 0], rotate: [0, 10, -10, 0] }
+                }
+                transition={
+                  reducedMotion
+                    ? undefined
+                    : { duration: 4, repeat: Infinity, delay: 0.5 }
+                }
                 aria-hidden="true"
               >
                 <Sparkles className="h-4 w-4 text-accent" />
@@ -285,17 +271,17 @@ export function AboutUs() {
             className="space-y-6"
           >
             <h3 className="text-2xl md:text-3xl font-bold mb-4 bg-gradient-to-r from-foreground to-foreground/70 bg-clip-text text-transparent">
-              Frontend Developer & UI/UX Enthusiast
+              I ship fast, accessible products that scale
             </h3>
             <p className="text-muted-foreground leading-relaxed text-base md:text-lg">
-              I build modern, responsive web applications using React, Next.js,
-              and modern CSS frameworks. My work combines technical precision
-              with creative problem-solving.
+              I specialize in React/Next.js with TypeScript, design systems, and
+              performance. I collaborate closely with design and backend to
+              reduce scope risk, improve quality, and hit deadlines.
             </p>
             <p className="text-muted-foreground leading-relaxed text-base md:text-lg">
-              I strive to deliver solutions that not only meet functional
-              requirements but also provide engaging and accessible experiences
-              for users.
+              Recent wins: improved LCP to <strong>under 2s</strong>, cut bundle
+              size by <strong>30%</strong>, and increased conversion for a
+              product launch with an a11y-first UI.
             </p>
             <motion.div
               initial={{ opacity: 0, y: 10 }}

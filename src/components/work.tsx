@@ -13,20 +13,45 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { ExternalLink, Github, Filter, X } from "lucide-react";
+import { ProjectFilter } from "./project-filter";
+import { GridMasonry, useResponsiveColumns } from "./masonry-layout";
+import { EnhancedProjectCard } from "./enhanced-project-card";
+import { ProjectModal } from "./project-modal";
 
 // TypeScript interfaces for better type safety
 interface Project {
-  id: number;
+  id: string;
   title: string;
   description: string;
   image: string;
   techStack: string[];
   categories: string[];
-  problemStatement: string;
-  features: string[];
+  problemStatement?: string;
+  features?: string[];
   github?: string;
   live?: string;
   company?: string;
+  featured?: boolean;
+  difficulty: "beginner" | "intermediate" | "advanced";
+  duration: string;
+  status: "completed" | "in-progress" | "planned";
+  likes?: number;
+  views?: number;
+  stars?: number;
+  challenges?: string[];
+  solutions?: string[];
+  results?: string[];
+  screenshots?: string[];
+  videoDemo?: string;
+  caseStudy?: {
+    overview: string;
+    research: string;
+    design: string;
+    development: string;
+    testing: string;
+    deployment: string;
+    impact: string;
+  };
 }
 
 interface TechCategory {
@@ -49,228 +74,228 @@ export function Work() {
 
   const [activeCategory, setActiveCategory] = useState("all");
 
- const projects: Project[] = [
-  {
-    id: 1,
-    title: "eService Ethiopia",
-    description:
-      "Digital platform for Ethiopian government services including permits, licenses, and payments.",
-    image:
-      "https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80",
-    techStack: [
-      "React",
-      "Next.js",
-      "NX",
-      "Tailwind CSS",
-      "RTK Query",
-      "Mantine UI",
-    ],
-    categories: ["web", "opensource"],
-    problemStatement:
-      "Ethiopian citizens faced challenges accessing government services due to fragmented systems and bureaucratic processes.",
-    features: [
-      "Unified service portal for multiple government agencies",
-      "Real-time application status tracking",
-      "Secure digital payment integration",
-      "Mobile-responsive design for all devices",
-      "Multilingual support (Amharic, English)",
-    ],
-    github: "https://github.com/muleA/eservice-platform",
-    live: "https://eservice-ethiopia.vercel.app/",
-    company: "Perago Systems PLC",
-  },
-  {
-    id: 2,
-    title: "WUMIS Dashboard",
-    description:
-      "Real-time water utility management system for monitoring and optimizing water distribution.",
-    image:
-      "https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80",
-    techStack: ["React", "Material UI", "RTK Query", "GraphQL", "Chart.js"],
-    categories: ["web", "nestjs"],
-    problemStatement:
-      "Water utility companies lacked real-time visibility into their distribution networks, leading to inefficiencies and service disruptions.",
-    features: [
-      "Real-time water flow and pressure monitoring",
-      "Leak detection and alert system",
-      "Predictive maintenance scheduling",
-      "Billing and customer management integration",
-      "Historical data analysis and reporting",
-    ],
-    github: "https://github.com/muleA/wumis-dashboard",
-    live: "https://wumis-demo.vercel.app/",
-    company: "Top Link Technology PLC",
-  },
-  {
-    id: 3,
-    title: "ICare Portal",
-    description:
-      "Centralized platform for Addis Ababa Food & Drug Authority services and regulations.",
-    image:
-      "https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80",
-    techStack: [
-      "React",
-      "Mantine UI",
-      "Next.js",
-      "Tailwind CSS",
-      "RTK Query",
-    ],
-    categories: ["web"],
-    problemStatement:
-      "The Addis Ababa FDA had multiple disconnected systems, causing confusion for citizens and inefficiency in service processing.",
-    features: [
-      "Centralized service catalog with intuitive navigation",
-      "Document management and verification system",
-      "Application status tracking with notifications",
-      "Secure user authentication and role-based access",
-    ],
-    github: "https://github.com/muleA/icare-portal",
-    live: "https://icare-fda-demo.vercel.app/",
-    company: "Tria PLC",
-  },
-  {
-    id: 4,
-    title: "SRA Hub Job Aggregator",
-    description:
-      "Aggregates Ethiopian job postings with AI-powered resume tools and Telegram alerts.",
-    image:
-      "https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80",
-    techStack: [
-      "Next.js",
-      "TypeScript",
-      "NestJS",
-      "PostgreSQL",
-      "Telegram Bot API",
-    ],
-    categories: ["web", "nestjs", "bot"],
-    problemStatement:
-      "Job seekers in Ethiopia struggle to find local opportunities in one place. Existing solutions are scattered and inconsistent.",
-    features: [
-      "Aggregates jobs from multiple sources",
-      "Telegram notifications for new jobs",
-      "AI resume builder & ATS checker",
-      "Job categorization & filtering",
-    ],
-    github: "https://github.com/mulugeta/sra-hub",
-    live: "https://srahub.et",
-  },
-  {
-    id: 5,
-    title: "Wegen Fund",
-    description:
-      "Community crowdfunding platform to support local Ethiopian projects and social initiatives.",
-    image:
-      "https://images.unsplash.com/photo-1521791136064-7986c2920216?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1169&q=80",
-    techStack: ["Next.js", "React", "Supabase", "Stripe API"],
-    categories: ["web", "fintech"],
-    problemStatement:
-      "Local initiatives often fail due to lack of structured fundraising platforms and visibility.",
-    features: [
-      "Crowdfunding campaigns",
-      "Project updates & tracking",
-      "Secure payments via Stripe",
-    ],
-    github: "#",
-    live: "#",
-  },
-  {
-    id: 6,
-    title: "Tip Me",
-    description:
-      "Enables Ethiopian freelancers and creators to receive tips via web and Telegram.",
-    image:
-      "https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
-    techStack: ["Next.js", "Supabase", "Telegram API", "Chapa Payment"],
-    categories: ["web", "bot", "fintech"],
-    problemStatement:
-      "Local creators lack easy ways to monetize content and receive micro-payments.",
-    features: [
-      "Web + Telegram integration",
-      "Instant tip notifications",
-      "Secure payments",
-    ],
-    github: "#",
-    live: "#",
-  },
-  {
-    id: 7,
-    title: "Yene Events",
-    description:
-      "Event discovery and ticketing platform for Ethiopian events and organizers.",
-    image:
-      "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
-    techStack: ["React", "Next.js", "Supabase", "Stripe API"],
-    categories: ["web", "ecommerce"],
-    problemStatement:
-      "Event-goers struggle to find and book tickets for local events efficiently.",
-    features: [
-      "Event listings & search",
-      "Ticket booking system",
-      "Payment integration",
-    ],
-    github: "#",
-    live: "#",
-  },
-  {
-    id: 8,
-    title: "Shemach eCommerce",
-    description:
-      "Ethiopian eCommerce platform empowering local retailers and artisans.",
-    image:
-      "https://images.unsplash.com/photo-1472851294608-062f824d29cc?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
-    techStack: ["Next.js", "React", "Tailwind CSS", "Supabase", "Stripe API"],
-    categories: ["web", "ecommerce"],
-    problemStatement:
-      "Small Ethiopian businesses lack accessible digital storefronts for online sales.",
-    features: [
-      "Product catalog & categories",
-      "Order management",
-      "Secure checkout",
-    ],
-    github: "#",
-    live: "#",
-  },
-  {
-    id: 9,
-    title: "EthioBank App",
-    description:
-      "Secure mobile banking application with biometric authentication for Ethiopian users.",
-    image:
-      "https://images.unsplash.com/photo-1556740758-6f4751f19c3c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
-    techStack: ["React Native", "TypeScript", "Redux", "Firebase", "Node.js"],
-    categories: ["reactnative", "fintech"],
-    problemStatement:
-      "Banking services were limited by physical branch access and security concerns for digital transactions.",
-    features: [
-      "Biometric authentication for secure access",
-      "Real-time transaction notifications and tracking",
-      "Budget tracking and financial insights",
-      "Bill payment and mobile money integration",
-    ],
-    github: "https://github.com/muleA/ethiobank-app",
-    live: "#",
-  },
-  {
-    id: 10,
-    title: "AgriBot Ethiopia",
-    description:
-      "AI-powered farming advice chatbot providing real-time agricultural guidance to Ethiopian farmers.",
-    image:
-      "https://images.unsplash.com/photo-1464226184884-fa280b87c399?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
-    techStack: ["Next.js", "React", "Deep Seek AI", "TensorFlow.js"],
-    categories: ["bot", "opensource"],
-    problemStatement:
-      "Ethiopian farmers had limited access to timely agricultural advice and market information.",
-    features: [
-      "AI-powered agricultural advice in local languages",
-      "Real-time market price information",
-      "Weather forecast integration",
-      "Pest and disease identification assistance",
-    ],
-    github: "https://github.com/muleA/ethiopian-agri-chatbot",
-    live: "https://ethiopian-agri-chatbot.vercel.app/",
-  },
-];
+  const projects: Project[] = [
+    {
+      id: 1,
+      title: "eService Ethiopia",
+      description:
+        "Digital platform for Ethiopian government services including permits, licenses, and payments.",
+      image:
+        "https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80",
+      techStack: [
+        "React",
+        "Next.js",
+        "NX",
+        "Tailwind CSS",
+        "RTK Query",
+        "Mantine UI",
+      ],
+      categories: ["web", "opensource"],
+      problemStatement:
+        "Ethiopian citizens faced challenges accessing government services due to fragmented systems and bureaucratic processes.",
+      features: [
+        "Unified service portal for multiple government agencies",
+        "Real-time application status tracking",
+        "Secure digital payment integration",
+        "Mobile-responsive design for all devices",
+        "Multilingual support (Amharic, English)",
+      ],
+      github: "https://github.com/muleA/eservice-platform",
+      live: "https://eservice-ethiopia.vercel.app/",
+      company: "Perago Systems PLC",
+    },
+    {
+      id: 2,
+      title: "WUMIS Dashboard",
+      description:
+        "Real-time water utility management system for monitoring and optimizing water distribution.",
+      image:
+        "https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80",
+      techStack: ["React", "Material UI", "RTK Query", "GraphQL", "Chart.js"],
+      categories: ["web", "nestjs"],
+      problemStatement:
+        "Water utility companies lacked real-time visibility into their distribution networks, leading to inefficiencies and service disruptions.",
+      features: [
+        "Real-time water flow and pressure monitoring",
+        "Leak detection and alert system",
+        "Predictive maintenance scheduling",
+        "Billing and customer management integration",
+        "Historical data analysis and reporting",
+      ],
+      github: "https://github.com/muleA/wumis-dashboard",
+      live: "https://wumis-demo.vercel.app/",
+      company: "Top Link Technology PLC",
+    },
+    {
+      id: 3,
+      title: "ICare Portal",
+      description:
+        "Centralized platform for Addis Ababa Food & Drug Authority services and regulations.",
+      image:
+        "https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80",
+      techStack: [
+        "React",
+        "Mantine UI",
+        "Next.js",
+        "Tailwind CSS",
+        "RTK Query",
+      ],
+      categories: ["web"],
+      problemStatement:
+        "The Addis Ababa FDA had multiple disconnected systems, causing confusion for citizens and inefficiency in service processing.",
+      features: [
+        "Centralized service catalog with intuitive navigation",
+        "Document management and verification system",
+        "Application status tracking with notifications",
+        "Secure user authentication and role-based access",
+      ],
+      github: "https://github.com/muleA/icare-portal",
+      live: "https://icare-fda-demo.vercel.app/",
+      company: "Tria PLC",
+    },
+    {
+      id: 4,
+      title: "SRA Hub Job Aggregator",
+      description:
+        "Aggregates Ethiopian job postings with AI-powered resume tools and Telegram alerts.",
+      image:
+        "https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80",
+      techStack: [
+        "Next.js",
+        "TypeScript",
+        "NestJS",
+        "PostgreSQL",
+        "Telegram Bot API",
+      ],
+      categories: ["web", "nestjs", "bot"],
+      problemStatement:
+        "Job seekers in Ethiopia struggle to find local opportunities in one place. Existing solutions are scattered and inconsistent.",
+      features: [
+        "Aggregates jobs from multiple sources",
+        "Telegram notifications for new jobs",
+        "AI resume builder & ATS checker",
+        "Job categorization & filtering",
+      ],
+      github: "https://github.com/mulugeta/sra-hub",
+      live: "https://srahub.et",
+    },
+    {
+      id: 5,
+      title: "Wegen Fund",
+      description:
+        "Community crowdfunding platform to support local Ethiopian projects and social initiatives.",
+      image:
+        "https://images.unsplash.com/photo-1521791136064-7986c2920216?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1169&q=80",
+      techStack: ["Next.js", "React", "Supabase", "Stripe API"],
+      categories: ["web", "fintech"],
+      problemStatement:
+        "Local initiatives often fail due to lack of structured fundraising platforms and visibility.",
+      features: [
+        "Crowdfunding campaigns",
+        "Project updates & tracking",
+        "Secure payments via Stripe",
+      ],
+      github: "#",
+      live: "#",
+    },
+    {
+      id: 6,
+      title: "Tip Me",
+      description:
+        "Enables Ethiopian freelancers and creators to receive tips via web and Telegram.",
+      image:
+        "https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
+      techStack: ["Next.js", "Supabase", "Telegram API", "Chapa Payment"],
+      categories: ["web", "bot", "fintech"],
+      problemStatement:
+        "Local creators lack easy ways to monetize content and receive micro-payments.",
+      features: [
+        "Web + Telegram integration",
+        "Instant tip notifications",
+        "Secure payments",
+      ],
+      github: "#",
+      live: "#",
+    },
+    {
+      id: 7,
+      title: "Yene Events",
+      description:
+        "Event discovery and ticketing platform for Ethiopian events and organizers.",
+      image:
+        "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
+      techStack: ["React", "Next.js", "Supabase", "Stripe API"],
+      categories: ["web", "ecommerce"],
+      problemStatement:
+        "Event-goers struggle to find and book tickets for local events efficiently.",
+      features: [
+        "Event listings & search",
+        "Ticket booking system",
+        "Payment integration",
+      ],
+      github: "#",
+      live: "#",
+    },
+    {
+      id: 8,
+      title: "Shemach eCommerce",
+      description:
+        "Ethiopian eCommerce platform empowering local retailers and artisans.",
+      image:
+        "https://images.unsplash.com/photo-1472851294608-062f824d29cc?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
+      techStack: ["Next.js", "React", "Tailwind CSS", "Supabase", "Stripe API"],
+      categories: ["web", "ecommerce"],
+      problemStatement:
+        "Small Ethiopian businesses lack accessible digital storefronts for online sales.",
+      features: [
+        "Product catalog & categories",
+        "Order management",
+        "Secure checkout",
+      ],
+      github: "#",
+      live: "#",
+    },
+    {
+      id: 9,
+      title: "EthioBank App",
+      description:
+        "Secure mobile banking application with biometric authentication for Ethiopian users.",
+      image:
+        "https://images.unsplash.com/photo-1556740758-6f4751f19c3c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
+      techStack: ["React Native", "TypeScript", "Redux", "Firebase", "Node.js"],
+      categories: ["reactnative", "fintech"],
+      problemStatement:
+        "Banking services were limited by physical branch access and security concerns for digital transactions.",
+      features: [
+        "Biometric authentication for secure access",
+        "Real-time transaction notifications and tracking",
+        "Budget tracking and financial insights",
+        "Bill payment and mobile money integration",
+      ],
+      github: "https://github.com/muleA/ethiobank-app",
+      live: "#",
+    },
+    {
+      id: 10,
+      title: "AgriBot Ethiopia",
+      description:
+        "AI-powered farming advice chatbot providing real-time agricultural guidance to Ethiopian farmers.",
+      image:
+        "https://images.unsplash.com/photo-1464226184884-fa280b87c399?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
+      techStack: ["Next.js", "React", "Deep Seek AI", "TensorFlow.js"],
+      categories: ["bot", "opensource"],
+      problemStatement:
+        "Ethiopian farmers had limited access to timely agricultural advice and market information.",
+      features: [
+        "AI-powered agricultural advice in local languages",
+        "Real-time market price information",
+        "Weather forecast integration",
+        "Pest and disease identification assistance",
+      ],
+      github: "https://github.com/muleA/ethiopian-agri-chatbot",
+      live: "https://ethiopian-agri-chatbot.vercel.app/",
+    },
+  ];
 
   // Fixed filter logic
   const filteredProjects =
@@ -295,138 +320,223 @@ export function Work() {
     },
   };
 
-  // Reusable Project Card Component
+  // Enhanced Project Card Component with 3D Effects
   const ProjectCard = ({ project }: { project: Project }) => (
-    <motion.div variants={itemVariants}>
+    <motion.div
+      variants={itemVariants}
+      whileHover={{ y: -8, scale: 1.02 }}
+      transition={{ duration: 0.3, ease: "easeOut" }}
+    >
       <Dialog>
         <DialogTrigger asChild>
-          <Card className="group border-0 hover:shadow-2xl transition-all duration-300 cursor-pointer rounded-2xl overflow-hidden bg-card/80 backdrop-blur-sm h-full flex flex-col">
-            <CardHeader className="p-0 overflow-hidden">
-              <div className="relative w-full h-52">
+          <Card className="group border-0 hover:shadow-glow-lg transition-all duration-500 cursor-pointer rounded-3xl overflow-hidden glass h-full flex flex-col hover:glass-strong">
+            <CardHeader className="p-0 overflow-hidden relative">
+              <div className="relative w-full h-56">
+                {/* Enhanced image with 3D effect */}
                 <Image
                   src={project.image}
                   alt={project.title}
                   fill
-                  className="object-cover group-hover:scale-105 transition-transform duration-500"
+                  className="object-cover group-hover:scale-110 transition-transform duration-700"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                {/* Category Badges */}
-                <div className="absolute top-3 left-3 flex flex-wrap gap-1">
+
+                {/* Enhanced gradient overlay */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+
+                {/* Floating category badges with glassmorphism */}
+                <div className="absolute top-4 left-4 flex flex-wrap gap-2">
                   {project.categories.slice(0, 2).map((category) => (
-                    <Badge
+                    <motion.div
                       key={category}
-                      variant="secondary"
-                      className="text-xs bg-black/30 text-white"
+                      initial={{ opacity: 0, scale: 0.8 }}
+                      whileHover={{ scale: 1.1 }}
+                      transition={{ duration: 0.2 }}
                     >
-                      {techCategories.find((c) => c.id === category)?.label}
-                    </Badge>
+                      <Badge
+                        variant="secondary"
+                        className="text-xs glass-strong text-white backdrop-blur-sm font-semibold px-3 py-1.5"
+                      >
+                        {techCategories.find((c) => c.id === category)?.label}
+                      </Badge>
+                    </motion.div>
                   ))}
                 </div>
+
+                {/* Floating action indicator */}
+                <motion.div
+                  className="absolute top-4 right-4 w-8 h-8 glass-strong rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300"
+                  whileHover={{ scale: 1.2, rotate: 90 }}
+                >
+                  <ExternalLink className="h-4 w-4 text-white" />
+                </motion.div>
               </div>
             </CardHeader>
-            <CardContent className="p-6 space-y-4 flex flex-col flex-1">
+
+            <CardContent className="p-6 space-y-5 flex flex-col flex-1">
+              {/* Enhanced title section */}
               <div className="flex justify-between items-start">
-                <CardTitle className="text-xl font-semibold">
+                <CardTitle className="text-xl font-bold gradient-text group-hover:gradient-text-secondary transition-all duration-300">
                   {project.title}
                 </CardTitle>
                 {project.company && (
-                  <Badge variant="outline" className="text-xs">
+                  <Badge
+                    variant="outline"
+                    className="text-xs glass-subtle font-medium"
+                  >
                     {project.company}
                   </Badge>
                 )}
               </div>
-              <p className="text-muted-foreground text-sm flex-1">
+
+              {/* Enhanced description */}
+              <p className="text-muted-foreground text-sm flex-1 leading-relaxed">
                 {project.description}
               </p>
-              <div className="flex flex-wrap gap-2 mt-2">
-                {project.techStack.slice(0, 3).map((tech) => (
-                  <span
+
+              {/* Enhanced tech stack with animations */}
+              <div className="flex flex-wrap gap-2 mt-3">
+                {project.techStack.slice(0, 3).map((tech, index) => (
+                  <motion.span
                     key={tech}
-                    className="text-xs bg-primary/10 text-primary px-2 py-1 rounded-full font-medium"
+                    className="text-xs glass-subtle text-primary px-3 py-1.5 rounded-full font-semibold hover:glass-strong transition-all duration-300 cursor-default"
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ delay: index * 0.1 }}
+                    whileHover={{ scale: 1.1, y: -2 }}
                   >
                     {tech}
-                  </span>
+                  </motion.span>
                 ))}
                 {project.techStack.length > 3 && (
-                  <span className="text-xs bg-muted/50 text-muted-foreground px-2 py-1 rounded-full font-medium">
+                  <span className="text-xs glass-subtle text-muted-foreground px-3 py-1.5 rounded-full font-semibold">
                     +{project.techStack.length - 3}
                   </span>
                 )}
               </div>
+
+              {/* Enhanced CTA button */}
               <Button
                 size="sm"
-                variant="outline"
-                className="mt-4 w-full font-medium rounded-full border-border/50 hover:bg-muted"
+                variant="glass"
+                className="mt-4 w-full font-semibold rounded-2xl hover:scale-105 active:scale-95 cursor-glow"
                 aria-label={`View details for ${project.title}`}
               >
-                View Details
+                <span className="flex items-center gap-2">
+                  View Details
+                  <ExternalLink className="h-4 w-4" />
+                </span>
               </Button>
             </CardContent>
           </Card>
         </DialogTrigger>
-        <DialogContent className="sm:max-w-3xl bg-background/95 backdrop-blur-lg border-border/50">
-          <DialogHeader>
-            <DialogTitle className="text-2xl flex items-center justify-between">
+        <DialogContent className="sm:max-w-4xl glass-strong border-white/20">
+          <DialogHeader className="space-y-4">
+            <DialogTitle className="text-3xl font-bold flex items-center justify-between gradient-text">
               {project.title}
               {project.company && (
-                <Badge variant="outline" className="text-sm">
+                <Badge
+                  variant="outline"
+                  className="text-sm glass-subtle font-semibold"
+                >
                   {project.company}
                 </Badge>
               )}
             </DialogTitle>
           </DialogHeader>
-          <div className="space-y-6">
-            <p className="text-muted-foreground font-medium">
-              {project.problemStatement}
-            </p>
+          <div className="space-y-8">
+            {/* Problem statement with enhanced styling */}
+            <div className="glass-subtle rounded-2xl p-6">
+              <h4 className="font-bold text-lg mb-3 gradient-text-secondary">
+                Problem Statement
+              </h4>
+              <p className="text-muted-foreground font-medium leading-relaxed">
+                {project.problemStatement}
+              </p>
+            </div>
+
+            {/* Technologies with enhanced badges */}
             <div>
-              <h4 className="font-semibold text-lg mb-2">Technologies Used:</h4>
-              <div className="flex flex-wrap gap-2">
-                {project.techStack.map((tech) => (
-                  <Badge key={tech} variant="secondary" className="text-xs">
-                    {tech}
-                  </Badge>
+              <h4 className="font-bold text-xl mb-4 gradient-text">
+                Technologies Used
+              </h4>
+              <div className="flex flex-wrap gap-3">
+                {project.techStack.map((tech, index) => (
+                  <motion.div
+                    key={tech}
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ delay: index * 0.1 }}
+                  >
+                    <Badge
+                      variant="secondary"
+                      className="text-sm glass-subtle font-semibold px-4 py-2 hover:glass-strong transition-all duration-300 cursor-default"
+                    >
+                      {tech}
+                    </Badge>
+                  </motion.div>
                 ))}
               </div>
             </div>
+
+            {/* Features with enhanced list styling */}
             <div>
-              <h4 className="font-semibold text-lg mb-2">Key Features:</h4>
-              <ul className="list-disc list-inside space-y-2 text-muted-foreground">
-                {project.features.map((feat) => (
-                  <li key={feat}>{feat}</li>
+              <h4 className="font-bold text-xl mb-4 gradient-text-secondary">
+                Key Features
+              </h4>
+              <div className="grid gap-3">
+                {project.features.map((feat, index) => (
+                  <motion.div
+                    key={feat}
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: index * 0.1 }}
+                    className="flex items-start gap-3 glass-subtle rounded-xl p-4 hover:glass-strong transition-all duration-300"
+                  >
+                    <div className="w-2 h-2 rounded-full bg-primary mt-2 flex-shrink-0" />
+                    <span className="text-muted-foreground font-medium">
+                      {feat}
+                    </span>
+                  </motion.div>
                 ))}
-              </ul>
+              </div>
             </div>
-            <div className="flex flex-col sm:flex-row gap-3 mt-4">
+
+            {/* Enhanced action buttons */}
+            <div className="flex flex-col sm:flex-row gap-4 mt-8">
               {project.github && project.github !== "#" && (
                 <Button
                   asChild
-                  variant="outline"
-                  size="sm"
-                  className="flex-1 rounded-full border-border/50"
+                  variant="glass"
+                  size="lg"
+                  className="flex-1 rounded-2xl font-semibold hover:scale-105 active:scale-95 cursor-glow"
                 >
                   <a
                     href={project.github}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center gap-2"
+                    className="flex items-center gap-3"
                     aria-label={`View ${project.title} on GitHub`}
                   >
-                    <Github className="h-4 w-4" />
+                    <Github className="h-5 w-5" />
                     GitHub Source
                   </a>
                 </Button>
               )}
               {project.live && project.live !== "#" && (
-                <Button asChild size="sm" className="flex-1 rounded-full">
+                <Button
+                  asChild
+                  variant="gradient"
+                  size="lg"
+                  className="flex-1 rounded-2xl font-semibold hover:scale-105 active:scale-95 cursor-glow"
+                >
                   <a
                     href={project.live}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center gap-2"
+                    className="flex items-center gap-3"
                     aria-label={`View live demo of ${project.title}`}
                   >
-                    <ExternalLink className="h-4 w-4" />
+                    <ExternalLink className="h-5 w-5" />
                     Live Demo
                   </a>
                 </Button>
@@ -471,50 +581,62 @@ export function Work() {
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        {/* Header */}
+        {/* Enhanced Header with Glassmorphism */}
         <motion.div
-          className="text-center mb-16 md:mb-20"
-          initial={{ opacity: 0, y: 20 }}
+          className="text-center mb-20 md:mb-24"
+          initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: 0.8 }}
         >
-          <h2
-            id="projects-heading"
-            className="text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r from-foreground to-foreground/70 bg-clip-text text-transparent"
-          >
-            Featured Projects
-          </h2>
-          <p className="text-muted-foreground max-w-2xl mx-auto text-lg md:text-lg">
-            Showcasing Ethiopia-focused tech solutions, digital startups, and
-            impactful web applications.
-          </p>
+          <div className="glass rounded-3xl p-8 lg:p-12 max-w-4xl mx-auto relative overflow-hidden">
+            {/* Background pattern */}
+            <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-50" />
+
+            <h2
+              id="projects-heading"
+              className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 gradient-text"
+            >
+              Featured Projects
+            </h2>
+            <p className="text-muted-foreground max-w-3xl mx-auto text-xl leading-relaxed">
+              Showcasing Ethiopia-focused tech solutions, digital startups, and
+              impactful web applications that drive innovation and growth.
+            </p>
+          </div>
         </motion.div>
 
-        {/* Category Filters */}
+        {/* Enhanced Category Filters */}
         <motion.div
-          className="mb-10"
+          className="mb-12"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.2 }}
+          transition={{ duration: 0.6, delay: 0.3 }}
         >
-          <div className="flex flex-wrap justify-center gap-2 md:gap-3">
+          <div className="flex flex-wrap justify-center gap-3 md:gap-4">
             {techCategories.map((category) => (
-              <Button
+              <motion.div
                 key={category.id}
-                variant={activeCategory === category.id ? "default" : "outline"}
-                size="sm"
-                onClick={() => setActiveCategory(category.id)}
-                className={`rounded-full text-sm font-medium transition-all ${
-                  activeCategory === category.id
-                    ? "shadow-md"
-                    : "hover:bg-muted border-border/50"
-                }`}
-                aria-pressed={activeCategory === category.id}
+                whileHover={{ scale: 1.05, y: -2 }}
+                whileTap={{ scale: 0.95 }}
               >
-                {category.label}
-              </Button>
+                <Button
+                  variant={
+                    activeCategory === category.id ? "gradient" : "glass"
+                  }
+                  size="lg"
+                  onClick={() => setActiveCategory(category.id)}
+                  className={`rounded-2xl text-sm font-semibold transition-all duration-300 ${
+                    activeCategory === category.id
+                      ? "shadow-glow"
+                      : "hover:glass-strong hover:shadow-md"
+                  }`}
+                  aria-pressed={activeCategory === category.id}
+                >
+                  {category.label}
+                </Button>
+              </motion.div>
             ))}
           </div>
         </motion.div>

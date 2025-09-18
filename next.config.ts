@@ -17,6 +17,12 @@ module.exports = withBundleAnalyzer({
         port: "",
         pathname: "/**", // allow all paths
       },
+      {
+        protocol: 'https',
+        hostname: 'via.placeholder.com',
+        port: '',
+        pathname: '/**',
+      },
     ],
     formats: ["image/webp", "image/avif"],
   },
