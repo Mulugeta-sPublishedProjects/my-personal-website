@@ -16,10 +16,6 @@ const handleDownloadResume = () => {
   link.click();
 };
 
-const handlePreviewResume = () => {
-  window.open("/resume.pdf", "_blank");
-};
-
 export function Hero() {
   return (
     <section
@@ -137,9 +133,15 @@ export function Hero() {
       </div>
 
       <motion.div
-        className="absolute bottom-8 left-1/2 -translate-x-1/2"
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 cursor-pointer"
         animate={{ y: [0, 10, 0] }}
         transition={{ duration: 2, repeat: Number.POSITIVE_INFINITY }}
+        onClick={() => {
+          window.scrollTo({
+            top: window.innerHeight,
+            behavior: "smooth",
+          });
+        }}
       >
         <div className="w-6 h-10 border-2 border-muted-foreground rounded-full flex items-start justify-center p-2">
           <motion.div

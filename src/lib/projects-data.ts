@@ -9,7 +9,6 @@ export interface Project {
   techStack: string[];
   features: string[];
   company?: string;
-  github?: string;
   live?: string;
   caseStudy?: {
     overview: string;
@@ -26,11 +25,10 @@ export interface Project {
   featured: boolean;
   difficulty: "beginner" | "intermediate" | "advanced";
   duration: string;
-  status: "completed" | "in-progress" | "planned";
-  // New optional fields for better portfolio presentation
   role?: string;
   teamSize?: number;
   highlights?: string[];
+  isReadyForView?: boolean;
 }
 
 // Curated projects data with consistent structure and improved content
@@ -40,20 +38,11 @@ export const projects: Project[] = [
     title: "eService Ethiopia",
     description:
       "Digital government portal transforming citizen access to public services with streamlined applications, real-time tracking, and secure payments.",
-    image: "/projects/eservice-dashboard.jpg",
-    techStack: [
-      "Next.js 14",
-      "TypeScript",
-      "Tailwind CSS",
-      "NX Monorepo",
-      "RTK Query",
-      "Mantine UI",
-      "Node.js",
-      "PostgreSQL",
-    ],
+    image: "/projects/eservice-home.png",
+    techStack: ["Next.js 14", "TypeScript", "NX Monorepo"],
     categories: ["frontend", "fullstack", "government"],
     company: "Perago Systems PLC",
-    role: "Lead Frontend Developer",
+    role: " Frontend Developer",
     teamSize: 8,
     problemStatement:
       "Citizens face bureaucratic delays and lack of transparency when accessing essential government services.",
@@ -64,12 +53,10 @@ export const projects: Project[] = [
       "Multi-language support (Amharic, English, Oromo)",
       "Document verification system",
     ],
-    github: "https://github.com/yourusername/eservice-ethiopia",
-    live: "https://eservice.et",
+    live: "https://www.eservices.gov.et/en",
     featured: true,
     difficulty: "advanced",
     duration: "5 months",
-    status: "completed",
     highlights: [
       "Reduced service time from weeks to hours",
       "85% user satisfaction rate",
@@ -86,26 +73,18 @@ export const projects: Project[] = [
         "Scalable micro-frontend architecture with robust state management.",
       impact: "Revolutionized public service access for millions of citizens.",
     },
+    isReadyForView: true,
   },
   {
     id: "wumis",
     title: "WUMIS Water Management",
     description:
       "Comprehensive water utility management system optimizing resource allocation, billing, and maintenance operations.",
-    image: "/projects/wumis-dashboard.jpg",
-    techStack: [
-      "React 18",
-      "TypeScript",
-      "Material-UI",
-      "GraphQL",
-      "Node.js",
-      "MongoDB",
-      "Docker",
-      "AWS",
-    ],
+    image: "/projects/wumis-login.png",
+    techStack: ["React 18", "TypeScript", "Material-UI", "GraphQL"],
     categories: ["frontend", "backend", "fullstack", "utilities"],
     company: "Top Link Technology PLC",
-    role: "Full Stack Developer",
+    role: "Frontend Developer",
     teamSize: 6,
     problemStatement:
       "Water utilities struggle with manual processes and inefficient resource management.",
@@ -116,12 +95,10 @@ export const projects: Project[] = [
       "GIS pipeline management",
       "Mobile field worker application",
     ],
-    github: "https://github.com/yourusername/wumis",
-    live: "https://wumis.vercel.app",
+    live: "https://wumis.et/",
     featured: true,
     difficulty: "advanced",
     duration: "6 months",
-    status: "completed",
     highlights: [
       "60% faster billing processes",
       "45% reduction in water loss detection time",
@@ -133,22 +110,15 @@ export const projects: Project[] = [
       impact:
         "Significantly improved operational efficiency for water providers.",
     },
+    isReadyForView: true,
   },
   {
     id: "agribot-ethiopia",
     title: "AgriBot AI Assistant",
     description:
       "AI-powered farming assistant delivering personalized agricultural advice, weather insights, and market information.",
-    image: "/projects/agribot-chat.jpg",
-    techStack: [
-      "Next.js",
-      "TypeScript",
-      "OpenAI API",
-      "Tailwind CSS",
-      "Node.js",
-      "MongoDB",
-      "WebSocket",
-    ],
+    image: "/projects/agri-bot.png",
+    techStack: ["Next.js", "TypeScript", "OpenAI API", "Tailwind CSS"],
     categories: ["ai", "frontend", "agriculture"],
     company: "Personal Project",
     role: "Solo Developer",
@@ -161,12 +131,10 @@ export const projects: Project[] = [
       "Market price analytics",
       "Voice interface support",
     ],
-    github: "https://github.com/yourusername/agribot-ethiopia",
-    live: "https://agribot-ethiopia.vercel.app",
+    live: "https://ethiopian-agri-chatbot.vercel.app/",
     featured: false,
     difficulty: "advanced",
     duration: "3 months",
-    status: "in-progress",
     highlights: [
       "40% increase in crop yield for pilot users",
       "Support for 100+ farmers across 4 regions",
@@ -175,6 +143,7 @@ export const projects: Project[] = [
       overview: "AI assistant revolutionizing agricultural decision support.",
       impact: "Empowering farmers with data-driven insights for better yields.",
     },
+    isReadyForView: true,
   },
   {
     id: "sra-hub",
@@ -202,12 +171,10 @@ export const projects: Project[] = [
       "Application tracking",
       "Company insights dashboard",
     ],
-    github: "https://github.com/yourusername/sra-hub",
     live: "https://sra-hub.vercel.app",
     featured: true,
     difficulty: "intermediate",
     duration: "3 months",
-    status: "in-progress",
     highlights: [
       "65% faster job discovery",
       "40% higher application rates in testing",
@@ -218,17 +185,17 @@ export const projects: Project[] = [
     title: "Yene Events",
     description:
       "Modern event ticketing platform with dynamic seating, QR check-ins, and comprehensive analytics.",
-    image: "/projects/yene-events-home.jpg",
+    image: "/projects/yene_event.png",
     techStack: [
       "Next.js",
       "TypeScript",
-      "Stripe",
+      "Chapa",
       "PostgreSQL",
-      "Prisma",
-      "NextAuth",
+      "Drizzle",
+      "Better Auth",
     ],
     categories: ["frontend", "backend", "fullstack"],
-    role: "Full Stack Developer",
+    role: "Solo Developer",
     problemStatement:
       "Event organizers need better tools for ticket management and attendee engagement.",
     features: [
@@ -238,12 +205,11 @@ export const projects: Project[] = [
       "Multi-payment gateway",
       "Event promotion tools",
     ],
-    github: "https://github.com/yourusername/yene-events",
-    live: "https://yene-events.vercel.app",
+    live: "https://yene-ticket-web.vercel.app/en",
     featured: false,
     difficulty: "advanced",
     duration: "4 months",
-    status: "in-progress",
+    isReadyForView: true,
   },
   {
     id: "tipe-me",
@@ -261,12 +227,10 @@ export const projects: Project[] = [
       "Payment analytics",
       "Social media integration",
     ],
-    github: "https://github.com/yourusername/tipe-me",
     live: "https://tipe-me.vercel.app",
     featured: false,
     difficulty: "intermediate",
     duration: "6 weeks",
-    status: "in-progress",
   },
   {
     id: "wegen-fund",
@@ -293,12 +257,10 @@ export const projects: Project[] = [
       "Social sharing",
       "Impact reporting",
     ],
-    github: "https://github.com/yourusername/wegen-fund",
     live: "https://wegen-fund.vercel.app",
     featured: true,
     difficulty: "advanced",
     duration: "4 months",
-    status: "in-progress",
     highlights: [
       "Facilitated $500k+ in community funding",
       "100+ successful campaigns launched",
@@ -309,16 +271,8 @@ export const projects: Project[] = [
     title: "IFHCRS - Food & Health Regulatory System",
     description:
       "Comprehensive regulatory compliance system for food and health sectors, streamlining inspections, certifications, and compliance tracking.",
-    image: "/projects/ifhcrs-dashboard.jpg",
-    techStack: [
-      "React 18",
-      "TypeScript",
-      "Redux Toolkit",
-      "Material-UI",
-      "Node.js",
-      "PostgreSQL",
-      "Docker",
-    ],
+    image: "/projects/ifhcrs.png",
+    techStack: ["React 18", "TypeScript", "Redux Toolkit", "Material-UI"],
     categories: ["frontend", "fullstack", "government", "healthcare"],
     company: "TRIA PLC",
     role: "Senior Frontend Developer",
@@ -333,15 +287,13 @@ export const projects: Project[] = [
       "Mobile inspection app",
       "Real-time reporting system",
     ],
-    live: "https://ifhcrs.gov.et",
+    live: "https://www.license.aafda.gov.et/",
     featured: true,
     difficulty: "advanced",
     duration: "8 months",
-    status: "completed",
     highlights: [
       "Reduced certification time by 70%",
       "Serving 5000+ registered businesses",
-      "99.9% system uptime",
     ],
     caseStudy: {
       overview:
@@ -355,53 +307,9 @@ export const projects: Project[] = [
       impact:
         "Transformed regulatory efficiency and transparency for thousands of businesses.",
     },
+    isReadyForView: true,
   },
-  {
-    id: "tria-enterprise-solutions",
-    title: "TRIA Enterprise Solutions",
-    description:
-      "Suite of enterprise management tools for Ethiopian businesses including ERP, CRM, and inventory management systems.",
-    image: "/projects/tria-enterprise.jpg",
-    techStack: [
-      "React",
-      "TypeScript",
-      "Redux",
-      "Ant Design",
-      "Node.js",
-      "MongoDB",
-      "Redis",
-      "Microservices",
-    ],
-    categories: ["frontend", "fullstack", "enterprise"],
-    company: "TRIA PLC",
-    role: "Frontend Team Lead",
-    teamSize: 12,
-    problemStatement:
-      "Ethiopian businesses lack affordable, locally-adapted enterprise management solutions.",
-    features: [
-      "Modular ERP system",
-      "Customer relationship management",
-      "Inventory and supply chain tracking",
-      "Financial management and reporting",
-      "Multi-company support",
-      "Role-based access control",
-    ],
-    featured: true,
-    difficulty: "advanced",
-    duration: "12 months",
-    status: "completed",
-    highlights: [
-      "Deployed to 50+ enterprise clients",
-      "40% improvement in operational efficiency",
-      "Supporting 10,000+ daily active users",
-    ],
-    caseStudy: {
-      overview:
-        "Comprehensive enterprise solution tailored for Ethiopian business needs.",
-      impact:
-        "Empowered local businesses with world-class management tools at accessible pricing.",
-    },
-  },
+
   {
     id: "addis-price-tracker",
     title: "Addis Price Tracker",
@@ -432,12 +340,10 @@ export const projects: Project[] = [
       "Community price reporting",
       "Weekly deals and promotions",
     ],
-    github: "https://github.com/yourusername/addis-price-tracker",
     live: "https://addis-price-tracker.vercel.app",
     featured: true,
     difficulty: "advanced",
     duration: "4 months",
-    status: "in-progress",
     highlights: [
       "Tracking 10,000+ products daily",
       "Users save average 25% on groceries",
@@ -487,12 +393,10 @@ export const projects: Project[] = [
       "Multi-language support (Amharic, English)",
       "Government dashboard for incident management",
     ],
-    github: "https://github.com/yourusername/safeway-ethiopia",
     live: "https://safeway-ethiopia.vercel.app",
     featured: true,
     difficulty: "advanced",
     duration: "5 months",
-    status: "in-progress",
     highlights: [
       "1,000+ incidents reported in pilot phase",
       "30% faster emergency response time",
@@ -543,12 +447,10 @@ export const projects: Project[] = [
       "Review and rating system",
       "Fraud detection and prevention",
     ],
-    github: "https://github.com/yourusername/adspace-ethiopia",
     live: "https://adspace-ethiopia.vercel.app",
     featured: true,
     difficulty: "advanced",
     duration: "6 months",
-    status: "in-progress",
     highlights: [
       "200+ verified creators on platform",
       "$50,000+ in transactions processed",

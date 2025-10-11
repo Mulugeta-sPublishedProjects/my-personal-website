@@ -1,4 +1,4 @@
-This is a [Next.js](https://nextjs.org) project optimized for [Bun](https://bun.sh) runtime with [Turbopack](https://turbo.build/pack) and Progressive Web App (PWA) support. It uses Bun as the primary package manager and JavaScript runtime for all development and production workflows.
+This is a [Next.js](https://nextjs.org) project optimized for [PNPM](https://pnpm.io) package manager with [Turbopack](https://turbo.build/pack) and Progressive Web App (PWA) support. It uses PNPM as the primary package manager for all development and production workflows.
 
 ## Recent Updates
 
@@ -6,16 +6,16 @@ This project has been migrated from webpack to Turbopack for faster compilation 
 
 ## Getting Started
 
-First, install dependencies with Bun:
+First, install dependencies with PNPM:
 
 ```bash
-bun install
+pnpm install
 ```
 
 Then, run the development server with Turbopack:
 
 ```bash
-bun dev
+pnpm dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result. The application now uses Turbopack for faster compilation and Hot Module Replacement.
@@ -26,17 +26,16 @@ This project uses [`next/font`](https://nextjs.org/docs/app/building-your-applic
 
 ## Available Scripts
 
-- `bun dev` - Starts the development server with Turbopack (default port 3000)
-- `bun build` - Builds the application for production
-- `bun start` - Starts the production server
-- `bun test` - Runs the test suite
-- `bun test:ci` - Runs the test suite in CI mode
-- `bun lint` - Runs ESLint
-- `bun lint:fix` - Runs ESLint and fixes issues
-- `bun format` - Formats code with Prettier
-- `bun type-check` - Performs TypeScript type checking
-- `bun audit` - Runs security audit
-- `bun clean` - Cleans build artifacts
+- `pnpm dev` - Starts the development server with Turbopack (default port 3000)
+- `pnpm build` - Builds the application for production
+- `pnpm start` - Starts the production server
+- `pnpm test` - Runs the test suite
+- `pnpm test:ci` - Runs the test suite in CI mode
+- `pnpm lint` - Runs ESLint
+- `pnpm lint:fix` - Runs ESLint and fixes issues
+- `pnpm format` - Formats code with Prettier
+- `pnpm type-check` - Performs TypeScript type checking
+- `pnpm clean` - Cleans build artifacts
 
 ## Progressive Web App (PWA) Features
 
@@ -49,8 +48,8 @@ This application includes full PWA support with:
 
 To test PWA features:
 
-1. Build the application: `bun build`
-2. Start the production server: `bun start`
+1. Build the application: `pnpm build`
+2. Start the production server: `pnpm start`
 3. Visit the site and use browser dev tools to simulate offline mode
 4. Check for install prompt in browser
 

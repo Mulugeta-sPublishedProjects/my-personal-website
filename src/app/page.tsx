@@ -1,4 +1,3 @@
-import { About } from "@/components/sections/about";
 import { Expertise } from "@/components/sections/expertise";
 import { Projects } from "@/components/sections/projects";
 import { Education } from "@/components/sections/education";
@@ -6,6 +5,7 @@ import { Contact } from "@/components/sections/contact";
 import { Footer } from "@/components/footer";
 import Header from "@/components/header";
 import { Hero } from "@/components/hero";
+import { AboutMe } from "@/components/sections/about";
 
 export default function Home() {
   return (
@@ -13,7 +13,7 @@ export default function Home() {
       <Header />
       <main className="relative">
         <Hero />
-        <About />
+        <AboutMe />
         <Expertise />
         <Projects />
         <Education />

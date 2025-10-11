@@ -100,7 +100,6 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        <link rel="manifest" href="/manifest.json" />
         <link rel="apple-touch-icon" href="/icons/icon-192x192.png" />
         <meta name="theme-color" content="hsl(var(--primary))" />
         <meta name="mobile-web-app-capable" content="yes" />

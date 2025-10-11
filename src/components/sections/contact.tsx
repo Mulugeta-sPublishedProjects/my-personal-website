@@ -19,22 +19,22 @@ import {
   Twitter,
   Copy,
   Check,
-  Send,
   MapPin,
   MessageCircle,
+  Phone,
 } from "lucide-react";
 
 const socialLinks = [
   {
     name: "GitHub",
     icon: Github,
-    href: "https://github.com/mulugetaadamu",
+    href: "https://github.com/muleA",
     color: "hover:text-foreground",
   },
   {
     name: "LinkedIn",
     icon: Linkedin,
-    href: "https://linkedin.com/in/mulugetaadamu",
+    href: "https://www.linkedin.com/in/mulugeta-adamu/",
     color: "hover:text-[#0077b5]",
   },
   {
@@ -57,7 +57,7 @@ export function Contact() {
   const [copied, setCopied] = useState(false);
 
   const copyEmail = () => {
-    navigator.clipboard.writeText("mulugeta.adamu@example.com");
+    navigator.clipboard.writeText("mulugeta.adamu97@gmail.com");
     setCopied(true);
     toast.success("Email copied!", {
       description: "Email address copied to clipboard.",
@@ -71,108 +71,157 @@ export function Contact() {
         <motion.div
           className="max-w-4xl mx-auto"
           initial={{ opacity: 0, y: 50 }}
-          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.5 }}
         >
-          <h2 className="text-3xl sm:text-4xl font-bold mb-4 text-center">
-            Let's Connect
-          </h2>
-          <p className="text-muted-foreground text-center mb-12 max-w-2xl mx-auto">
-            I&apos;m always open to discussing new projects, creative ideas, or
-            opportunities to be part of your vision. Feel free to reach out!
-          </p>
-
-          <div className="grid md:grid-cols-2 gap-6 max-w-3xl mx-auto">
-            <Card className="hover:border-primary/50 transition-colors">
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <Mail className="h-5 w-5 text-primary" />
-                  Email
-                </CardTitle>
-                <CardDescription>Send me an email directly</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <Button
-                  variant="outline"
-                  className="w-full justify-between bg-transparent"
-                  onClick={copyEmail}
-                >
-                  <span className="text-sm">mulugeta.adamu@example.com</span>
-                  {copied ? (
-                    <Check className="h-4 w-4 text-primary" />
-                  ) : (
-                    <Copy className="h-4 w-4" />
-                  )}
-                </Button>
-                <Button className="w-full mt-3" asChild>
-                  <a href="mailto:mulugeta.adamu@example.com">
-                    <Send className="h-4 w-4 mr-2" />
-                    Send Email
-                  </a>
-                </Button>
-              </CardContent>
-            </Card>
-
-            <Card className="hover:border-primary/50 transition-colors">
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <MapPin className="h-5 w-5 text-primary" />
-                  Location
-                </CardTitle>
-                <CardDescription>Where I'm based</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-2 text-sm">
-                  <p className="font-medium">Addis Ababa, Ethiopia 🇪🇹</p>
-                  <p className="text-muted-foreground">
-                    Available for remote opportunities worldwide
-                  </p>
-                  <p className="text-muted-foreground">
-                    Open to relocation for the right opportunity
-                  </p>
-                </div>
-              </CardContent>
-            </Card>
+          {/* Heading */}
+          <div className="text-center mb-12">
+            <motion.h2
+              className="text-3xl sm:text-4xl font-bold mb-4"
+              initial={{ opacity: 0, y: 20 }}
+              animate={isInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ delay: 0.1 }}
+            >
+              Get In Touch
+            </motion.h2>
+            <motion.p
+              className="text-muted-foreground text-center max-w-2xl mx-auto"
+              initial={{ opacity: 0, y: 20 }}
+              animate={isInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ delay: 0.2 }}
+            >
+              Feel free to reach out through any of the channels below. I'm
+              always open to discussing new opportunities and interesting
+              projects.
+            </motion.p>
           </div>
 
-          <Card className="mt-6 max-w-3xl mx-auto">
-            <CardHeader>
-              <CardTitle>Connect on Social Media</CardTitle>
-              <CardDescription>Follow me on social platforms</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-                {socialLinks.map((social) => (
-                  <Button
-                    key={social.name}
-                    variant="outline"
-                    className={`h-auto flex-col gap-2 py-4 ${social.color} transition-all hover:scale-105`}
-                    asChild
-                  >
-                    <a
-                      href={social.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
+          {/* Contact Cards */}
+          <div className="grid md:grid-cols-2 gap-6 max-w-3xl mx-auto">
+            {/* Email */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={isInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ delay: 0.3 }}
+            >
+              <Card className="group hover:shadow-lg transition-all duration-300 h-full">
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2 text-lg font-semibold">
+                    <Mail className="h-5 w-5 text-primary" />
+                    Email
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="flex items-center justify-between">
+                    <span className="text-sm font-medium">
+                      mulugeta.adamu97@gmail.com
+                    </span>
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      onClick={copyEmail}
+                      className="h-8 w-8 p-0"
                     >
-                      <social.icon className="h-6 w-6" />
-                      <span className="text-sm">{social.name}</span>
-                    </a>
-                  </Button>
-                ))}
-              </div>
-            </CardContent>
-          </Card>
+                      {copied ? (
+                        <Check className="h-4 w-4 text-primary" />
+                      ) : (
+                        <Copy className="h-4 w-4" />
+                      )}
+                    </Button>
+                  </div>
+                </CardContent>
+              </Card>
+            </motion.div>
+
+            {/* Phone */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={isInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ delay: 0.4 }}
+            >
+              <Card className="group hover:shadow-lg transition-all duration-300 h-full">
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2 text-lg font-semibold">
+                    <Phone className="h-5 w-5 text-primary" />
+                    Phone
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="flex items-center">
+                    <span className="text-sm font-medium">
+                      +251 983 05 47 74
+                    </span>
+                  </div>
+                </CardContent>
+              </Card>
+            </motion.div>
+
+            {/* Location */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={isInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ delay: 0.5 }}
+            >
+              <Card className="group hover:shadow-lg transition-all duration-300 h-full">
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2 text-lg font-semibold">
+                    <MapPin className="h-5 w-5 text-primary" />
+                    Location
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-2">
+                    <p className="text-sm font-medium">
+                      5 Killo, Addis Ababa, Ethiopia
+                    </p>
+                    <p className="text-xs text-muted-foreground">
+                      Available for remote work worldwide
+                    </p>
+                  </div>
+                </CardContent>
+              </Card>
+            </motion.div>
+
+            {/* Social Media */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={isInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ delay: 0.6 }}
+            >
+              <Card className="group hover:shadow-lg transition-all duration-300 h-full">
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2 text-lg font-semibold">
+                    <MessageCircle className="h-5 w-5 text-primary" />
+                    Social Media
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="grid grid-cols-4 gap-2">
+                    {socialLinks.map((social) => (
+                      <Button
+                        key={social.name}
+                        variant="outline"
+                        size="sm"
+                        className={`h-10 rounded-lg transition-all hover:scale-105 ${social.color}`}
+                        asChild
+                      >
+                        <a
+                          href={social.href}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          aria-label={`Visit my ${social.name}`}
+                        >
+                          <social.icon className="h-4 w-4" />
+                        </a>
+                      </Button>
+                    ))}
+                  </div>
+                </CardContent>
+              </Card>
+            </motion.div>
+          </div>
         </motion.div>
       </div>
-
-      <footer className="mt-24 pt-8 border-t border-border">
-        <div className="container px-4 sm:px-6 lg:px-8">
-          <p className="text-center text-sm text-muted-foreground">
-            © {new Date().getFullYear()} Mulugeta Adamu. Built with Next.js,
-            TypeScript, and Tailwind CSS.
-          </p>
-        </div>
-      </footer>
     </section>
   );
 }
