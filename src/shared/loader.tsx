@@ -3,39 +3,8 @@ import React from "react";
 
 export const Splash = () => {
   return (
-    <div className="h-[50vh] w-full flex items-center justify-center mt-[20%]">
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 50 50"
-        className="w-16 h-16 text-primary-500"
-      >
-        <circle
-          cx="25"
-          cy="25"
-          r="20"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="4"
-          strokeDasharray="100"
-          strokeDashoffset="0"
-        >
-          <animateTransform
-            attributeName="transform"
-            type="rotate"
-            from="0 25 25"
-            to="360 25 25"
-            dur="1s"
-            repeatCount="indefinite"
-          />
-          <animate
-            attributeName="strokeDashoffset"
-            from="0"
-            to="100"
-            dur="1s"
-            repeatCount="indefinite"
-          />
-        </circle>
-      </svg>
+    <div className="flex items-center justify-center min-h-screen bg-background text-foreground">
+      <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary"></div>
     </div>
   );
 };

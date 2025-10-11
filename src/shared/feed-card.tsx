@@ -1,3 +1,5 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
@@ -16,19 +18,19 @@ const FeedCard: React.FC<FeedProps> = ({ feed }) => {
   if (!feed.title) return "Medium Blogs";
 
   return (
-    <article className="border border-gray-400 sm:gap-4 hover:bg-gray-200 dark:hover:bg-gray-800 dark:border-gray-700 rounded-lg p-4 sm:p-6 mb-6 hover:shadow-md transition-shadow flex flex-col sm:flex-row items-center space-y-4 sm:space-y-0 sm:space-x-6 bg-white dark:bg-gray-800">
+    <article className="border border-border rounded-lg p-4 sm:p-5 mb-6 flex flex-col sm:flex-row items-center space-y-4 sm:space-y-0 sm:space-x-5 bg-card">
       {feed.image && (
         <Image
           src={feed.image || "/default-image.png"}
           alt="Feed Image"
-          width={100}
-          height={100}
-          className="w-20 h-20 sm:w-16 sm:h-16 rounded-full border border-gray-200 dark:border-gray-600 object-cover"
+          width={80}
+          height={80}
+          className="w-16 h-16 sm:w-14 sm:h-14 rounded-full border border-border object-cover"
         />
       )}
 
       <div className="text-center sm:text-left flex-1">
-        <h2 className="text-xl sm:text-2xl font-semibold text-gray-800 dark:text-gray-100 mb-1">
+        <h2 className="text-lg sm:text-xl font-semibold text-foreground mb-1">
           {feed.title}
         </h2>
 
@@ -37,7 +39,7 @@ const FeedCard: React.FC<FeedProps> = ({ feed }) => {
             href={feed.link}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-primary-600 dark:text-primary-400 hover:underline"
+            className="text-primary hover:text-primary/80 hover:underline text-sm"
             aria-label={`View feed titled "${feed.title}" on Medium`}
           >
             View on Medium

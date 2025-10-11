@@ -3,7 +3,9 @@ import BlogCard from "@/shared/blog-card";
 import FeedCard from "@/shared/feed-card";
 import { Splash } from "@/shared/loader";
 import { MediumAPiURl } from "@/shared/utils/medium-api-url";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Github } from "lucide-react";
 
 // TypeScript interfaces for better type safety
 interface BlogPost {
@@ -38,16 +40,15 @@ interface RawBlogPost {
 }
 
 const BlogList: React.FC = () => {
-  const [posts, setPosts] = useState<BlogPost[]>([]);
-  const [feed, setFeed] = useState<Feed | null>(null);
-  const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [isRetrying, setIsRetrying] = useState<boolean>(false);
-  const [error, setError] = useState<string | null>(null);
+  const [posts, setPosts] = useState<any[]>([]);
+  const [feed, setFeed] = useState<any>();
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | undefined>();
 
   // Function to fetch blog posts
   const fetchPosts = async () => {
-    setIsLoading(true);
-    setError(null);
+    setLoading(true);
+    setError(undefined);
 
     try {
       const response = await fetch(MediumAPiURl);
@@ -60,46 +61,63 @@ const BlogList: React.FC = () => {
 
       const data: MediumApiResponse = await response.json();
 
-      if (!data.items || !Array.isArray(data.items)) {
+      // Set feed data
+      if (data.feed) {
+        setFeed(data.feed);
+      } else {
+        setFeed(undefined);
+      }
+
+      if (
+        data.items === null ||
+        data.items === undefined ||
+        !Array.isArray(data.items)
+      ) {
         throw new Error("Invalid data format received from Medium API");
       }
 
       // Process posts to extract thumbnails and clean descriptions
-      const processedPosts = data.items.map((post: RawBlogPost): BlogPost => {
+      const processedPosts = data.items.map((post: RawBlogPost) => {
         // Extract thumbnail image from content
         const thumbnailMatch = post.content.match(/<img[^>]+src="([^">]+)"/);
         const thumbnail = thumbnailMatch ? thumbnailMatch[1] : undefined;
 
         // Clean description by removing HTML tags
         const cleanDescription =
-          post.content.replace(/<[^>]+>/g, "").substring(0, 150) +
+          post.content.replaceAll(/<[^>]+>/g, "").slice(0, 150) +
           (post.content.length > 150 ? "..." : "");
 
         return {
-          ...post,
-          thumbnail,
+          title: post.title,
+          pubDate: post.pubDate,
+          link: post.link,
+          categories: post.categories,
+          content: post.content,
           description: cleanDescription,
+          ...(thumbnail === undefined ? {} : { thumbnail }),
         };
       });
 
       setPosts(processedPosts);
-      setFeed(data.feed);
-    } catch (err) {
-      console.error("Error fetching Medium posts:", err);
+    } catch (error_) {
+      console.error("Error fetching Medium posts:", error_);
       setError(
-        err instanceof Error ? err.message : "An unknown error occurred",
+        error_ instanceof Error ? error_.message : "An unknown error occurred",
       );
     } finally {
-      setIsLoading(false);
-      setIsRetrying(false);
+      setLoading(false);
     }
   };
 
-  // Retry function with loading state
-  const handleRetry = () => {
-    setIsRetrying(true);
+  // Handler for retry button click
+  const handleRetryClick = useCallback(() => {
     fetchPosts();
-  };
+  }, []);
+
+  // Handler for GitHub link click
+  const handleGitHubClick = useCallback(() => {
+    globalThis.open("https://github.com/mulugeta-adamu", "_blank");
+  }, []);
 
   // Initial fetch
   useEffect(() => {
@@ -107,11 +125,11 @@ const BlogList: React.FC = () => {
   }, []);
 
   // Loading state
-  if (isLoading) {
+  if (loading) {
     return (
       <section
         id="blog"
-        className="container mx-auto px-4 py-12 min-h-[60vh] flex items-center justify-center"
+        className="mx-auto w-full max-w-7xl px-4 sm:px-6 py-16 sm:py-20 md:py-24 min-h-[60vh] flex items-center justify-center"
         aria-label="Loading blog posts"
         aria-busy="true"
       >
@@ -123,23 +141,26 @@ const BlogList: React.FC = () => {
   // Error state
   if (error) {
     return (
-      <section id="blog" className="container mx-auto px-4 py-12">
-        <div className="max-w-2xl mx-auto bg-red-50 dark:bg-red-900/20 p-8 rounded-lg border border-red-200 dark:border-red-800">
-          <h2 className="text-2xl font-bold text-red-700 dark:text-red-300 mb-4">
+      <section
+        id="blog"
+        className="mx-auto w-full max-w-7xl px-4 sm:px-6 py-16 sm:py-20 md:py-24"
+      >
+        <div className="max-w-2xl mx-auto bg-destructive/10 p-6 sm:p-8 rounded-xl border border-destructive/20">
+          <h2 className="text-2xl font-bold text-destructive mb-4">
             Oops! Something went wrong
           </h2>
-          <p className="text-red-600 dark:text-red-400 mb-6">
+          <p className="text-destructive/80 mb-6">
             {error}. Please try again later.
           </p>
           <button
-            onClick={handleRetry}
-            disabled={isRetrying}
-            className="px-6 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg transition-colors disabled:opacity-70 flex items-center justify-center gap-2"
+            onClick={handleRetryClick}
+            disabled={loading}
+            className="px-5 py-2.5 bg-destructive hover:bg-destructive/90 text-destructive-foreground rounded-lg transition-colors disabled:opacity-70 flex items-center justify-center gap-2"
             aria-label="Retry loading blog posts"
           >
-            {isRetrying ? (
+            {loading ? (
               <>
-                <span className="h-4 w-4 animate-spin rounded-full border-2 border-white border-t-transparent"></span>
+                <span className="size-4 animate-spin rounded-full border-2 border-destructive-foreground border-t-transparent"></span>
                 Retrying...
               </>
             ) : (
@@ -154,15 +175,24 @@ const BlogList: React.FC = () => {
   // Empty state
   if (posts.length === 0) {
     return (
-      <section id="blog" className="container mx-auto px-4 py-12">
-        <div className="max-w-2xl mx-auto bg-gray-50 dark:bg-gray-800/50 p-8 rounded-lg border border-gray-200 dark:border-gray-700">
-          <h2 className="text-2xl font-bold text-gray-800 dark:text-gray-200 mb-4">
-            No blog posts found
+      <section
+        id="blog"
+        className="mx-auto w-full max-w-7xl px-4 sm:px-6 py-16 sm:py-20 md:py-24"
+      >
+        <div className="max-w-2xl mx-auto bg-destructive/10 p-6 sm:p-8 rounded-xl border border-destructive/20">
+          <h2 className="text-2xl font-bold text-destructive mb-4">
+            No Blog Posts Yet
           </h2>
-          <p className="text-gray-600 dark:text-gray-400">
-            There are currently no blog posts to display. Check back later for
-            updates!
+          <p className="text-destructive/80 mb-6">
+            I&apos;m working on creating some amazing content. Check back soon!
           </p>
+          <Button
+            onClick={handleGitHubClick}
+            variant="destructive"
+            className="px-5 py-2.5 rounded-lg gap-2"
+          >
+            <Github className="size-4" /> Follow on GitHub
+          </Button>
         </div>
       </section>
     );
@@ -172,14 +202,17 @@ const BlogList: React.FC = () => {
   return (
     <section
       id="blog"
-      className="container mx-auto px-4 py-28 relative z-0"
+      className="mx-auto w-full max-w-7xl px-4 sm:px-6 py-16 sm:py-20 md:py-24"
       aria-labelledby="blog-heading"
     >
-      <div className="text-center mb-12">
-        <h1 id="blog-heading" className="text-4xl md:text-5xl font-bold mb-4">
+      <div className="text-center mb-12 md:mb-16">
+        <h1
+          id="blog-heading"
+          className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4"
+        >
           Latest Blog Posts
         </h1>
-        <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+        <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
           Thoughts, tutorials, and insights about web development and more
         </p>
       </div>
@@ -188,7 +221,7 @@ const BlogList: React.FC = () => {
       {feed && <FeedCard feed={feed} />}
 
       {/* Blog Posts Grid */}
-      <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+      <div className="grid gap-6 sm:gap-8 md:gap-10 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mt-8 md:mt-12">
         {posts.map((post) => (
           <BlogCard key={post.link} post={post} />
         ))}

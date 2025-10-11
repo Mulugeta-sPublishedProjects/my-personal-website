@@ -33,7 +33,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4 }}
-      className="bg-gray-100 dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden transform transition duration-300 hover:scale-105 flex flex-col mx-auto sm:max-w-xs md:max-w-sm lg:max-w-md xl:max-w-lg m-4"
+      className="bg-card rounded-xl shadow-lg overflow-hidden transform transition duration-300 hover:scale-105 flex flex-col mx-auto sm:max-w-xs md:max-w-sm lg:max-w-md xl:max-w-lg m-4 border border-border"
     >
       {/* Image Section */}
       <div className="relative w-full h-48 sm:h-56 md:h-64 lg:h-72">
@@ -51,23 +51,22 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
       <div className="p-4 sm:p-6 flex flex-col">
         {/* Title and Company */}
         <div className="flex justify-between items-start">
-          <h3 className="text-lg sm:text-2xl font-semibold text-gray-900 dark:text-white leading-tight">
+          <h3 className="text-lg sm:text-2xl font-semibold text-foreground leading-tight">
             {title}
           </h3>
-          <p className="text-gray-500 dark:text-gray-400 text-sm sm:text-base mt-1">
-            Owned by{" "}
-            <span className="text-primary-500 font-medium">{company}</span>
+          <p className="text-muted-foreground text-sm sm:text-base mt-1 leading-relaxed">
+            Owned by <span className="text-primary font-medium">{company}</span>
           </p>
         </div>
 
         {/* Description */}
-        <p className="text-gray-700 mt-4 dark:text-gray-300 leading-relaxed mb-3 sm:mb-4 text-sm sm:text-base">
+        <p className="text-muted-foreground mt-4 leading-relaxed mb-3 sm:mb-4 text-sm sm:text-base tracking-wide">
           {description}
         </p>
 
         {/* Tech Stack */}
         <div className="mb-3 sm:mb-4">
-          <h4 className="font-semibold text-gray-800 dark:text-gray-200 mb-1 sm:mb-2 text-sm sm:text-base">
+          <h4 className="font-semibold text-foreground mb-1 sm:mb-2 text-sm sm:text-base leading-tight">
             Tech Stack
           </h4>
           <motion.div
@@ -79,7 +78,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
             {techStack.map((tech) => (
               <span
                 key={tech}
-                className="bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-300 px-3 py-1 rounded-full text-xs sm:text-sm"
+                className="bg-muted text-foreground px-3 py-1 rounded-full text-xs sm:text-sm tracking-wide"
               >
                 {tech}
               </span>
@@ -93,7 +92,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
             href={liveLink}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-primary-500 hover:text-primary-700 dark:hover:text-primary-300 transition duration-200 flex items-center text-sm sm:text-base"
+            className="text-primary hover:text-primary/80 transition duration-200 flex items-center text-sm sm:text-base"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -109,7 +108,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
             href={githubLink}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-gray-900 dark:text-gray-300 hover:text-gray-700 dark:hover:text-gray-400 transition duration-200 flex items-center text-sm sm:text-base"
+            className="text-foreground hover:text-muted-foreground transition duration-200 flex items-center text-sm sm:text-base"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"

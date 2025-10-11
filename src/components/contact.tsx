@@ -1,226 +1,185 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { useInView } from "framer-motion";
+import { useRef, useState } from "react";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
 import {
   Mail,
-  Phone,
-  MapPin,
   Github,
   Linkedin,
   Twitter,
-  MessageCircle,
-  ArrowRight,
-  Sparkles,
+  Copy,
+  Check,
   Send,
-  Clock,
-  Star,
-  Zap,
+  MapPin,
+  MessageCircle,
 } from "lucide-react";
-import { Card, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { cn } from "@/lib/utils";
-import { useReducedMotion } from "@/components/performance-optimizer";
 
-interface ContactMethod {
-  icon: React.ReactNode;
-  title: string;
-  description: string;
-  value: string;
-  href?: string;
-  color: string;
-}
+const socialLinks = [
+  {
+    name: "GitHub",
+    icon: Github,
+    href: "https://github.com/mulugetaadamu",
+    color: "hover:text-foreground",
+  },
+  {
+    name: "LinkedIn",
+    icon: Linkedin,
+    href: "https://linkedin.com/in/mulugetaadamu",
+    color: "hover:text-[#0077b5]",
+  },
+  {
+    name: "Twitter",
+    icon: Twitter,
+    href: "https://twitter.com/mulugetaadamu",
+    color: "hover:text-[#1da1f2]",
+  },
+  {
+    name: "Telegram",
+    icon: MessageCircle,
+    href: "https://t.me/mulugetaadamu",
+    color: "hover:text-[#0088cc]",
+  },
+];
 
-interface SocialProfile {
-  icon: React.ReactNode;
-  name: string;
-  url: string;
-  color: string;
-}
+export function Contact() {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const { toast } = useToast();
+  const [copied, setCopied] = useState(false);
 
-export default function ContactPage() {
-  const prefersReducedMotion = useReducedMotion();
-
-  const contactMethods: ContactMethod[] = [
-    {
-      icon: <Mail className="h-5 w-5" />,
-      title: "Email",
-      description: "Professional inquiries & collaborations",
-      value: "mulugeta.adamu97@gmail.com",
-      href: "mailto:mulugeta.adamu97@gmail.com",
-      color: "bg-blue-500/10 text-blue-500 border-blue-500/20",
-    },
-    {
-      icon: <Phone className="h-5 w-5" />,
-      title: "Phone",
-      description: "Available Mon-Fri, 9AM-6PM EAT",
-      value: "+251 98 305 4774",
-      href: "tel:+251983054774",
-      color: "bg-green-500/10 text-green-500 border-green-500/20",
-    },
-    {
-      icon: <MapPin className="h-5 w-5" />,
-      title: "Location",
-      description: "Open to remote & on-site work",
-      value: "Addis Ababa, Ethiopia",
-      color: "bg-red-500/10 text-red-500 border-red-500/20",
-    },
-    {
-      icon: <MessageCircle className="h-5 w-5" />,
-      title: "Telegram",
-      description: "Fastest response time",
-      value: "@mulugeta_dev",
-      href: "https://t.me/mulugeta_dev",
-      color: "bg-purple-500/10 text-purple-500 border-purple-500/20",
-    },
-  ];
-
-  const socialProfiles: SocialProfile[] = [
-    {
-      icon: <Github className="h-5 w-5" />,
-      name: "GitHub",
-      url: "https://github.com/mulugeta-adamu",
-      color: "hover:bg-gray-800 hover:text-white",
-    },
-    {
-      icon: <Linkedin className="h-5 w-5" />,
-      name: "LinkedIn",
-      url: "https://linkedin.com/in/mulugeta-adamu",
-      color: "hover:bg-blue-700 hover:text-white",
-    },
-    {
-      icon: <Twitter className="h-5 w-5" />,
-      name: "Twitter",
-      url: "https://twitter.com/mulugeta_adamu",
-      color: "hover:bg-sky-500 hover:text-white",
-    },
-  ];
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
+  const copyEmail = () => {
+    navigator.clipboard.writeText("mulugeta.adamu@example.com");
+    setCopied(true);
+    toast({
+      title: "Email copied!",
+      description: "Email address copied to clipboard.",
+    });
+    setTimeout(() => setCopied(false), 2000);
   };
 
-  const ContactItem = ({ method }: { method: ContactMethod }) => (
-    <motion.div
-      variants={itemVariants}
-      className="group flex items-center gap-6 p-6 glass-subtle rounded-2xl border border-transparent hover:border-primary/20 hover:shadow-glow transition"
-    >
-      <motion.div
-        className={cn("p-4 rounded-2xl border", method.color)}
-        whileHover={{ scale: 1.1, rotate: 10 }}
-      >
-        {method.icon}
-      </motion.div>
-      <div>
-        <h3 className="text-lg font-bold">{method.title}</h3>
-        <p className="text-sm text-muted-foreground">{method.description}</p>
-        <p className="text-primary font-semibold">{method.value}</p>
-      </div>
-      {method.href && (
-        <a
-          href={method.href}
-          target={method.href.startsWith("http") ? "_blank" : undefined}
-          rel={
-            method.href.startsWith("http") ? "noopener noreferrer" : undefined
-          }
-          className="ml-auto"
-          aria-label={`Contact via ${method.title}`}
-        >
-          <ArrowRight className="h-5 w-5 text-muted-foreground group-hover:text-primary transition" />
-        </a>
-      )}
-    </motion.div>
-  );
-
   return (
-    <section className="py-20 bg-background relative z-0">
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 relative z-10">
-        {/* Header */}
-        <div className="text-center mb-12">
-          <Badge className="mb-4 px-4 py-2 text-primary font-semibold">
-            <Sparkles className="h-4 w-4 mr-2" />
-            Get In Touch
-          </Badge>
-          <h2 className="text-4xl font-bold mb-2">
-            Let's Build Something{" "}
-            <span className="text-primary">Amazing Together</span>
-          </h2>
-          <p className="text-muted-foreground max-w-2xl mx-auto">
-            Ready to transform your ideas into reality? I create
-            high-performance web apps with exceptional UX.
-          </p>
-        </div>
-
-        {/* Contact Methods */}
+    <section id="contact" className="py-24 sm:py-32 bg-muted/30" ref={ref}>
+      <div className="container px-4 sm:px-6 lg:px-8">
         <motion.div
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          variants={{ visible: { transition: { staggerChildren: 0.1 } } }}
-          className="grid md:grid-cols-2 gap-4 mb-8"
+          className="max-w-4xl mx-auto"
+          initial={{ opacity: 0, y: 50 }}
+          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
+          transition={{ duration: 0.5 }}
         >
-          {contactMethods.map((method) => (
-            <ContactItem key={method.title} method={method} />
-          ))}
-        </motion.div>
-
-        {/* Social Links */}
-        <div className="flex flex-wrap gap-3 justify-center mb-8">
-          {socialProfiles.map((social) => (
-            <Button
-              key={social.name}
-              asChild
-              size="sm"
-              className={cn("rounded-full gap-2", social.color)}
-            >
-              <a href={social.url} target="_blank" rel="noopener noreferrer">
-                {social.icon} <span>{social.name}</span>
-              </a>
-            </Button>
-          ))}
-        </div>
-
-        {/* CTA */}
-        <Card className="glass-subtle rounded-2xl p-6 text-center border border-border/20">
-          <h3 className="font-semibold mb-2 flex items-center justify-center gap-2">
-            <Sparkles className="h-5 w-5 text-primary" /> Ready to Start?
-          </h3>
-          <p className="text-sm text-muted-foreground mb-4">
-            Let's discuss your project and turn your vision into reality. Free
-            consultation available!
+          <h2 className="text-3xl sm:text-4xl font-bold mb-4 text-center">
+            Let&apos;s Connect
+          </h2>
+          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+            Have a project in mind or want to discuss potential opportunities?
+            I&apos;d love to hear from you. Let&apos;s connect and explore how
+            we can bring your ideas to life.
           </p>
-          <div className="flex flex-col md:flex-row gap-3 justify-center">
-            <Button
-              asChild
-              className="w-full rounded-full bg-primary text-white"
-            >
-              <a
-                href="https://t.me/mulugeta_dev"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <MessageCircle className="h-4 w-4 mr-2" />
-                Quick Chat on Telegram
-              </a>
-            </Button>
-            <Button variant="outline" asChild className="w-full rounded-full">
-              <a href="mailto:mulugeta.adamu97@gmail.com">Send Email</a>
-            </Button>
+
+          <div className="grid md:grid-cols-2 gap-6 max-w-3xl mx-auto">
+            <Card className="hover:border-primary/50 transition-colors">
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Mail className="h-5 w-5 text-primary" />
+                  Email
+                </CardTitle>
+                <CardDescription>Send me an email directly</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <Button
+                  variant="outline"
+                  className="w-full justify-between bg-transparent"
+                  onClick={copyEmail}
+                >
+                  <span className="text-sm">mulugeta.adamu@example.com</span>
+                  {copied ? (
+                    <Check className="h-4 w-4 text-primary" />
+                  ) : (
+                    <Copy className="h-4 w-4" />
+                  )}
+                </Button>
+                <Button className="w-full mt-3" asChild>
+                  <a href="mailto:mulugeta.adamu@example.com">
+                    <Send className="h-4 w-4 mr-2" />
+                    Send Email
+                  </a>
+                </Button>
+              </CardContent>
+            </Card>
+
+            <Card className="hover:border-primary/50 transition-colors">
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <MapPin className="h-5 w-5 text-primary" />
+                  Location
+                </CardTitle>
+                <CardDescription>Where I&apos;m based</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-2 text-sm">
+                  <p className="font-medium">
+                    Addis Ababa, Ethiopia &#127466;&#127469;
+                  </p>
+                  <p className="text-muted-foreground">
+                    Available for remote opportunities worldwide
+                  </p>
+                  <p className="text-muted-foreground">
+                    Open to relocation for the right opportunity
+                  </p>
+                </div>
+              </CardContent>
+            </Card>
           </div>
-          <div className="flex justify-center gap-6 mt-4 text-xs text-muted-foreground">
-            <span className="flex items-center gap-1">
-              <Clock className="h-3 w-3" /> 24h response
-            </span>
-            <span className="flex items-center gap-1">
-              <Star className="h-3 w-3" /> 5+ Years Experience
-            </span>
-            <span className="flex items-center gap-1">
-              <Zap className="h-3 w-3" /> Fast Delivery
-            </span>
-          </div>
-        </Card>
+
+          <Card className="mt-6 max-w-3xl mx-auto">
+            <CardHeader>
+              <CardTitle>Connect on Social Media</CardTitle>
+              <CardDescription>Follow me on social platforms</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+                {socialLinks.map((social) => (
+                  <Button
+                    key={social.name}
+                    variant="outline"
+                    className={`h-auto flex-col gap-2 py-4 ${social.color} transition-all hover:scale-105`}
+                    asChild
+                  >
+                    <a
+                      href={social.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <social.icon className="h-6 w-6" />
+                      <span className="text-sm">{social.name}</span>
+                    </a>
+                  </Button>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
+        </motion.div>
       </div>
+
+      <footer className="mt-24 pt-8 border-t border-border">
+        <div className="container px-4 sm:px-6 lg:px-8">
+          <p className="text-center text-sm text-muted-foreground">
+            &copy; {new Date().getFullYear()} Mulugeta Adamu. Built with
+            Next.js, TypeScript, and Tailwind CSS.
+          </p>
+        </div>
+      </footer>
     </section>
   );
+}
+function useToast(): { toast: any } {
+  throw new Error("Function not implemented.");
 }

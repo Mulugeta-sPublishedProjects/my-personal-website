@@ -1,264 +1,105 @@
 "use client";
 
-import { useState, useEffect, useRef, useCallback, useMemo } from "react";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { cn } from "@/lib/utils";
+import { useState, useEffect } from "react";
+import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { Send, Menu, X } from "lucide-react";
-import { ThemeToggle } from "./theme-toggle";
-import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
-import { useScrollPosition, useOnClickOutside } from "@/hooks";
+import { ThemeToggle } from "@/components/theme-toggle";
+import { MessageCircle } from "lucide-react";
 
-type NavItem = {
-  name: string;
-  href: string;
-};
-
-const NAV_ITEMS: NavItem[] = [
-  { name: "Home", href: "/" },
-  { name: "About", href: "#about" },
-  { name: "Work", href: "#work" },
+const navItems = [
+  { name: "Home", href: "#home" },
+  { name: "About Me", href: "#about" },
+  { name: "Expertise", href: "#expertise" },
+  { name: "Projects", href: "#projects" },
   { name: "Contact", href: "#contact" },
-  { name: "Blog", href: "#blog" },
 ];
 
-const SCROLL_THRESHOLD = 5;
+const scrollToContact = (): void => {
+  globalThis.document
+    .querySelector("#contact")
+    ?.scrollIntoView({ behavior: "smooth" });
+};
 
-export function Header() {
-  const [activeSection, setActiveSection] = useState("Home");
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const headerRef = useRef<HTMLElement>(null);
-  const pathname = usePathname();
-  const prefersReducedMotion = useReducedMotion();
-  const isScrolled = useScrollPosition(SCROLL_THRESHOLD);
+export default function Header() {
+  const [activeSection, setActiveSection] = useState<string>("");
+  const [scrolled, setScrolled] = useState<boolean>(false);
 
-  // add shadow effect on scroll
-  const [hasScrolled, setHasScrolled] = useState(false);
   useEffect(() => {
     const handleScroll = () => {
-      setHasScrolled(window.scrollY > 0);
+      setScrolled(globalThis.scrollY > 10);
+
+      const sections = ["home", "about", "expertise", "projects", "contact"];
+      const current = sections.find((section) => {
+        const element = globalThis.document.querySelector(`#${section}`);
+        if (element) {
+          const rect = element.getBoundingClientRect();
+          return rect.top <= 100 && rect.bottom >= 100;
+        }
+        return false;
+      });
+      if (current) setActiveSection(current);
     };
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
+
+    globalThis.addEventListener("scroll", handleScroll);
+    return () => globalThis.removeEventListener("scroll", handleScroll);
   }, []);
 
-  useOnClickOutside(headerRef, () => {
-    if (mobileMenuOpen) setMobileMenuOpen(false);
-  });
-
-  // active section tracking
-  useEffect(() => {
-    const handleScroll = () => {
-      if (pathname !== "/") return;
-
-      const scrollPosition = window.scrollY + 100;
-
-      if (window.scrollY < 100) {
-        setActiveSection("Home");
-        return;
-      }
-
-      for (const item of NAV_ITEMS) {
-        if (!item.href.startsWith("#")) continue;
-        const sectionId = item.href.substring(1);
-        const element = document.getElementById(sectionId);
-        if (element) {
-          const { offsetTop, offsetHeight } = element;
-          const offsetBottom = offsetTop + offsetHeight;
-          if (scrollPosition >= offsetTop && scrollPosition < offsetBottom) {
-            setActiveSection(item.name);
-            break;
-          }
-        }
-      }
-    };
-
-    if (pathname === "/") {
-      window.addEventListener("scroll", handleScroll, { passive: true });
-      return () => window.removeEventListener("scroll", handleScroll);
-    }
-  }, [pathname]);
-
-  useEffect(() => {
-    const handleResize = () => {
-      if (window.innerWidth >= 768 && mobileMenuOpen) {
-        setMobileMenuOpen(false);
-      }
-    };
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, [mobileMenuOpen]);
-
-  const handleNavClick = useCallback(
-    (href: string, name: string) => {
-      setActiveSection(name);
-      setMobileMenuOpen(false);
-
-      if (href === "/") {
-        window.scrollTo({ top: 0, behavior: "smooth" });
-        return;
-      }
-      if (href.startsWith("#")) {
-        const id = href.substring(1);
-        const element = document.getElementById(id);
-        if (element) {
-          const headerOffset = 80; // match header height
-          const elementPosition = element.getBoundingClientRect().top;
-          const offsetPosition =
-            elementPosition + window.pageYOffset - headerOffset;
-          window.scrollTo({ top: offsetPosition, behavior: "smooth" });
-        }
-        return;
-      }
-      window.location.href = href;
-    },
-    [pathname]
-  );
-
-  const handleKeyDown = useCallback(
-    (e: React.KeyboardEvent, href: string, name: string) => {
-      if (e.key === "Enter" || e.key === " ") {
-        e.preventDefault();
-        handleNavClick(href, name);
-      }
-    },
-    [handleNavClick]
-  );
-
-  const navItems = useMemo(
-    () =>
-      NAV_ITEMS.map((item) => ({
-        ...item,
-        isActive: activeSection === item.name,
-      })),
-    [activeSection]
-  );
-
   return (
-    <header
-      ref={headerRef}
-      className={cn(
-        "fixed top-0 left-0 right-0 z-50 w-full border-b backdrop-blur-md transition-all duration-300",
-        hasScrolled
-          ? "bg-background/95 shadow-md border-border/50"
-          : "bg-background/80 border-transparent"
-      )}
+    <motion.nav
+      initial={{ y: -100 }}
+      animate={{ y: 0 }}
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        scrolled
+          ? "bg-background/80 backdrop-blur-lg border-b border-border"
+          : ""
+      }`}
     >
-      <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
-        {/* logo */}
-        <Link
-          href="/"
-          className="flex items-center gap-2 group"
-          onClick={() => handleNavClick("/", "Home")}
-        >
-          <motion.div
-            {...(!prefersReducedMotion && {
-              whileHover: { scale: 1.1, rotate: 5 },
-            })}
+      <div className="container relative z-10 px-4 sm:px-6 lg:px-8">
+        <div className="flex items-center justify-between h-16 max-w-6xl mx-auto">
+          <motion.a
+            href="#"
+            className="text-xl font-bold text-foreground no-underline"
+            whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary text-white font-bold shadow-md"
           >
-            M
-          </motion.div>
-          <div className="hidden sm:block">
-            <p className="text-base font-bold group-hover:text-primary transition">
-              Mulugeta
-            </p>
-            <p className="text-xs text-muted-foreground">Frontend Engineer</p>
+            MA
+          </motion.a>
+
+          <div className="hidden md:flex items-center gap-8">
+            {navItems.map((item) => (
+              <a
+                key={item.name}
+                href={item.href}
+                style={{
+                  textDecoration: "none",
+                  boxShadow: "none",
+                  border: "none",
+                  outline: "none",
+                }}
+                className={`nav-link header-nav-link text-sm font-medium transition-colors hover:text-primary no-underline outline-none border-none ${
+                  activeSection === item.href.slice(1)
+                    ? "text-primary"
+                    : "text-muted-foreground"
+                }`}
+              >
+                {item.name}
+              </a>
+            ))}
           </div>
-        </Link>
 
-        {/* desktop nav */}
-        <nav className="hidden md:flex items-center gap-2">
-          {navItems.map((item) => (
-            <Link
-              key={item.name}
-              href={item.href}
-              onClick={(e) => {
-                e.preventDefault();
-                handleNavClick(item.href, item.name);
-              }}
-              onKeyDown={(e) => handleKeyDown(e, item.href, item.name)}
-              tabIndex={0}
-              className={cn(
-                "relative text-sm font-semibold px-4 py-2 rounded-xl transition-all duration-300 group/nav-item",
-                item.isActive
-                  ? "text-primary bg-primary/10 shadow-sm"
-                  : "text-muted-foreground hover:text-foreground hover:bg-accent"
-              )}
+          <div className="flex items-center gap-2">
+            <ThemeToggle />
+            <Button
+              onClick={scrollToContact}
+              size="sm"
+              className="hidden sm:flex items-center gap-2"
             >
-              {item.name}
-            </Link>
-          ))}
-        </nav>
-
-        {/* right side */}
-        <div className="flex items-center gap-3">
-          <ThemeToggle />
-          <Badge
-            variant="outline"
-            className="hidden md:flex rounded-xl border-primary/30 text-primary"
-          >
-            Available
-          </Badge>
-          <Button
-            size="sm"
-            className="hidden md:flex gap-2"
-            onClick={() => handleNavClick("#contact", "Contact")}
-          >
-            <Send className="h-4 w-4" />
-            Hire Me
-          </Button>
-          <Button
-            size="icon"
-            variant="ghost"
-            className="md:hidden"
-            onClick={() => setMobileMenuOpen((p) => !p)}
-          >
-            {mobileMenuOpen ? <X /> : <Menu />}
-          </Button>
+              <MessageCircle className="h-4 w-4" />
+              Let&apos;s Talk
+            </Button>
+          </div>
         </div>
       </div>
-
-      {/* mobile nav */}
-      <AnimatePresence>
-        {mobileMenuOpen && (
-          <motion.nav
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: "auto", opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.3 }}
-            className="md:hidden overflow-hidden border-t bg-background/95 backdrop-blur-md"
-          >
-            <div className="flex flex-col px-6 py-4 gap-2">
-              {navItems.map((item) => (
-                <button
-                  key={item.name}
-                  onClick={() => handleNavClick(item.href, item.name)}
-                  className={cn(
-                    "rounded-lg px-4 py-3 text-left text-base font-medium transition",
-                    item.isActive
-                      ? "bg-primary/10 text-primary"
-                      : "text-muted-foreground hover:text-foreground hover:bg-accent"
-                  )}
-                >
-                  {item.name}
-                </button>
-              ))}
-              <Button
-                size="lg"
-                className="mt-4 flex w-full gap-2 justify-center"
-                onClick={() => handleNavClick("#contact", "Contact")}
-              >
-                <Send className="h-4 w-4" />
-                Hire Me
-              </Button>
-            </div>
-          </motion.nav>
-        )}
-      </AnimatePresence>
-    </header>
+    </motion.nav>
   );
 }

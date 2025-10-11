@@ -1,19 +1,36 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { WifiOff, Wifi, RefreshCw } from "lucide-react";
+import { WifiOff, Wifi, RefreshCw, CloudDownload } from "lucide-react";
 
 export function PWAStatus() {
   const [isOnline, setIsOnline] = useState(true);
   const [showOfflineMessage, setShowOfflineMessage] = useState(false);
   const [updateAvailable, setUpdateAvailable] = useState(false);
+  const [isClient, setIsClient] = useState(false);
+
+  // Check if app is installed as PWA
+  const checkIfInstalled = useCallback(() => {
+    if (typeof globalThis === "undefined") return false;
+
+    return (
+      globalThis.matchMedia("(display-mode: standalone)").matches ||
+      (globalThis.navigator as any).standalone === true ||
+      document.referrer.includes("android-app://")
+    );
+  }, []);
 
   useEffect(() => {
+    // Set client state
+    setIsClient(true);
+
     // Check initial online status
-    setIsOnline(navigator.onLine);
+    if (typeof navigator !== "undefined") {
+      setIsOnline(navigator.onLine);
+    }
 
     // Listen for online/offline events
     const handleOnline = () => {
@@ -33,26 +50,64 @@ export function PWAStatus() {
       setUpdateAvailable(true);
     };
 
-    window.addEventListener('online', handleOnline);
-    window.addEventListener('offline', handleOffline);
+    // Listen for our custom events
+    const handleSWUpdateAvailable = () => {
+      setUpdateAvailable(true);
+    };
 
-    // Check for service worker updates
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.addEventListener('controllerchange', handleServiceWorkerUpdate);
+    const handleSWInstalled = () => {
+      // PWA was installed
+    };
+
+    if (typeof globalThis !== "undefined") {
+      globalThis.addEventListener("online", handleOnline);
+      globalThis.addEventListener("offline", handleOffline);
+
+      // Check for service worker updates
+      if ("serviceWorker" in navigator) {
+        navigator.serviceWorker.addEventListener(
+          "controllerchange",
+          handleServiceWorkerUpdate,
+        );
+      }
+
+      // Listen for our custom events from service worker registration
+      globalThis.addEventListener(
+        "sw-update-available",
+        handleSWUpdateAvailable,
+      );
+      globalThis.addEventListener("sw-installed", handleSWInstalled);
     }
 
     return () => {
-      window.removeEventListener('online', handleOnline);
-      window.removeEventListener('offline', handleOffline);
-      if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.removeEventListener('controllerchange', handleServiceWorkerUpdate);
+      if (typeof globalThis !== "undefined") {
+        globalThis.removeEventListener("online", handleOnline);
+        globalThis.removeEventListener("offline", handleOffline);
+
+        if ("serviceWorker" in navigator) {
+          navigator.serviceWorker.removeEventListener(
+            "controllerchange",
+            handleServiceWorkerUpdate,
+          );
+        }
+
+        globalThis.removeEventListener(
+          "sw-update-available",
+          handleSWUpdateAvailable,
+        );
+        globalThis.removeEventListener("sw-installed", handleSWInstalled);
       }
     };
   }, []);
 
   const handleRefresh = () => {
-    window.location.reload();
+    globalThis.location.reload();
   };
+
+  // Don't render anything during SSR
+  if (!isClient) {
+    return undefined;
+  }
 
   return (
     <>
@@ -126,8 +181,28 @@ export function PWAStatus() {
         )}
       </AnimatePresence>
 
+      {/* PWA Installed Indicator */}
+      <AnimatePresence>
+        {checkIfInstalled() && (
+          <motion.div
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.8 }}
+            className="fixed bottom-4 left-4 z-40"
+          >
+            <Badge
+              variant="secondary"
+              className="flex items-center gap-1 text-xs"
+            >
+              <CloudDownload className="w-3 h-3" />
+              <span>PWA</span>
+            </Badge>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       {/* Online Status Indicator (subtle) */}
-      <div className="fixed bottom-4 left-4 z-40">
+      <div className="fixed bottom-4 left-4 z-30">
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: isOnline ? 0.6 : 0 }}

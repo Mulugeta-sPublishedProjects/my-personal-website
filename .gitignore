@@ -10,6 +10,10 @@
 !.yarn/releases
 !.yarn/versions
 
+# bun dependencies
+.bun
+.bun-install
+
 # testing
 /coverage
 
@@ -26,11 +30,14 @@
 
 # debug
 npm-debug.log*
+npm-error.log*
 yarn-debug.log*
 yarn-error.log*
+bun-debug.log*
 
 # env files (can opt-in for commiting if needed)
 .env*
+!.env
 
 # vercel
 .vercel
@@ -41,3 +48,11 @@ next-env.d.ts
 
 # Turborepo
 .turbo
+
+# bun lock file
+bun.lock
+bun.lockb
+
+# npm lock files
+package-lock.json
+npm-shrinkwrap.json

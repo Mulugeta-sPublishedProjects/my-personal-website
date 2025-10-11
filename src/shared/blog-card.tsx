@@ -1,3 +1,5 @@
+"use client";
+
 import Image from "next/image";
 import React from "react";
 import Link from "next/link";
@@ -13,23 +15,23 @@ interface BlogCardProps {
   };
 }
 
+// Format date for better readability
+const formatDate = (dateString: string) => {
+  const options: Intl.DateTimeFormatOptions = {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  };
+  return new Date(dateString).toLocaleDateString(undefined, options);
+};
+
 const BlogCard: React.FC<BlogCardProps> = ({ post }) => {
   const { title, description, link, categories, pubDate, thumbnail } = post;
 
-  // Format date for better readability
-  const formatDate = (dateString: string) => {
-    const options: Intl.DateTimeFormatOptions = {
-      year: "numeric",
-      month: "long",
-      day: "numeric",
-    };
-    return new Date(dateString).toLocaleDateString(undefined, options);
-  };
-
   return (
-    <div className="bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden border border-gray-200 dark:border-gray-700 transition-all duration-300 hover:shadow-lg hover:-translate-y-1 flex flex-col h-full">
+    <div className="bg-card rounded-xl border border-border transition-all duration-300 hover:shadow-sm hover:-translate-y-0.5 flex flex-col h-full">
       {/* Image */}
-      <div className="relative h-48 w-full overflow-hidden bg-gray-100 dark:bg-gray-900">
+      <div className="relative h-44 w-full overflow-hidden bg-muted">
         {thumbnail ? (
           <Image
             src={thumbnail}
@@ -39,8 +41,8 @@ const BlogCard: React.FC<BlogCardProps> = ({ post }) => {
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           />
         ) : (
-          <div className="flex items-center justify-center h-full w-full bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-blue-900/20 dark:to-indigo-900/20">
-            <span className="text-gray-400 dark:text-gray-500 text-lg font-medium">
+          <div className="flex items-center justify-center h-full w-full bg-muted/50">
+            <span className="text-muted-foreground text-sm font-medium">
               No Image
             </span>
           </div>
@@ -48,32 +50,32 @@ const BlogCard: React.FC<BlogCardProps> = ({ post }) => {
       </div>
 
       {/* Content */}
-      <div className="p-6 flex flex-col flex-grow">
+      <div className="p-5 sm:p-6 flex flex-col flex-grow">
         <div className="mb-4">
-          <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2 line-clamp-2">
+          <h3 className="text-lg sm:text-xl font-bold text-foreground mb-2 line-clamp-2 leading-tight">
             {title}
           </h3>
-          <p className="text-gray-600 dark:text-gray-300 text-sm mb-4">
+          <p className="text-muted-foreground text-xs mb-3">
             {formatDate(pubDate)}
           </p>
-          <p className="text-gray-700 dark:text-gray-300 mb-6 line-clamp-3">
+          <p className="text-muted-foreground text-sm mb-5 line-clamp-3 leading-relaxed">
             {description}
           </p>
         </div>
 
         {/* Categories */}
         {categories && categories.length > 0 && (
-          <div className="flex flex-wrap gap-2 mb-6">
+          <div className="flex flex-wrap gap-2 mb-5">
             {categories.slice(0, 3).map((category, index) => (
               <span
                 key={index}
-                className="px-3 py-1 text-xs font-medium bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 rounded-full"
+                className="px-2.5 py-1 text-xs font-medium bg-primary/10 text-primary rounded-full"
               >
                 {category}
               </span>
             ))}
             {categories.length > 3 && (
-              <span className="px-3 py-1 text-xs font-medium bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-full">
+              <span className="px-2.5 py-1 text-xs font-medium bg-muted text-muted-foreground rounded-full">
                 +{categories.length - 3}
               </span>
             )}
@@ -86,7 +88,7 @@ const BlogCard: React.FC<BlogCardProps> = ({ post }) => {
             href={link}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 font-medium transition-colors"
+            className="inline-flex items-center text-primary hover:text-primary/80 font-medium text-sm transition-colors"
           >
             Read Article
             <svg

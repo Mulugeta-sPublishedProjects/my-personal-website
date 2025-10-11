@@ -1,32 +1,36 @@
+"use client";
+
 import { useState, useEffect } from "react";
 import Image, { type ImageProps } from "next/image";
 import { cn } from "@/lib/utils";
 
 type OptimizedImageProps = Omit<ImageProps, "onLoadingComplete"> & {
-  fallbackSrc?: string;
+  fallbackSource?: string;
   priority?: boolean;
   className?: string;
+  sizes?: string;
 };
 
 export function OptimizedImage({
   src,
   alt,
   className = "",
-  fallbackSrc = "/placeholder.jpg",
+  fallbackSource: fallbackSourceProperty = "/placeholder.jpg",
   priority = false,
+  sizes = "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
   ...props
 }: OptimizedImageProps) {
-  const [imgSrc, setImgSrc] = useState(src);
+  const [imgSource, setImgSource] = useState(src);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    setImgSrc(src);
+    setImgSource(src);
     setIsLoading(true);
   }, [src]);
 
   const handleError = () => {
-    if (imgSrc !== fallbackSrc) {
-      setImgSrc(fallbackSrc);
+    if (imgSource !== fallbackSourceProperty) {
+      setImgSource(fallbackSourceProperty);
     }
   };
 
@@ -41,7 +45,7 @@ export function OptimizedImage({
       )}
       <Image
         {...props}
-        src={imgSrc}
+        src={imgSource}
         alt={alt}
         className={cn(
           "transition-opacity duration-300",
@@ -53,6 +57,7 @@ export function OptimizedImage({
         priority={priority}
         loading={priority ? "eager" : "lazy"}
         quality={85}
+        sizes={sizes}
       />
     </div>
   );

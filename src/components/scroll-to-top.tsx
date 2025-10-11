@@ -14,22 +14,32 @@ interface ScrollToTopProps {
 export function ScrollToTop({ threshold = 400, className }: ScrollToTopProps) {
   const [isVisible, setIsVisible] = useState(false);
   const [isScrolling, setIsScrolling] = useState(false);
+  const [scrollProgress, setScrollProgress] = useState(0);
 
   useEffect(() => {
     let timeoutId: NodeJS.Timeout;
 
     const handleScroll = () => {
-      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-      
+      const scrollTop =
+        window.pageYOffset || document.documentElement.scrollTop;
+
       // Show/hide button based on scroll position
       setIsVisible(scrollTop > threshold);
-      
+
       // Show scrolling indicator
       setIsScrolling(true);
-      
+
+      // Calculate scroll progress
+      const progress = Math.min(
+        scrollTop /
+          (document.documentElement.scrollHeight - window.innerHeight),
+        1,
+      );
+      setScrollProgress(progress);
+
       // Clear previous timeout
       clearTimeout(timeoutId);
-      
+
       // Hide scrolling indicator after scroll stops
       timeoutId = setTimeout(() => {
         setIsScrolling(false);
@@ -37,13 +47,13 @@ export function ScrollToTop({ threshold = 400, className }: ScrollToTopProps) {
     };
 
     // Add scroll listener
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    
+    window.addEventListener("scroll", handleScroll, { passive: true });
+
     // Initial check
     handleScroll();
 
     return () => {
-      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener("scroll", handleScroll);
       clearTimeout(timeoutId);
     };
   }, [threshold]);
@@ -51,7 +61,7 @@ export function ScrollToTop({ threshold = 400, className }: ScrollToTopProps) {
   const scrollToTop = () => {
     window.scrollTo({
       top: 0,
-      behavior: 'smooth'
+      behavior: "smooth",
     });
   };
 
@@ -60,53 +70,51 @@ export function ScrollToTop({ threshold = 400, className }: ScrollToTopProps) {
       {isVisible && (
         <motion.div
           initial={{ opacity: 0, scale: 0.8, y: 20 }}
-          animate={{ 
-            opacity: 1, 
-            scale: 1, 
+          animate={{
+            opacity: 1,
+            scale: 1,
             y: 0,
-            rotate: isScrolling ? 360 : 0
+            rotate: isScrolling ? 360 : 0,
           }}
           exit={{ opacity: 0, scale: 0.8, y: 20 }}
-          transition={{ 
-            duration: 0.3, 
+          transition={{
+            duration: 0.3,
             ease: "easeOut",
-            rotate: { duration: 0.6, ease: "easeInOut" }
+            rotate: { duration: 0.6, ease: "easeInOut" },
           }}
           className={cn(
             "fixed bottom-6 right-6 z-50",
             "md:bottom-8 md:right-8",
-            className
+            className,
           )}
         >
           <Button
             onClick={scrollToTop}
             size="icon"
             className={cn(
-              "h-12 w-12 rounded-full shadow-lg",
-              "bg-primary hover:bg-primary/90",
-              "border border-primary/20",
-              "backdrop-blur-sm",
-              "transition-all duration-200",
-              "hover:scale-110 hover:shadow-xl",
+              "size-14 rounded-full shadow-xl",
+              "bg-primary hover:bg-primary/90 text-primary-foreground",
+              "border-2 border-primary/40",
+              "backdrop-blur-md",
+              "transition-all duration-500",
+              "hover:scale-110 hover:shadow-2xl",
               "active:scale-95",
-              "group"
+              "group",
+              "hover:rotate-12",
             )}
             aria-label="Scroll to top"
           >
-            <ArrowUp 
+            <ArrowUp
               className={cn(
-                "h-5 w-5 transition-transform duration-200",
-                "group-hover:-translate-y-0.5"
-              )} 
+                "size-6 transition-all duration-500",
+                "group-hover:-translate-y-1 group-hover:scale-110",
+              )}
             />
           </Button>
-          
+
           {/* Progress indicator ring */}
           <div className="absolute inset-0 -z-10">
-            <svg 
-              className="h-12 w-12 -rotate-90" 
-              viewBox="0 0 48 48"
-            >
+            <svg className="size-14 -rotate-90" viewBox="0 0 48 48">
               <circle
                 cx="24"
                 cy="24"
@@ -126,10 +134,8 @@ export function ScrollToTop({ threshold = 400, className }: ScrollToTopProps) {
                 strokeLinecap="round"
                 className="text-primary"
                 initial={{ pathLength: 0 }}
-                animate={{ 
-                  pathLength: typeof window !== 'undefined' 
-                    ? Math.min(window.pageYOffset / (document.documentElement.scrollHeight - window.innerHeight), 1)
-                    : 0
+                animate={{
+                  pathLength: scrollProgress,
                 }}
                 transition={{ duration: 0.1 }}
                 style={{

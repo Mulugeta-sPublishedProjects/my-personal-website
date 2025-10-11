@@ -2,21 +2,70 @@ import type { MetadataRoute } from "next";
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
+    id: "/",
     name: "Mulugeta Adamu - Senior Frontend Developer Portfolio",
     short_name: "Mulugeta Portfolio",
-    description: "Senior Frontend Developer specializing in React, Next.js, and modern web technologies. Building scalable applications for Ethiopian businesses and global clients.",
+    description:
+      "Senior Frontend Developer specializing in React, Next.js, and modern web technologies. Building scalable applications for Ethiopian businesses and global clients.",
     start_url: "/",
     display: "standalone",
-    background_color: "#ffffff",
-    theme_color: "#1f2937",
-    orientation: "portrait-primary",
+    display_override: ["window-controls-overlay", "minimal-ui"],
+    orientation: "any",
+    background_color: "hsl(var(--background))",
+    theme_color: "hsl(var(--primary))",
     scope: "/",
     lang: "en",
-    categories: ["portfolio", "developer", "technology", "business"],
+    prefer_related_applications: false,
+    categories: ["portfolio", "developer", "business"],
+    screenshots: [
+      {
+        src: "/og-image.png",
+        sizes: "1200x630",
+        type: "image/png",
+        form_factor: "wide",
+        label: "Portfolio Homepage",
+      },
+    ],
     icons: [
+      {
+        src: "/icons/icon-72x72.png",
+        sizes: "72x72",
+        type: "image/png",
+        purpose: "any",
+      },
+      {
+        src: "/icons/icon-96x96.png",
+        sizes: "96x96",
+        type: "image/png",
+        purpose: "any",
+      },
+      {
+        src: "/icons/icon-128x128.png",
+        sizes: "128x128",
+        type: "image/png",
+        purpose: "any",
+      },
+      {
+        src: "/icons/icon-144x144.png",
+        sizes: "144x144",
+        type: "image/png",
+        purpose: "any",
+      },
+      {
+        src: "/icons/icon-152x152.png",
+        sizes: "152x152",
+        type: "image/png",
+        purpose: "any",
+      },
       {
         src: "/icons/icon-192x192.png",
         sizes: "192x192",
+        type: "image/png",
+        purpose: "any",
+      },
+      {
+        src: "/icons/icon-384x384.png",
+        sizes: "384x384",
         type: "image/png",
         purpose: "any",
       },
@@ -31,39 +80,38 @@ export default function manifest(): MetadataRoute.Manifest {
       {
         name: "About Me",
         short_name: "About",
-        description: "Learn more about my background and experience",
+        description: "Learn more about Mulugeta Adamu",
         url: "/#about",
-        icons: [{ src: "/icons/icon-192x192.png", sizes: "192x192" }],
+        icons: [
+          {
+            src: "/icons/icon-96x96.png",
+            sizes: "96x96",
+          },
+        ],
       },
       {
-        name: "My Work",
-        short_name: "Portfolio",
-        description: "View my latest projects and case studies",
-        url: "/#work",
-        icons: [{ src: "/icons/icon-192x192.png", sizes: "192x192" }],
+        name: "Projects",
+        short_name: "Projects",
+        description: "View my portfolio projects",
+        url: "/#projects",
+        icons: [
+          {
+            src: "/icons/icon-96x96.png",
+            sizes: "96x96",
+          },
+        ],
       },
       {
         name: "Contact",
         short_name: "Contact",
-        description: "Get in touch for collaboration opportunities",
+        description: "Get in touch with me",
         url: "/#contact",
-        icons: [{ src: "/icons/icon-192x192.png", sizes: "192x192" }],
-      },
-    ],
-    screenshots: [
-      {
-        src: "/screenshots/desktop-home.png",
-        sizes: "1280x720",
-        type: "image/png",
-        form_factor: "wide",
-        label: "Desktop view of portfolio homepage",
-      },
-      {
-        src: "/screenshots/mobile-home.png",
-        sizes: "375x667",
-        type: "image/png",
-        form_factor: "narrow",
-        label: "Mobile view of portfolio homepage",
+        icons: [
+          {
+            src: "/icons/icon-96x96.png",
+            sizes: "96x96",
+          },
+        ],
       },
     ],
   };
