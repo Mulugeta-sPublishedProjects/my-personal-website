@@ -19,6 +19,8 @@ const handleDownloadResume = () => {
   link.click();
 };
 
+const isMobile = typeof window !== "undefined" && window.innerWidth < 768;
+
 export function Hero() {
   return (
     <section
@@ -155,14 +157,7 @@ export function Hero() {
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{
-                delay: 0.6,
-                duration: 0.5,
-                ease: "easeOut",
-                type: "spring",
-                stiffness: 100,
-                damping: 20,
-              }}
+              transition={buttonTransition}
               className="flex flex-col xs:flex-row gap-3 sm:gap-4 justify-center lg:justify-start"
             >
               <Button
@@ -172,16 +167,22 @@ export function Hero() {
                 aria-label="View portfolio projects"
               >
                 View My Work
-                <ArrowDown className="ml-2 h-4 w-4 group-hover:translate-y-1 transition-transform" />
+                <ArrowDown
+                  aria-hidden="true"
+                  className="ml-2 h-4 w-4 group-hover:translate-y-1 transition-transform"
+                />
               </Button>
               <Button
                 size="lg"
                 variant="outline"
                 onClick={handleDownloadResume}
-                className="group bg-transparent text-sm sm:text-base px-6 py-3 sm:px-8 sm:py-4"
+                className="group bg-transparent hover:bg-accent/10 text-sm sm:text-base px-6 py-3 sm:px-8 sm:py-4"
                 aria-label="Download professional resume"
               >
-                <Download className="mr-2 h-4 w-4 group-hover:translate-y-0.5 transition-transform" />
+                <Download
+                  aria-hidden="true"
+                  className="mr-2 h-4 w-4 group-hover:translate-y-0.5 transition-transform"
+                />
                 Download Resume
               </Button>
             </motion.div>

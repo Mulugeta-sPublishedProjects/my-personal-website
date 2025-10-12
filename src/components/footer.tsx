@@ -42,8 +42,7 @@ export function Footer() {
             className="text-center md:text-left"
           >
             <p className="text-sm text-muted-foreground text-responsive-sm">
-              © {currentYear} Mulugeta Adamu. All rights reserved. Built with
-              Next.js & TypeScript.
+              © {currentYear} Mulugeta Adamu. All rights reserved
             </p>
           </motion.div>
 

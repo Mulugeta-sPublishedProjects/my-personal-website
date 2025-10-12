@@ -68,7 +68,7 @@ export function Contact() {
       ref={ref}
       aria-labelledby="contact-heading"
     >
-      <div className="container px-4 sm:px-6 lg:px-8 w-full">
+      <div className="container max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
         <motion.div
           className="max-w-4xl mx-auto w-full"
           initial={{ opacity: 0, y: 50 }}

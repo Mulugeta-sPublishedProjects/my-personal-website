@@ -40,7 +40,7 @@ export function Projects() {
       ref={ref}
       aria-labelledby="projects-heading"
     >
-      <div className="container max-w-6xl mx-auto px-6 sm:px-2 lg:px-4 w-full">
+      <div className="container max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
         <motion.div
           initial={{ opacity: 0, y: 50 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
@@ -65,7 +65,7 @@ export function Projects() {
           </p>
           {/* Projects Grid */}
           <div
-            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto w-full"
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 w-full"
             role="list"
           >
             {displayProjects.map((project, index) => (

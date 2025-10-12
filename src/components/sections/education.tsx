@@ -12,7 +12,7 @@ export function Education() {
 
   return (
     <section id="education" className="py-24 sm:py-32 bg-muted/30" ref={ref}>
-      <div className="container px-4 sm:px-6 lg:px-8">
+      <div className="container max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
         <motion.div
           className="max-w-3xl mx-auto"
           initial={{ opacity: 0, y: 50 }}
@@ -48,9 +48,11 @@ export function Education() {
                   </span>
                 </div>
                 <p className="text-sm text-muted-foreground pt-2">
-                  Focused on software engineering, database systems, and web technologies. 
-                  Completed capstone project on building scalable web applications for enterprise environments. 
-                  Graduated with high distinction, demonstrating strong academic performance and technical aptitude.
+                  Focused on software engineering, database systems, and web
+                  technologies. Completed capstone project on building scalable
+                  web applications for enterprise environments. Graduated with
+                  high distinction, demonstrating strong academic performance
+                  and technical aptitude.
                 </p>
               </div>
             </CardContent>
