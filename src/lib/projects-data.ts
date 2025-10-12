@@ -234,7 +234,7 @@ export const projects: Project[] = [
       "Multi-payment gateway",
       "Event promotion tools",
     ],
-    live: "https://yene-events.vercel.app",
+    live: "https://yene-ticket-web.vercel.app/en",
     featured: true,
     difficulty: "advanced",
     duration: "4 months",
