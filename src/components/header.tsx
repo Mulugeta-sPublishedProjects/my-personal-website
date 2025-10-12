@@ -117,10 +117,10 @@ export default function Header() {
             <Button
               onClick={scrollToContact}
               size="sm"
-              className="hidden sm:flex items-center gap-2 text-responsive-sm"
               aria-label="Contact me"
+              className="hidden sm:inline-flex items-center gap-2 text-sm font-medium shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-primary"
             >
-              <MessageCircle className="h-4 w-4" />
+              <MessageCircle className="h-4 w-4" aria-hidden="true" />
               Let&apos;s Talk
             </Button>
 

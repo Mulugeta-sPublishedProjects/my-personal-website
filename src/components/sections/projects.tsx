@@ -162,33 +162,35 @@ export function Projects() {
                     </div>
 
                     {/* Action Buttons */}
-                    <div className="flex gap-3 mt-auto pt-4">
+                    <div className="flex flex-col sm:flex-row gap-3 mt-auto pt-4 w-full">
                       {project.live && (
                         <Button
                           size="sm"
                           variant="default"
-                          className="flex-1 touch-manipulation text-responsive-sm shadow-sm hover:shadow-lg hover:-translate-y-0.5 transition-all"
                           asChild
+                          className="flex-1 text-sm font-medium shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-primary"
                         >
                           <a
                             href={project.live}
                             target="_blank"
                             rel="noopener noreferrer"
                             aria-label={`View live demo of ${project.title}`}
+                            className="flex items-center justify-center"
                           >
-                            <Eye className="h-3.5 w-3.5 mr-1.5" />
+                            <Eye className="h-4 w-4 mr-2" aria-hidden="true" />
                             Live
                           </a>
                         </Button>
                       )}
+
                       <Button
                         size="sm"
                         variant="outline"
                         onClick={() => handleViewDetails(project)}
                         aria-label={`View details for ${project.title}`}
-                        className="flex-1 hover:bg-primary hover:text-primary-foreground transition-colors touch-manipulation text-responsive-sm shadow-sm hover:shadow-lg hover:-translate-y-0.5"
+                        className="flex-1 text-sm font-medium shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all hover:bg-primary hover:text-primary-foreground focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-primary"
                       >
-                        <Info className="h-4 w-4 mr-2" />
+                        <Info className="h-4 w-4 mr-2" aria-hidden="true" />
                         More View
                       </Button>
                     </div>
