@@ -14,7 +14,7 @@ const scrollToProjects = () => {
 
 const handleDownloadResume = () => {
   const link = document.createElement("a");
-  link.href = "/resume.pdf";
+  link.href = "/cv.pdf";
   link.download = "Mulugeta_Adamu_Resume.pdf";
   link.click();
 };
