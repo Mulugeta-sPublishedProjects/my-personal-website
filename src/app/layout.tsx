@@ -1,6 +1,24 @@
+"use client";
+
 import "../globals.css";
 import ClientLayout from "./client-layout";
 import { SEO } from "@/components/seo";
+import { Geist, Geist_Mono } from "next/font/google";
+
+// Load fonts with Next.js font optimization
+const geist = Geist({
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700"],
+  variable: "--font-geist",
+  display: "swap",
+});
+
+const geistMono = Geist_Mono({
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700"],
+  variable: "--font-geist-mono",
+  display: "swap",
+});
 
 export default function RootLayout({
   children,
@@ -15,39 +33,14 @@ export default function RootLayout({
           name="viewport"
           content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
         />
-        <link
-          rel="apple-touch-icon"
-          sizes="180x180"
-          href="/icons/icon-180x180.png"
-        />
-        <link
-          rel="icon"
-          type="image/png"
-          sizes="32x32"
-          href="/icons/icon-32x32.png"
-        />
-        <link
-          rel="icon"
-          type="image/png"
-          sizes="16x16"
-          href="/icons/icon-16x16.png"
-        />
-        <link rel="manifest" href="/manifest.json" />
-        <meta name="theme-color" content="#3b82f6" />
-        <meta name="mobile-web-app-capable" content="yes" />
-        <meta
-          name="apple-mobile-web-app-title"
-          content="Mulugeta Adamu - Portfolio"
-        />
-        <meta name="application-name" content="Mulugeta Adamu Portfolio" />
-        <meta name="HandheldFriendly" content="True" />
-        <meta name="MobileOptimized" content="320" />
-        <meta name="format-detection" content="telephone=no" />
 
-        {/* Enhanced SEO with reusable component */}
+        {/* Favicon */}
+        <link rel="icon" href="/favicon.ico" sizes="any" />
+        <link rel="icon" type="image/svg+xml" href="/icon.svg" />
+        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+        {/* SEO */}
         <SEO />
-
-        {/* Additional SEO */}
         <meta name="geo.region" content="ET-AA" />
         <meta name="geo.placename" content="Addis Ababa, Ethiopia" />
         <meta
@@ -58,18 +51,8 @@ export default function RootLayout({
           name="googlebot"
           content="index, follow, max-video-preview:-1, max-image-preview:large, max-snippet:-1"
         />
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link
-          rel="preconnect"
-          href="https://fonts.gstatic.com"
-          crossOrigin="anonymous"
-        />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@300;400;500;600;700&display=swap"
-          rel="stylesheet"
-        />
 
-        {/* Enhanced Structured Data */}
+        {/* Structured Data */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -118,7 +101,9 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className="font-sans antialiased min-h-screen">
+      <body
+        className={`${geist.variable} ${geistMono.variable} font-sans antialiased min-h-screen`}
+      >
         <ClientLayout>{children}</ClientLayout>
       </body>
     </html>
