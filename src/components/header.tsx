@@ -23,7 +23,10 @@ const navItems = [
 ];
 
 const scrollToContact = (): void => {
-  document.querySelector("#contact")?.scrollIntoView({ behavior: "smooth" });
+  const contactSection = document.querySelector("#contact");
+  if (contactSection) {
+    contactSection.scrollIntoView({ behavior: "smooth" });
+  }
 };
 
 export default function Header() {
@@ -50,28 +53,36 @@ export default function Header() {
   }, []);
 
   return (
-    <div
-      className={`fixed  flex items-center justify-center overflow-hidden"
- top-0 left-0 right-0 z-50 transition-all duration-300 ${
-   scrolled
-     ? "bg-background/80 backdrop-blur-lg border-b border-border"
-     : "bg-transparent"
- }`}
+    <header
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        scrolled
+          ? "bg-background/80 backdrop-blur-lg border-b border-border"
+          : "bg-transparent"
+      }`}
     >
-      <div className="container relative z-10 px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16 max-w-6xl mx-auto">
+      <div className="container relative z-10 px-4 sm:px-6 lg:px-8 mx-auto">
+        <div className="flex items-center justify-between h-16 max-w-6xl mx-auto w-full">
           {/* Logo */}
           <motion.a
             href="#home"
-            className="text-xl font-bold text-foreground"
+            className="text-xl font-bold text-foreground flex-shrink-0"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
+            transition={{
+              type: "spring",
+              stiffness: 500,
+              damping: 30,
+            }}
+            aria-label="Mulugeta Adamu - Portfolio Home"
           >
             MA
           </motion.a>
 
           {/* Desktop Nav - Centered */}
-          <div className="hidden md:flex items-center justify-center absolute left-1/2 -translate-x-1/2 gap-8">
+          <nav
+            className="hidden md:flex items-center justify-center absolute left-1/2 -translate-x-1/2 gap-8"
+            aria-label="Main navigation"
+          >
             {navItems.map((item) => {
               const isActive = activeSection === item.href.slice(1);
               return (
@@ -81,6 +92,7 @@ export default function Header() {
                   className={`relative text-sm font-medium transition-colors duration-200 
                     ${isActive ? "text-primary" : "text-muted-foreground hover:text-primary"}
                   `}
+                  aria-current={isActive ? "page" : undefined}
                 >
                   {item.name}
                   {isActive && (
@@ -97,15 +109,16 @@ export default function Header() {
                 </a>
               );
             })}
-          </div>
+          </nav>
 
           {/* Theme + CTA + Mobile Menu */}
-          <div className="flex items-center gap-2 ml-auto">
+          <div className="flex items-center gap-3 ml-auto">
             <ThemeToggle />
             <Button
               onClick={scrollToContact}
               size="sm"
-              className="hidden sm:flex items-center gap-2"
+              className="hidden sm:flex items-center gap-2 text-responsive-sm"
+              aria-label="Contact me"
             >
               <MessageCircle className="h-4 w-4" />
               Let&apos;s Talk
@@ -115,7 +128,12 @@ export default function Header() {
             <div className="md:hidden">
               <Sheet>
                 <SheetTrigger asChild>
-                  <Button variant="ghost" size="icon">
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    aria-label="Open navigation menu"
+                    className="touch-manipulation"
+                  >
                     <Menu className="h-5 w-5" />
                   </Button>
                 </SheetTrigger>
@@ -126,12 +144,19 @@ export default function Header() {
                   <SheetHeader className="sr-only">
                     <SheetTitle>Navigation Menu</SheetTitle>
                   </SheetHeader>
-                  <motion.nav
+                  <motion.div
                     initial={{ opacity: 0, scale: 0.95, x: 50 }}
                     animate={{ opacity: 1, scale: 1, x: 0 }}
                     exit={{ opacity: 0, scale: 0.95, x: 50 }}
-                    transition={{ duration: 0.25, ease: "easeOut" }}
+                    transition={{
+                      duration: 0.25,
+                      ease: "easeOut",
+                      type: "spring",
+                      stiffness: 100,
+                      damping: 20,
+                    }}
                     className="flex flex-col gap-6 mt-8"
+                    aria-label="Mobile navigation"
                   >
                     {navItems.map((item) => {
                       const isActive = activeSection === item.href.slice(1);
@@ -139,11 +164,12 @@ export default function Header() {
                         <SheetClose asChild key={item.name}>
                           <a
                             href={item.href}
-                            className={`text-base font-medium transition-colors duration-200 ${
+                            className={`text-base font-medium transition-colors duration-200 touch-manipulation text-responsive-base ${
                               isActive
                                 ? "text-primary"
                                 : "text-muted-foreground hover:text-primary"
                             }`}
+                            aria-current={isActive ? "page" : undefined}
                           >
                             {item.name}
                           </a>
@@ -154,19 +180,20 @@ export default function Header() {
                       <Button
                         onClick={scrollToContact}
                         size="sm"
-                        className="flex items-center gap-2 mt-4"
+                        className="flex items-center gap-2 mt-4 touch-manipulation text-responsive-sm"
+                        aria-label="Contact me"
                       >
                         <MessageCircle className="h-4 w-4" />
                         Let&apos;s Talk
                       </Button>
                     </SheetClose>
-                  </motion.nav>
+                  </motion.div>
                 </SheetContent>
               </Sheet>
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </header>
   );
 }
