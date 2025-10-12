@@ -1,96 +1,24 @@
-import type { Metadata, Viewport } from "next";
-import { Geist, Geist_Mono, Merriweather } from "next/font/google";
+"use client";
+
 import "../globals.css";
 import ClientLayout from "./client-layout";
-// Font configurations
-const geistSans = Geist({
+import { SEO } from "@/components/seo";
+import { Geist, Geist_Mono } from "next/font/google";
+
+// Load fonts with Next.js font optimization
+const geist = Geist({
   subsets: ["latin"],
-  variable: "--font-geist-sans",
+  weight: ["300", "400", "500", "600", "700"],
+  variable: "--font-geist",
   display: "swap",
 });
+
 const geistMono = Geist_Mono({
   subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700"],
   variable: "--font-geist-mono",
   display: "swap",
 });
-
-// SEO Metadata
-export const metadata: Metadata = {
-  applicationName: "Mulugeta Portfolio",
-  category: "technology",
-  title: {
-    default: "Mulugeta Adamu - Senior Frontend Developer & React Expert",
-    template: "%s | Mulugeta Adamu - Frontend Developer",
-  },
-  description:
-    "Senior Frontend Developer specializing in React, Next.js, and modern web technologies. Building scalable applications for Ethiopian businesses and global clients.",
-  keywords: [
-    "Frontend Developer",
-    "React Developer",
-    "Next.js Expert",
-    "TypeScript Developer",
-    "Web Developer Ethiopia",
-    "JavaScript Developer",
-    "UI/UX Developer",
-    "Fullstack Developer",
-  ],
-  authors: [
-    { name: "Mulugeta Adamu", url: "https://mulugeta-portfolio.vercel.app" },
-  ],
-  creator: "Mulugeta Adamu",
-  publisher: "Mulugeta Adamu",
-  metadataBase: new URL("https://mulugeta-portfolio.vercel.app"),
-  alternates: { canonical: "/" },
-  openGraph: {
-    type: "website",
-    locale: "en_US",
-    url: "https://mulugeta-portfolio.vercel.app",
-    title: "Mulugeta Adamu - Senior Frontend Developer & React Expert",
-    description:
-      "Senior Frontend Developer specializing in React, Next.js, and modern web technologies. Building scalable applications for Ethiopian businesses and global clients.",
-    siteName: "Mulugeta Adamu Portfolio",
-    images: [
-      {
-        url: "/og-image.png",
-        width: 1200,
-        height: 630,
-        alt: "Mulugeta Adamu - Frontend Developer Portfolio",
-      },
-    ],
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Mulugeta Adamu - Senior Frontend Developer & React Expert",
-    description:
-      "Senior Frontend Developer specializing in React, Next.js, and modern web technologies.",
-    images: ["/og-image.png"],
-    creator: "@mulugeta_dev",
-  },
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-      "max-video-preview": -1,
-      "max-image-preview": "large",
-      "max-snippet": -1,
-    },
-  },
-};
-
-export const viewport: Viewport = {
-  themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "hsl(var(--background))" },
-    { media: "(prefers-color-scheme: dark)", color: "hsl(var(--background))" },
-  ],
-  width: "device-width",
-  initialScale: 1,
-  maximumScale: 5,
-  userScalable: true,
-  colorScheme: "light dark",
-  interactiveWidget: "resizes-content",
-};
 
 export default function RootLayout({
   children,
@@ -98,16 +26,83 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <head>
-        <link rel="apple-touch-icon" href="/icons/icon-192x192.png" />
-        <meta name="theme-color" content="hsl(var(--primary))" />
-        <meta name="mobile-web-app-capable" content="yes" />
-        <meta name="apple-mobile-web-app-title" content="Mulugeta Portfolio" />
-        <meta name="application-name" content="Mulugeta Portfolio" />
+        <meta charSet="utf-8" />
+        <meta
+          name="viewport"
+          content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
+        />
+
+        {/* Favicon */}
+        <link rel="icon" href="/favicon.ico" sizes="any" />
+        <link rel="icon" type="image/svg+xml" href="/icon.svg" />
+        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+        {/* SEO */}
+        <SEO />
+        <meta name="geo.region" content="ET-AA" />
+        <meta name="geo.placename" content="Addis Ababa, Ethiopia" />
+        <meta
+          name="robots"
+          content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
+        />
+        <meta
+          name="googlebot"
+          content="index, follow, max-video-preview:-1, max-image-preview:large, max-snippet:-1"
+        />
+
+        {/* Structured Data */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Person",
+              name: "Mulugeta Adamu",
+              url: "https://mulugeta-portfolio.vercel.app",
+              jobTitle: "Senior Frontend Developer",
+              worksFor: {
+                "@type": "Organization",
+                name: "TopLink Technologies",
+              },
+              alumniOf: {
+                "@type": "EducationalOrganization",
+                name: "Addis Ababa University",
+              },
+              sameAs: [
+                "https://github.com/mulugetaadamu",
+                "https://linkedin.com/in/mulugetaadamu",
+                "https://twitter.com/mulugeta_dev",
+              ],
+              knowsAbout: [
+                "React",
+                "Next.js",
+                "TypeScript",
+                "JavaScript",
+                "Frontend Development",
+                "Web Applications",
+                "UI/UX Design",
+                "Responsive Design",
+                "SEO Optimization",
+              ],
+              description:
+                "Senior Frontend Developer specializing in React, Next.js, and modern web technologies. Building scalable applications for Ethiopian businesses and global clients. Expert in responsive design and SEO optimization.",
+              nationality: {
+                "@type": "Country",
+                name: "Ethiopia",
+              },
+              address: {
+                "@type": "PostalAddress",
+                addressLocality: "Addis Ababa",
+                addressCountry: "Ethiopia",
+              },
+            }),
+          }}
+        />
       </head>
       <body
-        className={`font-sans ${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geist.variable} ${geistMono.variable} font-sans antialiased min-h-screen`}
       >
         <ClientLayout>{children}</ClientLayout>
       </body>

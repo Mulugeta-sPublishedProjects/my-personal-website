@@ -92,33 +92,33 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
             href={liveLink}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-primary hover:text-primary/80 transition duration-200 flex items-center text-sm sm:text-base"
+            className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-lg text-sm font-medium transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 relative overflow-hidden group bg-primary text-primary-foreground shadow-sm hover:bg-primary/90 hover:shadow hover:-translate-y-0.5 active:translate-y-0 border border-primary/30 px-3 py-1.5"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
               fill="currentColor"
-              className="w-4 h-4 mr-1 sm:mr-2"
+              className="w-4 h-4"
             >
               <path d="M13 2h9v9h-2V5.41l-9.9 9.9-1.42-1.42 9.9-9.9H13V2zM3 5h9v2H5v12h12v-7h2v9H3V5z" />
             </svg>
-            Live Project
+            <span>Live Project</span>
           </a>
           <a
             href={githubLink}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-foreground hover:text-muted-foreground transition duration-200 flex items-center text-sm sm:text-base"
+            className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-lg text-sm font-medium transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 relative overflow-hidden group bg-secondary text-secondary-foreground shadow-sm hover:bg-secondary/80 hover:shadow hover:-translate-y-0.5 border border-secondary/30 px-3 py-1.5"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
               fill="currentColor"
-              className="w-4 h-4 mr-1 sm:mr-2"
+              className="w-4 h-4"
             >
               <path d="M12 2a10 10 0 00-3.16 19.47c.5.09.68-.22.68-.48v-1.71c-2.78.6-3.37-1.3-3.37-1.3-.45-1.13-1.1-1.43-1.1-1.43-.9-.62.07-.61.07-.61 1 .07 1.53 1.04 1.53 1.04.89 1.53 2.34 1.09 2.91.83.09-.65.35-1.1.63-1.35-2.22-.25-4.56-1.11-4.56-4.95 0-1.09.39-1.98 1.03-2.68-.1-.26-.45-1.3.1-2.7 0 0 .84-.27 2.75 1.02a9.5 9.5 0 015 0c1.91-1.29 2.75-1.02 2.75-1.02.55 1.4.2 2.44.1 2.7.64.7 1.03 1.6 1.03 2.68 0 3.85-2.35 4.7-4.59 4.94.36.31.68.92.68 1.85v2.74c0 .27.18.58.69.48A10 10 0 0012 2z" />
             </svg>
-            GitHub
+            <span>GitHub</span>
           </a>
         </div>
       </div>

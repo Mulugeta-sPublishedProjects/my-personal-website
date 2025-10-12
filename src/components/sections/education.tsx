@@ -48,9 +48,9 @@ export function Education() {
                   </span>
                 </div>
                 <p className="text-sm text-muted-foreground pt-2">
-                  Focused on software engineering, database systems, and web
-                  technologies. Completed capstone project on building scalable
-                  web applications for enterprise environments.
+                  Focused on software engineering, database systems, and web technologies. 
+                  Completed capstone project on building scalable web applications for enterprise environments. 
+                  Graduated with high distinction, demonstrating strong academic performance and technical aptitude.
                 </p>
               </div>
             </CardContent>
