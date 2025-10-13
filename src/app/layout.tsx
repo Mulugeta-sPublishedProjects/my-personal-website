@@ -61,7 +61,7 @@ export default function RootLayout({
               "@type": "Person",
               name: "Mulugeta Adamu",
               url: "https://mulugeta-portfolio.vercel.app",
-              jobTitle: "Senior Frontend Developer",
+              jobTitle: "Experienced Frontend Developer",
               worksFor: {
                 "@type": "Organization",
                 name: "TopLink Technologies",
@@ -87,7 +87,7 @@ export default function RootLayout({
                 "SEO Optimization",
               ],
               description:
-                "Senior Frontend Developer specializing in React, Next.js, and modern web technologies. Building scalable applications for Ethiopian businesses and global clients. Expert in responsive design and SEO optimization.",
+                "Experienced Frontend Developer specializing in React, Next.js, and modern web technologies. Building scalable applications for Ethiopian businesses and global clients. Expert in responsive design and SEO optimization.",
               nationality: {
                 "@type": "Country",
                 name: "Ethiopia",
