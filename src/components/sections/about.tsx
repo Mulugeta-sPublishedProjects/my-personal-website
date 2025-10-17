@@ -6,7 +6,7 @@ import { Download } from "lucide-react";
 
 export const AboutMe = () => {
   const handleDownload = () => {
-    window.open("/Mulugeta-Adamu-Resume.pdf", "_blank");
+    window.open("/cv.pdf", "_blank");
   };
 
   return (
