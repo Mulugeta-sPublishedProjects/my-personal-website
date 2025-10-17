@@ -33,7 +33,7 @@ export function ScrollToTop({ threshold = 400, className }: ScrollToTopProps) {
       const progress = Math.min(
         scrollTop /
           (document.documentElement.scrollHeight - window.innerHeight),
-        1,
+        1
       );
       setScrollProgress(progress);
 
@@ -79,13 +79,13 @@ export function ScrollToTop({ threshold = 400, className }: ScrollToTopProps) {
           exit={{ opacity: 0, scale: 0.8, y: 20 }}
           transition={{
             duration: 0.3,
-            ease: "easeOut",
-            rotate: { duration: 0.6, ease: "easeInOut" },
+            ease: "easeOut" as const,
+            rotate: { duration: 0.6, ease: "easeInOut" as const },
           }}
           className={cn(
             "fixed bottom-6 right-6 z-50",
             "md:bottom-8 md:right-8",
-            className,
+            className
           )}
         >
           <Button
@@ -100,14 +100,14 @@ export function ScrollToTop({ threshold = 400, className }: ScrollToTopProps) {
               "hover:scale-110 hover:shadow-2xl",
               "active:scale-95",
               "group",
-              "hover:rotate-12",
+              "hover:rotate-12"
             )}
             aria-label="Scroll to top"
           >
             <ArrowUp
               className={cn(
                 "size-6 transition-all duration-500",
-                "group-hover:-translate-y-1 group-hover:scale-110",
+                "group-hover:-translate-y-1 group-hover:scale-110"
               )}
             />
           </Button>
