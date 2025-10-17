@@ -17,7 +17,7 @@ const experiences = [
     role: "Experienced Frontend Developer",
     period: "2023 – Present",
     achievements: [
-      "Led frontend development for water utility management system serving 20+ cities",
+      "Developed frontend solutions for water utility management system serving 20+ cities",
       "Built mobile-first React modules for HR, Finance, and Billing departments",
       "Developed reusable RTK Query modules reducing API integration time by 60%",
       "Created scalable component libraries with MUI & Tailwind CSS",
@@ -28,8 +28,8 @@ const experiences = [
     role: "Frontend Developer",
     period: "2023 – 2025",
     achievements: [
-      "Built regulatory compliance platform for Addis Ababa Food & Health Authority",
-      "Developed custom Ethiopian date picker and form builder components",
+      "Developed regulatory compliance platform for Addis Ababa Food & Health Authority",
+      "Created custom Ethiopian date picker and form builder components",
       "Implemented Nx monorepo architecture for city-wide deployment",
     ],
   },
@@ -38,8 +38,8 @@ const experiences = [
     role: "Frontend Developer",
     period: "2022 – 2023",
     achievements: [
-      "Contributed to government eServices digital transformation",
-      "Built citizen-facing applications and administrative back-office systems",
+      "Developed solutions for government eServices digital transformation",
+      "Created citizen-facing applications and administrative back-office systems",
       "Improved application load times by 40% through performance optimization",
     ],
   },
