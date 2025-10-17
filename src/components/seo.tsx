@@ -32,12 +32,12 @@ export const SEO: React.FC<SEOProps> = ({
   siteName = "Mulugeta Adamu Portfolio",
 }) => {
   const siteTitle = title
-    ? `${title} | Mulugeta Adamu - Senior Frontend Developer`
-    : "Mulugeta Adamu - Senior Frontend Developer & React Expert";
+    ? `${title} | Mulugeta Adamu - Experienced Frontend Developer`
+    : "Mulugeta Adamu - Experienced Frontend Developer & React Expert";
 
   const siteDescription =
     description ||
-    "Senior Frontend Developer specializing in React, Next.js, and modern web technologies. Building scalable applications for Ethiopian businesses and global clients. Expert in responsive design and SEO optimization.";
+    "Experienced Frontend Developer specializing in React, Next.js, and modern web technologies. Building scalable applications for Ethiopian businesses and global clients. Expert in responsive design and SEO optimization.";
 
   const siteImage = image || "/og-image.png";
   const siteUrl = url || "https://mulugeta-portfolio.vercel.app";

@@ -1,261 +1,170 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { ArrowDown, Download, Eye } from "lucide-react";
+import { ArrowDown, Download, MessageCircle } from "lucide-react";
 import { motion } from "framer-motion";
 import OptimizedImage from "@/components/ui/optimized-image";
+import { useCallback } from "react";
 
-const scrollToProjects = () => {
-  const projectsSection = document.querySelector("#projects");
-  if (projectsSection) {
-    projectsSection.scrollIntoView({ behavior: "smooth" });
-  }
-};
+export const Hero = () => {
+  const scrollToSection = useCallback((sectionId: string) => {
+    const section = document.querySelector(sectionId);
+    section?.scrollIntoView({ behavior: "smooth" });
+  }, []);
 
-const handleDownloadResume = () => {
-  const link = document.createElement("a");
-  link.href = "/cv.pdf";
-  link.download = "Mulugeta_Adamu_Resume.pdf";
-  link.click();
-};
+  const handleDownloadResume = useCallback(() => {
+    // Using window.open for better cross-browser compatibility
+    window.open("/cv.pdf", "_blank");
+  }, []);
 
-export function Hero() {
+  // Animation variants
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.2,
+        duration: 0.6,
+      },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { y: 20, opacity: 0 },
+    visible: {
+      y: 0,
+      opacity: 1,
+      transition: {
+        duration: 0.6,
+        ease: "easeOut" as const,
+      },
+    },
+  };
+
+  const imageVariants = {
+    hidden: { scale: 0.8, opacity: 0 },
+    visible: {
+      scale: 1,
+      opacity: 1,
+      transition: {
+        duration: 0.8,
+        ease: "easeOut" as const,
+      },
+    },
+  };
+
   return (
     <section
       id="home"
-      className="relative min-h-screen flex items-center justify-center overflow-hidden px-4 sm:px-6 lg:px-8 py-8 sm:py-12 lg:py-0"
-      aria-label="Hero section with introduction"
+      className="relative min-h-screen flex items-center justify-center overflow-hidden px-4 py-12 md:py-16"
+      aria-label="Introduction section"
     >
-      {/* Background Animation - Reduced bubbles on mobile */}
-      <div className="absolute inset-0 overflow-hidden">
-        {Array.from(
-          {
-            length:
-              typeof window !== "undefined" && window.innerWidth < 768
-                ? 12
-                : 20,
-          },
-          (_, index) => (
-            <motion.div
-              key={index}
-              className="absolute rounded-full bg-primary/5"
-              style={{
-                width:
-                  Math.random() *
-                    (typeof window !== "undefined" && window.innerWidth < 768
-                      ? 100
-                      : 300) +
-                  50,
-                height:
-                  Math.random() *
-                    (typeof window !== "undefined" && window.innerWidth < 768
-                      ? 100
-                      : 300) +
-                  50,
-                left: `${Math.random() * 100}%`,
-                top: `${Math.random() * 100}%`,
-              }}
-              animate={{
-                y: [0, Math.random() * 100 - 50],
-                x: [0, Math.random() * 100 - 50],
-                scale: [1, Math.random() + 0.5, 1],
-              }}
-              transition={{
-                duration: Math.random() * 10 + 10,
-                repeat: Number.POSITIVE_INFINITY,
-                repeatType: "reverse",
-                ease: "easeInOut",
-              }}
-              role="presentation"
-              aria-hidden="true"
-            />
-          )
-        )}
-      </div>
+      {/* Background decoration */}
+      <div className="absolute inset-0 -z-10 bg-gradient-to-br from-background via-background to-primary/5" />
 
-      <div className="container relative z-10 mx-auto max-w-7xl">
-        <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center max-w-6xl mx-auto w-full">
+      <div className="container relative z-10 mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+        <motion.div
+          className="grid lg:grid-cols-2 gap-8 md:gap-12 items-center"
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
+        >
           {/* Text Content */}
-          <motion.div
-            initial={{ opacity: 0, x: -50 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{
-              duration: 0.6,
-              ease: "easeOut",
-              type: "spring",
-              stiffness: 100,
-              damping: 20,
-            }}
-            className="text-center lg:text-left order-2 lg:order-1 mt-8 lg:mt-0"
-          >
+          <div className="text-center lg:text-left order-2 lg:order-1">
+            {/* Intro */}
             <motion.p
-              className="text-primary font-mono text-sm sm:text-base mb-3 sm:mb-4"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{
-                delay: 0.2,
-                duration: 0.4,
-                ease: "easeOut",
-              }}
+              className="text-primary font-mono text-sm mb-3 md:mb-4"
+              variants={itemVariants}
             >
-              Hi, my name is
+              Hi, I’m
             </motion.p>
 
+            {/* Name */}
             <motion.h1
-              className="text-3xl xs:text-4xl sm:text-5xl lg:text-6xl font-bold mb-3 sm:mb-4 text-balance leading-tight"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{
-                delay: 0.3,
-                duration: 0.5,
-                ease: "easeOut",
-                type: "spring",
-                stiffness: 100,
-                damping: 20,
-              }}
+              className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-bold mb-4 md:mb-6 leading-tight bg-gradient-to-r from-foreground to-foreground/80 bg-clip-text text-transparent"
+              variants={itemVariants}
             >
               Mulugeta Adamu
             </motion.h1>
 
             <motion.h2
-              className="text-xl xs:text-2xl sm:text-3xl lg:text-4xl font-bold text-muted-foreground mb-4 sm:mb-6 text-balance leading-snug"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{
-                delay: 0.4,
-                duration: 0.5,
-                ease: "easeOut",
-                type: "spring",
-                stiffness: 100,
-                damping: 20,
-              }}
+              className="text-lg sm:text-xl lg:text-2xl font-semibold text-muted-foreground mb-6 md:mb-8"
+              variants={itemVariants}
             >
-              Building Scalable, User-Centric Web & Mobile Experiences
+              Experienced Frontend Developer specializing in React,
+              Next.js,React Native and TypeScript
             </motion.h2>
 
             <motion.p
-              className="text-base sm:text-lg text-muted-foreground mb-6 sm:mb-8 leading-relaxed text-pretty max-w-2xl mx-auto lg:mx-0"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{
-                delay: 0.5,
-                duration: 0.5,
-                ease: "easeOut",
-                type: "spring",
-                stiffness: 100,
-                damping: 20,
-              }}
+              className="text-lg sm:text-xl text-muted-foreground mb-8 md:mb-10 max-w-2xl mx-auto lg:mx-0 leading-relaxed"
+              variants={itemVariants}
             >
-              Senior Frontend Developer with 3+ years of experience in React,
-              Next.js, and TypeScript. I specialize in creating responsive,
-              accessible, and high-performance web applications that deliver
-              exceptional user experiences.
+              I build scalable web and Mobile applications that solve real
+              problems and create meaningful impact. With 3+ years of
+              experience, I specialize in crafting intuitive user interfaces and
+              maintainable frontend architectures.
             </motion.p>
 
+            {/* Call-to-actions */}
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{
-                delay: 0.6,
-                duration: 0.5,
-                ease: "easeOut",
-                type: "spring",
-                stiffness: 100,
-                damping: 20,
-              }}
-              className="flex flex-col xs:flex-row gap-3 sm:gap-4 justify-center lg:justify-start"
+              className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start"
+              variants={itemVariants}
             >
               <Button
                 size="lg"
-                onClick={scrollToProjects}
-                className="group text-sm sm:text-base px-6 py-3 sm:px-8 sm:py-4"
+                onClick={() => scrollToSection("#projects")}
+                className="text-base px-8 py-6 font-semibold group"
                 aria-label="View portfolio projects"
               >
                 View My Work
-                <ArrowDown className="ml-2 h-4 w-4 group-hover:translate-y-1 transition-transform" />
+                <motion.span
+                  animate={{ y: [0, 4, 0] }}
+                  transition={{ duration: 1.5, repeat: Infinity }}
+                  className="ml-2"
+                >
+                  <ArrowDown className="h-4 w-4" />
+                </motion.span>
               </Button>
+
               <Button
                 size="lg"
                 variant="outline"
                 onClick={handleDownloadResume}
-                className="group bg-transparent text-sm sm:text-base px-6 py-3 sm:px-8 sm:py-4"
-                aria-label="Download professional resume"
+                className="text-base px-8 py-6 font-semibold border-2"
+                aria-label="Download resume"
               >
-                <Download className="mr-2 h-4 w-4 group-hover:translate-y-0.5 transition-transform" />
+                <Download className="mr-2 h-4 w-4" />
                 Download Resume
               </Button>
             </motion.div>
-          </motion.div>
+          </div>
 
           {/* Image Content */}
           <motion.div
-            initial={{ opacity: 0, x: 50 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{
-              duration: 0.6,
-              delay: 0.3,
-              ease: "easeOut",
-              type: "spring",
-              stiffness: 100,
-              damping: 20,
-            }}
             className="relative order-1 lg:order-2"
+            variants={imageVariants}
           >
-            <div className="relative w-full aspect-square max-w-xs xs:max-w-sm sm:max-w-md mx-auto">
-              <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-accent/20 rounded-full blur-2xl sm:blur-3xl" />
-              <div className="relative w-full h-full rounded-full overflow-hidden border-4 border-primary/20 shadow-lg">
+            <div className="relative w-full aspect-square max-w-md mx-auto">
+              {/* Main image container */}
+              <motion.div
+                className="relative w-full h-full rounded-full overflow-hidden border-2 border-primary/20 shadow-xl"
+                whileHover={{ scale: 1.02 }}
+                transition={{ type: "spring", stiffness: 300 }}
+              >
                 <OptimizedImage
                   src="/hero.webp"
-                  alt="Mulugeta Adamu - Senior Frontend Developer specializing in React, Next.js, and TypeScript for scalable web applications"
+                  alt="Mulugeta Adamu - Experienced Frontend Developer"
                   priority
                   className="object-cover w-full h-full"
                   sizes="(max-width: 640px) 300px, (max-width: 768px) 400px, 500px"
                 />
-              </div>
+              </motion.div>
             </div>
           </motion.div>
-        </div>
+        </motion.div>
       </div>
-
-      {/* Scroll Indicator */}
-      <motion.div
-        className="absolute bottom-4 sm:bottom-8 left-1/2 -translate-x-1/2 cursor-pointer touch-manipulation hidden sm:block"
-        animate={{ y: [0, 10, 0] }}
-        transition={{
-          duration: 2,
-          repeat: Number.POSITIVE_INFINITY,
-          ease: "easeInOut",
-        }}
-        onClick={() => {
-          window.scrollTo({
-            top: window.innerHeight,
-            behavior: "smooth",
-          });
-        }}
-        aria-label="Scroll to next section"
-        role="button"
-        tabIndex={0}
-        onKeyDown={(e) => {
-          if (e.key === "Enter" || e.key === " ") {
-            window.scrollTo({
-              top: window.innerHeight,
-              behavior: "smooth",
-            });
-          }
-        }}
-      >
-        <div className="w-5 h-8 sm:w-6 sm:h-10 border-2 border-muted-foreground rounded-full flex items-start justify-center p-1 sm:p-2">
-          <motion.div
-            className="w-1.5 h-1.5 bg-muted-foreground rounded-full"
-            animate={{ y: [0, 8, 0] }}
-            transition={{
-              duration: 2,
-              repeat: Number.POSITIVE_INFINITY,
-              ease: "easeInOut",
-            }}
-          />
-        </div>
-      </motion.div>
     </section>
   );
-}
+};
+
+export default Hero;

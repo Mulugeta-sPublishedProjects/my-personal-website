@@ -1,24 +1,30 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Github, Linkedin, Mail, MessageCircle } from "lucide-react";
+import { Github, Linkedin, Mail, MessageCircle, Twitter } from "lucide-react";
+import { TelegramIcon } from "./ui/telegram-icon";
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
 
   const socialLinks = [
-    { icon: Github, href: "https://github.com/mulugetaadamu", label: "GitHub" },
+    { icon: Github, href: "https://github.com/muleA", label: "GitHub" },
     {
       icon: Linkedin,
-      href: "https://linkedin.com/in/mulugetaadamu",
+      href: "https://linkedin.com/in/mulugeta-adamu",
       label: "LinkedIn",
     },
+
     {
-      icon: MessageCircle,
-      href: "https://t.me/mulugetaadamu",
+      name: "Twitter",
+      icon: Twitter,
+      href: "https://twitter.com/mulugeta6omkf",
+    },
+    {
+      icon: TelegramIcon,
+      href: "https://t.me/mulugeta_dev",
       label: "Telegram",
     },
-    { icon: Mail, href: "mailto:mulugetaadamu@gmail.com", label: "Email" },
   ];
 
   return (
@@ -26,15 +32,16 @@ export function Footer() {
       className="relative border-t border-border bg-background/50 backdrop-blur-sm"
       role="contentinfo"
     >
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full">
+      <div className="container mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 py-8 w-full">
         <div className="flex flex-col md:flex-row items-center justify-between gap-6">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{
+              delay: 0.1,
               duration: 0.5,
-              ease: "easeOut",
+              ease: "easeOut" as const,
               type: "spring",
               stiffness: 100,
               damping: 20,
@@ -42,8 +49,7 @@ export function Footer() {
             className="text-center md:text-left"
           >
             <p className="text-sm text-muted-foreground text-responsive-sm">
-              © {currentYear} Mulugeta Adamu. All rights reserved. Built with
-              Next.js & TypeScript.
+              © {currentYear} Mulugeta Adamu. All rights reserved
             </p>
           </motion.div>
 
@@ -54,7 +60,7 @@ export function Footer() {
             transition={{
               delay: 0.1,
               duration: 0.5,
-              ease: "easeOut",
+              ease: "easeOut" as const,
               type: "spring",
               stiffness: 100,
               damping: 20,
@@ -81,7 +87,7 @@ export function Footer() {
                   transition={{
                     delay: 0.2 + index * 0.05,
                     duration: 0.3,
-                    ease: "easeOut",
+                    ease: "easeOut" as const,
                     type: "spring",
                     stiffness: 100,
                     damping: 20,

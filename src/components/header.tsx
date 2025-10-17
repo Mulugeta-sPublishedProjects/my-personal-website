@@ -1,10 +1,9 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { ThemeToggle } from "@/components/theme-toggle";
-import { MessageCircle, Menu } from "lucide-react";
+import { Menu } from "lucide-react";
 import {
   Sheet,
   SheetContent,
@@ -16,36 +15,36 @@ import {
 
 const navItems = [
   { name: "Home", href: "#home" },
-  { name: "About Me", href: "#about" },
+  { name: "About", href: "#about" },
   { name: "Expertise", href: "#expertise" },
-  { name: "Projects", href: "#projects" },
+  { name: "Work", href: "#projects" },
   { name: "Contact", href: "#contact" },
 ];
 
-const scrollToContact = (): void => {
-  const contactSection = document.querySelector("#contact");
-  if (contactSection) {
-    contactSection.scrollIntoView({ behavior: "smooth" });
-  }
+const scrollToContact = () => {
+  const section = document.querySelector("#contact");
+  section?.scrollIntoView({ behavior: "smooth" });
 };
 
 export default function Header() {
-  const [activeSection, setActiveSection] = useState<string>("home");
-  const [scrolled, setScrolled] = useState<boolean>(false);
+  const [activeSection, setActiveSection] = useState("home");
+  const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 10);
 
       const sections = ["home", "about", "expertise", "projects", "contact"];
-      const current = sections.find((section) => {
+      for (const section of sections) {
         const el = document.querySelector(`#${section}`);
-        if (!el) return false;
-        const rect = el.getBoundingClientRect();
-        return rect.top <= 100 && rect.bottom >= 100;
-      });
-
-      if (current) setActiveSection(current);
+        if (el) {
+          const { top, bottom } = el.getBoundingClientRect();
+          if (top <= 100 && bottom >= 100) {
+            setActiveSection(section);
+            break;
+          }
+        }
+      }
     };
 
     window.addEventListener("scroll", handleScroll);
@@ -60,118 +59,88 @@ export default function Header() {
           : "bg-transparent"
       }`}
     >
-      <div className="container relative z-10 px-4 sm:px-6 lg:px-8 mx-auto">
-        <div className="flex items-center justify-between h-16 max-w-6xl mx-auto w-full">
+      <div className="container max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <motion.a
+          <a
             href="#home"
-            className="text-xl font-bold text-foreground flex-shrink-0"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            transition={{
-              type: "spring",
-              stiffness: 500,
-              damping: 30,
-            }}
-            aria-label="Mulugeta Adamu - Portfolio Home"
+            className="text-xl font-bold text-foreground"
+            aria-label="Portfolio Home"
           >
             MA
-          </motion.a>
+          </a>
 
-          {/* Desktop Nav - Centered */}
+          {/* Desktop Navigation */}
           <nav
-            className="hidden md:flex items-center justify-center absolute left-1/2 -translate-x-1/2 gap-8"
+            className="hidden md:flex items-center gap-8"
             aria-label="Main navigation"
           >
-            {navItems.map((item) => {
-              const isActive = activeSection === item.href.slice(1);
+            {navItems.map(({ name, href }) => {
+              const isActive = activeSection === href.slice(1);
               return (
                 <a
-                  key={item.name}
-                  href={item.href}
-                  className={`relative text-sm font-medium transition-colors duration-200 
-                    ${isActive ? "text-primary" : "text-muted-foreground hover:text-primary"}
-                  `}
+                  key={name}
+                  href={href}
+                  className={`text-sm font-medium transition-colors ${
+                    isActive
+                      ? "text-primary"
+                      : "text-muted-foreground hover:text-foreground"
+                  }`}
                   aria-current={isActive ? "page" : undefined}
                 >
-                  {item.name}
-                  {isActive && (
-                    <motion.span
-                      layoutId="activeNav"
-                      className="absolute left-0 -bottom-1 h-0.5 w-full bg-primary rounded-full"
-                      transition={{
-                        type: "spring",
-                        stiffness: 500,
-                        damping: 30,
-                      }}
-                    />
-                  )}
+                  {name}
                 </a>
               );
             })}
           </nav>
 
-          {/* Theme + CTA + Mobile Menu */}
-          <div className="flex items-center gap-3 ml-auto">
+          {/* Actions */}
+          <div className="flex items-center gap-3">
             <ThemeToggle />
+
             <Button
               onClick={scrollToContact}
               size="sm"
-              aria-label="Contact me"
-              className="hidden sm:inline-flex items-center gap-2 text-sm font-medium shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-primary"
+              variant="default"
+              className="hidden sm:inline-flex items-center gap-2 text-sm"
+              aria-label="Hire me"
             >
-              <MessageCircle className="h-4 w-4" aria-hidden="true" />
-              Let&apos;s Talk
+              Hire Me
             </Button>
 
             {/* Mobile Menu */}
             <div className="md:hidden">
               <Sheet>
                 <SheetTrigger asChild>
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    aria-label="Open navigation menu"
-                    className="touch-manipulation"
-                  >
+                  <Button variant="ghost" size="icon" aria-label="Open menu">
                     <Menu className="h-5 w-5" />
                   </Button>
                 </SheetTrigger>
                 <SheetContent
                   side="right"
-                  className="w-64 sm:w-80 bg-background/95 backdrop-blur-xl border-l border-border p-6"
+                  className="w-64 bg-background border-l border-border"
                 >
                   <SheetHeader className="sr-only">
                     <SheetTitle>Navigation Menu</SheetTitle>
                   </SheetHeader>
-                  <motion.div
-                    initial={{ opacity: 0, scale: 0.95, x: 50 }}
-                    animate={{ opacity: 1, scale: 1, x: 0 }}
-                    exit={{ opacity: 0, scale: 0.95, x: 50 }}
-                    transition={{
-                      duration: 0.25,
-                      ease: "easeOut",
-                      type: "spring",
-                      stiffness: 100,
-                      damping: 20,
-                    }}
+                  <nav
                     className="flex flex-col gap-6 mt-8"
                     aria-label="Mobile navigation"
                   >
-                    {navItems.map((item) => {
-                      const isActive = activeSection === item.href.slice(1);
+                    {navItems.map(({ name, href }) => {
+                      const isActive = activeSection === href.slice(1);
                       return (
-                        <SheetClose asChild key={item.name}>
+                        <SheetClose asChild key={name}>
                           <a
-                            href={item.href}
-                            className={`text-base font-medium transition-colors duration-200 touch-manipulation text-responsive-base ${
+                            href={href}
+                            className={`text-base font-medium ${
                               isActive
                                 ? "text-primary"
-                                : "text-muted-foreground hover:text-primary"
+                                : "text-muted-foreground hover:text-foreground"
                             }`}
                             aria-current={isActive ? "page" : undefined}
                           >
-                            {item.name}
+                            {name}
                           </a>
                         </SheetClose>
                       );
@@ -180,14 +149,13 @@ export default function Header() {
                       <Button
                         onClick={scrollToContact}
                         size="sm"
-                        className="flex items-center gap-2 mt-4 touch-manipulation text-responsive-sm"
-                        aria-label="Contact me"
+                        className="w-full"
+                        aria-label="Hire me"
                       >
-                        <MessageCircle className="h-4 w-4" />
-                        Let&apos;s Talk
+                        Hire Me
                       </Button>
                     </SheetClose>
-                  </motion.div>
+                  </nav>
                 </SheetContent>
               </Sheet>
             </div>

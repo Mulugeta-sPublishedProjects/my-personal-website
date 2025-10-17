@@ -126,8 +126,14 @@ export const projects: Project[] = [
     caseStudy: {
       overview:
         "Digital transformation platform for modern water utility management across Ethiopia, streamlining operations and improving service delivery.",
+      research:
+        "Conducted extensive user research with water utility staff and field workers to understand pain points in current processes. Identified key inefficiencies in billing, maintenance scheduling, and resource allocation through interviews and observation.",
+      design:
+        "Created wireframes and prototypes focusing on intuitive workflows for field workers who had limited technical experience. Designed a responsive interface that worked seamlessly on mobile devices used in the field.",
+      development:
+        "Led the development of core modules including real-time analytics dashboard, automated billing engine, and GIS integration. Implemented GraphQL APIs for efficient data fetching and built reusable UI components for consistent experience.",
       impact:
-        "Significantly improved operational efficiency for water providers with 60% faster billing processes and reduced water loss detection time.",
+        "Significantly improved operational efficiency for water providers with 60% faster billing processes and reduced water loss detection time. The system now serves 3 major utility companies with a combined user base of 500+ employees.",
     },
     isReadyForView: true,
   },
@@ -234,7 +240,7 @@ export const projects: Project[] = [
       "Multi-payment gateway",
       "Event promotion tools",
     ],
-    live: "https://yene-events.vercel.app",
+    live: "https://yene-event.vercel.app/en",
     featured: true,
     difficulty: "advanced",
     duration: "4 months",
@@ -258,7 +264,7 @@ export const projects: Project[] = [
     ],
     categories: ["frontend", "fullstack", "government", "healthcare"],
     company: "TRIA PLC",
-    role: "Senior Frontend Developer",
+    role: "Experienced Frontend Developer",
     teamSize: 10,
     problemStatement:
       "Manual regulatory processes cause delays in food and health sector compliance and certification, affecting public safety and business operations.",
