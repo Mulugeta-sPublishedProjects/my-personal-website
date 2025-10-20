@@ -1,7 +1,6 @@
 "use client";
 
 import { useRef, useState } from "react";
-import { motion, useInView } from "framer-motion";
 import { toast } from "sonner";
 import {
   Mail,
@@ -35,7 +34,6 @@ const socialLinks = [
 
 export function Contact() {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
   const [copied, setCopied] = useState(false);
 
   const copyEmail = () => {
@@ -45,12 +43,6 @@ export function Contact() {
     setTimeout(() => setCopied(false), 2000);
   };
 
-  const fadeIn = (delay: number) => ({
-    initial: { opacity: 0, y: 20 },
-    animate: isInView ? { opacity: 1, y: 0 } : {},
-    transition: { delay, duration: 0.5, ease: "easeOut" as const },
-  });
-
   return (
     <section
       id="contact"
@@ -59,30 +51,30 @@ export function Contact() {
       aria-labelledby="contact-heading"
     >
       <div className="container max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.div className="max-w-4xl mx-auto" {...fadeIn(0)}>
+        <div className="max-w-4xl mx-auto">
           {/* Heading */}
           <div className="text-center mb-16">
-            <motion.h2
+            <h2
               id="contact-heading"
               className="text-3xl sm:text-4xl font-bold mb-4"
-              {...fadeIn(0.1)}
             >
               Let's Work Together
-            </motion.h2>
-            <motion.p
-              className="text-muted-foreground max-w-2xl mx-auto"
-              {...fadeIn(0.2)}
-            >
+            </h2>
+            <p className="text-muted-foreground max-w-2xl mx-auto">
               Have a project in mind? I'm always open to new opportunities and
               collaborations.
-            </motion.p>
+            </p>
           </div>
 
           {/* Contact Cards */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-3xl mx-auto">
+          <div
+            className="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-3xl mx-auto"
+            role="list"
+            aria-label="Contact information"
+          >
             {/* Email */}
-            <motion.div {...fadeIn(0.3)}>
-              <Card className="hover:shadow-md transition">
+            <div role="listitem">
+              <Card className="hover:shadow-md transition focus-within:ring-2 focus-within:ring-primary focus-within:ring-offset-2">
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2 text-lg">
                     <Mail className="h-5 w-5 text-primary" />
@@ -106,11 +98,11 @@ export function Contact() {
                   </Button>
                 </CardContent>
               </Card>
-            </motion.div>
+            </div>
 
             {/* Phone */}
-            <motion.div {...fadeIn(0.4)}>
-              <Card className="hover:shadow-md transition">
+            <div role="listitem">
+              <Card className="hover:shadow-md transition focus-within:ring-2 focus-within:ring-primary focus-within:ring-offset-2">
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2 text-lg">
                     <Phone className="h-5 w-5 text-primary" />
@@ -121,11 +113,11 @@ export function Contact() {
                   <span className="text-sm">+251 983 05 47 74</span>
                 </CardContent>
               </Card>
-            </motion.div>
+            </div>
 
             {/* Location */}
-            <motion.div {...fadeIn(0.5)}>
-              <Card className="hover:shadow-md transition">
+            <div role="listitem">
+              <Card className="hover:shadow-md transition focus-within:ring-2 focus-within:ring-primary focus-within:ring-offset-2">
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2 text-lg">
                     <MapPin className="h-5 w-5 text-primary" />
@@ -139,11 +131,11 @@ export function Contact() {
                   </p>
                 </CardContent>
               </Card>
-            </motion.div>
+            </div>
 
             {/* Social Media */}
-            <motion.div {...fadeIn(0.6)}>
-              <Card className="hover:shadow-md transition">
+            <div role="listitem">
+              <Card className="hover:shadow-md transition focus-within:ring-2 focus-within:ring-primary focus-within:ring-offset-2">
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2 text-lg">
                     <MessageCircle className="h-5 w-5 text-primary" />
@@ -151,13 +143,17 @@ export function Contact() {
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <div className="grid grid-cols-4 gap-2">
+                  <div
+                    className="grid grid-cols-4 gap-2"
+                    role="list"
+                    aria-label="Social media profiles"
+                  >
                     {socialLinks.map(({ name, icon: Icon, href }) => (
                       <Button
                         key={name}
                         variant="outline"
                         size="sm"
-                        className="h-9 rounded"
+                        className="h-9 rounded focus:ring-2 focus:ring-primary"
                         asChild
                       >
                         <a
@@ -173,9 +169,9 @@ export function Contact() {
                   </div>
                 </CardContent>
               </Card>
-            </motion.div>
+            </div>
           </div>
-        </motion.div>
+        </div>
       </div>
     </section>
   );

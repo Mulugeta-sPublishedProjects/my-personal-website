@@ -18,7 +18,7 @@ export const AboutMe = () => {
       <div className="container max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           {/* Text Content */}
-          <div className="space-y-6">
+          <div className="space-y-6 focusable-section" tabIndex={-1}>
             <h2
               id="about-heading"
               className="text-3xl sm:text-4xl font-bold text-foreground"
@@ -45,14 +45,23 @@ export const AboutMe = () => {
               thoughtful design, scalable code, and mentorship.
             </p>
 
-            <Button variant="default" onClick={handleDownload} className="mt-4">
+            <Button
+              variant="default"
+              onClick={handleDownload}
+              className="mt-4"
+              aria-label="Download my resume in PDF format"
+            >
               <Download className="h-4 w-4 mr-2" />
               Download Resume
             </Button>
           </div>
 
           {/* Image Content */}
-          <div className="relative w-full h-full rounded-xl overflow-hidden border border-primary/10 shadow-sm">
+          <div
+            className="relative w-full h-full rounded-xl overflow-hidden border border-primary/10 shadow-sm"
+            role="img"
+            aria-label="Portrait of Mulugeta Adamu, Frontend Developer"
+          >
             <OptimizedImage
               src="/about-img.png"
               alt="Mulugeta Adamu - Frontend Developer"

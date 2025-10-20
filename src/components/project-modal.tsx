@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import Image from "next/image";
 import {
   Dialog,
   DialogContent,
@@ -10,27 +11,10 @@ import {
 } from "@/components/ui/dialog";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import {
-  ExternalLink,
-  Eye,
-  Calendar,
-  Users,
-  Award,
-  Loader2,
-} from "lucide-react";
-import Image from "next/image";
-import type { Project } from "@/lib/projects-data";
-import { motion, AnimatePresence } from "framer-motion";
-import { SEO } from "@/components/seo";
+import { Loader2 } from "lucide-react";
 import { cn } from "@/lib/utils";
-
-interface CaseStudy {
-  overview?: string;
-  research?: string;
-  design?: string;
-  development?: string;
-  impact?: string;
-}
+import { type Project } from "@/lib/projects-data";
+import { SEO } from "@/components/seo";
 
 interface ProjectModalProps {
   project: Project | null;
@@ -38,65 +22,41 @@ interface ProjectModalProps {
   onOpenChange: (open: boolean) => void;
 }
 
-// Helper function for image paths
-const getImagePath = (imagePath: string): string => {
-  if (!imagePath) return "/images/project-fallback.webp";
-  return imagePath.startsWith("/public/")
-    ? imagePath.replace("/public/", "/")
-    : imagePath;
-};
-
-// Reusable section component
 const ProjectSection = ({
   title,
   children,
-  className = "",
 }: {
   title: string;
   children: React.ReactNode;
-  className?: string;
 }) => (
-  <div className={cn("space-y-3", className)}>
-    <h3 className="text-lg font-semibold text-foreground">{title}</h3>
+  <div className="space-y-3">
+    <h3 className="text-xl font-semibold tracking-tight">{title}</h3>
     {children}
   </div>
 );
 
-// List component for features/highlights
 const ProjectList = ({ items }: { items: string[] }) => (
-  <ul className="grid sm:grid-cols-2 gap-3">
+  <ul className="space-y-2">
     {items.map((item, index) => (
-      <motion.li
-        key={index}
-        initial={{ opacity: 0, x: -10 }}
-        animate={{ opacity: 1, x: 0 }}
-        transition={{ duration: 0.3, delay: index * 0.1 }}
-        className="flex items-start gap-3 text-sm group"
-      >
-        <span className="text-primary mt-0.5 flex-shrink-0 w-2 h-2 bg-primary rounded-full group-hover:scale-110 transition-transform" />
-        <span className="text-muted-foreground leading-relaxed">{item}</span>
-      </motion.li>
+      <li key={index} className="flex items-start gap-2">
+        <span className="text-primary mt-1">•</span>
+        <span className="text-muted-foreground">{item}</span>
+      </li>
     ))}
   </ul>
 );
 
-// Metadata row component
 const MetadataRow = ({ project }: { project: Project }) => (
-  <div className="flex flex-wrap gap-4 text-xs text-muted-foreground">
-    <div className="flex items-center gap-1.5">
-      <Calendar className="h-3.5 w-3.5" />
-      <span>{project.duration}</span>
-    </div>
+  <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground">
+    <span>{project.difficulty}</span>
+    <span>•</span>
+    <span>{project.duration}</span>
     {project.teamSize && (
-      <div className="flex items-center gap-1.5">
-        <Users className="h-3.5 w-3.5" />
-        <span>Team of {project.teamSize}</span>
-      </div>
+      <>
+        <span>•</span>
+        <span>{project.teamSize} team members</span>
+      </>
     )}
-    <div className="flex items-center gap-1.5">
-      <Award className="h-3.5 w-3.5" />
-      <span className="capitalize">{project.difficulty}</span>
-    </div>
   </div>
 );
 
@@ -108,49 +68,16 @@ export function ProjectModal({
   const [imageLoading, setImageLoading] = useState(true);
   const [imageError, setImageError] = useState(false);
 
-  if (!project) {
-    return (
-      <Dialog open={open} onOpenChange={onOpenChange}>
-        <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto rounded-lg">
-          <div className="p-8 text-center">
-            <p className="text-muted-foreground">
-              Project information not available.
-            </p>
-          </div>
-        </DialogContent>
-      </Dialog>
-    );
-  }
-
-  const shouldShowCaseStudy =
-    project.caseStudy &&
-    (project.caseStudy.overview ||
-      project.caseStudy.research ||
-      project.caseStudy.design ||
-      project.caseStudy.development);
-
-  const caseStudySections = [
-    {
-      key: "overview",
-      label: "Overview",
-      content: project.caseStudy?.overview,
-    },
-    {
-      key: "research",
-      label: "Research",
-      content: project.caseStudy?.research,
-    },
-    { key: "design", label: "Design", content: project.caseStudy?.design },
-    {
-      key: "development",
-      label: "Development",
-      content: project.caseStudy?.development,
-    },
-  ].filter((section) => section.content);
+  useEffect(() => {
+    if (open) {
+      // Reset image states when modal opens
+      setImageLoading(true);
+      setImageError(false);
+    }
+  }, [open]);
 
   const handleImageLoad = () => {
     setImageLoading(false);
-    setImageError(false);
   };
 
   const handleImageError = () => {
@@ -158,24 +85,60 @@ export function ProjectModal({
     setImageError(true);
   };
 
+  const getImagePath = (imagePath: string) => {
+    // Handle both relative and absolute paths
+    if (imagePath.startsWith("/")) {
+      return imagePath;
+    }
+    return `/${imagePath}`;
+  };
+
+  if (!project) return null;
+
+  const shouldShowCaseStudy =
+    project.caseStudy && Object.values(project.caseStudy).some(Boolean);
+  const caseStudySections = project.caseStudy
+    ? [
+        {
+          key: "overview",
+          label: "Overview",
+          content: project.caseStudy.overview,
+        },
+        {
+          key: "research",
+          label: "Research",
+          content: project.caseStudy.research,
+        },
+        { key: "design", label: "Design", content: project.caseStudy.design },
+        {
+          key: "development",
+          label: "Development",
+          content: project.caseStudy.development,
+        },
+        {
+          key: "testing",
+          label: "Testing",
+          content: project.caseStudy.testing,
+        },
+        {
+          key: "deployment",
+          label: "Deployment",
+          content: project.caseStudy.deployment,
+        },
+      ].filter((section) => section.content)
+    : [];
+
   return (
     <>
       <SEO
-        title={`${project.title} - Project Details`}
+        title={`${project.title} - Mulugeta Adamu Portfolio`}
         description={project.description}
-        keywords={[...project.techStack, ...project.categories].join(", ")}
-        image={getImagePath(project.image)}
-        type="article"
+        image={project.image}
       />
-
       <Dialog open={open} onOpenChange={onOpenChange}>
         <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto rounded-lg">
           <DialogHeader className="border-b pb-4">
-            <motion.div
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.3 }}
-            >
+            <div>
               <DialogTitle className="text-2xl font-bold tracking-tight">
                 {project.title}
               </DialogTitle>
@@ -188,15 +151,10 @@ export function ProjectModal({
                   </>
                 )}
               </DialogDescription>
-            </motion.div>
+            </div>
           </DialogHeader>
 
-          <motion.div
-            className="space-y-6 py-4"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.4, delay: 0.1 }}
-          >
+          <div className="space-y-6 py-4">
             {/* Project Image */}
             <div className="relative w-full h-64 rounded-lg overflow-hidden shadow-lg border">
               <div className="relative w-full h-full">
@@ -218,17 +176,11 @@ export function ProjectModal({
                   priority
                 />
 
-                <AnimatePresence>
-                  {imageLoading && (
-                    <motion.div
-                      initial={{ opacity: 1 }}
-                      exit={{ opacity: 0 }}
-                      className="absolute inset-0 flex items-center justify-center bg-muted/50"
-                    >
-                      <Loader2 className="h-8 w-8 animate-spin text-muted-foreground" />
-                    </motion.div>
-                  )}
-                </AnimatePresence>
+                {imageLoading && (
+                  <div className="absolute inset-0 flex items-center justify-center bg-muted/50">
+                    <Loader2 className="h-8 w-8 animate-spin text-muted-foreground" />
+                  </div>
+                )}
               </div>
 
               <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-background/90 via-background/50 to-transparent p-4">
@@ -274,19 +226,14 @@ export function ProjectModal({
               <ProjectSection title="Approach & Solution">
                 <div className="space-y-4">
                   {caseStudySections.map((section, index) => (
-                    <motion.div
-                      key={section.key}
-                      initial={{ opacity: 0, y: 10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.4, delay: index * 0.1 }}
-                    >
+                    <div key={section.key}>
                       <h4 className="font-medium text-foreground mb-2">
                         {section.label}
                       </h4>
                       <p className="text-muted-foreground leading-relaxed">
                         {section.content}
                       </p>
-                    </motion.div>
+                    </div>
                   ))}
                 </div>
               </ProjectSection>
@@ -319,19 +266,14 @@ export function ProjectModal({
             <ProjectSection title="Tech Stack">
               <div className="flex flex-wrap gap-2">
                 {project.techStack.map((tech: string, index: number) => (
-                  <motion.div
-                    key={tech}
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 0.3, delay: index * 0.05 }}
-                  >
+                  <div key={tech}>
                     <Badge
                       variant="secondary"
                       className="text-sm py-1.5 px-3 font-medium hover:bg-secondary/80 transition-colors"
                     >
                       {tech}
                     </Badge>
-                  </motion.div>
+                  </div>
                 ))}
               </div>
             </ProjectSection>
@@ -340,63 +282,42 @@ export function ProjectModal({
             <ProjectSection title="Categories">
               <div className="flex flex-wrap gap-2">
                 {project.categories.map((category: string, index: number) => (
-                  <motion.div
-                    key={category}
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 0.3, delay: index * 0.05 }}
-                  >
+                  <div key={category}>
                     <Badge
                       variant="outline"
                       className="text-sm py-1.5 px-3 capitalize hover:bg-accent transition-colors"
                     >
                       {category}
                     </Badge>
-                  </motion.div>
+                  </div>
                 ))}
               </div>
             </ProjectSection>
 
             {/* Action Buttons */}
-            <motion.div
-              className="flex flex-col sm:flex-row gap-3 pt-6 border-t"
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4, delay: 0.3 }}
-            >
+            <div className="flex flex-col sm:flex-row gap-3 pt-6 border-t">
               {project.live && (
                 <Button size="lg" asChild className="flex-1 min-w-0">
                   <a
                     href={project.live}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center justify-center"
+                    aria-label={`View live version of ${project.title}`}
                   >
-                    <Eye className="h-4 w-4 mr-2 flex-shrink-0" />
-                    <span className="truncate">View Live Project</span>
+                    View Live Project
                   </a>
                 </Button>
               )}
-
-              {project.caseStudy && (
-                <Button
-                  size="lg"
-                  variant="outline"
-                  asChild
-                  className="flex-1 min-w-0"
-                >
-                  <a
-                    href="#"
-                    onClick={(e) => e.preventDefault()}
-                    className="flex items-center justify-center"
-                  >
-                    <ExternalLink className="h-4 w-4 mr-2 flex-shrink-0" />
-                    <span className="truncate">View Case Study</span>
-                  </a>
-                </Button>
-              )}
-            </motion.div>
-          </motion.div>
+              <Button
+                size="lg"
+                variant={project.live ? "outline" : "default"}
+                onClick={() => onOpenChange(false)}
+                className="flex-1 min-w-0"
+              >
+                Close
+              </Button>
+            </div>
+          </div>
         </DialogContent>
       </Dialog>
     </>

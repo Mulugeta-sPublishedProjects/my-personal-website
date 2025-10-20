@@ -252,7 +252,7 @@ export const projects: Project[] = [
     title: "IFHCRS - Food & Health Regulatory System",
     description:
       "Comprehensive regulatory compliance system for food and health sectors, streamlining inspections, certifications, and compliance tracking. Digital transformation for Ethiopian regulatory authorities.",
-    image: "/public/projects/ifhcrs.png",
+    image: "/projects/ifhcrs.png",
     techStack: [
       "React 18",
       "TypeScript",

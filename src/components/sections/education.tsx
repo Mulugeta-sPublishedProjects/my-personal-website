@@ -1,24 +1,13 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { useInView } from "framer-motion";
-import { useRef } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { GraduationCap } from "lucide-react";
 
 export function Education() {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
-
   return (
-    <section id="education" className="py-24 sm:py-32 bg-muted/30" ref={ref}>
+    <section id="education" className="py-24 sm:py-32 bg-muted/30">
       <div className="container max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
-        <motion.div
-          className="max-w-3xl mx-auto"
-          initial={{ opacity: 0, y: 50 }}
-          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
-          transition={{ duration: 0.5 }}
-        >
+        <div className="max-w-3xl mx-auto">
           <h2 className="text-3xl sm:text-4xl font-bold mb-12 text-center">
             Education
           </h2>
@@ -57,7 +46,7 @@ export function Education() {
               </div>
             </CardContent>
           </Card>
-        </motion.div>
+        </div>
       </div>
     </section>
   );

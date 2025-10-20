@@ -1,5 +1,4 @@
 @import "tailwindcss";
-@import "tw-animate-css";
 
 @custom-variant dark (&:is(.dark *));
 
@@ -208,14 +207,9 @@
 
   body {
     @apply bg-background text-foreground antialiased;
-    font-feature-settings:
-      "liga" 1,
-      "calt" 1,
-      "kern" 1;
   }
 
   html {
-    scroll-behavior: smooth;
     font-synthesis: none;
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
@@ -262,119 +256,29 @@
     touch-action: manipulation;
   }
 
-  /* Larger touch targets for mobile */
-  @media (max-width: 768px) {
-    button,
-    a,
-    .touch-target {
-      min-height: 44px;
-      min-width: 44px;
-      padding: 12px;
-    }
-
-    /* Ensure adequate spacing between touch targets */
-    .touch-target-spacing {
-      margin: 8px 0;
-    }
-  }
-
   /* Fluid typography for responsive text */
   h1 {
     font-size: clamp(2.5rem, 5vw, 4rem);
     line-height: var(--line-height-tight);
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
   }
 
   h2 {
     font-size: clamp(2rem, 4vw, 3rem);
     line-height: var(--line-height-tight);
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
   }
 
   h3 {
     font-size: clamp(1.5rem, 3vw, 2rem);
     line-height: var(--line-height-snug);
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
   }
 
   h4 {
     font-size: clamp(1.25rem, 2.5vw, 1.5rem);
     line-height: var(--line-height-snug);
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
   }
 
   p {
     font-size: clamp(1rem, 2vw, 1.125rem);
     line-height: var(--line-height-relaxed);
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-  }
-
-  /* Responsive text utilities */
-  .text-responsive-sm {
-    font-size: clamp(0.875rem, 2vw, 1rem);
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-  }
-
-  .text-responsive-base {
-    font-size: clamp(1rem, 2vw, 1.125rem);
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-  }
-
-  .text-responsive-lg {
-    font-size: clamp(1.125rem, 2.5vw, 1.25rem);
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-  }
-
-  .text-responsive-xl {
-    font-size: clamp(1.25rem, 3vw, 1.5rem);
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-  }
-
-  .text-responsive-2xl {
-    font-size: clamp(1.5rem, 3.5vw, 2rem);
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-  }
-
-  .text-responsive-3xl {
-    font-size: clamp(1.875rem, 4vw, 2.5rem);
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-  }
-
-  .text-responsive-4xl {
-    font-size: clamp(2.25rem, 5vw, 3rem);
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-  }
-
-  /* Backdrop filter support for older browsers */
-  .backdrop-blur-sm {
-    -webkit-backdrop-filter: blur(4px);
-    backdrop-filter: blur(4px);
-  }
-
-  .backdrop-blur-md {
-    -webkit-backdrop-filter: blur(12px);
-    backdrop-filter: blur(12px);
-  }
-
-  .backdrop-blur-lg {
-    -webkit-backdrop-filter: blur(16px);
-    backdrop-filter: blur(16px);
-  }
-
-  .backdrop-blur-xl {
-    -webkit-backdrop-filter: blur(24px);
-    backdrop-filter: blur(24px);
   }
 }

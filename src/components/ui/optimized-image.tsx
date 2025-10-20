@@ -6,10 +6,12 @@ import { useState, useEffect } from "react";
 interface OptimizedImageProps extends Omit<ImageProps, "src"> {
   src: string;
   alt: string;
-  className?: string;          // applies to <Image />
-  wrapperClassName?: string;   // applies to wrapper <div />
+  className?: string; // applies to <Image />
+  wrapperClassName?: string; // applies to wrapper <div />
   priority?: boolean;
   quality?: number;
+  lcp?: boolean; // Special flag for Largest Contentful Paint images
+  preload?: boolean; // Preload the image
 }
 
 const OptimizedImage = ({
@@ -19,21 +21,32 @@ const OptimizedImage = ({
   wrapperClassName = "relative w-full h-full", // default ensures height
   priority = false,
   quality = 75,
+  lcp = false, // Default to false
+  preload = false,
   ...props
 }: OptimizedImageProps) => {
   const [imageSrc, setImageSrc] = useState(src);
   const [isLoading, setIsLoading] = useState(true);
 
-  useEffect(() => {
-    const img = new window.Image();
-    img.src = src;
+  // For LCP or priority images, we want to ensure they load as quickly as possible
+  const isCritical = lcp || priority || preload;
 
-    img.onload = () => setIsLoading(false);
-    img.onerror = () => {
-      setImageSrc("/images/fallback.webp");
+  useEffect(() => {
+    // Only apply custom loading for non-critical images
+    if (!isCritical) {
+      const img = new window.Image();
+      img.src = src;
+
+      img.onload = () => setIsLoading(false);
+      img.onerror = () => {
+        setImageSrc("/images/fallback.webp");
+        setIsLoading(false);
+      };
+    } else {
+      // For critical images (like hero), don't show custom loading state
       setIsLoading(false);
-    };
-  }, [src]);
+    }
+  }, [src, isCritical]);
 
   return (
     <div className={wrapperClassName}>
@@ -41,13 +54,19 @@ const OptimizedImage = ({
         src={imageSrc}
         alt={alt}
         fill
-        quality={quality}
-        priority={priority}
-        className={`object-cover transition-opacity duration-300 ${isLoading ? "opacity-0" : "opacity-100"} ${className}`}
-        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+        quality={isCritical ? 95 : quality}
+        priority={isCritical}
+        className={`object-cover ${isCritical ? "" : "transition-opacity duration-300"} ${isLoading && !isCritical ? "opacity-0" : "opacity-100"} ${className}`}
+        sizes={
+          isCritical
+            ? "100vw"
+            : "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+        }
+        loading={isCritical ? "eager" : "lazy"}
+        fetchPriority={isCritical ? "high" : undefined}
         {...props}
       />
-      {isLoading && (
+      {isLoading && !isCritical && (
         <div className="absolute inset-0 bg-muted animate-pulse rounded-lg" />
       )}
     </div>

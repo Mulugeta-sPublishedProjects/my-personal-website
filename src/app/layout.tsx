@@ -31,7 +31,7 @@ export default function RootLayout({
         <meta charSet="utf-8" />
         <meta
           name="viewport"
-          content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
+          content="width=device-width, initial-scale=1, maximum-scale=5, user-scalable=yes"
         />
 
         {/* Favicon */}
@@ -52,54 +52,8 @@ export default function RootLayout({
           content="index, follow, max-video-preview:-1, max-image-preview:large, max-snippet:-1"
         />
 
-        {/* Structured Data */}
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "Person",
-              name: "Mulugeta Adamu",
-              url: "https://mulugeta-portfolio.vercel.app",
-              jobTitle: "Experienced Frontend Developer",
-              worksFor: {
-                "@type": "Organization",
-                name: "TopLink Technologies",
-              },
-              alumniOf: {
-                "@type": "EducationalOrganization",
-                name: "Addis Ababa University",
-              },
-              sameAs: [
-                "https://github.com/mulugetaadamu",
-                "https://linkedin.com/in/mulugetaadamu",
-                "https://twitter.com/mulugeta_dev",
-              ],
-              knowsAbout: [
-                "React",
-                "Next.js",
-                "TypeScript",
-                "JavaScript",
-                "Frontend Development",
-                "Web Applications",
-                "UI/UX Design",
-                "Responsive Design",
-                "SEO Optimization",
-              ],
-              description:
-                "Experienced Frontend Developer specializing in React, Next.js, and modern web technologies. Building scalable applications for Ethiopian businesses and global clients. Expert in responsive design and SEO optimization.",
-              nationality: {
-                "@type": "Country",
-                name: "Ethiopia",
-              },
-              address: {
-                "@type": "PostalAddress",
-                addressLocality: "Addis Ababa",
-                addressCountry: "Ethiopia",
-              },
-            }),
-          }}
-        />
+        {/* Preload critical image */}
+        <link rel="preload" as="image" href="/hero.webp" type="image/webp" />
       </head>
       <body
         className={`${geist.variable} ${geistMono.variable} font-sans antialiased min-h-screen`}

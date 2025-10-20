@@ -21,22 +21,36 @@ export function Projects() {
   const readyProjects = projects.filter((p) => p.isReadyForView);
 
   return (
-    <section id="projects" className="py-20">
+    <section 
+      id="projects" 
+      className="py-20"
+      aria-labelledby="projects-heading"
+    >
       <div className="container max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center mb-12">
-          <h2 className="text-3xl font-bold mb-4">Projects</h2>
+          <h2 
+            id="projects-heading"
+            className="text-3xl font-bold mb-4"
+          >
+            Projects
+          </h2>
           <p className="text-muted-foreground text-lg">
             Real-world applications built with modern technologies
           </p>
         </div>
 
         {/* Projects Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div 
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+          role="list"
+          aria-label="Project list"
+        >
           {readyProjects.map((project) => (
             <Card
               key={project.id}
-              className="group flex flex-col h-full hover:shadow-lg transition-shadow"
+              className="group flex flex-col h-full hover:shadow-lg transition-shadow focus-within:ring-2 focus-within:ring-primary focus-within:ring-offset-2"
+              role="listitem"
             >
               {/* Image */}
               <div className="relative aspect-video overflow-hidden">
@@ -80,7 +94,12 @@ export function Projects() {
                 {/* Actions */}
                 <div className="flex gap-2 mt-auto pt-2">
                   {project.live && (
-                    <Button size="sm" asChild className="flex-1 text-xs">
+                    <Button 
+                      size="sm" 
+                      asChild 
+                      className="flex-1 text-xs"
+                      aria-label={`View live version of ${project.title}`}
+                    >
                       <a
                         href={project.live}
                         target="_blank"
@@ -97,6 +116,7 @@ export function Projects() {
                     variant="outline"
                     onClick={() => handleViewDetails(project)}
                     className="flex-1 text-xs"
+                    aria-label={`View details of ${project.title}`}
                   >
                     <Info className="h-3 w-3 mr-1" />
                     Details
