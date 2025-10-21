@@ -79,30 +79,30 @@ const skills = [
 
 export function Expertise() {
   return (
-    <section 
-      id="expertise" 
-      className="py-20"
+    <section
+      id="expertise"
+      className="py-16 sm:py-20 md:py-24 lg:py-28"
       aria-labelledby="expertise-heading"
     >
       <div className="container max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
-        <div className="text-center mb-16">
-          <h2 
+        <div className="text-center mb-12 md:mb-16">
+          <h2
             id="expertise-heading"
-            className="text-3xl font-bold mb-4"
+            className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4"
           >
             Experience & Skills
           </h2>
-          <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
+          <p className="text-muted-foreground text-base sm:text-lg md:text-xl max-w-2xl mx-auto">
             Professional journey and technical expertise in building digital
             products
           </p>
         </div>
 
         {/* Two Columns Layout */}
-        <div className="grid lg:grid-cols-2 gap-12">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 lg:gap-16">
           {/* Left Column - Experience */}
-          <div 
+          <div
             className="space-y-6"
             role="list"
             aria-label="Professional experience"
@@ -113,13 +113,13 @@ export function Expertise() {
             </div>
 
             {experiences.map((exp) => (
-              <Card 
-                key={exp.company} 
+              <Card
+                key={exp.company}
                 className="border-l-4 border-l-primary focus-within:ring-2 focus-within:ring-primary focus-within:ring-offset-2"
                 role="listitem"
               >
-                <CardContent className="p-6">
-                  <div className="flex justify-between items-start mb-3">
+                <CardContent className="p-5 sm:p-6">
+                  <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start mb-3 gap-2">
                     <div>
                       <h4 className="font-semibold text-lg">{exp.role}</h4>
                       <p className="text-primary font-medium">{exp.company}</p>
@@ -130,7 +130,7 @@ export function Expertise() {
                     </div>
                   </div>
 
-                  <ul 
+                  <ul
                     className="space-y-2"
                     role="list"
                     aria-label={`Achievements at ${exp.company}`}
@@ -156,23 +156,20 @@ export function Expertise() {
           {/* Right Column - Education & Skills */}
           <div className="space-y-12">
             {/* Education */}
-            <div
-              role="list"
-              aria-label="Education"
-            >
+            <div role="list" aria-label="Education">
               <div className="flex items-center gap-3 mb-6">
                 <GraduationCap className="h-5 w-5 text-primary" />
                 <h3 className="text-xl font-semibold">Education</h3>
               </div>
 
               {education.map((edu) => (
-                <Card 
+                <Card
                   key={edu.institution}
                   className="focus-within:ring-2 focus-within:ring-primary focus-within:ring-offset-2"
                   role="listitem"
                 >
-                  <CardContent className="p-6">
-                    <div className="flex justify-between items-start mb-3">
+                  <CardContent className="p-5 sm:p-6">
+                    <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start mb-3 gap-2">
                       <div>
                         <h4 className="font-semibold text-lg">{edu.degree}</h4>
                         <p className="text-primary font-medium">
@@ -193,24 +190,21 @@ export function Expertise() {
             </div>
 
             {/* Skills */}
-            <div
-              role="list"
-              aria-label="Technical skills"
-            >
+            <div role="list" aria-label="Technical skills">
               <h3 className="text-xl font-semibold mb-6">Skills</h3>
               <div className="grid gap-4">
                 {skills.map((skill) => (
-                  <Card 
+                  <Card
                     key={skill.title}
                     className="focus-within:ring-2 focus-within:ring-primary focus-within:ring-offset-2"
                     role="listitem"
                   >
-                    <CardContent className="p-5">
+                    <CardContent className="p-5 sm:p-6">
                       <div className="flex items-center gap-3 mb-4">
                         <skill.icon className="h-5 w-5 text-primary" />
                         <h4 className="font-medium">{skill.title}</h4>
                       </div>
-                      <div 
+                      <div
                         className="flex flex-wrap gap-2"
                         role="list"
                         aria-label={`Skills in ${skill.title}`}

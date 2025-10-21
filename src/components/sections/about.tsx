@@ -12,34 +12,34 @@ export const AboutMe = () => {
   return (
     <section
       id="about"
-      className="py-16 sm:py-20 lg:py-24"
+      className="py-16 sm:py-20 md:py-24 lg:py-28"
       aria-labelledby="about-heading"
     >
       <div className="container max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 md:gap-12 lg:gap-16 items-center">
           {/* Text Content */}
           <div className="space-y-6 focusable-section" tabIndex={-1}>
             <h2
               id="about-heading"
-              className="text-3xl sm:text-4xl font-bold text-foreground"
+              className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground"
             >
               About Me
             </h2>
 
-            <p className="text-base sm:text-lg text-muted-foreground leading-relaxed">
+            <p className="text-base sm:text-lg md:text-xl text-muted-foreground leading-relaxed">
               I'm Mulugeta Adamu, an Experienced Frontend Developer based in
               Addis Ababa with 3+ years of experience building scalable apps
               using React, Next.js, TypeScript, and React Native.
             </p>
 
-            <p className="text-base sm:text-lg text-muted-foreground leading-relaxed">
+            <p className="text-base sm:text-lg md:text-xl text-muted-foreground leading-relaxed">
               I've developed frontend solutions for platforms like WUMIS (20+
               cities), IFHCRS (Addis Ababa's health regulation system), and
               government eServices - focusing on clean architecture, reusable
               components, and modern UI/UX.
             </p>
 
-            <p className="text-base sm:text-lg text-muted-foreground leading-relaxed">
+            <p className="text-base sm:text-lg md:text-xl text-muted-foreground leading-relaxed">
               With a BSc in Information Systems from Addis Ababa University, I'm
               passionate about advancing Ethiopia's tech ecosystem through
               thoughtful design, scalable code, and mentorship.
@@ -48,7 +48,7 @@ export const AboutMe = () => {
             <Button
               variant="default"
               onClick={handleDownload}
-              className="mt-4"
+              className="mt-4 px-6 py-5 text-base"
               aria-label="Download my resume in PDF format"
             >
               <Download className="h-4 w-4 mr-2" />
@@ -58,7 +58,7 @@ export const AboutMe = () => {
 
           {/* Image Content */}
           <div
-            className="relative w-full h-full rounded-xl overflow-hidden border border-primary/10 shadow-sm"
+            className="relative w-full h-80 sm:h-96 md:h-[28rem] lg:h-96 rounded-xl overflow-hidden border border-primary/10 shadow-sm"
             role="img"
             aria-label="Portrait of Mulugeta Adamu, Frontend Developer"
           >

@@ -19,7 +19,7 @@ export const Hero = () => {
   return (
     <section
       id="home"
-      className="relative min-h-screen flex items-center justify-center overflow-hidden px-4 py-12 md:py-16"
+      className="relative min-h-screen flex items-center justify-center overflow-hidden px-4 py-12 sm:py-16 md:py-20"
       aria-label="Introduction section"
       tabIndex={-1}
     >
@@ -27,7 +27,7 @@ export const Hero = () => {
       <div className="absolute inset-0 -z-10 bg-gradient-to-br from-background via-background to-primary/5" />
 
       <div className="container relative z-10 mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-        <div className="grid lg:grid-cols-2 gap-8 md:gap-12 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 items-center">
           {/* Text Content */}
           <div className="text-center lg:text-left order-2 lg:order-1 px-4 focusable-section">
             {/* Intro */}
@@ -36,16 +36,16 @@ export const Hero = () => {
             </p>
 
             {/* Name */}
-            <h1 className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-bold mb-4 md:mb-6 leading-tight bg-gradient-to-r from-foreground to-foreground/80 bg-clip-text text-transparent">
+            <h1 className="text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-4xl xl:text-5xl font-bold mb-4 md:mb-6 leading-tight bg-gradient-to-r from-foreground to-foreground/80 bg-clip-text text-transparent">
               Mulugeta Adamu
             </h1>
 
-            <h2 className="text-lg sm:text-xl lg:text-2xl font-semibold text-muted-foreground mb-6 md:mb-8">
+            <h2 className="text-lg sm:text-xl md:text-2xl lg:text-xl xl:text-2xl font-semibold text-muted-foreground mb-6 md:mb-8">
               Experienced Frontend Developer specializing in React,
               Next.js,React Native and TypeScript
             </h2>
 
-            <p className="text-lg sm:text-xl text-muted-foreground mb-8 md:mb-10 max-w-2xl mx-auto lg:mx-0 leading-relaxed">
+            <p className="text-base sm:text-lg md:text-xl text-muted-foreground mb-8 md:mb-10 max-w-2xl mx-auto lg:mx-0 leading-relaxed">
               I build scalable web and Mobile applications that solve real
               problems and create meaningful impact. With 3+ years of
               experience, I specialize in crafting intuitive user interfaces and
@@ -57,7 +57,7 @@ export const Hero = () => {
               <Button
                 size="lg"
                 onClick={() => scrollToSection("#projects")}
-                className="text-base px-8 py-6 font-semibold group"
+                className="text-base px-6 sm:px-8 py-5 sm:py-6 font-semibold group"
                 aria-label="View portfolio projects"
               >
                 View My Work
@@ -70,7 +70,7 @@ export const Hero = () => {
                 size="lg"
                 variant="outline"
                 onClick={handleDownloadResume}
-                className="text-base px-8 py-6 font-semibold border-2"
+                className="text-base px-6 sm:px-8 py-5 sm:py-6 font-semibold border-2"
                 aria-label="Download resume"
               >
                 <Download className="mr-2 h-4 w-4" />
@@ -80,19 +80,23 @@ export const Hero = () => {
           </div>
 
           {/* Image Content */}
-          <div className="relative order-1 ml-16 lg:order-2 px-4">
-            <div className="relative w-full aspect-square max-w-md">
+          <div className="relative order-1 lg:order-2 px-4 flex justify-center lg:justify-end">
+            <div className="relative w-full max-w-md sm:max-w-lg md:max-w-xl lg:max-w-md">
               {/* Main image container */}
-              <div className="relative w-full h-full rounded-full overflow-hidden border-2 border-primary/20 shadow-xl">
-                <OptimizedImage
-                  src="/hero.webp"
-                  alt="Mulugeta Adamu - Experienced Frontend Developer"
-                  lcp
-                  preload
-                  fill
-                  className="object-cover w-full h-full"
-                  sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                />
+              <div className="relative w-full aspect-square max-w-md mx-auto">
+                {/* Main image container */}
+                <div className="relative w-full h-full rounded-full overflow-hidden border-2 border-primary/20 shadow-xl">
+                  <OptimizedImage
+                    src="/hero.avif"
+                    alt="Mulugeta Adamu - Experienced Frontend Developer"
+                    lcp
+                    preload
+                    fill
+                    className="object-cover w-full h-full"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                    quality={85}
+                  />
+                </div>
               </div>
             </div>
           </div>

@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { ThemeToggle } from "@/components/theme-toggle";
-import { Menu } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import {
   Sheet,
   SheetContent,
@@ -29,6 +29,7 @@ const scrollToContact = () => {
 export default function Header() {
   const [activeSection, setActiveSection] = useState("home");
   const [scrolled, setScrolled] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -50,6 +51,14 @@ export default function Header() {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  const handleMobileMenuToggle = () => {
+    setIsMobileMenuOpen(!isMobileMenuOpen);
+  };
+
+  const handleMobileMenuItemClick = () => {
+    setIsMobileMenuOpen(false);
+  };
 
   return (
     <header
@@ -110,10 +119,19 @@ export default function Header() {
 
             {/* Mobile Menu */}
             <div className="md:hidden">
-              <Sheet>
+              <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
                 <SheetTrigger asChild>
-                  <Button variant="ghost" size="icon" aria-label="Open menu">
-                    <Menu className="h-5 w-5" />
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    aria-label="Open menu"
+                    onClick={handleMobileMenuToggle}
+                  >
+                    {isMobileMenuOpen ? (
+                      <X className="h-5 w-5" />
+                    ) : (
+                      <Menu className="h-5 w-5" />
+                    )}
                   </Button>
                 </SheetTrigger>
                 <SheetContent
@@ -133,6 +151,7 @@ export default function Header() {
                         <SheetClose asChild key={name}>
                           <a
                             href={href}
+                            onClick={handleMobileMenuItemClick}
                             className={`text-base font-medium ${
                               isActive
                                 ? "text-primary"
@@ -147,7 +166,10 @@ export default function Header() {
                     })}
                     <SheetClose asChild>
                       <Button
-                        onClick={scrollToContact}
+                        onClick={() => {
+                          scrollToContact();
+                          handleMobileMenuItemClick();
+                        }}
                         size="sm"
                         className="w-full"
                         aria-label="Hire me"

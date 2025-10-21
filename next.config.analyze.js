@@ -2,9 +2,8 @@ const withBundleAnalyzer = require("@next/bundle-analyzer")({
   enabled: process.env.ANALYZE === "true",
 });
 
-import type { NextConfig } from "next";
-
-const nextConfig: NextConfig = {
+const nextConfig = {
+  // Your existing Next.js configuration
   poweredByHeader: false,
   compress: true,
   eslint: {
@@ -23,14 +22,10 @@ const nextConfig: NextConfig = {
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
     formats: ["image/avif", "image/webp"],
     minimumCacheTTL: 60,
-    // Optimize image loading for better LCP
     contentDispositionType: "inline",
-    // Aggressive image optimization for LCP
     unoptimized: false,
-    // Configure image qualities to avoid warnings in Next.js 16
     qualities: [25, 35, 50, 75, 85, 95],
   },
-  // SEO optimizations
   async headers() {
     return [
       {
@@ -44,7 +39,6 @@ const nextConfig: NextConfig = {
             key: "Permissions-Policy",
             value: "geolocation=(), microphone=(), camera=()",
           },
-          // Security and performance headers
           {
             key: "Strict-Transport-Security",
             value: "max-age=63072000; includeSubDomains; preload",
@@ -74,9 +68,7 @@ const nextConfig: NextConfig = {
       },
     ];
   },
-  // Enable static optimization for better SEO
   reactStrictMode: true,
-  // Optimize fonts loading
   experimental: {
     optimizeCss: true,
     optimizePackageImports: [
@@ -85,9 +77,7 @@ const nextConfig: NextConfig = {
       "@radix-ui/react-*",
     ],
   },
-  // Add CSS handling optimizations
   webpack: (config) => {
-    // Optimize CSS extraction
     if (config.optimization) {
       config.optimization.splitChunks = {
         ...config.optimization.splitChunks,
@@ -99,7 +89,6 @@ const nextConfig: NextConfig = {
             chunks: "all",
             enforce: true,
           },
-          // Split vendor chunks for better caching
           vendor: {
             test: /[\\/]node_modules[\\/]/,
             name: "vendors",
@@ -109,12 +98,10 @@ const nextConfig: NextConfig = {
         },
       };
 
-      // Enable aggressive code splitting
       config.optimization.splitChunks = {
         chunks: "all",
         cacheGroups: {
           ...config.optimization.splitChunks?.cacheGroups,
-          // Split large libraries into separate chunks
           framer: {
             test: /[\\/]node_modules[\\/]framer-motion/,
             name: "framer",
@@ -133,13 +120,11 @@ const nextConfig: NextConfig = {
         },
       };
 
-      // Enable minification
       if (config.optimization.minimizer) {
         config.optimization.minimize = true;
       }
     }
 
-    // Add module resolution for faster builds
     config.resolve = {
       ...config.resolve,
       fallback: {
@@ -149,6 +134,10 @@ const nextConfig: NextConfig = {
     };
 
     return config;
+  },
+  i18n: {
+    locales: ["en"],
+    defaultLocale: "en",
   },
 };
 

@@ -255,30 +255,330 @@
     user-select: none;
     touch-action: manipulation;
   }
+}
 
-  /* Fluid typography for responsive text */
-  h1 {
-    font-size: clamp(2.5rem, 5vw, 4rem);
-    line-height: var(--line-height-tight);
+/* Comprehensive responsive utility classes */
+@layer utilities {
+  /* Extra extra small devices (portrait phones, less than 360px) */
+  @media (max-width: 359px) {
+    .text-responsive-xs {
+      font-size: 0.75rem;
+    }
+
+    .p-responsive-xs {
+      padding: 0.5rem;
+    }
+
+    .m-responsive-xs {
+      margin: 0.5rem;
+    }
   }
 
-  h2 {
-    font-size: clamp(2rem, 4vw, 3rem);
-    line-height: var(--line-height-tight);
+  /* Extra small devices (phones, less than 576px) */
+  @media (max-width: 575px) {
+    .text-responsive-sm {
+      font-size: 0.875rem;
+    }
+
+    .p-responsive-sm {
+      padding: 0.75rem;
+    }
+
+    .m-responsive-sm {
+      margin: 0.75rem;
+    }
   }
 
-  h3 {
-    font-size: clamp(1.5rem, 3vw, 2rem);
-    line-height: var(--line-height-snug);
+  /* Small devices (landscape phones, 576px and up) */
+  @media (min-width: 576px) {
+    .text-responsive-md {
+      font-size: 1rem;
+    }
+
+    .p-responsive-md {
+      padding: 1rem;
+    }
+
+    .m-responsive-md {
+      margin: 1rem;
+    }
   }
 
-  h4 {
-    font-size: clamp(1.25rem, 2.5vw, 1.5rem);
-    line-height: var(--line-height-snug);
+  /* Medium devices (tablets, 768px and up) */
+  @media (min-width: 768px) {
+    .text-responsive-lg {
+      font-size: 1.125rem;
+    }
+
+    .p-responsive-lg {
+      padding: 1.25rem;
+    }
+
+    .m-responsive-lg {
+      margin: 1.25rem;
+    }
   }
 
-  p {
-    font-size: clamp(1rem, 2vw, 1.125rem);
-    line-height: var(--line-height-relaxed);
+  /* Large devices (desktops, 992px and up) */
+  @media (min-width: 992px) {
+    .text-responsive-xl {
+      font-size: 1.25rem;
+    }
+
+    .p-responsive-xl {
+      padding: 1.5rem;
+    }
+
+    .m-responsive-xl {
+      margin: 1.5rem;
+    }
+  }
+
+  /* Extra large devices (large desktops, 1200px and up) */
+  @media (min-width: 1200px) {
+    .text-responsive-2xl {
+      font-size: 1.5rem;
+    }
+
+    .p-responsive-2xl {
+      padding: 2rem;
+    }
+
+    .m-responsive-2xl {
+      margin: 2rem;
+    }
+  }
+
+  /* Container queries for more granular control */
+  .container-xs {
+    container-type: inline-size;
+  }
+
+  @container (max-width: 359px) {
+    .text-cq-xs {
+      font-size: 0.75rem;
+    }
+  }
+
+  @container (max-width: 575px) {
+    .text-cq-sm {
+      font-size: 0.875rem;
+    }
+  }
+
+  @container (min-width: 576px) {
+    .text-cq-md {
+      font-size: 1rem;
+    }
+  }
+
+  @container (min-width: 768px) {
+    .text-cq-lg {
+      font-size: 1.125rem;
+    }
+  }
+
+  @container (min-width: 992px) {
+    .text-cq-xl {
+      font-size: 1.25rem;
+    }
+  }
+
+  @container (min-width: 1200px) {
+    .text-cq-2xl {
+      font-size: 1.5rem;
+    }
+  }
+
+  /* Aspect ratio utilities for responsive images and videos */
+  .aspect-video-mobile {
+    aspect-ratio: 16/9;
+  }
+
+  .aspect-square-mobile {
+    aspect-ratio: 1/1;
+  }
+
+  @media (min-width: 768px) {
+    .aspect-video-tablet {
+      aspect-ratio: 16/9;
+    }
+
+    .aspect-square-tablet {
+      aspect-ratio: 1/1;
+    }
+  }
+
+  @media (min-width: 992px) {
+    .aspect-video-desktop {
+      aspect-ratio: 16/9;
+    }
+
+    .aspect-square-desktop {
+      aspect-ratio: 1/1;
+    }
+  }
+
+  /* Grid utilities for responsive layouts */
+  .grid-responsive {
+    display: grid;
+    gap: 1rem;
+  }
+
+  .grid-responsive-cols-1 {
+    grid-template-columns: 1fr;
+  }
+
+  @media (min-width: 576px) {
+    .grid-responsive-cols-2-sm {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 768px) {
+    .grid-responsive-cols-2-md {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .grid-responsive-cols-3-md {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  @media (min-width: 992px) {
+    .grid-responsive-cols-2-lg {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .grid-responsive-cols-3-lg {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    .grid-responsive-cols-4-lg {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+
+  /* Flex utilities for responsive layouts */
+  .flex-responsive {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  @media (min-width: 768px) {
+    .flex-responsive-row-md {
+      flex-direction: row;
+    }
+  }
+
+  @media (min-width: 992px) {
+    .flex-responsive-row-lg {
+      flex-direction: row;
+    }
+  }
+
+  /* Spacing utilities for responsive padding and margin */
+  .p-responsive-safe {
+    padding: 1rem;
+  }
+
+  .m-responsive-safe {
+    margin: 1rem;
+  }
+
+  @media (min-width: 576px) {
+    .p-responsive-safe {
+      padding: 1.5rem;
+    }
+
+    .m-responsive-safe {
+      margin: 1.5rem;
+    }
+  }
+
+  @media (min-width: 992px) {
+    .p-responsive-safe {
+      padding: 2rem;
+    }
+
+    .m-responsive-safe {
+      margin: 2rem;
+    }
+  }
+
+  /* Typography utilities for responsive text */
+  .text-responsive-balance {
+    text-wrap: balance;
+  }
+
+  .text-responsive-pretty {
+    text-wrap: pretty;
+  }
+
+  /* Animation utilities that respect user preferences */
+  @media (prefers-reduced-motion: no-preference) {
+    .animate-responsive {
+      animation-duration: 0.3s;
+      animation-fill-mode: both;
+    }
+  }
+
+  /* Focus utilities for responsive accessibility */
+  .focus-responsive {
+    outline: 2px solid transparent;
+    outline-offset: 2px;
+  }
+
+  .focus-responsive-visible {
+    outline: 2px solid hsl(var(--ring));
+    outline-offset: 2px;
+  }
+
+  /* Only include animations that are actually used */
+  .animate-fade-in {
+    animation: fade-in 0.3s ease-out;
+  }
+
+  .animate-slide-in-right {
+    animation: slide-in-right 0.3s ease-out;
+  }
+
+  .animate-scale-in {
+    animation: scale-in 0.2s ease-out;
+  }
+}
+
+/* Keyframes for animations */
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slide-in-right {
+  from {
+    opacity: 0;
+    transform: translateX(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes scale-in {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
   }
 }

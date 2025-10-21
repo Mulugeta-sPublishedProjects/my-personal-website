@@ -46,21 +46,21 @@ export function Contact() {
   return (
     <section
       id="contact"
-      className="py-20 sm:py-24 bg-muted/20"
+      className="py-16 sm:py-20 md:py-24 lg:py-28 bg-muted/20"
       ref={ref}
       aria-labelledby="contact-heading"
     >
       <div className="container max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="max-w-4xl mx-auto">
           {/* Heading */}
-          <div className="text-center mb-16">
+          <div className="text-center mb-12 md:mb-16">
             <h2
               id="contact-heading"
-              className="text-3xl sm:text-4xl font-bold mb-4"
+              className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4"
             >
               Let's Work Together
             </h2>
-            <p className="text-muted-foreground max-w-2xl mx-auto">
+            <p className="text-muted-foreground text-base sm:text-lg md:text-xl max-w-2xl mx-auto">
               Have a project in mind? I'm always open to new opportunities and
               collaborations.
             </p>
@@ -68,26 +68,28 @@ export function Contact() {
 
           {/* Contact Cards */}
           <div
-            className="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-3xl mx-auto"
+            className="grid grid-cols-1 sm:grid-cols-2 gap-5 md:gap-6 max-w-3xl mx-auto"
             role="list"
             aria-label="Contact information"
           >
             {/* Email */}
             <div role="listitem">
-              <Card className="hover:shadow-md transition focus-within:ring-2 focus-within:ring-primary focus-within:ring-offset-2">
-                <CardHeader>
+              <Card className="hover:shadow-md transition focus-within:ring-2 focus-within:ring-primary focus-within:ring-offset-2 h-full">
+                <CardHeader className="pb-3">
                   <CardTitle className="flex items-center gap-2 text-lg">
                     <Mail className="h-5 w-5 text-primary" />
                     Email
                   </CardTitle>
                 </CardHeader>
-                <CardContent className="flex items-center justify-between">
-                  <span className="text-sm">mulugeta.adamu97@gmail.com</span>
+                <CardContent className="flex flex-col sm:flex-row items-center justify-between gap-3">
+                  <span className="text-sm break-all text-center sm:text-left">
+                    mulugeta.adamu97@gmail.com
+                  </span>
                   <Button
                     variant="ghost"
                     size="sm"
                     onClick={copyEmail}
-                    className="h-8 w-8 p-0"
+                    className="h-8 w-8 p-0 flex-shrink-0"
                     aria-label="Copy email address"
                   >
                     {copied ? (
@@ -102,8 +104,8 @@ export function Contact() {
 
             {/* Phone */}
             <div role="listitem">
-              <Card className="hover:shadow-md transition focus-within:ring-2 focus-within:ring-primary focus-within:ring-offset-2">
-                <CardHeader>
+              <Card className="hover:shadow-md transition focus-within:ring-2 focus-within:ring-primary focus-within:ring-offset-2 h-full">
+                <CardHeader className="pb-3">
                   <CardTitle className="flex items-center gap-2 text-lg">
                     <Phone className="h-5 w-5 text-primary" />
                     Phone
@@ -117,16 +119,18 @@ export function Contact() {
 
             {/* Location */}
             <div role="listitem">
-              <Card className="hover:shadow-md transition focus-within:ring-2 focus-within:ring-primary focus-within:ring-offset-2">
-                <CardHeader>
+              <Card className="hover:shadow-md transition focus-within:ring-2 focus-within:ring-primary focus-within:ring-offset-2 h-full">
+                <CardHeader className="pb-3">
                   <CardTitle className="flex items-center gap-2 text-lg">
                     <MapPin className="h-5 w-5 text-primary" />
                     Location
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <p className="text-sm">Addis Ababa, Ethiopia</p>
-                  <p className="text-xs text-muted-foreground">
+                  <p className="text-sm text-center sm:text-left">
+                    Addis Ababa, Ethiopia
+                  </p>
+                  <p className="text-xs text-muted-foreground text-center sm:text-left mt-1">
                     Available for remote work
                   </p>
                 </CardContent>
@@ -135,8 +139,8 @@ export function Contact() {
 
             {/* Social Media */}
             <div role="listitem">
-              <Card className="hover:shadow-md transition focus-within:ring-2 focus-within:ring-primary focus-within:ring-offset-2">
-                <CardHeader>
+              <Card className="hover:shadow-md transition focus-within:ring-2 focus-within:ring-primary focus-within:ring-offset-2 h-full">
+                <CardHeader className="pb-3">
                   <CardTitle className="flex items-center gap-2 text-lg">
                     <MessageCircle className="h-5 w-5 text-primary" />
                     Social Media
@@ -153,7 +157,7 @@ export function Contact() {
                         key={name}
                         variant="outline"
                         size="sm"
-                        className="h-9 rounded focus:ring-2 focus:ring-primary"
+                        className="h-9 rounded focus:ring-2 focus:ring-primary flex items-center justify-center"
                         asChild
                       >
                         <a

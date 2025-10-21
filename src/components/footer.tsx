@@ -31,16 +31,16 @@ export function Footer() {
       className="relative border-t border-border bg-background/50 backdrop-blur-sm"
       role="contentinfo"
     >
-      <div className="container mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 py-8 w-full">
-        <div className="flex flex-col md:flex-row items-center justify-between gap-6">
-          <div className="text-center md:text-left">
-            <p className="text-sm text-muted-foreground text-responsive-sm">
+      <div className="container mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 py-6 sm:py-8 w-full">
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 sm:gap-6">
+          <div className="text-center sm:text-left">
+            <p className="text-sm text-muted-foreground">
               © {currentYear} Mulugeta Adamu. All rights reserved
             </p>
           </div>
 
           <div
-            className="flex items-center gap-4"
+            className="flex items-center gap-3 sm:gap-4"
             role="navigation"
             aria-label="Social media links"
           >
@@ -53,9 +53,9 @@ export function Footer() {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={`Visit my ${link.label} profile`}
-                  className="text-muted-foreground hover:text-primary transition-colors touch-manipulation flex items-center justify-center w-10 h-10 rounded-full border border-border hover:bg-primary hover:text-primary-foreground focus:ring-2 focus:ring-primary focus:ring-offset-2"
+                  className="text-muted-foreground hover:text-primary transition-colors touch-manipulation flex items-center justify-center w-9 h-9 sm:w-10 sm:h-10 rounded-full border border-border hover:bg-primary hover:text-primary-foreground focus:ring-2 focus:ring-primary focus:ring-offset-2"
                 >
-                  <Icon className="h-5 w-5" aria-hidden="true" />
+                  <Icon className="h-4 w-4 sm:h-5 sm:w-5" aria-hidden="true" />
                 </a>
               );
             })}

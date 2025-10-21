@@ -53,7 +53,8 @@ export default function RootLayout({
         />
 
         {/* Preload critical image */}
-        <link rel="preload" as="image" href="/hero.webp" type="image/webp" />
+        <link rel="preload" as="image" href="/hero.avif" type="image/avif" />
+        <link rel="prefetch" href="/hero.avif" as="image" type="image/avif" />
       </head>
       <body
         className={`${geist.variable} ${geistMono.variable} font-sans antialiased min-h-screen`}

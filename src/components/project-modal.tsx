@@ -38,7 +38,7 @@ const ProjectSection = ({
 const ProjectList = ({ items }: { items: string[] }) => (
   <ul className="space-y-2">
     {items.map((item, index) => (
-      <li key={index} className="flex items-start gap-2">
+      <li key={item} className="flex items-start gap-2">
         <span className="text-primary mt-1">•</span>
         <span className="text-muted-foreground">{item}</span>
       </li>

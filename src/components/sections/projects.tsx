@@ -21,28 +21,28 @@ export function Projects() {
   const readyProjects = projects.filter((p) => p.isReadyForView);
 
   return (
-    <section 
-      id="projects" 
-      className="py-20"
+    <section
+      id="projects"
+      className="py-16 sm:py-20 md:py-24 lg:py-28"
       aria-labelledby="projects-heading"
     >
       <div className="container max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
-        <div className="text-center mb-12">
-          <h2 
+        <div className="text-center mb-12 md:mb-16">
+          <h2
             id="projects-heading"
-            className="text-3xl font-bold mb-4"
+            className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4"
           >
             Projects
           </h2>
-          <p className="text-muted-foreground text-lg">
+          <p className="text-muted-foreground text-base sm:text-lg md:text-xl max-w-2xl mx-auto">
             Real-world applications built with modern technologies
           </p>
         </div>
 
         {/* Projects Grid */}
-        <div 
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+        <div
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8"
           role="list"
           aria-label="Project list"
         >
@@ -89,15 +89,20 @@ export function Projects() {
                       {tech}
                     </Badge>
                   ))}
+                  {project.techStack.length > 4 && (
+                    <Badge variant="secondary" className="text-xs">
+                      +{project.techStack.length - 4}
+                    </Badge>
+                  )}
                 </div>
 
                 {/* Actions */}
                 <div className="flex gap-2 mt-auto pt-2">
                   {project.live && (
-                    <Button 
-                      size="sm" 
-                      asChild 
-                      className="flex-1 text-xs"
+                    <Button
+                      size="sm"
+                      asChild
+                      className="flex-1 text-xs sm:text-sm"
                       aria-label={`View live version of ${project.title}`}
                     >
                       <a
@@ -106,7 +111,8 @@ export function Projects() {
                         rel="noopener noreferrer"
                       >
                         <Eye className="h-3 w-3 mr-1" />
-                        Live
+                        <span className="hidden xs:inline">Live</span>
+                        <span className="xs:hidden">View</span>
                       </a>
                     </Button>
                   )}
@@ -115,11 +121,12 @@ export function Projects() {
                     size="sm"
                     variant="outline"
                     onClick={() => handleViewDetails(project)}
-                    className="flex-1 text-xs"
+                    className="flex-1 text-xs sm:text-sm"
                     aria-label={`View details of ${project.title}`}
                   >
                     <Info className="h-3 w-3 mr-1" />
-                    Details
+                    <span className="hidden xs:inline">Details</span>
+                    <span className="xs:hidden">Info</span>
                   </Button>
                 </div>
               </CardContent>

@@ -50,13 +50,13 @@ export function OptimizedImage({
         className={cn(
           "transition-opacity duration-300",
           isLoading ? "opacity-0" : "opacity-100",
-          className,
+          className
         )}
         onLoadingComplete={handleLoad}
         onError={handleError}
         priority={priority}
         loading={priority ? "eager" : "lazy"}
-        quality={85}
+        quality={75}
         sizes={sizes}
       />
     </div>

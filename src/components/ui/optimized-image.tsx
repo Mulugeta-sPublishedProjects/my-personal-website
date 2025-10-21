@@ -39,7 +39,12 @@ const OptimizedImage = ({
 
       img.onload = () => setIsLoading(false);
       img.onerror = () => {
-        setImageSrc("/images/fallback.webp");
+        // Try fallback image if primary fails
+        const fallbackSrc = src.replace(
+          /\.(avif|webp)$/,
+          src.endsWith(".avif") ? ".webp" : ".avif"
+        );
+        setImageSrc(fallbackSrc);
         setIsLoading(false);
       };
     } else {
@@ -54,7 +59,7 @@ const OptimizedImage = ({
         src={imageSrc}
         alt={alt}
         fill
-        quality={isCritical ? 95 : quality}
+        quality={isCritical ? 85 : quality} // Use 85 to match our configured qualities
         priority={isCritical}
         className={`object-cover ${isCritical ? "" : "transition-opacity duration-300"} ${isLoading && !isCritical ? "opacity-0" : "opacity-100"} ${className}`}
         sizes={
@@ -64,6 +69,16 @@ const OptimizedImage = ({
         }
         loading={isCritical ? "eager" : "lazy"}
         fetchPriority={isCritical ? "high" : undefined}
+        onError={() => {
+          // Try fallback image if primary fails
+          const fallbackSrc = imageSrc.replace(
+            /\.(avif|webp)$/,
+            imageSrc.endsWith(".avif") ? ".webp" : ".avif"
+          );
+          if (fallbackSrc !== imageSrc) {
+            setImageSrc(fallbackSrc);
+          }
+        }}
         {...props}
       />
       {isLoading && !isCritical && (
