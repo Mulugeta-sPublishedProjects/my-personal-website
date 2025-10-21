@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { Menu, X } from "lucide-react";
@@ -21,23 +21,24 @@ const navItems = [
   { name: "Contact", href: "#contact" },
 ];
 
-const scrollToContact = () => {
-  const section = document.querySelector("#contact");
-  section?.scrollIntoView({ behavior: "smooth" });
-};
-
 export default function Header() {
   const [activeSection, setActiveSection] = useState("home");
   const [scrolled, setScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const sectionRefs = useRef<Record<string, HTMLElement | null>>({});
 
   useEffect(() => {
+    // Initialize section refs
+    const sections = ["home", "about", "expertise", "projects", "contact"];
+    sections.forEach((section) => {
+      sectionRefs.current[section] = document.querySelector(`#${section}`);
+    });
+
     const handleScroll = () => {
       setScrolled(window.scrollY > 10);
 
-      const sections = ["home", "about", "expertise", "projects", "contact"];
       for (const section of sections) {
-        const el = document.querySelector(`#${section}`);
+        const el = sectionRefs.current[section];
         if (el) {
           const { top, bottom } = el.getBoundingClientRect();
           if (top <= 100 && bottom >= 100) {
@@ -51,6 +52,11 @@ export default function Header() {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  const scrollToContact = () => {
+    const contactSection = sectionRefs.current["contact"];
+    contactSection?.scrollIntoView({ behavior: "smooth" });
+  };
 
   const handleMobileMenuToggle = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);

@@ -3,11 +3,19 @@
 import { Button } from "@/components/ui/button";
 import { ArrowDown, Download, MessageCircle } from "lucide-react";
 import OptimizedImage from "@/components/ui/optimized-image";
-import { useCallback } from "react";
+import { useCallback, useRef } from "react";
 
 export const Hero = () => {
+  const sectionRefs = useRef<Record<string, HTMLElement | null>>({});
+
   const scrollToSection = useCallback((sectionId: string) => {
-    const section = document.querySelector(sectionId);
+    // Initialize the ref if not already done
+    if (!sectionRefs.current[sectionId]) {
+      const element = document.querySelector(sectionId);
+      sectionRefs.current[sectionId] = element as HTMLElement | null;
+    }
+
+    const section = sectionRefs.current[sectionId];
     section?.scrollIntoView({ behavior: "smooth" });
   }, []);
 
