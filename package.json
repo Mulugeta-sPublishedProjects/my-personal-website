@@ -3,20 +3,22 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint",
-    "lint:fix": "eslint . --fix",
-    "format": "prettier --write .",
-    "test": "jest --watch",
-    "test:ci": "jest",
-    "type-check": "tsc --noEmit",
+    "dev": "bunx --bun next dev",
+    "build": "bunx --bun next build",
+    "start": "bunx --bun next start",
+    "lint": "bunx --bun next lint",
+    "lint:fix": "bunx --bun eslint . --fix",
+    "format": "bunx --bun prettier --write .",
+    "test": "bunx --bun jest --watch",
+    "test:ci": "bunx --bun jest",
+    "type-check": "bunx --bun tsc --noEmit",
     "clean": "rimraf .next out dist",
-    "prebuild": "pnpm run clean && pnpm run type-check",
-    "build:optimized": "NEXT_MINIFY_FONTS=1 next build",
-    "analyze": "ANALYZE=true next build",
-    "optimize": "node optimize-build.js"
+    "prebuild": "bun run clean && bun run type-check",
+    "build:optimized": "NEXT_MINIFY_FONTS=1 bunx --bun next build",
+    "analyze": "ANALYZE=true bunx --bun next build",
+    "optimize": "node scripts/optimize-build.js",
+    "optimize:images": "node scripts/optimize-images.js",
+    "update:project-images": "node scripts/update-project-images.js"
   },
   "config": {
     "commitizen": {
@@ -58,6 +60,7 @@
     "@babel/preset-typescript": "7.27.1",
     "@babel/runtime": "7.28.4",
     "@next/bundle-analyzer": "15.5.4",
+    "@svgr/webpack": "8.1.0",
     "@testing-library/jest-dom": "6.9.1",
     "@testing-library/react": "16.3.0",
     "@testing-library/user-event": "14.6.1",
@@ -75,6 +78,7 @@
     "eslint-plugin-prettier": "5.5.4",
     "eslint-plugin-react": "^7.37.5",
     "eslint-plugin-unicorn": "56.0.1",
+    "glob": "11.0.1",
     "identity-obj-proxy": "3.0.0",
     "jest": "30.2.0",
     "playwright": "1.56.0",
@@ -83,11 +87,14 @@
     "rimraf": "6.0.1",
     "tailwindcss": "4.1.14",
     "ts-jest": "29.4.5",
-    "typescript": "5.9.3"
+    "typescript": "5.9.3",
+    "@types/bun": "latest"
   },
-  "packageManager": "pnpm@10.7.1+sha256.dc514890ea719003cb7a57d6b21af24fdafadd9f171e7567eca1665d7cfcef76",
   "browserslist": [
+    "> 1%",
     "last 2 versions",
-    "not dead"
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
   ]
 }

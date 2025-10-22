@@ -39,7 +39,7 @@ export const projects: Project[] = [
     title: "eService Ethiopia - Digital Government Portal",
     description:
       "Digital government portal transforming citizen access to public services with streamlined applications, real-time tracking, and secure payments. Serving millions of Ethiopian citizens with efficient digital services.",
-    image: "/projects/eservice-home.png",
+    image: "/projects/eservice-home.webp",
     techStack: [
       "Next.js 14",
       "TypeScript",
@@ -90,7 +90,7 @@ export const projects: Project[] = [
     title: "WUMIS Water Management System",
     description:
       "Comprehensive water utility management system optimizing resource allocation, billing, and maintenance operations for Ethiopian water utilities. Real-time analytics and automated processes for improved efficiency.",
-    image: "/projects/wumis-login.png",
+    image: "/projects/wumis-login.webp",
     techStack: [
       "React 18",
       "TypeScript",
@@ -142,7 +142,7 @@ export const projects: Project[] = [
     title: "AgriBot AI Assistant - Agricultural Chatbot",
     description:
       "AI-powered farming assistant delivering personalized agricultural advice, weather insights, and market information to Ethiopian farmers. Multi-language support for widespread accessibility.",
-    image: "/projects/agri-bot.png",
+    image: "/projects/agri-bot.webp",
     techStack: [
       "Next.js",
       "TypeScript",
@@ -185,7 +185,7 @@ export const projects: Project[] = [
     title: "SRA Job Hub - AI-Powered Job Platform",
     description:
       "Intelligent job discovery platform connecting Ethiopian talent with opportunities through AI-powered matching. Personalized recommendations and real-time notifications for job seekers.",
-    image: "/projects/sra-hub-home.jpg",
+    image: "/projects/sra-hub-home.webp",
     techStack: [
       "Next.js 14",
       "TypeScript",
@@ -220,7 +220,7 @@ export const projects: Project[] = [
     title: "Yene Events - Event Ticketing Platform",
     description:
       "Modern event ticketing platform with dynamic seating, QR check-ins, and comprehensive analytics. Streamlined event management for organizers and seamless experience for attendees.",
-    image: "/projects/yene_event.png",
+    image: "/projects/yene_event.webp",
     techStack: [
       "Next.js",
       "TypeScript",
@@ -252,7 +252,7 @@ export const projects: Project[] = [
     title: "IFHCRS - Food & Health Regulatory System",
     description:
       "Comprehensive regulatory compliance system for food and health sectors, streamlining inspections, certifications, and compliance tracking. Digital transformation for Ethiopian regulatory authorities.",
-    image: "/projects/ifhcrs.png",
+    image: "/projects/ifhcrs.webp",
     techStack: [
       "React 18",
       "TypeScript",
@@ -306,7 +306,7 @@ export const projects: Project[] = [
     title: "Addis Price Tracker",
     description:
       "Real-time price aggregator and comparison platform for Addis Ababa markets, helping consumers find the best deals across supermarkets and local markets.",
-    image: "/projects/price-tracker.jpg",
+    image: "/projects/price-tracker.webp",
     techStack: [
       "Next.js 14",
       "TypeScript",
@@ -358,7 +358,7 @@ export const projects: Project[] = [
     title: "SafeWay Ethiopia",
     description:
       "Mobile app enabling citizens to report road incidents, accidents, and hazards in real-time, with direct connection to local government and emergency services.",
-    image: "/projects/safeway-app.jpg",
+    image: "/projects/safeway-app.webp",
     techStack: [
       "React Native",
       "TypeScript",
@@ -411,7 +411,7 @@ export const projects: Project[] = [
     title: "AdSpace Ethiopia",
     description:
       "Marketplace platform connecting creators and businesses for advertising opportunities, plus a secure marketplace for buying and selling social media accounts.",
-    image: "/projects/adspace-marketplace.jpg",
+    image: "/projects/adspace-marketplace.webp",
     techStack: [
       "Next.js 14",
       "TypeScript",

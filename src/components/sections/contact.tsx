@@ -15,6 +15,7 @@ import {
 } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { motion, easeOut } from "framer-motion";
 import { TelegramIcon } from "@/components/ui/telegram-icon";
 
 const socialLinks = [
@@ -25,128 +26,161 @@ const socialLinks = [
     href: "https://www.linkedin.com/in/mulugeta-adamu/",
   },
   { name: "Twitter", icon: Twitter, href: "https://twitter.com/mulugeta6omkf" },
-  {
-    name: "Telegram",
-    icon: TelegramIcon,
-    href: "https://t.me/mulugeta_dev",
-  },
+  { name: "Telegram", icon: TelegramIcon, href: "https://t.me/mulugeta_dev" },
 ];
 
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1,
+    },
+  },
+};
+
+const cardVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.5,
+      ease: easeOut,
+    },
+  },
+};
+
 export function Contact() {
-  const ref = useRef(null);
+  const ref = useRef<HTMLElement>(null);
   const [copied, setCopied] = useState(false);
 
   const copyEmail = () => {
     navigator.clipboard.writeText("mulugeta.adamu97@gmail.com");
     setCopied(true);
-    toast.success("Email copied to clipboard");
+    toast.success("Email copied to clipboard", {
+      position: "top-center",
+      duration: 2000,
+    });
     setTimeout(() => setCopied(false), 2000);
   };
 
   return (
     <section
       id="contact"
-      className="py-16 sm:py-20 md:py-24 lg:py-28 bg-muted/20"
+      className="py-16 sm:py-20 md:py-24 lg:py-32 bg-gradient-to-b from-background to-muted/10"
       ref={ref}
       aria-labelledby="contact-heading"
     >
-      <div className="container max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="max-w-4xl mx-auto">
+      <div className="container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <motion.div
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="max-w-4xl mx-auto"
+        >
           {/* Heading */}
           <div className="text-center mb-12 md:mb-16">
             <h2
               id="contact-heading"
-              className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4"
+              className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-primary to-primary/60"
             >
               Let's Work Together
             </h2>
-            <p className="text-muted-foreground text-base sm:text-lg md:text-xl max-w-2xl mx-auto">
-              Have a project in mind? I'm always open to new opportunities and
+            <p className="text-muted-foreground text-base sm:text-lg md:text-xl max-w-3xl mx-auto mt-4 leading-relaxed">
+              Have a project in mind? I'm open to new opportunities and
               collaborations.
             </p>
           </div>
 
           {/* Contact Cards */}
-          <div
-            className="grid grid-cols-1 sm:grid-cols-2 gap-5 md:gap-6 max-w-3xl mx-auto"
+          <motion.div
+            variants={containerVariants}
+            initial="hidden"
+            animate="visible"
+            className="grid grid-cols-1 sm:grid-cols-2 gap-6 md:gap-8 max-w-3xl mx-auto"
             role="list"
             aria-label="Contact information"
           >
             {/* Email */}
-            <div role="listitem">
-              <Card className="hover:shadow-md transition focus-within:ring-2 focus-within:ring-primary focus-within:ring-offset-2 h-full">
-                <CardHeader className="pb-3">
-                  <CardTitle className="flex items-center gap-2 text-lg">
+            <motion.div variants={cardVariants} role="listitem">
+              <Card className="h-full border-none bg-card/50 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300">
+                <CardHeader className="pb-3 px-5 pt-5">
+                  <CardTitle className="flex items-center gap-2 text-lg md:text-xl text-foreground">
                     <Mail className="h-5 w-5 text-primary" />
                     Email
                   </CardTitle>
                 </CardHeader>
-                <CardContent className="flex flex-col sm:flex-row items-center justify-between gap-3">
-                  <span className="text-sm break-all text-center sm:text-left">
+                <CardContent className="flex flex-col sm:flex-row items-center justify-between gap-4 px-5 pb-5">
+                  <span className="text-sm md:text-base text-foreground break-all text-center sm:text-left">
                     mulugeta.adamu97@gmail.com
                   </span>
-                  <button
+                  <Button
+                    variant="outline"
+                    size="icon"
                     onClick={copyEmail}
-                    className="inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground h-8 w-8 p-0 flex-shrink-0"
+                    className="h-9 w-9 border-primary/20 hover:bg-primary/10"
                     aria-label="Copy email address"
                   >
                     {copied ? (
                       <Check className="h-4 w-4 text-primary" />
                     ) : (
-                      <Copy className="h-4 w-4" />
+                      <Copy className="h-4 w-4 text-muted-foreground" />
                     )}
-                  </button>
+                  </Button>
                 </CardContent>
               </Card>
-            </div>
+            </motion.div>
 
             {/* Phone */}
-            <div role="listitem">
-              <Card className="hover:shadow-md transition focus-within:ring-2 focus-within:ring-primary focus-within:ring-offset-2 h-full">
-                <CardHeader className="pb-3">
-                  <CardTitle className="flex items-center gap-2 text-lg">
+            <motion.div variants={cardVariants} role="listitem">
+              <Card className="h-full border-none bg-card/50 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300">
+                <CardHeader className="pb-3 px-5 pt-5">
+                  <CardTitle className="flex items-center gap-2 text-lg md:text-xl text-foreground">
                     <Phone className="h-5 w-5 text-primary" />
                     Phone
                   </CardTitle>
                 </CardHeader>
-                <CardContent>
-                  <span className="text-sm">+251 983 05 47 74</span>
+                <CardContent className="px-5 pb-5">
+                  <span className="text-sm md:text-base text-foreground">
+                    +251 983 05 47 74
+                  </span>
                 </CardContent>
               </Card>
-            </div>
+            </motion.div>
 
             {/* Location */}
-            <div role="listitem">
-              <Card className="hover:shadow-md transition focus-within:ring-2 focus-within:ring-primary focus-within:ring-offset-2 h-full">
-                <CardHeader className="pb-3">
-                  <CardTitle className="flex items-center gap-2 text-lg">
+            <motion.div variants={cardVariants} role="listitem">
+              <Card className="h-full border-none bg-card/50 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300">
+                <CardHeader className="pb-3 px-5 pt-5">
+                  <CardTitle className="flex items-center gap-2 text-lg md:text-xl text-foreground">
                     <MapPin className="h-5 w-5 text-primary" />
                     Location
                   </CardTitle>
                 </CardHeader>
-                <CardContent>
-                  <p className="text-sm text-center sm:text-left">
+                <CardContent className="px-5 pb-5">
+                  <p className="text-sm md:text-base text-foreground text-center sm:text-left">
                     Addis Ababa, Ethiopia
                   </p>
-                  <p className="text-xs text-muted-foreground text-center sm:text-left mt-1">
+                  <p className="text-xs md:text-sm text-foreground text-center sm:text-left mt-1.5">
                     Available for remote work
                   </p>
                 </CardContent>
               </Card>
-            </div>
+            </motion.div>
 
             {/* Social Media */}
-            <div role="listitem">
-              <Card className="hover:shadow-md transition focus-within:ring-2 focus-within:ring-primary focus-within:ring-offset-2 h-full">
-                <CardHeader className="pb-3">
-                  <CardTitle className="flex items-center gap-2 text-lg">
+            <motion.div variants={cardVariants} role="listitem">
+              <Card className="h-full border-none bg-card/50 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300">
+                <CardHeader className="pb-3 px-5 pt-5">
+                  <CardTitle className="flex items-center gap-2 text-lg md:text-xl text-foreground">
                     <MessageCircle className="h-5 w-5 text-primary" />
                     Social Media
                   </CardTitle>
                 </CardHeader>
-                <CardContent>
+                <CardContent className="px-5 pb-5">
                   <div
-                    className="grid grid-cols-4 gap-2"
+                    className="grid grid-cols-4 gap-2 sm:gap-3"
                     role="list"
                     aria-label="Social media profiles"
                   >
@@ -154,17 +188,17 @@ export function Contact() {
                       <div key={name} role="listitem">
                         <Button
                           variant="outline"
-                          size="sm"
-                          className="h-9 rounded focus:ring-2 focus:ring-primary flex items-center justify-center"
+                          size="icon"
+                          className="h-9 w-9 border-primary/20 hover:bg-primary/10"
                           asChild
+                          aria-label={`Visit my ${name} profile`}
                         >
                           <a
                             href={href}
                             target="_blank"
                             rel="noopener noreferrer"
-                            aria-label={`Visit my ${name} profile`}
                           >
-                            <Icon className="h-4 w-4" />
+                            <Icon className="h-4 w-4 text-foreground" />
                           </a>
                         </Button>
                       </div>
@@ -172,9 +206,9 @@ export function Contact() {
                   </div>
                 </CardContent>
               </Card>
-            </div>
-          </div>
-        </div>
+            </motion.div>
+          </motion.div>
+        </motion.div>
       </div>
     </section>
   );

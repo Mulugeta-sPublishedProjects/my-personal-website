@@ -53,7 +53,13 @@ export default function RootLayout({
         />
 
         {/* Preload critical image */}
-        <link rel="preload" as="image" href="/hero.avif" type="image/avif" />
+        <link
+          rel="preload"
+          as="image"
+          href="/hero.avif"
+          type="image/avif"
+          fetchPriority="high"
+        />
         <link rel="prefetch" href="/hero.avif" as="image" type="image/avif" />
       </head>
       <body

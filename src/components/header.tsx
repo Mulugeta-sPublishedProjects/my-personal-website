@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
+import { Button } from "@/components/ui/button";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { Menu, X } from "lucide-react";
 import {
@@ -11,7 +12,9 @@ import {
   SheetHeader,
   SheetTitle,
 } from "@/components/ui/sheet";
+import { motion, easeOut } from "framer-motion";
 
+// Memoize nav items to prevent re-renders
 const navItems = [
   { name: "Home", href: "#home" },
   { name: "About", href: "#about" },
@@ -20,149 +23,219 @@ const navItems = [
   { name: "Contact", href: "#contact" },
 ];
 
+const navVariants = {
+  hidden: { opacity: 0, y: -20 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      staggerChildren: 0.1,
+      delayChildren: 0.2,
+    },
+  },
+};
+
+const navItemVariants = {
+  hidden: { opacity: 0, y: -10 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.4,
+      ease: easeOut,
+    },
+  },
+};
+
 export default function Header() {
   const [activeSection, setActiveSection] = useState("home");
   const [scrolled, setScrolled] = useState(false);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const sectionRefs = useRef<Record<string, HTMLElement | null>>({});
+  const sectionRefs = useRef<Map<string, HTMLElement>>(new Map());
 
   useEffect(() => {
-    // Initialize section refs
+    // Initialize section refs using Map for better type safety and clarity
     const sections = ["home", "about", "expertise", "projects", "contact"];
     sections.forEach((section) => {
-      sectionRefs.current[section] = document.querySelector(`#${section}`);
+      const element = document.querySelector<HTMLElement>(`#${section}`);
+      if (element) {
+        sectionRefs.current.set(section, element);
+      }
     });
 
     const handleScroll = () => {
-      setScrolled(window.scrollY > 10);
+      // Update scrolled state
+      setScrolled(window.scrollY > 20);
 
-      for (const section of sections) {
-        const el = sectionRefs.current[section];
-        if (el) {
-          const { top, bottom } = el.getBoundingClientRect();
-          if (top <= 100 && bottom >= 100) {
-            setActiveSection(section);
-            break;
-          }
+      // Find the active section
+      let currentSection = "home";
+      const scrollPosition = window.scrollY + 100; // Adjusted offset
+
+      for (const [section, el] of sectionRefs.current) {
+        const { offsetTop, offsetHeight } = el;
+        const sectionTop = offsetTop;
+        const sectionBottom = offsetTop + offsetHeight;
+
+        // Check if current scroll position is within this section
+        if (scrollPosition >= sectionTop && scrollPosition <= sectionBottom) {
+          currentSection = section;
+          break;
         }
       }
+      setActiveSection(currentSection);
     };
 
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    // Call handleScroll once to set initial state
+    handleScroll();
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const scrollToContact = () => {
-    const contactSection = sectionRefs.current["contact"];
-    contactSection?.scrollIntoView({ behavior: "smooth" });
-  };
+  const scrollToSection = (sectionId: string) => {
+    const section = sectionRefs.current.get(sectionId.replace("#", ""));
+    if (section) {
+      // Calculate offset for fixed header
+      const headerHeight = 80; // Approximate header height
+      const offsetTop = section.offsetTop - headerHeight;
 
-  const handleMobileMenuToggle = () => {
-    setIsMobileMenuOpen(!isMobileMenuOpen);
-  };
+      window.scrollTo({
+        top: offsetTop,
+        behavior: "smooth",
+      });
 
-  const handleMobileMenuItemClick = () => {
-    setIsMobileMenuOpen(false);
-  };
-
-  const handleHireMeClick = () => {
-    scrollToContact();
-    handleMobileMenuItemClick();
+      // Update active section after scrolling
+      setTimeout(() => {
+        setActiveSection(sectionId.replace("#", ""));
+      }, 300);
+    }
   };
 
   return (
-    <header
+    <motion.header
+      initial={{ y: -100 }}
+      animate={{ y: 0 }}
+      transition={{ duration: 0.5, ease: easeOut }}
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         scrolled
-          ? "bg-background/80 backdrop-blur-lg border-b border-border"
+          ? "bg-background/90 backdrop-blur-md border-b border-muted/20 shadow-sm"
           : "bg-transparent"
       }`}
     >
       <div className="container max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
+        <div className="flex items-center justify-between h-16 md:h-20">
           {/* Logo */}
-          <a
+          <motion.a
             href="#home"
-            className="text-xl font-bold text-foreground"
+            onClick={(e) => {
+              e.preventDefault();
+              scrollToSection("home");
+            }}
+            className="text-xl md:text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-primary/60"
             aria-label="Portfolio Home"
+            variants={navItemVariants}
           >
             MA
-          </a>
+          </motion.a>
 
           {/* Desktop Navigation */}
-          <nav
-            className="hidden md:flex items-center gap-8"
+          <motion.nav
+            variants={navVariants}
+            initial="hidden"
+            animate="visible"
+            className="hidden md:flex items-center gap-6 lg:gap-8"
             aria-label="Main navigation"
           >
             {navItems.map(({ name, href }) => {
-              const isActive = activeSection === href.slice(1);
+              const sectionId = href.slice(1);
+              const isActive = activeSection === sectionId;
               return (
-                <a
+                <motion.a
                   key={name}
                   href={href}
-                  className={`text-sm font-medium transition-colors ${
+                  onClick={(e) => {
+                    e.preventDefault();
+                    scrollToSection(href);
+                  }}
+                  className={`text-sm md:text-base font-medium transition-colors ${
                     isActive
-                      ? "text-primary"
-                      : "text-muted-foreground hover:text-foreground"
+                      ? "text-primary font-semibold"
+                      : "text-muted-foreground hover:text-primary"
                   }`}
                   aria-current={isActive ? "page" : undefined}
+                  variants={navItemVariants}
                 >
                   {name}
-                </a>
+                </motion.a>
               );
             })}
-          </nav>
+          </motion.nav>
 
           {/* Actions */}
-          <div className="flex items-center gap-3">
+          <motion.div
+            variants={navItemVariants}
+            className="flex items-center gap-3 md:gap-4"
+          >
             <ThemeToggle />
 
-            <button
-              onClick={scrollToContact}
-              className="hidden sm:inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-9 px-4 py-2 gap-2"
+            <Button
+              onClick={() => scrollToSection("#contact")}
+              size="sm"
+              className="hidden sm:inline-flex items-center gap-2 text-sm md:text-base bg-primary hover:bg-primary text-primary-foreground"
               aria-label="Hire me"
             >
               Hire Me
-            </button>
+            </Button>
 
             {/* Mobile Menu */}
             <div className="md:hidden">
-              <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
+              <Sheet>
                 <SheetTrigger asChild>
-                  <button
-                    className="inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground h-10 w-10"
-                    aria-label="Open menu"
-                    onClick={handleMobileMenuToggle}
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    aria-label="Toggle menu"
+                    className="hover:bg-primary/10"
                   >
-                    {isMobileMenuOpen ? (
-                      <X className="h-5 w-5" />
-                    ) : (
-                      <Menu className="h-5 w-5" />
-                    )}
-                  </button>
+                    <Menu className="h-6 w-6" />
+                    <span className="sr-only">Toggle menu</span>
+                  </Button>
                 </SheetTrigger>
                 <SheetContent
                   side="right"
-                  className="w-64 bg-background border-l border-border"
+                  className="w-64 bg-background/95 backdrop-blur-sm border-l border-muted/20"
                 >
-                  <SheetHeader className="sr-only">
-                    <SheetTitle>Navigation Menu</SheetTitle>
+                  <SheetHeader className="flex items-center justify-between border-b border-muted/20 pb-4 mb-6">
+                    <SheetTitle className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-primary/60">
+                      Menu
+                    </SheetTitle>
+                    <SheetClose asChild>
+                      <Button
+                        variant="ghost"
+                        size="icon"
+                        aria-label="Close menu"
+                      >
+                        <X className="h-5 w-5" />
+                      </Button>
+                    </SheetClose>
                   </SheetHeader>
                   <nav
-                    className="flex flex-col gap-6 mt-8"
+                    className="flex flex-col gap-4"
                     aria-label="Mobile navigation"
                   >
                     {navItems.map(({ name, href }) => {
-                      const isActive = activeSection === href.slice(1);
+                      const sectionId = href.slice(1);
+                      const isActive = activeSection === sectionId;
                       return (
                         <SheetClose asChild key={name}>
                           <a
                             href={href}
-                            onClick={handleMobileMenuItemClick}
-                            className={`text-base font-medium ${
+                            onClick={(e) => {
+                              e.preventDefault();
+                              scrollToSection(href);
+                            }}
+                            className={`text-base md:text-lg font-medium transition-colors ${
                               isActive
-                                ? "text-primary"
-                                : "text-muted-foreground hover:text-foreground"
+                                ? "text-primary font-semibold"
+                                : "text-muted-foreground hover:text-primary"
                             }`}
                             aria-current={isActive ? "page" : undefined}
                           >
@@ -172,21 +245,22 @@ export default function Header() {
                       );
                     })}
                     <SheetClose asChild>
-                      <button
-                        onClick={handleHireMeClick}
-                        className="inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-9 px-4 py-2 w-full"
+                      <Button
+                        onClick={() => scrollToSection("#contact")}
+                        size="lg"
+                        className="w-full bg-primary hover:bg-primary text-primary-foreground mt-4"
                         aria-label="Hire me"
                       >
                         Hire Me
-                      </button>
+                      </Button>
                     </SheetClose>
                   </nav>
                 </SheetContent>
               </Sheet>
             </div>
-          </div>
+          </motion.div>
         </div>
       </div>
-    </header>
+    </motion.header>
   );
 }

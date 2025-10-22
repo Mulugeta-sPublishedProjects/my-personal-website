@@ -12,9 +12,11 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Loader2 } from "lucide-react";
+import { motion, easeOut } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { type Project } from "@/lib/projects-data";
 import { SEO } from "@/components/seo";
+import OptimizedImage from "@/components/ui/optimized-image";
 
 interface ProjectModalProps {
   project: Project | null;
@@ -22,6 +24,7 @@ interface ProjectModalProps {
   onOpenChange: (open: boolean) => void;
 }
 
+// Lightweight section component
 const ProjectSection = ({
   title,
   children,
@@ -30,30 +33,33 @@ const ProjectSection = ({
   children: React.ReactNode;
 }) => (
   <div className="space-y-3">
-    <h3 className="text-xl font-semibold tracking-tight">{title}</h3>
+    <h3 className="text-xl md:text-2xl font-semibold tracking-tight text-foreground">
+      {title}
+    </h3>
     {children}
   </div>
 );
 
+// Lightweight list component
 const ProjectList = ({ items }: { items: string[] }) => (
-  <ul className="space-y-2">
-    {items.map((item, index) => (
-      <li key={item} className="flex items-start gap-2">
-        <span className="text-primary mt-1">•</span>
-        <span className="text-muted-foreground">{item}</span>
+  <ul className="space-y-3">
+    {items.map((item) => (
+      <li key={item} className="flex items-start gap-3 text-sm md:text-base">
+        <span className="text-primary mt-1.5">●</span>
+        <span className="text-foreground leading-relaxed">{item}</span>
       </li>
     ))}
   </ul>
 );
 
 const MetadataRow = ({ project }: { project: Project }) => (
-  <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground">
+  <div className="flex flex-wrap items-center gap-3 md:gap-4 text-sm md:text-base text-foreground">
     <span>{project.difficulty}</span>
-    <span>•</span>
+    <span className="text-primary">•</span>
     <span>{project.duration}</span>
     {project.teamSize && (
       <>
-        <span>•</span>
+        <span className="text-primary">•</span>
         <span>{project.teamSize} team members</span>
       </>
     )}
@@ -65,32 +71,20 @@ export function ProjectModal({
   open,
   onOpenChange,
 }: ProjectModalProps) {
-  const [imageLoading, setImageLoading] = useState(true);
   const [imageError, setImageError] = useState(false);
 
   useEffect(() => {
     if (open) {
-      // Reset image states when modal opens
-      setImageLoading(true);
       setImageError(false);
     }
   }, [open]);
 
-  const handleImageLoad = () => {
-    setImageLoading(false);
-  };
-
   const handleImageError = () => {
-    setImageLoading(false);
     setImageError(true);
   };
 
   const getImagePath = (imagePath: string) => {
-    // Handle both relative and absolute paths
-    if (imagePath.startsWith("/")) {
-      return imagePath;
-    }
-    return `/${imagePath}`;
+    return imagePath.startsWith("/") ? imagePath : `/${imagePath}`;
   };
 
   if (!project) return null;
@@ -136,61 +130,48 @@ export function ProjectModal({
         image={project.image}
       />
       <Dialog open={open} onOpenChange={onOpenChange}>
-        <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto rounded-lg">
-          <DialogHeader className="border-b pb-4">
-            <div>
-              <DialogTitle className="text-2xl font-bold tracking-tight">
+        <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto rounded-2xl bg-card/95 backdrop-blur-sm border-none shadow-xl p-0">
+          <div className="space-y-6 p-6 sm:p-8">
+            <DialogHeader className="border-b border-muted/20 pb-4">
+              <DialogTitle className="text-2xl md:text-3xl font-bold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-primary to-primary/60">
                 {project.title}
               </DialogTitle>
-              <DialogDescription className="text-base mt-2 flex items-center gap-2">
-                <span>{project.company}</span>
+              <DialogDescription className="text-sm md:text-base mt-2 flex flex-wrap items-center gap-3 text-foreground">
+                <span className="font-medium text-foreground">
+                  {project.company}
+                </span>
                 {project.role && (
                   <>
-                    <span className="text-muted-foreground">•</span>
+                    <span className="text-primary">•</span>
                     <span>{project.role}</span>
                   </>
                 )}
               </DialogDescription>
-            </div>
-          </DialogHeader>
+            </DialogHeader>
 
-          <div className="space-y-6 py-4">
             {/* Project Image */}
-            <div className="relative w-full h-64 rounded-lg overflow-hidden shadow-lg border">
-              <div className="relative w-full h-full">
-                <Image
-                  src={
-                    imageError
-                      ? "/images/project-fallback.webp"
-                      : getImagePath(project.image)
-                  }
-                  alt={project.title}
-                  fill
-                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                  className={cn(
-                    "object-cover transition-all duration-500",
-                    imageLoading ? "blur-sm scale-105" : "blur-0 scale-100"
-                  )}
-                  onLoad={handleImageLoad}
-                  onError={handleImageError}
-                  priority
-                />
-
-                {imageLoading && (
-                  <div className="absolute inset-0 flex items-center justify-center bg-muted/50">
-                    <Loader2 className="h-8 w-8 animate-spin text-muted-foreground" />
-                  </div>
-                )}
-              </div>
-
-              <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-background/90 via-background/50 to-transparent p-4">
+            <div className="relative w-full h-64 md:h-80 rounded-2xl overflow-hidden shadow-lg">
+              <OptimizedImage
+                src={
+                  imageError
+                    ? "/images/project-fallback.webp"
+                    : getImagePath(project.image)
+                }
+                alt={project.title}
+                fill
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                className="object-cover"
+                priority
+                onError={handleImageError}
+              />
+              <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-background/80 to-transparent p-4">
                 <MetadataRow project={project} />
               </div>
             </div>
 
             {/* Description */}
-            <div className="bg-muted/20 p-4 rounded-lg border">
-              <p className="text-muted-foreground leading-relaxed">
+            <div className="bg-muted/10 p-4 sm:p-5 rounded-xl border border-muted/20">
+              <p className="text-sm md:text-base text-foreground leading-relaxed">
                 {project.description}
               </p>
             </div>
@@ -198,7 +179,7 @@ export function ProjectModal({
             {/* Problem Statement */}
             {project.problemStatement && (
               <ProjectSection title="The Challenge">
-                <p className="text-muted-foreground leading-relaxed">
+                <p className="text-sm md:text-base text-foreground leading-relaxed">
                   {project.problemStatement}
                 </p>
               </ProjectSection>
@@ -207,7 +188,7 @@ export function ProjectModal({
             {/* My Role */}
             {project.role && (
               <ProjectSection title="My Role">
-                <p className="text-muted-foreground leading-relaxed">
+                <p className="text-sm md:text-base text-foreground leading-relaxed">
                   As the{" "}
                   <span className="text-foreground font-medium">
                     {project.role}
@@ -215,8 +196,8 @@ export function ProjectModal({
                   {project.teamSize
                     ? `, I collaborated with a team of ${project.teamSize} to `
                     : ", I was responsible for "}
-                  design and develop solutions that addressed the core
-                  challenges and delivered measurable results.
+                  design and develop solutions that addressed core challenges
+                  and delivered measurable results.
                 </p>
               </ProjectSection>
             )}
@@ -224,13 +205,13 @@ export function ProjectModal({
             {/* Case Study */}
             {shouldShowCaseStudy && (
               <ProjectSection title="Approach & Solution">
-                <div className="space-y-4">
-                  {caseStudySections.map((section, index) => (
+                <div className="space-y-5">
+                  {caseStudySections.map((section) => (
                     <div key={section.key}>
-                      <h4 className="font-medium text-foreground mb-2">
+                      <h4 className="font-medium text-foreground text-base md:text-lg mb-2">
                         {section.label}
                       </h4>
-                      <p className="text-muted-foreground leading-relaxed">
+                      <p className="text-sm md:text-base text-foreground leading-relaxed">
                         {section.content}
                       </p>
                     </div>
@@ -242,7 +223,7 @@ export function ProjectModal({
             {/* Impact */}
             {project.caseStudy?.impact && (
               <ProjectSection title="Results & Impact">
-                <p className="text-muted-foreground leading-relaxed">
+                <p className="text-sm md:text-base text-foreground leading-relaxed">
                   {project.caseStudy.impact}
                 </p>
               </ProjectSection>
@@ -265,15 +246,14 @@ export function ProjectModal({
             {/* Tech Stack */}
             <ProjectSection title="Tech Stack">
               <div className="flex flex-wrap gap-2">
-                {project.techStack.map((tech: string, index: number) => (
-                  <div key={tech}>
-                    <Badge
-                      variant="secondary"
-                      className="text-sm py-1.5 px-3 font-medium hover:bg-secondary/80 transition-colors"
-                    >
-                      {tech}
-                    </Badge>
-                  </div>
+                {project.techStack.map((tech) => (
+                  <Badge
+                    key={tech}
+                    variant="secondary"
+                    className="text-sm py-1.5 px-3 font-medium bg-primary/10 text-primary hover:bg-primary/20 transition-colors"
+                  >
+                    {tech}
+                  </Badge>
                 ))}
               </div>
             </ProjectSection>
@@ -281,39 +261,45 @@ export function ProjectModal({
             {/* Categories */}
             <ProjectSection title="Categories">
               <div className="flex flex-wrap gap-2">
-                {project.categories.map((category: string, index: number) => (
-                  <div key={category}>
-                    <Badge
-                      variant="outline"
-                      className="text-sm py-1.5 px-3 capitalize hover:bg-accent transition-colors"
-                    >
-                      {category}
-                    </Badge>
-                  </div>
+                {project.categories.map((category) => (
+                  <Badge
+                    key={category}
+                    variant="outline"
+                    className="text-sm py-1.5 px-3 capitalize border-primary/20 text-primary hover:bg-primary/10 transition-colors"
+                  >
+                    {category}
+                  </Badge>
                 ))}
               </div>
             </ProjectSection>
 
             {/* Action Buttons */}
-            <div className="flex flex-col sm:flex-row gap-3 pt-6 border-t">
+            <div className="flex flex-col sm:flex-row gap-3 pt-6 border-t border-muted/20">
               {project.live && (
-                <Button size="lg" asChild className="flex-1 min-w-0">
+                <Button
+                  size="lg"
+                  asChild
+                  className="flex-1 min-w-0 bg-primary/90 hover:bg-primary text-primary-foreground"
+                  aria-label={`View live version of ${project.title}`}
+                >
                   <a
                     href={project.live}
                     target="_blank"
                     rel="noopener noreferrer"
-                    aria-label={`View live version of ${project.title}`}
                   >
                     View Live Project
                   </a>
                 </Button>
               )}
-              <button
+              <Button
+                size="lg"
+                variant="outline"
                 onClick={() => onOpenChange(false)}
-                className="inline-flex items-center justify-center rounded-lg text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 h-11 px-8 py-2 flex-1 min-w-0 bg-primary text-primary-foreground hover:bg-primary/90"
+                className="flex-1 min-w-0 border-primary/20 hover:bg-primary/10"
+                aria-label="Close project modal"
               >
                 Close
-              </button>
+              </Button>
             </div>
           </div>
         </DialogContent>

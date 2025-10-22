@@ -3,9 +3,10 @@
 import { Button } from "@/components/ui/button";
 import { ArrowDown, Download } from "lucide-react";
 import OptimizedImage from "@/components/ui/optimized-image";
-import { useCallback } from "react";
+import { useCallback, memo } from "react";
 
-export const Hero = () => {
+// Memoized Hero component to prevent unnecessary re-renders
+export const Hero = memo(() => {
   const scrollToSection = useCallback((sectionId: string) => {
     const element = document.querySelector(sectionId);
     element?.scrollIntoView({ behavior: "smooth" });
@@ -39,12 +40,12 @@ export const Hero = () => {
               Mulugeta Adamu
             </h1>
 
-            <h2 className="text-lg sm:text-xl md:text-2xl lg:text-xl xl:text-2xl font-semibold text-muted-foreground mb-6 md:mb-8">
+            <h2 className="text-lg sm:text-xl md:text-2xl lg:text-xl xl:text-2xl font-semibold text-foreground mb-6 md:mb-8">
               Experienced Frontend Developer specializing in React,
               Next.js,React Native and TypeScript
             </h2>
 
-            <p className="text-base sm:text-lg md:text-xl text-muted-foreground mb-8 md:mb-10 max-w-2xl mx-auto lg:mx-0 leading-relaxed">
+            <p className="text-base sm:text-lg md:text-xl text-foreground mb-8 md:mb-10 max-w-2xl mx-auto lg:mx-0 leading-relaxed">
               I build scalable web and Mobile applications that solve real
               problems and create meaningful impact. With 3+ years of
               experience, I specialize in crafting intuitive user interfaces and
@@ -88,9 +89,9 @@ export const Hero = () => {
                     lcp
                     preload
                     fill
+                    quality={80} // Reduced quality for hero image
                     className="object-cover w-full h-full"
                     sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                    quality={85}
                   />
                 </div>
               </div>
@@ -100,6 +101,8 @@ export const Hero = () => {
       </div>
     </section>
   );
-};
+});
+
+Hero.displayName = "Hero";
 
 export default Hero;

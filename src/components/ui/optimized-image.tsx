@@ -20,41 +20,25 @@ const OptimizedImage = ({
   className = "",
   wrapperClassName = "relative w-full h-full",
   priority = false,
-  quality = 75,
+  quality = 70, // Reduced default quality
   lcp = false,
   preload = false,
   ...props
 }: OptimizedImageProps) => {
-  const [imageSrc, setImageSrc] = useState(src);
-  const [isLoading, setIsLoading] = useState(true);
-
   const isCritical = lcp || priority || preload;
 
-  // Simplified loading logic to reduce JavaScript overhead
-  useEffect(() => {
-    if (!isCritical) {
-      // Simple loading without complex fallback logic
-      const img = new window.Image();
-      img.src = src;
-      img.onload = () => setIsLoading(false);
-      img.onerror = () => setIsLoading(false); // Just hide loading state on error
-    } else {
-      // Critical images don't need loading states
-      setIsLoading(false);
-    }
-  }, [src, isCritical]);
+  // Remove the custom loading state logic that was causing issues
+  // Let Next.js Image component handle loading natively
 
   return (
     <div className={wrapperClassName}>
       <Image
-        src={imageSrc}
+        src={src}
         alt={alt}
         fill
-        quality={isCritical ? 85 : quality}
+        quality={isCritical ? 80 : quality}
         priority={isCritical}
-        className={`object-cover transition-opacity duration-300 ease-in-out ${
-          isLoading && !isCritical ? "opacity-0" : "opacity-100"
-        } ${className}`}
+        className={`object-cover ${className}`}
         sizes={
           isCritical
             ? "100vw"
@@ -64,9 +48,6 @@ const OptimizedImage = ({
         fetchPriority={isCritical ? "high" : undefined}
         {...props}
       />
-      {isLoading && !isCritical && (
-        <div className="absolute inset-0 bg-muted animate-pulse rounded-lg" />
-      )}
     </div>
   );
 };

@@ -55,10 +55,8 @@ const BlogCard: React.FC<BlogCardProps> = ({ post }) => {
           <h3 className="text-lg sm:text-xl font-bold text-foreground mb-2 line-clamp-2 leading-tight">
             {title}
           </h3>
-          <p className="text-muted-foreground text-xs mb-3">
-            {formatDate(pubDate)}
-          </p>
-          <p className="text-muted-foreground text-sm mb-5 line-clamp-3 leading-relaxed">
+          <p className="text-foreground text-xs mb-3">{formatDate(pubDate)}</p>
+          <p className="text-foreground text-sm mb-5 line-clamp-3 leading-relaxed">
             {description}
           </p>
         </div>
@@ -75,7 +73,7 @@ const BlogCard: React.FC<BlogCardProps> = ({ post }) => {
               </span>
             ))}
             {categories.length > 3 && (
-              <span className="px-2.5 py-1 text-xs font-medium bg-muted text-muted-foreground rounded-full">
+              <span className="px-2.5 py-1 text-xs font-medium bg-muted text-foreground rounded-full">
                 +{categories.length - 3}
               </span>
             )}

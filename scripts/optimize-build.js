@@ -35,7 +35,7 @@ function getFileSizeKB(filePath) {
 
 // Function to analyze bundle sizes
 function analyzeBundles() {
-  const nextDir = path.join(__dirname, ".next");
+  const nextDir = path.join(__dirname, "..", ".next");
   const staticDir = path.join(nextDir, "static");
 
   if (!fileExists(staticDir)) {
@@ -49,16 +49,27 @@ function analyzeBundles() {
   try {
     const jsChunks = globSync(path.join(staticDir, "chunks", "**/*.js"));
     let totalJS = 0;
+    const chunkSizes = [];
 
     console.log("\n  JavaScript Chunks:");
     jsChunks.forEach((chunk) => {
       const size = getFileSizeKB(chunk);
       totalJS += size;
       const relativePath = path.relative(nextDir, chunk);
+      chunkSizes.push({ path: relativePath, size });
       console.log(`    ${relativePath}: ${size} KiB`);
     });
 
+    // Sort by size (largest first)
+    chunkSizes.sort((a, b) => b.size - a.size);
+
     console.log(`\n  Total JavaScript: ${totalJS} KiB`);
+
+    // Show largest chunks
+    console.log("\n  📊 Largest Chunks:");
+    chunkSizes.slice(0, 5).forEach((chunk, index) => {
+      console.log(`    ${index + 1}. ${chunk.path}: ${chunk.size} KiB`);
+    });
   } catch (error) {
     console.log("  Could not analyze JavaScript chunks");
   }
@@ -82,28 +93,46 @@ function analyzeBundles() {
   }
 }
 
-console.log("🚀 Starting build optimization...");
+// Function to optimize the build
+function optimizeBuild() {
+  console.log("🚀 Starting build optimization...");
 
-// Clean previous builds
-console.log("\n🧹 Cleaning previous builds...");
-runCommand("npm run clean");
+  // Clean previous builds
+  console.log("\n🧹 Cleaning previous builds...");
+  runCommand("bun run clean");
 
-// Type check
-console.log("\n🔍 Running type check...");
-runCommand("npm run type-check");
+  // Type check
+  console.log("\n🔍 Running type check...");
+  runCommand("bun run type-check");
 
-// Build with optimization
-console.log("\n🏗️  Building optimized production version...");
-const startTime = Date.now();
-// Use cross-env for Windows compatibility
-runCommand("cross-env NEXT_MINIFY_FONTS=1 npm run build");
-const buildTime = Date.now() - startTime;
+  // Build with optimization
+  console.log("\n🏗️  Building optimized production version...");
+  const startTime = Date.now();
 
-console.log(`\n✅ Build completed in ${Math.round(buildTime / 1000)} seconds`);
+  // Set environment variables for maximum optimization
+  const env = {
+    ...process.env,
+    NEXT_MINIFY_FONTS: "1",
+    NEXT_OPTIMIZE_FONTS: "1",
+    NEXT_OPTIMIZE_IMAGES: "1",
+    NEXT_REMOVE_COMMON_PACKAGES: "1",
+    NEXT_TURBO: "1",
+  };
 
-// Analyze bundle sizes
-analyzeBundles();
+  runCommand("bunx --bun next build", { env });
+  const buildTime = Date.now() - startTime;
 
-console.log("\n✨ Optimization complete!");
-console.log("\n💡 To analyze bundle sizes in detail, run:");
-console.log("   cross-env ANALYZE=true npm run build");
+  console.log(
+    `\n✅ Build completed in ${Math.round(buildTime / 1000)} seconds`
+  );
+
+  // Analyze bundle sizes
+  analyzeBundles();
+
+  console.log("\n✨ Optimization complete!");
+  console.log("\n💡 To analyze bundle sizes in detail, run:");
+  console.log("   ANALYZE=true bunx --bun next build");
+}
+
+// Run optimization
+optimizeBuild();

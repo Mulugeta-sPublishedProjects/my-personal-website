@@ -52,6 +52,20 @@ export function ThemeToggle() {
     }
   };
 
+  // Early return for better performance
+  if (!mounted) {
+    return (
+      <button
+        className="inline-flex items-center justify-center rounded-full text-sm font-medium ring-offset-background transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-accent/20 hover:text-accent-foreground hover:scale-105 active:scale-95 shadow-sm hover:shadow-md h-10 w-10"
+        aria-label="Theme toggle"
+        disabled
+      >
+        <Laptop className="h-[1.2rem] w-[1.2rem]" aria-hidden="true" />
+        <span className="sr-only">Loading theme toggle</span>
+      </button>
+    );
+  }
+
   return (
     <button
       onClick={toggleTheme}

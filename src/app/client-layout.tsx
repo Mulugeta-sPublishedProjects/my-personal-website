@@ -2,12 +2,14 @@
 
 import { Suspense } from "react";
 import { ThemeProvider } from "next-themes";
-import { Toaster } from "@/components/ui/sonner";
 import { useMounted } from "@/hooks/use-mounted";
 import { Splash } from "@/shared/loader";
 
 // Lightweight scroll to top component to reduce bundle size
 const LightweightScrollToTop = () => {
+  // Only include scroll to top logic if needed
+  if (typeof window === "undefined") return null;
+
   const handleClick = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
@@ -57,7 +59,6 @@ export default function ClientLayout({
     >
       <Suspense fallback={<Splash />}>
         {children}
-        <Toaster />
         <LightweightScrollToTop />
       </Suspense>
     </ThemeProvider>

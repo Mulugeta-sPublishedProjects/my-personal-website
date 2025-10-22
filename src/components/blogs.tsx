@@ -213,7 +213,7 @@ const BlogList: React.FC = () => {
           >
             Latest Blog Posts
           </h1>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+          <p className="text-lg text-foreground max-w-2xl mx-auto">
             Thoughts, tutorials, and insights about web development and more
           </p>
         </div>

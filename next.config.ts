@@ -19,8 +19,8 @@ const nextConfig: NextConfig = {
       { protocol: "https", hostname: "avatars.githubusercontent.com" },
       { protocol: "https", hostname: "via.placeholder.com", pathname: "/**" },
     ],
-    deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
-    imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
+    deviceSizes: [320, 420, 768, 1024, 1280], // Reduced device sizes
+    imageSizes: [16, 32, 48, 64, 96, 128], // Reduced image sizes
     formats: ["image/avif", "image/webp"],
     minimumCacheTTL: 60,
     // Optimize image loading for better LCP
@@ -28,7 +28,7 @@ const nextConfig: NextConfig = {
     // Aggressive image optimization for LCP
     unoptimized: false,
     // Configure image qualities to avoid warnings in Next.js 16
-    qualities: [25, 35, 50, 75, 85, 95],
+    qualities: [30, 50, 70], // Reduced quality levels
   },
   // SEO optimizations
   async headers() {
@@ -72,6 +72,16 @@ const nextConfig: NextConfig = {
           { key: "Content-Type", value: "image/avif" },
         ],
       },
+      // Add cache headers for project images
+      {
+        source: "/projects/(.*)",
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "public, max-age=31536000, immutable",
+          },
+        ],
+      },
     ];
   },
   // Enable static optimization for better SEO
@@ -84,10 +94,19 @@ const nextConfig: NextConfig = {
       "framer-motion",
       "@radix-ui/react-*",
     ],
+    // Enable granular chunking and tree shaking
+    turbo: {
+      rules: {
+        "*.svg": {
+          loaders: ["@svgr/webpack"],
+          as: "*.js",
+        },
+      },
+    },
   },
   // Add CSS handling optimizations
   webpack: (config, { isServer, dev }) => {
-    // Optimize CSS extraction
+    // Optimize CSS extraction and minification
     if (config.optimization) {
       config.optimization.splitChunks = {
         chunks: "all",
@@ -167,7 +186,30 @@ const nextConfig: NextConfig = {
             chunks: "all",
             priority: 30,
           },
+          // Optimize for modern browsers - avoid legacy JS
+          modern: {
+            test: /[\\/]node_modules[\\/]/,
+            name: "modern",
+            chunks: "all",
+            priority: 25,
+            enforce: true,
+            // Only include modern JS transforms
+            reuseExistingChunk: true,
+          },
+          // Split large dependencies
+          lodash: {
+            test: /[\\/]node_modules[\\/](lodash|lodash-es)[\\/]/,
+            name: "lodash",
+            chunks: "all",
+            priority: 5,
+          },
         },
+      };
+
+      // Enable aggressive code splitting
+      config.experiments = {
+        ...config.experiments,
+        layers: true,
       };
     }
 
@@ -179,6 +221,17 @@ const nextConfig: NextConfig = {
       transform: "lucide-react/dist/esm/icons/{{kebabCase member}}",
       skipDefaultConversion: true,
     },
+  },
+  // Optimize JavaScript bundles
+  compiler: {
+    removeConsole: {
+      exclude: ["error"],
+    },
+  },
+  // Reduce bundle size by excluding unused locales
+  i18n: {
+    locales: ["en"],
+    defaultLocale: "en",
   },
 };
 
