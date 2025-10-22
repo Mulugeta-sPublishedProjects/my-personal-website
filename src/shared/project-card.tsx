@@ -2,8 +2,6 @@
 
 import Image from "next/image";
 import React from "react";
-import { useRouter } from "next/navigation";
-import { motion } from "framer-motion";
 
 interface ProjectCardProps {
   title: string;
@@ -26,15 +24,8 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
   detailsLink,
   company,
 }) => {
-  const router = useRouter();
-
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.4 }}
-      className="bg-card rounded-xl shadow-lg overflow-hidden transform transition duration-300 hover:scale-105 flex flex-col mx-auto sm:max-w-xs md:max-w-sm lg:max-w-md xl:max-w-lg m-4 border border-border"
-    >
+    <div className="bg-card rounded-xl shadow-lg overflow-hidden transform transition duration-300 hover:scale-105 flex flex-col mx-auto sm:max-w-xs md:max-w-sm lg:max-w-md xl:max-w-lg m-4 border border-border">
       {/* Image Section */}
       <div className="relative w-full h-48 sm:h-56 md:h-64 lg:h-72">
         <Image
@@ -69,12 +60,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
           <h4 className="font-semibold text-foreground mb-1 sm:mb-2 text-sm sm:text-base leading-tight">
             Tech Stack
           </h4>
-          <motion.div
-            className="flex flex-wrap gap-2"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.2 }}
-          >
+          <div className="flex flex-wrap gap-2">
             {techStack.map((tech) => (
               <span
                 key={tech}
@@ -83,7 +69,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
                 {tech}
               </span>
             ))}
-          </motion.div>
+          </div>
         </div>
 
         {/* Links Section */}
@@ -122,7 +108,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
           </a>
         </div>
       </div>
-    </motion.div>
+    </div>
   );
 };
 

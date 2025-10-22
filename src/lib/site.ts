@@ -15,8 +15,8 @@ export const site: SiteConfig = {
   email: "hello@mulugetaadamu.dev",
   telegramUsername: "mulugeta_dev",
   social: {
-    github: "https://github.com/mulugetaadamu",
-    linkedin: "https://linkedin.com/in/mulugetaadamu",
-    twitter: "https://x.com/mulugetaadamu",
+    github: "https://github.com/muleA",
+    linkedin: "https://www.linkedin.com/in/mulugeta-adamu/",
+    twitter: "https://twitter.com/mulugeta6omkf",
   },
 };

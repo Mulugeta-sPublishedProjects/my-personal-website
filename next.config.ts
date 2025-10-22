@@ -86,11 +86,11 @@ const nextConfig: NextConfig = {
     ],
   },
   // Add CSS handling optimizations
-  webpack: (config) => {
+  webpack: (config, { isServer, dev }) => {
     // Optimize CSS extraction
     if (config.optimization) {
       config.optimization.splitChunks = {
-        ...config.optimization.splitChunks,
+        chunks: "all",
         cacheGroups: {
           ...config.optimization.splitChunks?.cacheGroups,
           styles: {
@@ -105,30 +105,27 @@ const nextConfig: NextConfig = {
             name: "vendors",
             chunks: "all",
             enforce: true,
+            maxInitialRequests: 10,
+            minChunks: 2,
           },
-        },
-      };
-
-      // Enable aggressive code splitting
-      config.optimization.splitChunks = {
-        chunks: "all",
-        cacheGroups: {
-          ...config.optimization.splitChunks?.cacheGroups,
           // Split large libraries into separate chunks
           framer: {
             test: /[\\/]node_modules[\\/]framer-motion/,
             name: "framer",
             chunks: "all",
+            priority: 20,
           },
           lucide: {
             test: /[\\/]node_modules[\\/]lucide-react/,
             name: "lucide",
             chunks: "all",
+            priority: 15,
           },
           radix: {
             test: /[\\/]node_modules[\\/]@radix-ui/,
             name: "radix",
             chunks: "all",
+            priority: 10,
           },
         },
       };
@@ -148,7 +145,40 @@ const nextConfig: NextConfig = {
       },
     };
 
+    // Only apply heavy optimizations in production
+    if (!dev && !isServer) {
+      // Split chunks more aggressively
+      config.optimization.splitChunks = {
+        ...config.optimization.splitChunks,
+        maxInitialRequests: 25,
+        maxAsyncRequests: 25,
+        cacheGroups: {
+          ...config.optimization.splitChunks?.cacheGroups,
+          // Create smaller chunks for better loading
+          default: {
+            minChunks: 2,
+            priority: -20,
+            reuseExistingChunk: true,
+          },
+          // Split by framework
+          react: {
+            test: /[\\/]node_modules[\\/](react|react-dom)[\\/]/,
+            name: "react",
+            chunks: "all",
+            priority: 30,
+          },
+        },
+      };
+    }
+
     return config;
+  },
+  // Enable granular chunking
+  modularizeImports: {
+    "lucide-react": {
+      transform: "lucide-react/dist/esm/icons/{{kebabCase member}}",
+      skipDefaultConversion: true,
+    },
   },
 };
 

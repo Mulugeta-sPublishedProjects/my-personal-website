@@ -186,13 +186,12 @@ const BlogList: React.FC = () => {
               I&apos;m working on creating some amazing content. Check back
               soon!
             </p>
-            <Button
+            <button
               onClick={handleGitHubClick}
-              variant="destructive"
-              className="px-5 py-2.5 rounded-lg gap-2"
+              className="inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-destructive text-destructive-foreground hover:bg-destructive/90 h-10 px-4 py-2 rounded-lg gap-2"
             >
               <Github className="size-4" /> Follow on GitHub
-            </Button>
+            </button>
           </div>
         </div>
       </section>

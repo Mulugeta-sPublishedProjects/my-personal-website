@@ -10,7 +10,7 @@ export function Footer() {
     { icon: Github, href: "https://github.com/muleA", label: "GitHub" },
     {
       icon: Linkedin,
-      href: "https://linkedin.com/in/mulugeta-adamu",
+      href: "https://www.linkedin.com/in/mulugeta-adamu/",
       label: "LinkedIn",
     },
 

@@ -3,13 +3,10 @@
 import * as React from "react";
 import { Moon, Sun, Laptop } from "lucide-react";
 import { useTheme } from "next-themes";
-import { Button } from "@/components/ui/button";
-import { motion, useReducedMotion } from "framer-motion";
 
 export function ThemeToggle() {
   const { theme, setTheme, resolvedTheme } = useTheme();
   const [mounted, setMounted] = React.useState(false);
-  const prefersReducedMotion = useReducedMotion();
 
   React.useEffect(() => {
     setMounted(true);
@@ -56,35 +53,13 @@ export function ThemeToggle() {
   };
 
   return (
-    <Button
-      variant="ghost"
-      size="icon"
+    <button
       onClick={toggleTheme}
-      className="h-10 w-10 rounded-full hover:bg-accent/20 hover:text-accent-foreground transition-all duration-300 hover:scale-105 active:scale-95 shadow-sm hover:shadow-md"
+      className="inline-flex items-center justify-center rounded-full text-sm font-medium ring-offset-background transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-accent/20 hover:text-accent-foreground hover:scale-105 active:scale-95 shadow-sm hover:shadow-md h-10 w-10"
       aria-label={getLabel()}
     >
-      <motion.div
-        initial={
-          mounted && !prefersReducedMotion
-            ? { scale: 0.8, opacity: 0, rotate: -180 }
-            : false
-        }
-        animate={{ scale: 1, opacity: 1, rotate: 0 }}
-        transition={
-          mounted && !prefersReducedMotion
-            ? {
-                duration: 0.3,
-                type: "spring",
-                stiffness: 300,
-                damping: 20,
-              }
-            : { duration: 0 }
-        }
-        key={mounted ? resolvedTheme : "system"}
-      >
-        {getIcon()}
-      </motion.div>
+      <div key={mounted ? resolvedTheme : "system"}>{getIcon()}</div>
       <span className="sr-only">{getLabel()}</span>
-    </Button>
+    </button>
   );
 }

@@ -1,22 +1,14 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { ArrowDown, Download, MessageCircle } from "lucide-react";
+import { ArrowDown, Download } from "lucide-react";
 import OptimizedImage from "@/components/ui/optimized-image";
-import { useCallback, useRef } from "react";
+import { useCallback } from "react";
 
 export const Hero = () => {
-  const sectionRefs = useRef<Record<string, HTMLElement | null>>({});
-
   const scrollToSection = useCallback((sectionId: string) => {
-    // Initialize the ref if not already done
-    if (!sectionRefs.current[sectionId]) {
-      const element = document.querySelector(sectionId);
-      sectionRefs.current[sectionId] = element as HTMLElement | null;
-    }
-
-    const section = sectionRefs.current[sectionId];
-    section?.scrollIntoView({ behavior: "smooth" });
+    const element = document.querySelector(sectionId);
+    element?.scrollIntoView({ behavior: "smooth" });
   }, []);
 
   const handleDownloadResume = useCallback(() => {
@@ -27,14 +19,13 @@ export const Hero = () => {
   return (
     <section
       id="home"
-      className="relative min-h-screen flex items-center justify-center overflow-hidden px-4 py-12 sm:py-16 md:py-20"
+      className="relative min-h-screen flex items-center justify-center overflow-hidden  py-12 sm:py-16 md:py-20"
       aria-label="Introduction section"
       tabIndex={-1}
     >
       {/* Background decoration */}
-      <div className="absolute inset-0 -z-10 bg-gradient-to-br from-background via-background to-primary/5" />
 
-      <div className="container relative z-10 mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+      <div className="relative z-10  max-w-6xl sm:px-6 lg:px-4">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 items-center">
           {/* Text Content */}
           <div className="text-center lg:text-left order-2 lg:order-1 px-4 focusable-section">
@@ -62,28 +53,25 @@ export const Hero = () => {
 
             {/* Call-to-actions */}
             <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-              <Button
-                size="lg"
+              <button
                 onClick={() => scrollToSection("#projects")}
-                className="text-base px-6 sm:px-8 py-5 sm:py-6 font-semibold group"
+                className="inline-flex items-center justify-center rounded-lg text-base font-semibold transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground shadow-sm hover:bg-primary/90 hover:shadow hover:-translate-y-0.5 active:translate-y-0 border border-primary/30 h-12 px-8 py-6 group"
                 aria-label="View portfolio projects"
               >
                 View My Work
                 <span className="ml-2">
                   <ArrowDown className="h-4 w-4" />
                 </span>
-              </Button>
+              </button>
 
-              <Button
-                size="lg"
-                variant="outline"
+              <button
                 onClick={handleDownloadResume}
-                className="text-base px-6 sm:px-8 py-5 sm:py-6 font-semibold border-2"
+                className="inline-flex items-center justify-center rounded-lg text-base font-semibold transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background shadow-sm hover:bg-accent hover:text-accent-foreground hover:shadow hover:-translate-y-0.5 h-12 px-8 py-6 border-2"
                 aria-label="Download resume"
               >
                 <Download className="mr-2 h-4 w-4" />
                 Download Resume
-              </Button>
+              </button>
             </div>
           </div>
 

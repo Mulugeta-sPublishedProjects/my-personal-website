@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import { Button } from "@/components/ui/button";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { Menu, X } from "lucide-react";
 import {
@@ -66,6 +65,11 @@ export default function Header() {
     setIsMobileMenuOpen(false);
   };
 
+  const handleHireMeClick = () => {
+    scrollToContact();
+    handleMobileMenuItemClick();
+  };
+
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
@@ -113,23 +117,20 @@ export default function Header() {
           <div className="flex items-center gap-3">
             <ThemeToggle />
 
-            <Button
+            <button
               onClick={scrollToContact}
-              size="sm"
-              variant="default"
-              className="hidden sm:inline-flex items-center gap-2 text-sm"
+              className="hidden sm:inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-9 px-4 py-2 gap-2"
               aria-label="Hire me"
             >
               Hire Me
-            </Button>
+            </button>
 
             {/* Mobile Menu */}
             <div className="md:hidden">
               <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
                 <SheetTrigger asChild>
-                  <Button
-                    variant="ghost"
-                    size="icon"
+                  <button
+                    className="inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground h-10 w-10"
                     aria-label="Open menu"
                     onClick={handleMobileMenuToggle}
                   >
@@ -138,7 +139,7 @@ export default function Header() {
                     ) : (
                       <Menu className="h-5 w-5" />
                     )}
-                  </Button>
+                  </button>
                 </SheetTrigger>
                 <SheetContent
                   side="right"
@@ -171,17 +172,13 @@ export default function Header() {
                       );
                     })}
                     <SheetClose asChild>
-                      <Button
-                        onClick={() => {
-                          scrollToContact();
-                          handleMobileMenuItemClick();
-                        }}
-                        size="sm"
-                        className="w-full"
+                      <button
+                        onClick={handleHireMeClick}
+                        className="inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-9 px-4 py-2 w-full"
                         aria-label="Hire me"
                       >
                         Hire Me
-                      </Button>
+                      </button>
                     </SheetClose>
                   </nav>
                 </SheetContent>

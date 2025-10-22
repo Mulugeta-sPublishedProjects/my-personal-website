@@ -85,11 +85,9 @@ export function Contact() {
                   <span className="text-sm break-all text-center sm:text-left">
                     mulugeta.adamu97@gmail.com
                   </span>
-                  <Button
-                    variant="ghost"
-                    size="sm"
+                  <button
                     onClick={copyEmail}
-                    className="h-8 w-8 p-0 flex-shrink-0"
+                    className="inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground h-8 w-8 p-0 flex-shrink-0"
                     aria-label="Copy email address"
                   >
                     {copied ? (
@@ -97,7 +95,7 @@ export function Contact() {
                     ) : (
                       <Copy className="h-4 w-4" />
                     )}
-                  </Button>
+                  </button>
                 </CardContent>
               </Card>
             </div>
@@ -153,22 +151,23 @@ export function Contact() {
                     aria-label="Social media profiles"
                   >
                     {socialLinks.map(({ name, icon: Icon, href }) => (
-                      <Button
-                        key={name}
-                        variant="outline"
-                        size="sm"
-                        className="h-9 rounded focus:ring-2 focus:ring-primary flex items-center justify-center"
-                        asChild
-                      >
-                        <a
-                          href={href}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          aria-label={`Visit my ${name} profile`}
+                      <div key={name} role="listitem">
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          className="h-9 rounded focus:ring-2 focus:ring-primary flex items-center justify-center"
+                          asChild
                         >
-                          <Icon className="h-4 w-4" />
-                        </a>
-                      </Button>
+                          <a
+                            href={href}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            aria-label={`Visit my ${name} profile`}
+                          >
+                            <Icon className="h-4 w-4" />
+                          </a>
+                        </Button>
+                      </div>
                     ))}
                   </div>
                 </CardContent>

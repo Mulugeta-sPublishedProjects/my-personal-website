@@ -6,49 +6,40 @@ import { useState, useEffect } from "react";
 interface OptimizedImageProps extends Omit<ImageProps, "src"> {
   src: string;
   alt: string;
-  className?: string; // applies to <Image />
-  wrapperClassName?: string; // applies to wrapper <div />
+  className?: string;
+  wrapperClassName?: string;
   priority?: boolean;
   quality?: number;
-  lcp?: boolean; // Special flag for Largest Contentful Paint images
-  preload?: boolean; // Preload the image
+  lcp?: boolean;
+  preload?: boolean;
 }
 
 const OptimizedImage = ({
   src,
   alt,
   className = "",
-  wrapperClassName = "relative w-full h-full", // default ensures height
+  wrapperClassName = "relative w-full h-full",
   priority = false,
   quality = 75,
-  lcp = false, // Default to false
+  lcp = false,
   preload = false,
   ...props
 }: OptimizedImageProps) => {
   const [imageSrc, setImageSrc] = useState(src);
   const [isLoading, setIsLoading] = useState(true);
 
-  // For LCP or priority images, we want to ensure they load as quickly as possible
   const isCritical = lcp || priority || preload;
 
+  // Simplified loading logic to reduce JavaScript overhead
   useEffect(() => {
-    // Only apply custom loading for non-critical images
     if (!isCritical) {
+      // Simple loading without complex fallback logic
       const img = new window.Image();
       img.src = src;
-
       img.onload = () => setIsLoading(false);
-      img.onerror = () => {
-        // Try fallback image if primary fails
-        const fallbackSrc = src.replace(
-          /\.(avif|webp)$/,
-          src.endsWith(".avif") ? ".webp" : ".avif"
-        );
-        setImageSrc(fallbackSrc);
-        setIsLoading(false);
-      };
+      img.onerror = () => setIsLoading(false); // Just hide loading state on error
     } else {
-      // For critical images (like hero), don't show custom loading state
+      // Critical images don't need loading states
       setIsLoading(false);
     }
   }, [src, isCritical]);
@@ -59,9 +50,11 @@ const OptimizedImage = ({
         src={imageSrc}
         alt={alt}
         fill
-        quality={isCritical ? 85 : quality} // Use 85 to match our configured qualities
+        quality={isCritical ? 85 : quality}
         priority={isCritical}
-        className={`object-cover ${isCritical ? "" : "transition-opacity duration-300"} ${isLoading && !isCritical ? "opacity-0" : "opacity-100"} ${className}`}
+        className={`object-cover transition-opacity duration-300 ease-in-out ${
+          isLoading && !isCritical ? "opacity-0" : "opacity-100"
+        } ${className}`}
         sizes={
           isCritical
             ? "100vw"
@@ -69,16 +62,6 @@ const OptimizedImage = ({
         }
         loading={isCritical ? "eager" : "lazy"}
         fetchPriority={isCritical ? "high" : undefined}
-        onError={() => {
-          // Try fallback image if primary fails
-          const fallbackSrc = imageSrc.replace(
-            /\.(avif|webp)$/,
-            imageSrc.endsWith(".avif") ? ".webp" : ".avif"
-          );
-          if (fallbackSrc !== imageSrc) {
-            setImageSrc(fallbackSrc);
-          }
-        }}
         {...props}
       />
       {isLoading && !isCritical && (

@@ -117,17 +117,15 @@ export function Projects() {
                     </Button>
                   )}
 
-                  <Button
-                    size="sm"
-                    variant="outline"
+                  <button
                     onClick={() => handleViewDetails(project)}
-                    className="flex-1 text-xs sm:text-sm"
+                    className="inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-9 px-4 py-2 flex-1 text-xs sm:text-sm"
                     aria-label={`View details of ${project.title}`}
                   >
                     <Info className="h-3 w-3 mr-1" />
                     <span className="hidden xs:inline">Details</span>
                     <span className="xs:hidden">Info</span>
-                  </Button>
+                  </button>
                 </div>
               </CardContent>
             </Card>
