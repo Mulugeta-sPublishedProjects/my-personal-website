@@ -46,7 +46,7 @@ export function Projects() {
   return (
     <section
       id="projects"
-      className="py-16 sm:py-20 md:py-24 lg:py-32 bg-gradient-to-b from-background to-muted/10"
+      className="py-4 sm:py-8 md:py-12 lg:py-16 bg-gradient-to-b from-background to-muted/10"
       aria-labelledby="projects-heading"
     >
       <div className="container max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -143,38 +143,40 @@ export function Projects() {
                   </div>
 
                   {/* Actions */}
-                  <div className="flex gap-3 mt-auto pt-4">
+                  <div className="flex gap-3 pt-4 mt-auto">
                     {project.live && (
                       <Button
                         size="sm"
                         asChild
-                        className="flex-1 text-xs md:text-sm bg-primary/90 hover:bg-primary text-primary-foreground"
+                        className="flex-1 bg-primary/90 hover:bg-primary text-primary-foreground text-sm md:text-base"
                         aria-label={`View live version of ${project.title}`}
                       >
                         <a
                           href={project.live}
                           target="_blank"
-                          className="flex items-center justify-center px-3 py-1.5"
                           rel="noopener noreferrer"
+                          className="flex items-center justify-center gap-2 px-3 py-2"
                         >
-                          <Eye className="h-4 w-4 mr-1.5" />
-                          <span className="hidden xs:inline">Live</span>
-                          <span className="xs:hidden">
-                            View {project.title}
-                          </span>
+                          <Eye className="h-4 w-4" />
+                          <span className="hidden sm:inline">Live</span>
                         </a>
                       </Button>
                     )}
+
                     <Button
                       size="sm"
                       variant="outline"
                       onClick={() => handleViewDetails(project)}
-                      className="flex-1 text-xs md:text-sm border-primary/20 hover:bg-primary/10"
+                      className="flex-1 border border-primary/20 hover:bg-primary/10 hover:text-foreground text-sm md:text-base"
                       aria-label={`View details of ${project.title}`}
                     >
-                      <Info className="h-4 w-4 mr-1.5" />
-                      <span className="hidden xs:inline">Details</span>
-                      <span className="xs:hidden">Info</span>
+                      <div className="flex items-center justify-center gap-2">
+                        <Info className="h-4 w-4" />
+                        <span className="hidden sm:inline hover:text-primary-foreground">
+                          Details
+                        </span>
+                        <span className="sm:hidden">Info</span>
+                      </div>
                     </Button>
                   </div>
                 </CardContent>
