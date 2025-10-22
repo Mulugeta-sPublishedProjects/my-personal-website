@@ -3,7 +3,6 @@ const withBundleAnalyzer = require("@next/bundle-analyzer")({
 });
 
 const nextConfig = {
-  // Your existing Next.js configuration
   poweredByHeader: false,
   compress: true,
   eslint: {
@@ -86,10 +85,7 @@ const nextConfig = {
     //   },
     // },
   },
-  i18n: {
-    locales: ["en"],
-    defaultLocale: "en",
-  },
+  // Removed i18n configuration to avoid warnings in App Router
 };
 
 module.exports = withBundleAnalyzer(nextConfig);

@@ -21,16 +21,12 @@ const nextConfig: NextConfig = {
       { protocol: "https", hostname: "avatars.githubusercontent.com" },
       { protocol: "https", hostname: "via.placeholder.com", pathname: "/**" },
     ],
-    deviceSizes: [320, 420, 768, 1024, 1280], // Reduced device sizes
-    imageSizes: [16, 32, 48, 64, 96, 128], // Reduced image sizes
+    deviceSizes: [320, 420, 768, 1024, 1280, 1920], // Added larger device size for better quality
+    imageSizes: [16, 32, 48, 64, 96, 128, 256], // Added larger image sizes
     formats: ["image/avif", "image/webp"],
     minimumCacheTTL: 60,
-    // Optimize image loading for better LCP
     contentDispositionType: "inline",
-    // Aggressive image optimization for LCP
     unoptimized: false,
-    // Configure image qualities to avoid warnings in Next.js 16
-    qualities: [30, 50, 70, 80], // Added 80 to support hero image quality
     // Add additional image optimization settings
     dangerouslyAllowSVG: false,
     contentSecurityPolicy:
@@ -151,17 +147,8 @@ const nextConfig: NextConfig = {
     // Remove emotion configuration as it's causing issues
     // emotion: true,
   },
-  // Reduce bundle size by excluding unused locales
-  i18n: {
-    locales: ["en"],
-    defaultLocale: "en",
-  },
   // Target modern browsers to reduce polyfills
   transpilePackages: [],
-  // Disable legacy JavaScript polyfills
-  future: {
-    webpack5: true,
-  },
 };
 
 module.exports = withBundleAnalyzer(nextConfig);

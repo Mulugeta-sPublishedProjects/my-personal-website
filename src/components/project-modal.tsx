@@ -81,7 +81,11 @@ export function ProjectModal({
   };
 
   const getImagePath = (imagePath: string) => {
-    return imagePath.startsWith("/") ? imagePath : `/${imagePath}`;
+    // Ensure the path is properly formatted
+    if (imagePath.startsWith("/")) {
+      return imagePath;
+    }
+    return `/${imagePath}`;
   };
 
   if (!project) return null;
@@ -161,6 +165,7 @@ export function ProjectModal({
                 priority
                 onError={handleImageError}
                 decoding="async"
+                loading="eager"
               />
               {/*  <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-background/80 to-transparent p-4">
                 <MetadataRow project={project} />
