@@ -160,7 +160,9 @@ export function Projects() {
                         >
                           <Eye className="h-4 w-4 mr-1.5" />
                           <span className="hidden xs:inline">Live</span>
-                          <span className="xs:hidden">View</span>
+                          <span className="xs:hidden">
+                            View {project.title}
+                          </span>
                         </a>
                       </Button>
                     )}

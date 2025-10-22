@@ -53,7 +53,7 @@ export function Footer() {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={`Visit my ${link.label} profile`}
-                  className="text-foreground hover:text-primary transition-colors touch-manipulation flex items-center justify-center w-12 h-12 sm:w-12 sm:h-12 rounded-full border border-border hover:bg-primary hover:text-primary-foreground focus:ring-2 focus:ring-primary focus:ring-offset-2"
+                  className="text-foreground hover:text-primary transition-colors touch-manipulation flex items-center justify-center w-14 h-14 sm:w-14 sm:h-14 rounded-full border border-border hover:bg-primary hover:text-primary-foreground focus:ring-2 focus:ring-primary focus:ring-offset-2"
                 >
                   <Icon className="h-5 w-5 sm:h-5 sm:w-5" aria-hidden="true" />
                 </a>

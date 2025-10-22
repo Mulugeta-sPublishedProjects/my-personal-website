@@ -76,64 +76,15 @@ const nextConfig = {
       "framer-motion",
       "@radix-ui/react-*",
     ],
-  },
-  webpack: (config) => {
-    if (config.optimization) {
-      config.optimization.splitChunks = {
-        ...config.optimization.splitChunks,
-        cacheGroups: {
-          ...config.optimization.splitChunks?.cacheGroups,
-          styles: {
-            name: "styles",
-            type: "css/mini-extract",
-            chunks: "all",
-            enforce: true,
-          },
-          vendor: {
-            test: /[\\/]node_modules[\\/]/,
-            name: "vendors",
-            chunks: "all",
-            enforce: true,
-          },
-        },
-      };
-
-      config.optimization.splitChunks = {
-        chunks: "all",
-        cacheGroups: {
-          ...config.optimization.splitChunks?.cacheGroups,
-          framer: {
-            test: /[\\/]node_modules[\\/]framer-motion/,
-            name: "framer",
-            chunks: "all",
-          },
-          lucide: {
-            test: /[\\/]node_modules[\\/]lucide-react/,
-            name: "lucide",
-            chunks: "all",
-          },
-          radix: {
-            test: /[\\/]node_modules[\\/]@radix-ui/,
-            name: "radix",
-            chunks: "all",
-          },
-        },
-      };
-
-      if (config.optimization.minimizer) {
-        config.optimization.minimize = true;
-      }
-    }
-
-    config.resolve = {
-      ...config.resolve,
-      fallback: {
-        ...config.resolve?.fallback,
-        fs: false,
-      },
-    };
-
-    return config;
+    // Enable Turbopack for builds (if using Next.js 15.3+)
+    // turbo: {
+    //   rules: {
+    //     "*.svg": {
+    //       loaders: ["@svgr/webpack"],
+    //       as: "*.js",
+    //     },
+    //   },
+    // },
   },
   i18n: {
     locales: ["en"],

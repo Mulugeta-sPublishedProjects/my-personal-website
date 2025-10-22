@@ -104,175 +104,18 @@ const nextConfig: NextConfig = {
     optimizeServerReact: true,
     // Disable legacy JavaScript polyfills for modern browsers
     esmExternals: true,
+    // Enable Turbopack for builds (if using Next.js 15.3+)
+    // turbo: {
+    //   rules: {
+    //     "*.svg": {
+    //       loaders: ["@svgr/webpack"],
+    //       as: "*.js",
+    //     },
+    //   },
+    // },
   },
   // Moved from experimental to top level
   serverExternalPackages: ["sharp", "next-mdx-remote"],
-  // Add CSS handling optimizations
-  webpack: (config, { isServer, dev, nextRuntime }) => {
-    // Enable source maps in production for better debugging
-    if (!dev) {
-      config.devtool = "source-map";
-    }
-
-    // Optimize CSS extraction and minification
-    if (config.optimization) {
-      // Enable aggressive tree shaking to reduce unused code
-      // config.optimization.usedExports = true; // Removed to fix webpack error
-      config.optimization.sideEffects = true;
-
-      config.optimization.splitChunks = {
-        chunks: "all",
-        cacheGroups: {
-          ...config.optimization.splitChunks?.cacheGroups,
-          styles: {
-            name: "styles",
-            type: "css/mini-extract",
-            chunks: "all",
-            enforce: true,
-          },
-          // Split vendor chunks for better caching
-          vendor: {
-            test: /[\\/]node_modules[\\/]/,
-            name: "vendors",
-            chunks: "all",
-            enforce: true,
-            maxInitialRequests: 10,
-            minChunks: 2,
-          },
-          // Split large libraries into separate chunks
-          framer: {
-            test: /[\\/]node_modules[\\/]framer-motion/,
-            name: "framer",
-            chunks: "all",
-            priority: 20,
-          },
-          lucide: {
-            test: /[\\/]node_modules[\\/]lucide-react/,
-            name: "lucide",
-            chunks: "all",
-            priority: 15,
-          },
-          radix: {
-            test: /[\\/]node_modules[\\/]@radix-ui/,
-            name: "radix",
-            chunks: "all",
-            priority: 10,
-          },
-        },
-      };
-
-      // Enable minification with advanced settings
-      if (config.optimization.minimizer) {
-        config.optimization.minimize = true;
-      }
-    }
-
-    // Add module resolution for faster builds
-    config.resolve = {
-      ...config.resolve,
-      fallback: {
-        ...config.resolve?.fallback,
-        fs: false,
-      },
-    };
-
-    // Only apply heavy optimizations in production
-    if (!dev && !isServer) {
-      // Split chunks more aggressively
-      config.optimization.splitChunks = {
-        ...config.optimization.splitChunks,
-        maxInitialRequests: 25,
-        maxAsyncRequests: 25,
-        cacheGroups: {
-          ...config.optimization.splitChunks?.cacheGroups,
-          // Create smaller chunks for better loading
-          default: {
-            minChunks: 2,
-            priority: -20,
-            reuseExistingChunk: true,
-          },
-          // Split by framework
-          react: {
-            test: /[\\/]node_modules[\\/](react|react-dom)[\\/]/,
-            name: "react",
-            chunks: "all",
-            priority: 30,
-          },
-          // Optimize for modern browsers - avoid legacy JS
-          modern: {
-            test: /[\\/]node_modules[\\/]/,
-            name: "modern",
-            chunks: "all",
-            priority: 25,
-            enforce: true,
-            // Only include modern JS transforms
-            reuseExistingChunk: true,
-          },
-          // Split large dependencies
-          lodash: {
-            test: /[\\/]node_modules[\\/](lodash|lodash-es)[\\/]/,
-            name: "lodash",
-            chunks: "all",
-            priority: 5,
-          },
-        },
-      };
-
-      // Enable aggressive code splitting
-      config.experiments = {
-        ...config.experiments,
-        layers: true,
-      };
-    }
-
-    // Optimize for modern browsers - reduce polyfills
-    if (!isServer) {
-      // Target modern browsers to reduce polyfills
-      config.target = "web";
-
-      // Use modern JS features without transpilation for modern browsers
-      if (config.module?.rules) {
-        config.module.rules = config.module.rules.map((rule: any) => {
-          if (rule?.use?.loader?.includes("swc")) {
-            return {
-              ...rule,
-              use: {
-                ...rule.use,
-                options: {
-                  ...rule.use.options,
-                  // Target modern browsers to reduce polyfills
-                  env: {
-                    targets:
-                      "> 1%, last 2 versions, not dead, not ie <= 11, not op_mini all",
-                    mode: "entry",
-                    coreJs: "3.30",
-                    shippedProposals: true,
-                  },
-                  // Disable transpilation of modern JS features
-                  jsc: {
-                    ...rule.use.options.jsc,
-                    transform: {
-                      ...rule.use.options.jsc?.transform,
-                      // Keep modern JS syntax for modern browsers
-                      react: {
-                        runtime: "automatic",
-                        refresh: dev,
-                      },
-                    },
-                    // Optimize for modern browsers
-                    target: "es2020",
-                  },
-                },
-              },
-            };
-          }
-          return rule;
-        });
-      }
-    }
-
-    return config;
-  },
   // Enable granular chunking
   modularizeImports: {
     "lucide-react": {
@@ -308,10 +151,17 @@ const nextConfig: NextConfig = {
     // Remove emotion configuration as it's causing issues
     // emotion: true,
   },
-
+  // Reduce bundle size by excluding unused locales
+  i18n: {
+    locales: ["en"],
+    defaultLocale: "en",
+  },
   // Target modern browsers to reduce polyfills
   transpilePackages: [],
- 
+  // Disable legacy JavaScript polyfills
+  future: {
+    webpack5: true,
+  },
 };
 
 module.exports = withBundleAnalyzer(nextConfig);
