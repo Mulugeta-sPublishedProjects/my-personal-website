@@ -80,19 +80,13 @@ const nextConfig: NextConfig = {
   reactStrictMode: true,
   experimental: {
     optimizeCss: true,
-    // Enable modern JavaScript optimizations
-    optimizeServerReact: true,
-    // Disable legacy JavaScript polyfills for modern browsers
-    esmExternals: true,
   },
   serverExternalPackages: ["sharp", "next-mdx-remote"],
-
   compiler: {
     removeConsole: {
       exclude: ["error"],
     },
   },
-
   transpilePackages: [],
 };
 
