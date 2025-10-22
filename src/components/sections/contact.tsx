@@ -180,7 +180,7 @@ export function Contact() {
                 </CardHeader>
                 <CardContent className="px-5 pb-5">
                   <div
-                    className="grid grid-cols-4 gap-2 sm:gap-3"
+                    className="grid grid-cols-4 gap-3 sm:gap-4"
                     role="list"
                     aria-label="Social media profiles"
                   >
@@ -189,16 +189,16 @@ export function Contact() {
                         <Button
                           variant="outline"
                           size="icon"
-                          className="h-9 w-9 border-primary/20 hover:bg-primary/10"
+                          className="h-12 w-12 border-primary/20 hover:bg-primary/10"
                           asChild
-                          aria-label={`Visit my ${name} profile`}
                         >
                           <a
                             href={href}
                             target="_blank"
                             rel="noopener noreferrer"
+                            aria-label={`Visit my ${name} profile`}
                           >
-                            <Icon className="h-4 w-4 text-foreground" />
+                            <Icon className="h-5 w-5 text-foreground" />
                           </a>
                         </Button>
                       </div>

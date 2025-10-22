@@ -40,7 +40,7 @@ export function Footer() {
           </div>
 
           <div
-            className="flex items-center gap-3 sm:gap-4"
+            className="flex items-center gap-4 sm:gap-5"
             role="navigation"
             aria-label="Social media links"
           >
@@ -53,9 +53,9 @@ export function Footer() {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={`Visit my ${link.label} profile`}
-                  className="text-foreground hover:text-primary transition-colors touch-manipulation flex items-center justify-center w-9 h-9 sm:w-10 sm:h-10 rounded-full border border-border hover:bg-primary hover:text-primary-foreground focus:ring-2 focus:ring-primary focus:ring-offset-2"
+                  className="text-foreground hover:text-primary transition-colors touch-manipulation flex items-center justify-center w-12 h-12 sm:w-12 sm:h-12 rounded-full border border-border hover:bg-primary hover:text-primary-foreground focus:ring-2 focus:ring-primary focus:ring-offset-2"
                 >
-                  <Icon className="h-4 w-4 sm:h-5 sm:w-5" aria-hidden="true" />
+                  <Icon className="h-5 w-5 sm:h-5 sm:w-5" aria-hidden="true" />
                 </a>
               );
             })}

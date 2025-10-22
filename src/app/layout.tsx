@@ -52,7 +52,7 @@ export default function RootLayout({
           content="index, follow, max-video-preview:-1, max-image-preview:large, max-snippet:-1"
         />
 
-        {/* Preload critical image */}
+        {/* Preload critical resources */}
         <link
           rel="preload"
           as="image"
@@ -60,7 +60,6 @@ export default function RootLayout({
           type="image/avif"
           fetchPriority="high"
         />
-        <link rel="prefetch" href="/hero.avif" as="image" type="image/avif" />
 
         {/* Preconnect to important origins */}
         <link rel="preconnect" href="https://avatars.githubusercontent.com" />

@@ -18,7 +18,8 @@
     "analyze": "ANALYZE=true bunx --bun next build",
     "optimize": "node scripts/optimize-build.js",
     "optimize:images": "node scripts/optimize-images.js",
-    "update:project-images": "node scripts/update-project-images.js"
+    "update:project-images": "node scripts/update-project-images.js",
+    "analyze:critical-path": "node scripts/analyze-critical-path.js"
   },
   "config": {
     "commitizen": {
@@ -47,7 +48,6 @@
     "react": "19.0.0",
     "react-dom": "19.0.0",
     "react-error-boundary": "6.0.0",
-    "self-update": "^0.0.1",
     "sharp": "0.34.4",
     "sonner": "2.0.7",
     "tailwind-merge": "3.3.1",
@@ -93,10 +93,9 @@
     "typescript": "5.9.3"
   },
   "browserslist": [
-    "> 1%",
-    "last 2 versions",
-    "not dead",
-    "not ie <= 11",
-    "not op_mini all"
+    "Chrome 111",
+    "Edge 111",
+    "Firefox 111",
+    "Safari 16.4"
   ]
 }

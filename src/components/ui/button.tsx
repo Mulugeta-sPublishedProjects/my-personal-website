@@ -1,5 +1,6 @@
+"use client";
+
 import * as React from "react";
-// import { Slot } from "@radix-ui/react-slot";
 import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
 
@@ -47,9 +48,9 @@ export interface ButtonProps
   asChild?: boolean;
 }
 
-const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
+// Memoize the button component to reduce re-renders
+const ButtonComponent = React.forwardRef<HTMLButtonElement, ButtonProps>(
   ({ className, variant, size, asChild = false, ...props }, ref) => {
-    // const Comp = asChild ? Slot : "button";
     const Comp = "button";
     return (
       <Comp
@@ -61,6 +62,9 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   }
 );
 
-Button.displayName = "Button";
+// Memoize the button component
+const MemoizedButton = React.memo(ButtonComponent);
 
-export { Button, buttonVariants };
+MemoizedButton.displayName = "Button";
+
+export { MemoizedButton as Button, buttonVariants };

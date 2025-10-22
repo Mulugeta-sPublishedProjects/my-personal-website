@@ -50,18 +50,8 @@ const navItemVariants = {
 export default function Header() {
   const [activeSection, setActiveSection] = useState("home");
   const [scrolled, setScrolled] = useState(false);
-  const sectionRefs = useRef<Map<string, HTMLElement>>(new Map());
 
   useEffect(() => {
-    // Initialize section refs using Map for better type safety and clarity
-    const sections = ["home", "about", "expertise", "projects", "contact"];
-    sections.forEach((section) => {
-      const element = document.querySelector<HTMLElement>(`#${section}`);
-      if (element) {
-        sectionRefs.current.set(section, element);
-      }
-    });
-
     const handleScroll = () => {
       // Update scrolled state
       setScrolled(window.scrollY > 20);
@@ -70,15 +60,20 @@ export default function Header() {
       let currentSection = "home";
       const scrollPosition = window.scrollY + 100; // Adjusted offset
 
-      for (const [section, el] of sectionRefs.current) {
-        const { offsetTop, offsetHeight } = el;
-        const sectionTop = offsetTop;
-        const sectionBottom = offsetTop + offsetHeight;
+      // Check each section to see which one is currently in view
+      const sections = ["home", "about", "expertise", "projects", "contact"];
+      for (const section of sections) {
+        const element = document.getElementById(section);
+        if (element) {
+          const { offsetTop, offsetHeight } = element;
+          const sectionTop = offsetTop;
+          const sectionBottom = offsetTop + offsetHeight;
 
-        // Check if current scroll position is within this section
-        if (scrollPosition >= sectionTop && scrollPosition <= sectionBottom) {
-          currentSection = section;
-          break;
+          // Check if current scroll position is within this section
+          if (scrollPosition >= sectionTop && scrollPosition <= sectionBottom) {
+            currentSection = section;
+            break;
+          }
         }
       }
       setActiveSection(currentSection);
@@ -91,11 +86,11 @@ export default function Header() {
   }, []);
 
   const scrollToSection = (sectionId: string) => {
-    const section = sectionRefs.current.get(sectionId.replace("#", ""));
-    if (section) {
+    const element = document.querySelector<HTMLElement>(sectionId);
+    if (element) {
       // Calculate offset for fixed header
       const headerHeight = 80; // Approximate header height
-      const offsetTop = section.offsetTop - headerHeight;
+      const offsetTop = element.offsetTop - headerHeight;
 
       window.scrollTo({
         top: offsetTop,
@@ -127,7 +122,7 @@ export default function Header() {
             href="#home"
             onClick={(e) => {
               e.preventDefault();
-              scrollToSection("home");
+              scrollToSection("#home");
             }}
             className="text-xl md:text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-primary/60"
             aria-label="Portfolio Home"

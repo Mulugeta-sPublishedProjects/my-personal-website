@@ -100,26 +100,15 @@ const nextConfig: NextConfig = {
       "framer-motion",
       "@radix-ui/react-*",
     ],
-    // Enable granular chunking and tree shaking
-    // turbo: { // Deprecated, using turbopack instead
-    //   rules: {
-    //     "*.svg": {
-    //       loaders: ["@svgr/webpack"],
-    //       as: "*.js",
-    //     },
-    //   },
-    // },
     // Enable modern JavaScript optimizations
     optimizeServerReact: true,
-    // serverComponentsExternalPackages: [ // Moved to top level
-    //   "sharp",
-    //   "next-mdx-remote",
-    // ],
+    // Disable legacy JavaScript polyfills for modern browsers
+    esmExternals: true,
   },
   // Moved from experimental to top level
   serverExternalPackages: ["sharp", "next-mdx-remote"],
   // Add CSS handling optimizations
-  webpack: (config, { isServer, dev }) => {
+  webpack: (config, { isServer, dev, nextRuntime }) => {
     // Enable source maps in production for better debugging
     if (!dev) {
       config.devtool = "source-map";
@@ -128,7 +117,7 @@ const nextConfig: NextConfig = {
     // Optimize CSS extraction and minification
     if (config.optimization) {
       // Enable aggressive tree shaking to reduce unused code
-      config.optimization.usedExports = true;
+      // config.optimization.usedExports = true; // Removed to fix webpack error
       config.optimization.sideEffects = true;
 
       config.optimization.splitChunks = {
@@ -236,6 +225,52 @@ const nextConfig: NextConfig = {
       };
     }
 
+    // Optimize for modern browsers - reduce polyfills
+    if (!isServer) {
+      // Target modern browsers to reduce polyfills
+      config.target = "web";
+
+      // Use modern JS features without transpilation for modern browsers
+      if (config.module?.rules) {
+        config.module.rules = config.module.rules.map((rule: any) => {
+          if (rule?.use?.loader?.includes("swc")) {
+            return {
+              ...rule,
+              use: {
+                ...rule.use,
+                options: {
+                  ...rule.use.options,
+                  // Target modern browsers to reduce polyfills
+                  env: {
+                    targets:
+                      "> 1%, last 2 versions, not dead, not ie <= 11, not op_mini all",
+                    mode: "entry",
+                    coreJs: "3.30",
+                    shippedProposals: true,
+                  },
+                  // Disable transpilation of modern JS features
+                  jsc: {
+                    ...rule.use.options.jsc,
+                    transform: {
+                      ...rule.use.options.jsc?.transform,
+                      // Keep modern JS syntax for modern browsers
+                      react: {
+                        runtime: "automatic",
+                        refresh: dev,
+                      },
+                    },
+                    // Optimize for modern browsers
+                    target: "es2020",
+                  },
+                },
+              },
+            };
+          }
+          return rule;
+        });
+      }
+    }
+
     return config;
   },
   // Enable granular chunking
@@ -273,11 +308,10 @@ const nextConfig: NextConfig = {
     // Remove emotion configuration as it's causing issues
     // emotion: true,
   },
-  // Reduce bundle size by excluding unused locales
-  i18n: {
-    locales: ["en"],
-    defaultLocale: "en",
-  },
+
+  // Target modern browsers to reduce polyfills
+  transpilePackages: [],
+ 
 };
 
 module.exports = withBundleAnalyzer(nextConfig);

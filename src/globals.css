@@ -42,50 +42,6 @@
   --chart-3: oklch(0.7 0.16 160);
   --chart-4: oklch(0.65 0.2 280);
   --chart-5: oklch(0.6 0.18 220);
-
-  /* Sidebar tokens */
-  --sidebar: oklch(0.985 0.003 240);
-  --sidebar-foreground: oklch(0.15 0.02 250);
-  --sidebar-primary: oklch(0.55 0.22 250);
-  --sidebar-primary-foreground: oklch(0.99 0.002 240);
-  --sidebar-accent: oklch(0.96 0.005 240);
-  --sidebar-accent-foreground: oklch(0.15 0.02 250);
-  --sidebar-border: oklch(0.9 0.01 240);
-  --sidebar-ring: oklch(0.55 0.22 250);
-
-  /* Spacing tokens for pixel-perfect alignment */
-  --spacing-1: 0.25rem; /* 4px */
-  --spacing-2: 0.5rem; /* 8px */
-  --spacing-3: 0.75rem; /* 12px */
-  --spacing-4: 1rem; /* 16px */
-  --spacing-5: 1.25rem; /* 20px */
-  --spacing-6: 1.5rem; /* 24px */
-  --spacing-7: 1.75rem; /* 28px */
-  --spacing-8: 2rem; /* 32px */
-  --spacing-9: 2.25rem; /* 36px */
-  --spacing-10: 2.5rem; /* 40px */
-  --spacing-11: 2.75rem; /* 44px */
-  --spacing-12: 3rem; /* 48px */
-
-  /* Typography scale */
-  --font-size-xs: 0.75rem; /* 12px */
-  --font-size-sm: 0.875rem; /* 14px */
-  --font-size-base: 1rem; /* 16px */
-  --font-size-lg: 1.125rem; /* 18px */
-  --font-size-xl: 1.25rem; /* 20px */
-  --font-size-2xl: 1.5rem; /* 24px */
-  --font-size-3xl: 1.875rem; /* 30px */
-  --font-size-4xl: 2.25rem; /* 36px */
-  --font-size-5xl: 3rem; /* 48px */
-  --font-size-6xl: 3.75rem; /* 60px */
-  --font-size-7xl: 4.5rem; /* 72px */
-
-  /* Line heights */
-  --line-height-tight: 1.25;
-  --line-height-snug: 1.375;
-  --line-height-normal: 1.5;
-  --line-height-relaxed: 1.625;
-  --line-height-loose: 2;
 }
 
 .dark {
@@ -126,16 +82,6 @@
   --chart-3: oklch(0.72 0.18 160);
   --chart-4: oklch(0.68 0.22 280);
   --chart-5: oklch(0.63 0.2 220);
-
-  /* Sidebar tokens */
-  --sidebar: oklch(0.17 0.022 250);
-  --sidebar-foreground: oklch(0.96 0.005 240);
-  --sidebar-primary: oklch(0.65 0.24 250);
-  --sidebar-primary-foreground: oklch(0.15 0.02 250);
-  --sidebar-accent: oklch(0.22 0.025 250);
-  --sidebar-accent-foreground: oklch(0.96 0.005 240);
-  --sidebar-border: oklch(0.28 0.03 250);
-  --sidebar-ring: oklch(0.65 0.24 250);
 }
 
 @theme inline {
@@ -167,41 +113,19 @@
   --color-chart-3: var(--chart-3);
   --color-chart-4: var(--chart-4);
   --color-chart-5: var(--chart-5);
-  --color-sidebar: var(--sidebar);
-  --color-sidebar-foreground: var(--sidebar-foreground);
-  --color-sidebar-primary: var(--sidebar-primary);
-  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
-  --color-sidebar-accent: var(--sidebar-accent);
-  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
-  --color-sidebar-border: var(--sidebar-border);
-  --color-sidebar-ring: var(--sidebar-ring);
-
-  /* Spacing tokens */
-  --spacing-1: var(--spacing-1);
-  --spacing-2: var(--spacing-2);
-  --spacing-3: var(--spacing-3);
-  --spacing-4: var(--spacing-4);
-  --spacing-5: var(--spacing-5);
-  --spacing-6: var(--spacing-6);
-  --spacing-7: var(--spacing-7);
-  --spacing-8: var(--spacing-8);
-  --spacing-9: var(--spacing-9);
-  --spacing-10: var(--spacing-10);
-  --spacing-11: var(--spacing-11);
-  --spacing-12: var(--spacing-12);
 
   /* Typography tokens */
-  --text-xs: var(--font-size-xs);
-  --text-sm: var(--font-size-sm);
-  --text-base: var(--font-size-base);
-  --text-lg: var(--font-size-lg);
-  --text-xl: var(--font-size-xl);
-  --text-2xl: var(--font-size-2xl);
-  --text-3xl: var(--font-size-3xl);
-  --text-4xl: var(--font-size-4xl);
-  --text-5xl: var(--font-size-5xl);
-  --text-6xl: var(--font-size-6xl);
-  --text-7xl: var(--font-size-7xl);
+  --text-xs: 0.75rem; /* 12px */
+  --text-sm: 0.875rem; /* 14px */
+  --text-base: 1rem; /* 16px */
+  --text-lg: 1.125rem; /* 18px */
+  --text-xl: 1.25rem; /* 20px */
+  --text-2xl: 1.5rem; /* 24px */
+  --text-3xl: 1.875rem; /* 30px */
+  --text-4xl: 2.25rem; /* 36px */
+  --text-5xl: 3rem; /* 48px */
+  --text-6xl: 3.75rem; /* 60px */
+  --text-7xl: 4.5rem; /* 72px */
 }
 
 @layer base {
@@ -261,274 +185,28 @@
   }
 }
 
-/* Comprehensive responsive utility classes */
+/* Critical utility classes only - reduced for faster loading */
 @layer utilities {
-  /* Extra extra small devices (portrait phones, less than 360px) */
-  @media (max-width: 359px) {
-    .text-responsive-xs {
-      font-size: 0.75rem;
-    }
-
-    .p-responsive-xs {
-      padding: 0.5rem;
-    }
-
-    .m-responsive-xs {
-      margin: 0.5rem;
-    }
-  }
-
-  /* Extra small devices (phones, less than 576px) */
+  /* Only essential responsive utilities */
   @media (max-width: 575px) {
     .text-responsive-sm {
       font-size: 0.875rem;
     }
-
-    .p-responsive-sm {
-      padding: 0.75rem;
-    }
-
-    .m-responsive-sm {
-      margin: 0.75rem;
-    }
   }
 
-  /* Small devices (landscape phones, 576px and up) */
-  @media (min-width: 576px) {
-    .text-responsive-md {
-      font-size: 1rem;
-    }
-
-    .p-responsive-md {
-      padding: 1rem;
-    }
-
-    .m-responsive-md {
-      margin: 1rem;
-    }
-  }
-
-  /* Medium devices (tablets, 768px and up) */
   @media (min-width: 768px) {
     .text-responsive-lg {
       font-size: 1.125rem;
     }
-
-    .p-responsive-lg {
-      padding: 1.25rem;
-    }
-
-    .m-responsive-lg {
-      margin: 1.25rem;
-    }
   }
 
-  /* Large devices (desktops, 992px and up) */
   @media (min-width: 992px) {
     .text-responsive-xl {
       font-size: 1.25rem;
     }
-
-    .p-responsive-xl {
-      padding: 1.5rem;
-    }
-
-    .m-responsive-xl {
-      margin: 1.5rem;
-    }
   }
 
-  /* Extra large devices (large desktops, 1200px and up) */
-  @media (min-width: 1200px) {
-    .text-responsive-2xl {
-      font-size: 1.5rem;
-    }
-
-    .p-responsive-2xl {
-      padding: 2rem;
-    }
-
-    .m-responsive-2xl {
-      margin: 2rem;
-    }
-  }
-
-  /* Container queries for more granular control */
-  .container-xs {
-    container-type: inline-size;
-  }
-
-  @container (max-width: 359px) {
-    .text-cq-xs {
-      font-size: 0.75rem;
-    }
-  }
-
-  @container (max-width: 575px) {
-    .text-cq-sm {
-      font-size: 0.875rem;
-    }
-  }
-
-  @container (min-width: 576px) {
-    .text-cq-md {
-      font-size: 1rem;
-    }
-  }
-
-  @container (min-width: 768px) {
-    .text-cq-lg {
-      font-size: 1.125rem;
-    }
-  }
-
-  @container (min-width: 992px) {
-    .text-cq-xl {
-      font-size: 1.25rem;
-    }
-  }
-
-  @container (min-width: 1200px) {
-    .text-cq-2xl {
-      font-size: 1.5rem;
-    }
-  }
-
-  /* Aspect ratio utilities for responsive images and videos */
-  .aspect-video-mobile {
-    aspect-ratio: 16/9;
-  }
-
-  .aspect-square-mobile {
-    aspect-ratio: 1/1;
-  }
-
-  @media (min-width: 768px) {
-    .aspect-video-tablet {
-      aspect-ratio: 16/9;
-    }
-
-    .aspect-square-tablet {
-      aspect-ratio: 1/1;
-    }
-  }
-
-  @media (min-width: 992px) {
-    .aspect-video-desktop {
-      aspect-ratio: 16/9;
-    }
-
-    .aspect-square-desktop {
-      aspect-ratio: 1/1;
-    }
-  }
-
-  /* Grid utilities for responsive layouts */
-  .grid-responsive {
-    display: grid;
-    gap: 1rem;
-  }
-
-  .grid-responsive-cols-1 {
-    grid-template-columns: 1fr;
-  }
-
-  @media (min-width: 576px) {
-    .grid-responsive-cols-2-sm {
-      grid-template-columns: repeat(2, 1fr);
-    }
-  }
-
-  @media (min-width: 768px) {
-    .grid-responsive-cols-2-md {
-      grid-template-columns: repeat(2, 1fr);
-    }
-
-    .grid-responsive-cols-3-md {
-      grid-template-columns: repeat(3, 1fr);
-    }
-  }
-
-  @media (min-width: 992px) {
-    .grid-responsive-cols-2-lg {
-      grid-template-columns: repeat(2, 1fr);
-    }
-
-    .grid-responsive-cols-3-lg {
-      grid-template-columns: repeat(3, 1fr);
-    }
-
-    .grid-responsive-cols-4-lg {
-      grid-template-columns: repeat(4, 1fr);
-    }
-  }
-
-  /* Flex utilities for responsive layouts */
-  .flex-responsive {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-  }
-
-  @media (min-width: 768px) {
-    .flex-responsive-row-md {
-      flex-direction: row;
-    }
-  }
-
-  @media (min-width: 992px) {
-    .flex-responsive-row-lg {
-      flex-direction: row;
-    }
-  }
-
-  /* Spacing utilities for responsive padding and margin */
-  .p-responsive-safe {
-    padding: 1rem;
-  }
-
-  .m-responsive-safe {
-    margin: 1rem;
-  }
-
-  @media (min-width: 576px) {
-    .p-responsive-safe {
-      padding: 1.5rem;
-    }
-
-    .m-responsive-safe {
-      margin: 1.5rem;
-    }
-  }
-
-  @media (min-width: 992px) {
-    .p-responsive-safe {
-      padding: 2rem;
-    }
-
-    .m-responsive-safe {
-      margin: 2rem;
-    }
-  }
-
-  /* Typography utilities for responsive text */
-  .text-responsive-balance {
-    text-wrap: balance;
-  }
-
-  .text-responsive-pretty {
-    text-wrap: pretty;
-  }
-
-  /* Animation utilities that respect user preferences */
-  @media (prefers-reduced-motion: no-preference) {
-    .animate-responsive {
-      animation-duration: 0.3s;
-      animation-fill-mode: both;
-    }
-  }
-
-  /* Focus utilities for responsive accessibility */
+  /* Focus utilities for accessibility */
   .focus-responsive {
     outline: 2px solid transparent;
     outline-offset: 2px;
@@ -539,21 +217,15 @@
     outline-offset: 2px;
   }
 
-  /* Only include animations that are actually used */
-  .animate-fade-in {
-    animation: fade-in 0.3s ease-out;
-  }
-
-  .animate-slide-in-right {
-    animation: slide-in-right 0.3s ease-out;
-  }
-
-  .animate-scale-in {
-    animation: scale-in 0.2s ease-out;
+  /* Essential animations */
+  @media (prefers-reduced-motion: no-preference) {
+    .animate-fade-in {
+      animation: fade-in 0.3s ease-out;
+    }
   }
 }
 
-/* Keyframes for animations */
+/* Minimal keyframes */
 @keyframes fade-in {
   from {
     opacity: 0;
@@ -562,27 +234,5 @@
   to {
     opacity: 1;
     transform: translateY(0);
-  }
-}
-
-@keyframes slide-in-right {
-  from {
-    opacity: 0;
-    transform: translateX(-10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-
-@keyframes scale-in {
-  from {
-    opacity: 0;
-    transform: scale(0.95);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
   }
 }

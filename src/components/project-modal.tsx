@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import Image from "next/image";
 import {
   Dialog,
   DialogContent,
@@ -11,12 +10,10 @@ import {
 } from "@/components/ui/dialog";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Loader2 } from "lucide-react";
-import { motion, easeOut } from "framer-motion";
-import { cn } from "@/lib/utils";
-import { type Project } from "@/lib/projects-data";
 import { SEO } from "@/components/seo";
+import { motion, easeOut } from "framer-motion";
 import OptimizedImage from "@/components/ui/optimized-image";
+import { type Project } from "@/lib/projects-data";
 
 interface ProjectModalProps {
   project: Project | null;
