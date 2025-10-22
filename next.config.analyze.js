@@ -5,9 +5,6 @@ const withBundleAnalyzer = require("@next/bundle-analyzer")({
 const nextConfig = {
   poweredByHeader: false,
   compress: true,
-  eslint: {
-    ignoreDuringBuilds: true,
-  },
   typescript: {
     ignoreBuildErrors: true,
   },
@@ -70,22 +67,7 @@ const nextConfig = {
   reactStrictMode: true,
   experimental: {
     optimizeCss: true,
-    optimizePackageImports: [
-      "lucide-react",
-      "framer-motion",
-      "@radix-ui/react-*",
-    ],
-    // Enable Turbopack for builds (if using Next.js 15.3+)
-    // turbo: {
-    //   rules: {
-    //     "*.svg": {
-    //       loaders: ["@svgr/webpack"],
-    //       as: "*.js",
-    //     },
-    //   },
-    // },
   },
-  // Removed i18n configuration to avoid warnings in App Router
 };
 
 module.exports = withBundleAnalyzer(nextConfig);

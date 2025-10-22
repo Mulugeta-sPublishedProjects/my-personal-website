@@ -13,7 +13,6 @@ import {
   SheetTitle,
 } from "@/components/ui/sheet";
 
-// Memoize nav items to prevent re-renders
 const navItems = [
   { name: "Home", href: "#home" },
   { name: "About", href: "#about" },
