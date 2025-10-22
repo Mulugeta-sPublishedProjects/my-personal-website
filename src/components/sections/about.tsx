@@ -106,6 +106,7 @@ export const AboutMe = () => {
               sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 50vw"
               className="object-cover w-full h-full transition-transform duration-500 ease-in-out hover:scale-[1.03]"
               priority
+              decoding="async"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-background/20 to-transparent pointer-events-none" />
           </motion.div>

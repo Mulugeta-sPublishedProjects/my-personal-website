@@ -94,6 +94,8 @@ export function Projects() {
                     quality={70} // Reduced quality for project images
                     sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
                     className="object-cover w-full h-full transition-transform duration-500 ease-in-out group-hover:scale-[1.03]"
+                    // Add decoding async for better performance
+                    decoding="async"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-background/20 to-transparent pointer-events-none" />
                   {project.featured && (

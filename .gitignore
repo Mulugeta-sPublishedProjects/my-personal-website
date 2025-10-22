@@ -56,3 +56,4 @@ bun.lockb
 # npm lock files
 package-lock.json
 npm-shrinkwrap.json
+.env*.local

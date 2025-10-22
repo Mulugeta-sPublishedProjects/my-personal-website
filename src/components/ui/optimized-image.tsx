@@ -46,6 +46,10 @@ const OptimizedImage = ({
         }
         loading={isCritical ? "eager" : "lazy"}
         fetchPriority={isCritical ? "high" : undefined}
+        // Add decoding async for better performance
+        decoding="async"
+        // Add proper image optimization hints
+        unoptimized={false}
         {...props}
       />
     </div>

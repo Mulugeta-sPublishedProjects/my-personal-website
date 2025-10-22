@@ -14,6 +14,8 @@ const nextConfig: NextConfig = {
     ignoreBuildErrors: true,
   },
   output: "standalone",
+  // Enable additional optimizations
+  swcMinify: true,
   images: {
     remotePatterns: [
       { protocol: "https", hostname: "avatars.githubusercontent.com" },
@@ -28,7 +30,11 @@ const nextConfig: NextConfig = {
     // Aggressive image optimization for LCP
     unoptimized: false,
     // Configure image qualities to avoid warnings in Next.js 16
-    qualities: [30, 50, 70], // Reduced quality levels
+    qualities: [30, 50, 70, 80], // Added 80 to support hero image quality
+    // Add additional image optimization settings
+    dangerouslyAllowSVG: false,
+    contentSecurityPolicy:
+      "script-src 'none'; frame-src 'none'; object-src 'none';",
   },
   // SEO optimizations
   async headers() {
@@ -103,11 +109,23 @@ const nextConfig: NextConfig = {
         },
       },
     },
+    // Enable modern JavaScript optimizations
+    optimizeServerReact: true,
+    serverComponentsExternalPackages: ["sharp", "next-mdx-remote"],
   },
   // Add CSS handling optimizations
   webpack: (config, { isServer, dev }) => {
+    // Enable source maps in production for better debugging
+    if (!dev) {
+      config.devtool = "source-map";
+    }
+
     // Optimize CSS extraction and minification
     if (config.optimization) {
+      // Enable aggressive tree shaking to reduce unused code
+      config.optimization.usedExports = true;
+      config.optimization.sideEffects = true;
+
       config.optimization.splitChunks = {
         chunks: "all",
         cacheGroups: {
@@ -149,7 +167,7 @@ const nextConfig: NextConfig = {
         },
       };
 
-      // Enable minification
+      // Enable minification with advanced settings
       if (config.optimization.minimizer) {
         config.optimization.minimize = true;
       }
@@ -221,12 +239,34 @@ const nextConfig: NextConfig = {
       transform: "lucide-react/dist/esm/icons/{{kebabCase member}}",
       skipDefaultConversion: true,
     },
+    "@radix-ui/react-dialog": {
+      transform: "@radix-ui/react-dialog/dist/{{member}}",
+      skipDefaultConversion: true,
+    },
+    "@radix-ui/react-separator": {
+      transform: "@radix-ui/react-separator/dist/{{member}}",
+      skipDefaultConversion: true,
+    },
+    "@radix-ui/react-slot": {
+      transform: "@radix-ui/react-slot/dist/{{member}}",
+      skipDefaultConversion: true,
+    },
+    "@radix-ui/react-toggle": {
+      transform: "@radix-ui/react-toggle/dist/{{member}}",
+      skipDefaultConversion: true,
+    },
+    "@radix-ui/react-tooltip": {
+      transform: "@radix-ui/react-tooltip/dist/{{member}}",
+      skipDefaultConversion: true,
+    },
   },
   // Optimize JavaScript bundles
   compiler: {
     removeConsole: {
       exclude: ["error"],
     },
+    // Enable additional optimizations
+    emotion: true,
   },
   // Reduce bundle size by excluding unused locales
   i18n: {

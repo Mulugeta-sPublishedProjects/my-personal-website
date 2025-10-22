@@ -61,6 +61,13 @@ export default function RootLayout({
           fetchPriority="high"
         />
         <link rel="prefetch" href="/hero.avif" as="image" type="image/avif" />
+
+        {/* Preconnect to important origins */}
+        <link rel="preconnect" href="https://avatars.githubusercontent.com" />
+
+        {/* DNS prefetch for other important domains */}
+        <link rel="dns-prefetch" href="//fonts.googleapis.com" />
+        <link rel="dns-prefetch" href="//fonts.gstatic.com" />
       </head>
       <body
         className={`${geist.variable} ${geistMono.variable} font-sans antialiased min-h-screen`}

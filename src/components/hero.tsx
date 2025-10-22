@@ -92,6 +92,7 @@ export const Hero = memo(() => {
                     quality={80} // Reduced quality for hero image
                     className="object-cover w-full h-full"
                     sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                    decoding="async"
                   />
                 </div>
               </div>
