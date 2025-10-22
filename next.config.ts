@@ -14,8 +14,8 @@ const nextConfig: NextConfig = {
     ignoreBuildErrors: true,
   },
   output: "standalone",
-  // Enable additional optimizations
-  swcMinify: true,
+  // Enable additional optimizations (corrected configuration)
+  // swcMinify: true, // This is the default in Next.js 15+
   images: {
     remotePatterns: [
       { protocol: "https", hostname: "avatars.githubusercontent.com" },
@@ -101,18 +101,23 @@ const nextConfig: NextConfig = {
       "@radix-ui/react-*",
     ],
     // Enable granular chunking and tree shaking
-    turbo: {
-      rules: {
-        "*.svg": {
-          loaders: ["@svgr/webpack"],
-          as: "*.js",
-        },
-      },
-    },
+    // turbo: { // Deprecated, using turbopack instead
+    //   rules: {
+    //     "*.svg": {
+    //       loaders: ["@svgr/webpack"],
+    //       as: "*.js",
+    //     },
+    //   },
+    // },
     // Enable modern JavaScript optimizations
     optimizeServerReact: true,
-    serverComponentsExternalPackages: ["sharp", "next-mdx-remote"],
+    // serverComponentsExternalPackages: [ // Moved to top level
+    //   "sharp",
+    //   "next-mdx-remote",
+    // ],
   },
+  // Moved from experimental to top level
+  serverExternalPackages: ["sharp", "next-mdx-remote"],
   // Add CSS handling optimizations
   webpack: (config, { isServer, dev }) => {
     // Enable source maps in production for better debugging
@@ -265,8 +270,8 @@ const nextConfig: NextConfig = {
     removeConsole: {
       exclude: ["error"],
     },
-    // Enable additional optimizations
-    emotion: true,
+    // Remove emotion configuration as it's causing issues
+    // emotion: true,
   },
   // Reduce bundle size by excluding unused locales
   i18n: {
