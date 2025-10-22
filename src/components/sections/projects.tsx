@@ -155,7 +155,7 @@ export function Projects() {
                         <a
                           href={project.live}
                           target="_blank"
-                          className="flex flex-row justify-center"
+                          className="flex items-center justify-center px-3 py-1.5"
                           rel="noopener noreferrer"
                         >
                           <Eye className="h-4 w-4 mr-1.5" />

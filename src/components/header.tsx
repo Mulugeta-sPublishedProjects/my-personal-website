@@ -12,7 +12,6 @@ import {
   SheetHeader,
   SheetTitle,
 } from "@/components/ui/sheet";
-import { motion, easeOut } from "framer-motion";
 
 // Memoize nav items to prevent re-renders
 const navItems = [
@@ -22,30 +21,6 @@ const navItems = [
   { name: "Work", href: "#projects" },
   { name: "Contact", href: "#contact" },
 ];
-
-const navVariants = {
-  hidden: { opacity: 0, y: -20 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      staggerChildren: 0.1,
-      delayChildren: 0.2,
-    },
-  },
-};
-
-const navItemVariants = {
-  hidden: { opacity: 0, y: -10 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      duration: 0.4,
-      ease: easeOut,
-    },
-  },
-};
 
 export default function Header() {
   const [activeSection, setActiveSection] = useState("home");
@@ -105,10 +80,7 @@ export default function Header() {
   };
 
   return (
-    <motion.header
-      initial={{ y: -100 }}
-      animate={{ y: 0 }}
-      transition={{ duration: 0.5, ease: easeOut }}
+    <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         scrolled
           ? "bg-background/90 backdrop-blur-md border-b border-muted/20 shadow-sm"
@@ -118,7 +90,7 @@ export default function Header() {
       <div className="container max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 md:h-20">
           {/* Logo */}
-          <motion.a
+          <a
             href="#home"
             onClick={(e) => {
               e.preventDefault();
@@ -126,16 +98,12 @@ export default function Header() {
             }}
             className="text-xl md:text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-primary/60"
             aria-label="Portfolio Home"
-            variants={navItemVariants}
           >
             MA
-          </motion.a>
+          </a>
 
           {/* Desktop Navigation */}
-          <motion.nav
-            variants={navVariants}
-            initial="hidden"
-            animate="visible"
+          <nav
             className="hidden md:flex items-center gap-6 lg:gap-8"
             aria-label="Main navigation"
           >
@@ -143,7 +111,7 @@ export default function Header() {
               const sectionId = href.slice(1);
               const isActive = activeSection === sectionId;
               return (
-                <motion.a
+                <a
                   key={name}
                   href={href}
                   onClick={(e) => {
@@ -156,19 +124,15 @@ export default function Header() {
                       : "text-muted-foreground hover:text-primary"
                   }`}
                   aria-current={isActive ? "page" : undefined}
-                  variants={navItemVariants}
                 >
                   {name}
-                </motion.a>
+                </a>
               );
             })}
-          </motion.nav>
+          </nav>
 
           {/* Actions */}
-          <motion.div
-            variants={navItemVariants}
-            className="flex items-center gap-3 md:gap-4"
-          >
+          <div className="flex items-center gap-3 md:gap-4">
             <ThemeToggle />
 
             <Button
@@ -253,9 +217,9 @@ export default function Header() {
                 </SheetContent>
               </Sheet>
             </div>
-          </motion.div>
+          </div>
         </div>
       </div>
-    </motion.header>
+    </header>
   );
 }

@@ -162,9 +162,9 @@ export function ProjectModal({
                 onError={handleImageError}
                 decoding="async"
               />
-              <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-background/80 to-transparent p-4">
+              {/*  <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-background/80 to-transparent p-4">
                 <MetadataRow project={project} />
-              </div>
+              </div> */}
             </div>
 
             {/* Description */}
