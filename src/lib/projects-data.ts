@@ -460,4 +460,59 @@ export const projects: Project[] = [
         "Empowering Ethiopian digital economy with safe monetization opportunities.",
     },
   },
+  {
+    id: "cityfix",
+    title: "CityFix - Community Issue Reporting Platform",
+    description:
+      "Community-driven platform enabling citizens to report, track, and resolve local issues such as potholes, broken streetlights, and water leaks. Designed to foster transparency and collaboration between residents and municipalities.",
+    image: "/projects/city_fix.webp",
+    techStack: [
+      "Next.js 14",
+      "TypeScript",
+      "Tailwind CSS",
+      "Prisma",
+      "PostgreSQL",
+      "Node.js",
+      "Vercel",
+    ],
+    categories: ["frontend", "fullstack", "civic-tech"],
+    company: "Independent / Open Source",
+    role: "Full Stack Developer",
+    teamSize: 3,
+    problemStatement:
+      "Urban communities often face unresolved infrastructure issues due to lack of transparent reporting channels and inefficient communication with local authorities.",
+    features: [
+      "Report issues with photos and geolocation",
+      "Real-time status tracking of reported issues",
+      "Community voting and prioritization",
+      "Mobile-first responsive design",
+      "Admin dashboard for municipalities",
+    ],
+    live: "https://city-fix-five.vercel.app/",
+    featured: true,
+    difficulty: "intermediate",
+    duration: "3 months",
+    highlights: [
+      "Empowered citizens to actively participate in city improvement",
+      "Streamlined communication between residents and local authorities",
+      "Scalable architecture ready for multi-city adoption",
+    ],
+    caseStudy: {
+      overview:
+        "CityFix empowers communities to collaboratively identify and resolve local issues, creating a transparent feedback loop between citizens and municipalities.",
+      research:
+        "Surveys and interviews with urban residents revealed frustration with unresolved issues like potholes and broken streetlights.",
+      design:
+        "User-friendly, mobile-first interface with intuitive reporting flow and clear status indicators.",
+      development:
+        "Built with Next.js App Router, Prisma ORM, and PostgreSQL for scalable data handling. Deployed on Vercel for global availability.",
+      testing:
+        "End-to-end testing with Playwright and unit tests for core reporting flows.",
+      deployment:
+        "CI/CD pipeline with GitHub Actions and Vercel for seamless updates.",
+      impact:
+        "Increased civic engagement and improved resolution rates for local infrastructure issues.",
+    },
+    isReadyForView: true,
+  },
 ];
