@@ -4,6 +4,7 @@ import "../globals.css";
 import ClientLayout from "./client-layout";
 import { SEO } from "@/components/seo";
 import { Geist, Geist_Mono } from "next/font/google";
+import { site } from "@/lib/site";
 
 // Load fonts with Next.js font optimization
 const geist = Geist({
@@ -72,6 +73,25 @@ export default function RootLayout({
         className={`${geist.variable} ${geistMono.variable} font-sans antialiased min-h-screen`}
       >
         <ClientLayout>{children}</ClientLayout>
+        <script
+          type="application/ld+json"
+          // Person schema for better SEO
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Person",
+              name: "Mulugeta Adamu",
+              jobTitle: "Frontend Developer",
+              url: "https://mulugeta-portfolio.vercel.app",
+              email: site.email,
+              sameAs: [
+                site.social?.github,
+                site.social?.linkedin,
+                site.social?.twitter,
+              ].filter(Boolean),
+            }),
+          }}
+        />
       </body>
     </html>
   );

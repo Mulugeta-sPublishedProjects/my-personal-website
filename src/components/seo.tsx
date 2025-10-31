@@ -40,7 +40,7 @@ const defaultKeywords = [
 const DEFAULT_SITE_NAME = "Mulugeta Adamu Portfolio";
 const DEFAULT_DESCRIPTION =
   "Experienced Frontend Developer specializing in React, Next.js, and modern web technologies. Building scalable applications for Ethiopian businesses and global clients. Expert in responsive design and SEO optimization.";
-const DEFAULT_IMAGE = "/og-image.png";
+const DEFAULT_IMAGE = "/hero.webp";
 const DEFAULT_URL = "https://mulugeta-portfolio.vercel.app";
 const DEFAULT_AUTHOR = "Mulugeta Adamu";
 const DEFAULT_LOCALE = "en_US";

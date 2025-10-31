@@ -64,8 +64,8 @@ export function Projects() {
             My Projects
           </h2>
           <p className="text-foreground text-base sm:text-lg md:text-xl max-w-3xl mx-auto mt-4 leading-relaxed">
-            Real-world applications crafted with modern technologies and
-            innovative design
+            Real-world products—focused on performance, scalability, and a
+            smooth user experience.
           </p>
         </motion.div>
 
@@ -84,7 +84,12 @@ export function Projects() {
               variants={cardVariants}
               role="listitem"
             >
-              <Card className="group flex flex-col h-full border-none bg-card/50 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+              <Card
+                className="group flex flex-col h-full border border-border/50 bg-card/50 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300 motion-reduce:transition-none motion-reduce:transform-none hover:-translate-y-1 focus-within:ring-2 focus-within:ring-primary/40"
+                role="article"
+                aria-labelledby={`${project.id}-title`}
+                aria-describedby={`${project.id}-desc`}
+              >
                 {/* Image */}
                 <div className="relative aspect-video overflow-hidden rounded-t-2xl">
                   <OptimizedImage
@@ -92,11 +97,47 @@ export function Projects() {
                     alt={project.title}
                     quality={85} // Increased quality for better project images
                     sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                    className="object-cover w-full h-full transition-transform duration-500 ease-in-out group-hover:scale-[1.03]"
+                    className="object-cover w-full h-full transition-transform duration-500 ease-in-out motion-reduce:transition-none motion-reduce:transform-none group-hover:scale-[1.03]"
                     decoding="async"
                     loading="lazy"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-background/20 to-transparent pointer-events-none" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-background/30 to-transparent pointer-events-none" />
+                  {/* Hover toolbar */}
+                  <div
+                    className="pointer-events-none absolute inset-0 flex items-end justify-center p-3 opacity-0 group-hover:opacity-100 focus-within:opacity-100 transition-opacity duration-200 motion-reduce:transition-none"
+                    aria-hidden="true"
+                  >
+                    <div className="pointer-events-auto flex gap-2">
+                      {project.live && (
+                        <Button
+                          size="sm"
+                          asChild
+                          className="bg-primary/90 hover:bg-primary text-primary-foreground h-9 px-3"
+                          aria-label={`Open live: ${project.title}`}
+                        >
+                          <a
+                            href={project.live}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="flex items-center gap-2"
+                          >
+                            <Eye className="h-4 w-4" />
+                            <span className="hidden sm:inline">Live</span>
+                          </a>
+                        </Button>
+                      )}
+                      <Button
+                        size="sm"
+                        variant="secondary"
+                        onClick={() => handleViewDetails(project)}
+                        className="h-9 px-3"
+                        aria-label={`View details of ${project.title}`}
+                      >
+                        <Info className="h-4 w-4" />
+                        <span className="hidden sm:inline">Details</span>
+                      </Button>
+                    </div>
+                  </div>
                   {project.featured && (
                     <div className="absolute top-3 right-3">
                       <Badge className="bg-primary/90 text-primary-foreground font-medium">
@@ -108,7 +149,10 @@ export function Projects() {
 
                 {/* Content */}
                 <CardHeader className="pb-3 px-5 pt-5">
-                  <CardTitle className="text-lg md:text-xl font-semibold leading-tight text-foreground">
+                  <CardTitle
+                    id={`${project.id}-title`}
+                    className="text-lg md:text-xl font-semibold leading-tight text-foreground"
+                  >
                     {project.title}
                   </CardTitle>
                   <p className="text-sm md:text-base text-primary font-medium">
@@ -117,7 +161,10 @@ export function Projects() {
                 </CardHeader>
 
                 <CardContent className="flex-1 flex flex-col gap-4 pt-0 px-5 pb-5">
-                  <p className="text-sm md:text-base text-foreground line-clamp-2">
+                  <p
+                    id={`${project.id}-desc`}
+                    className="text-sm md:text-base text-foreground line-clamp-2"
+                  >
                     {project.description}
                   </p>
 
@@ -127,7 +174,7 @@ export function Projects() {
                       <Badge
                         key={tech}
                         variant="secondary"
-                        className="text-xs md:text-sm bg-primary/10 text-primary hover:bg-primary/20 transition-colors duration-200"
+                        className="text-xs md:text-sm bg-primary/10 text-primary hover:bg-primary/15 transition-colors duration-200"
                       >
                         {tech}
                       </Badge>
@@ -148,7 +195,7 @@ export function Projects() {
                       <Button
                         size="sm"
                         asChild
-                        className="flex-1 bg-primary/90 hover:bg-primary text-primary-foreground text-sm md:text-base"
+                        className="flex-1 bg-primary/90 hover:bg-primary text-primary-foreground text-sm md:text-base transition-all motion-reduce:transition-none"
                         aria-label={`View live version of ${project.title}`}
                       >
                         <a
@@ -167,7 +214,7 @@ export function Projects() {
                       size="sm"
                       variant="outline"
                       onClick={() => handleViewDetails(project)}
-                      className="flex-1 border border-primary/20 hover:bg-primary/10 hover:text-foreground text-sm md:text-base"
+                      className="flex-1 border border-primary/20 hover:bg-primary/10 hover:text-foreground text-sm md:text-base transition-all motion-reduce:transition-none"
                       aria-label={`View details of ${project.title}`}
                     >
                       <div className="flex items-center justify-center gap-2">

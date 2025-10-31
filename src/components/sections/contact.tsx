@@ -88,8 +88,8 @@ export function Contact() {
               Let's Work Together
             </h2>
             <p className="text-muted-foreground text-base sm:text-lg md:text-xl max-w-3xl mx-auto mt-4 leading-relaxed">
-              Have a project in mind? I'm open to new opportunities and
-              collaborations.
+              Have a project in mind? I’m open to new opportunities,
+              collaborations, and ambitious ideas.
             </p>
           </div>
 
@@ -112,22 +112,38 @@ export function Contact() {
                   </CardTitle>
                 </CardHeader>
                 <CardContent className="flex flex-col sm:flex-row items-center justify-between gap-4 px-5 pb-5">
-                  <span className="text-sm md:text-base text-foreground break-all text-center sm:text-left">
-                    mulugeta.adamu97@gmail.com
-                  </span>
-                  <Button
-                    variant="outline"
-                    size="icon"
-                    onClick={copyEmail}
-                    className="h-9 w-9 border-primary/20 hover:bg-primary/10"
-                    aria-label="Copy email address"
+                  <a
+                    href="mailto:mulugeta.adamu97@gmail.com?subject=Hello%20from%20your%20portfolio&body=Hi%20Mulugeta,%20I%27d%20love%20to%20connect%20about..."
+                    className="text-sm md:text-base text-foreground break-all text-center sm:text-left hover:underline"
+                    aria-label="Send an email to mulugeta.adamu97@gmail.com"
                   >
-                    {copied ? (
-                      <Check className="h-4 w-4 text-primary" />
-                    ) : (
-                      <Copy className="h-4 w-4 text-muted-foreground" />
-                    )}
-                  </Button>
+                    mulugeta.adamu97@gmail.com
+                  </a>
+                  <div className="flex items-center gap-2">
+                    <Button
+                      variant="outline"
+                      size="icon"
+                      onClick={copyEmail}
+                      className="h-9 w-9 border-primary/20 hover:bg-primary/10 transition-all motion-reduce:transition-none"
+                      aria-label="Copy email address"
+                    >
+                      {copied ? (
+                        <Check className="h-4 w-4 text-primary" />
+                      ) : (
+                        <Copy className="h-4 w-4 text-muted-foreground" />
+                      )}
+                    </Button>
+                    <Button
+                      size="sm"
+                      asChild
+                      className="h-9 px-3 bg-primary/90 hover:bg-primary text-primary-foreground transition-all motion-reduce:transition-none"
+                      aria-label="Compose email"
+                    >
+                      <a href="mailto:mulugeta.adamu97@gmail.com?subject=Hello%20from%20your%20portfolio&body=Hi%20Mulugeta,%20I%27d%20love%20to%20connect%20about...">
+                        Email me
+                      </a>
+                    </Button>
+                  </div>
                 </CardContent>
               </Card>
             </motion.div>
@@ -141,10 +157,22 @@ export function Contact() {
                     Phone
                   </CardTitle>
                 </CardHeader>
-                <CardContent className="px-5 pb-5">
-                  <span className="text-sm md:text-base text-foreground">
+                <CardContent className="flex items-center justify-between gap-4 px-5 pb-5">
+                  <a
+                    href="tel:+251983054774"
+                    className="text-sm md:text-base text-foreground hover:underline"
+                    aria-label="Call +251 983 05 47 74"
+                  >
                     +251 983 05 47 74
-                  </span>
+                  </a>
+                  <Button
+                    size="sm"
+                    asChild
+                    className="h-9 px-3 border border-primary/20 hover:bg-primary/10 transition-all motion-reduce:transition-none"
+                    aria-label="Call now"
+                  >
+                    <a href="tel:+251983054774">Call now</a>
+                  </Button>
                 </CardContent>
               </Card>
             </motion.div>
@@ -159,12 +187,30 @@ export function Contact() {
                   </CardTitle>
                 </CardHeader>
                 <CardContent className="px-5 pb-5">
-                  <p className="text-sm md:text-base text-foreground text-center sm:text-left">
-                    Addis Ababa, Ethiopia
-                  </p>
-                  <p className="text-xs md:text-sm text-foreground text-center sm:text-left mt-1.5">
-                    Available for remote work
-                  </p>
+                  <div className="flex flex-col sm:flex-row items-center justify-between gap-3">
+                    <div>
+                      <p className="text-sm md:text-base text-foreground text-center sm:text-left">
+                        Addis Ababa, Ethiopia
+                      </p>
+                      <p className="text-xs md:text-sm text-foreground text-center sm:text-left mt-1.5">
+                        Available for remote work
+                      </p>
+                    </div>
+                    <Button
+                      size="sm"
+                      asChild
+                      className="h-9 px-3 border border-primary/20 hover:bg-primary/10 transition-all motion-reduce:transition-none"
+                      aria-label="Open location in Google Maps"
+                    >
+                      <a
+                        href="https://www.google.com/maps/search/?api=1&query=Addis+Ababa,+Ethiopia"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        Open Maps
+                      </a>
+                    </Button>
+                  </div>
                 </CardContent>
               </Card>
             </motion.div>
