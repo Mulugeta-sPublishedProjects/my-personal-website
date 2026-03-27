@@ -1,55 +1,96 @@
-"use client";
+'use client';
 
-import Script from "next/script";
-import { usePathname, useSearchParams } from "next/navigation";
-import { useEffect } from "react";
+import { useEffect, useRef, useCallback } from 'react';
+import { usePathname } from 'next/navigation';
+import Script from 'next/script';
+import { logger } from '@/lib/logger';
 
-// Declare gtag function for TypeScript
 declare global {
   interface Window {
-    gtag?: (
-      command: string,
-      targetId: string,
-      config?: Record<string, any>
-    ) => void;
-    dataLayer?: any[];
+    gtag?: Gtag.Gtag;
+    dataLayer?: unknown[];
   }
 }
 
-export function GoogleAnalytics({ gaId }: { gaId: string }) {
+declare global {
+  namespace Gtag {
+    type Gtag = (
+      command: 'config' | 'event',
+      targetId: string,
+      config?: Record<string, unknown>,
+    ) => void;
+  }
+}
+
+interface GoogleAnalyticsProps {
+  GA_MEASUREMENT_ID: string;
+}
+
+export function GoogleAnalytics({ GA_MEASUREMENT_ID }: GoogleAnalyticsProps) {
   const pathname = usePathname();
-  const searchParams = useSearchParams();
+  const hasLoadedRef = useRef(false);
+  const previousPathnameRef = useRef<string | null>(null);
+
+  const sendPageView = useCallback(() => {
+    if (!GA_MEASUREMENT_ID || !window.gtag) return;
+
+    try {
+      window.gtag('event', 'page_view', {
+        page_title: document.title,
+        page_location: window.location.href,
+        page_path: pathname,
+        send_page_view: true,
+      });
+    } catch (error) {
+      logger.error('Error sending page view to Google Analytics:', error);
+    }
+  }, [GA_MEASUREMENT_ID, pathname]);
 
   useEffect(() => {
-    if (!gaId || !window.gtag) {
+    if (!GA_MEASUREMENT_ID) {
+      logger.warn('Google Analytics Measurement ID is not provided');
+      return;
+    }
+  }, [GA_MEASUREMENT_ID]);
+
+  useEffect(() => {
+    if (!GA_MEASUREMENT_ID || !pathname) return;
+
+    if (hasLoadedRef.current && previousPathnameRef.current === pathname) {
       return;
     }
 
-    const url = pathname + (searchParams?.toString() || "");
+    if (document.readyState === 'complete') {
+      sendPageView();
+    } else {
+      const handleLoad = () => {
+        sendPageView();
+        hasLoadedRef.current = true;
+      };
 
-    // Send pageview to Google Analytics
-    window.gtag("config", gaId, {
-      page_path: url,
-    });
-  }, [pathname, searchParams, gaId]);
+      window.addEventListener('load', handleLoad);
+      return () => window.removeEventListener('load', handleLoad);
+    }
+
+    previousPathnameRef.current = pathname;
+  }, [GA_MEASUREMENT_ID, pathname, sendPageView]);
 
   return (
     <>
-      {/* Google Analytics - Global Site Tag */}
       <Script
         strategy="afterInteractive"
-        src={`https://www.googletagmanager.com/gtag/js?id=${gaId}`}
+        src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
       />
       <Script
-        id="gtag-init"
+        id="google-analytics-init"
         strategy="afterInteractive"
         dangerouslySetInnerHTML={{
           __html: `
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
-            gtag('config', '${gaId}', {
-              page_path: window.location.pathname,
+            gtag('config', '${GA_MEASUREMENT_ID}', {
+              page_path: typeof window !== 'undefined' ? window.location.pathname : '',
             });
           `,
         }}

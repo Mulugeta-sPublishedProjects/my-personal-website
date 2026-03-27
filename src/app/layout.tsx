@@ -3,9 +3,9 @@
 import "../globals.css";
 import ClientLayout from "./client-layout";
 import { SEO } from "@/components/seo";
-import { GoogleAnalytics } from "@/components/google-analytics";
 import { Geist, Geist_Mono } from "next/font/google";
 import { site } from "@/lib/site";
+import { GoogleAnalytics } from "@/components/google-analytics";
 
 // Load fonts with Next.js font optimization
 const geist = Geist({
@@ -75,13 +75,12 @@ export default function RootLayout({
       >
         {/* Google Analytics */}
         {process.env.NEXT_PUBLIC_GA_ID && (
-          <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID} />
+          <GoogleAnalytics GA_MEASUREMENT_ID={process.env.NEXT_PUBLIC_GA_ID} />
         )}
 
         <ClientLayout>{children}</ClientLayout>
-        <script
-          type="application/ld+json"
-          // Person schema for better SEO
+        {/* JSON-LD structured data - using template tag instead of script */}
+        <template
           dangerouslySetInnerHTML={{
             __html: JSON.stringify({
               "@context": "https://schema.org",
