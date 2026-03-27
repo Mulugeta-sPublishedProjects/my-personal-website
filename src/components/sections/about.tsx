@@ -86,8 +86,6 @@ export const AboutMe = () => {
               </p>
               <p>
                 I hold a BSc in Information Systems from Addis Ababa University
-                and care deeply about advancing Ethiopia’s tech ecosystem
-                through scalable engineering and mentorship.
               </p>
 
               <div className="pt-2 flex flex-col sm:flex-row gap-3">

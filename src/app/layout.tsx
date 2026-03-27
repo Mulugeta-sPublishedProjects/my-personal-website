@@ -3,6 +3,7 @@
 import "../globals.css";
 import ClientLayout from "./client-layout";
 import { SEO } from "@/components/seo";
+import { GoogleAnalytics } from "@/components/google-analytics";
 import { Geist, Geist_Mono } from "next/font/google";
 import { site } from "@/lib/site";
 
@@ -72,6 +73,11 @@ export default function RootLayout({
       <body
         className={`${geist.variable} ${geistMono.variable} font-sans antialiased min-h-screen`}
       >
+        {/* Google Analytics */}
+        {process.env.NEXT_PUBLIC_GA_ID && (
+          <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID} />
+        )}
+
         <ClientLayout>{children}</ClientLayout>
         <script
           type="application/ld+json"

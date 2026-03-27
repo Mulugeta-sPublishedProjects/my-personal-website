@@ -37,6 +37,49 @@ This project uses [`next/font`](https://nextjs.org/docs/app/building-your-applic
 - `pnpm type-check` - Performs TypeScript type checking
 - `pnpm clean` - Cleans build artifacts
 
+## Google Analytics Setup
+
+This project includes Google Analytics integration for tracking user interactions and page views.
+
+### Configuration Steps:
+
+1. **Get your Google Analytics Measurement ID**:
+   - Go to [Google Analytics](https://analytics.google.com/)
+   - Create a new property or use an existing one
+   - Get your Measurement ID (format: `G-XXXXXXXXXX`)
+
+2. **Add your GA ID to environment variables**:
+   - Create or edit the `.env.local` file in the root directory
+   - Add the following line (replace `G-XXXXXXXXXX` with your actual ID):
+     ```
+     NEXT_PUBLIC_GA_ID=G-XXXXXXXXXX
+     ```
+
+3. **Run the application**:
+   ```bash
+   pnpm dev
+   ```
+
+Google Analytics will automatically track:
+
+- Page views
+- User interactions
+- Traffic sources
+- User demographics (if enabled in GA settings)
+
+### Verifying Google Analytics:
+
+1. Open your browser's Developer Tools
+2. Go to the Console tab
+3. Look for `gtag` function calls
+4. Check the Network tab for requests to `google-analytics.com` or `googletagmanager.com`
+
+### Privacy Considerations:
+
+- Make sure to comply with GDPR and other privacy regulations
+- Consider adding a cookie consent banner if required by your jurisdiction
+- You can customize tracking behavior in the `src/components/google-analytics.tsx` file
+
 ## Progressive Web App (PWA) Features
 
 This application includes full PWA support with:
