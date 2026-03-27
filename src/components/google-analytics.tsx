@@ -59,7 +59,9 @@ export function GoogleAnalytics({ GA_MEASUREMENT_ID }: GoogleAnalyticsProps) {
   }, [GA_MEASUREMENT_ID]);
 
   useEffect(() => {
-    if (!GA_MEASUREMENT_ID || !pathname) return;
+    if (!GA_MEASUREMENT_ID || !pathname) {
+      return;
+    }
 
     if (hasLoadedRef.current && previousPathnameRef.current === pathname) {
       return;
@@ -78,6 +80,7 @@ export function GoogleAnalytics({ GA_MEASUREMENT_ID }: GoogleAnalyticsProps) {
     }
 
     previousPathnameRef.current = pathname;
+    return; // Explicit return for all code paths
   }, [GA_MEASUREMENT_ID, pathname, sendPageView]);
 
   return (
