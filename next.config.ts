@@ -25,6 +25,7 @@ const nextConfig: NextConfig = {
     dangerouslyAllowSVG: false,
     contentSecurityPolicy:
       "script-src 'none'; frame-src 'none'; object-src 'none';",
+    qualities: [75, 80, 85],
   },
   async headers() {
     return [
