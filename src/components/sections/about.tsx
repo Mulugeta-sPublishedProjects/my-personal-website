@@ -75,21 +75,37 @@ export const AboutMe = () => {
           >
             <div className="space-y-5 text-foreground text-base sm:text-lg md:text-xl leading-relaxed">
               <p>
-                I'm Mulugeta Adamu, a Frontend Developer based in Addis Ababa
-                with over 3 years of experience crafting scalable applications
-                using React, Next.js, TypeScript, and React Native.
+                I’m Mulugeta Adamu, a Frontend Engineer based in Addis Ababa
+                with 3+ years of experience building performant products with
+                React, Next.js, TypeScript, and React Native.
               </p>
               <p>
-                My work includes building frontend solutions for platforms like
-                WUMIS (serving 20+ cities), IFHCRS (Addis Ababa's health
-                regulation system), and government eServices, emphasizing clean
-                architecture, reusable components, and modern UI/UX principles.
+                I’ve delivered impact across platforms like WUMIS (20+ cities),
+                IFHCRS (health regulation), and national eServices—prioritizing
+                clean architecture, reusable components, and thoughtful UX.
               </p>
               <p>
-                Holding a BSc in Information Systems from Addis Ababa
-                University, I'm dedicated to advancing Ethiopia's tech ecosystem
-                through innovative design, scalable code, and mentorship.
+                I hold a BSc in Information Systems from Addis Ababa University
               </p>
+
+              <div className="pt-2 flex flex-col sm:flex-row gap-3">
+                <a
+                  href="/cv.pdf"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center justify-center rounded-lg text-sm md:text-base font-medium transition-all motion-reduce:transition-none motion-reduce:transform-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 bg-primary text-primary-foreground shadow-sm hover:bg-primary/90 h-11 px-5"
+                  aria-label="View resume (opens in new tab)"
+                >
+                  View Resume
+                </a>
+                <a
+                  href="#contact"
+                  className="inline-flex items-center justify-center rounded-lg text-sm md:text-base font-medium transition-all motion-reduce:transition-none motion-reduce:transform-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 border border-primary/20 hover:bg-primary/10 h-11 px-5"
+                  aria-label="Go to contact section"
+                >
+                  Get In Touch
+                </a>
+              </div>
             </div>
           </motion.div>
 

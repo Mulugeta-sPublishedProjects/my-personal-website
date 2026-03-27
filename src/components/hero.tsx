@@ -32,7 +32,7 @@ export const Hero = memo(() => {
           <div className="text-center lg:text-left order-2 lg:order-1 px-4 focusable-section">
             {/* Intro */}
             <p className="text-primary font-mono text-sm mb-3 md:mb-4">
-              Hi, I'm
+              Hi, I’m
             </p>
 
             {/* Name */}
@@ -41,22 +41,22 @@ export const Hero = memo(() => {
             </h1>
 
             <h2 className="text-lg sm:text-xl md:text-2xl lg:text-xl xl:text-2xl font-semibold text-foreground mb-6 md:mb-8">
-              Experienced Frontend Developer specializing in React,
-              Next.js,React Native and TypeScript
+              Frontend Engineer crafting fast, accessible apps with React, React
+              Native, Next.js, and TypeScript
             </h2>
 
             <p className="text-base sm:text-lg md:text-xl text-foreground mb-8 md:mb-10 max-w-2xl mx-auto lg:mx-0 leading-relaxed">
-              I build scalable web and Mobile applications that solve real
-              problems and create meaningful impact. With 3+ years of
-              experience, I specialize in crafting intuitive user interfaces and
-              maintainable frontend architectures.
+              I design and build scalable web and mobile experiences that feel
+              effortless and perform brilliantly. With 3+ years of experience, I
+              focus on intuitive UX, clean architecture, and measurable
+              outcomes.
             </p>
 
             {/* Call-to-actions */}
             <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
               <button
                 onClick={() => scrollToSection("#projects")}
-                className="inline-flex items-center justify-center rounded-lg text-base font-semibold transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground shadow-sm hover:bg-primary/90 hover:shadow hover:-translate-y-0.5 active:translate-y-0 border border-primary/30 h-12 px-8 py-6 group"
+                className="inline-flex items-center justify-center rounded-lg text-base font-semibold transition-all motion-reduce:transition-none motion-reduce:transform-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground shadow-sm hover:bg-primary/90 hover:shadow hover:-translate-y-0.5 active:translate-y-0 border border-primary/30 h-12 px-8 py-6 group"
                 aria-label="View portfolio projects"
               >
                 View My Work
@@ -67,7 +67,7 @@ export const Hero = memo(() => {
 
               <button
                 onClick={handleDownloadResume}
-                className="inline-flex items-center justify-center rounded-lg text-base font-semibold transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background shadow-sm hover:bg-accent hover:text-accent-foreground hover:shadow hover:-translate-y-0.5 h-12 px-8 py-6 border-2"
+                className="inline-flex items-center justify-center rounded-lg text-base font-semibold transition-all motion-reduce:transition-none motion-reduce:transform-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border-2 border-input bg-background shadow-sm hover:bg-accent hover:text-accent-foreground hover:shadow hover:-translate-y-0.5 h-12 px-8 py-6"
                 aria-label="Download resume"
               >
                 <Download className="mr-2 h-4 w-4" />
