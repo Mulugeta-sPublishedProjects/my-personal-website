@@ -1,9 +1,9 @@
-'use client';
+"use client";
 
-import { useEffect, useRef, useCallback } from 'react';
-import { usePathname } from 'next/navigation';
-import Script from 'next/script';
-import { logger } from '@/lib/logger';
+import { useEffect, useRef, useCallback } from "react";
+import { usePathname } from "next/navigation";
+import Script from "next/script";
+import { logger } from "@/lib/logger";
 
 declare global {
   interface Window {
@@ -15,9 +15,9 @@ declare global {
 declare global {
   namespace Gtag {
     type Gtag = (
-      command: 'config' | 'event',
+      command: "config" | "event",
       targetId: string,
-      config?: Record<string, unknown>,
+      config?: Record<string, unknown>
     ) => void;
   }
 }
@@ -35,22 +35,27 @@ export function GoogleAnalytics({ GA_MEASUREMENT_ID }: GoogleAnalyticsProps) {
     if (!GA_MEASUREMENT_ID || !window.gtag) return;
 
     try {
-      window.gtag('event', 'page_view', {
+      window.gtag("event", "page_view", {
         page_title: document.title,
         page_location: window.location.href,
         page_path: pathname,
         send_page_view: true,
       });
     } catch (error) {
-      logger.error('Error sending page view to Google Analytics:', error);
+      logger.error("Error sending page view to Google Analytics:", error);
     }
   }, [GA_MEASUREMENT_ID, pathname]);
 
   useEffect(() => {
     if (!GA_MEASUREMENT_ID) {
-      logger.warn('Google Analytics Measurement ID is not provided');
+      logger.warn("Google Analytics Measurement ID is not provided");
       return;
     }
+
+    // Cleanup function to ensure proper teardown
+    return () => {
+      // No specific cleanup needed for this effect
+    };
   }, [GA_MEASUREMENT_ID]);
 
   useEffect(() => {
@@ -60,7 +65,7 @@ export function GoogleAnalytics({ GA_MEASUREMENT_ID }: GoogleAnalyticsProps) {
       return;
     }
 
-    if (document.readyState === 'complete') {
+    if (document.readyState === "complete") {
       sendPageView();
     } else {
       const handleLoad = () => {
@@ -68,8 +73,8 @@ export function GoogleAnalytics({ GA_MEASUREMENT_ID }: GoogleAnalyticsProps) {
         hasLoadedRef.current = true;
       };
 
-      window.addEventListener('load', handleLoad);
-      return () => window.removeEventListener('load', handleLoad);
+      window.addEventListener("load", handleLoad);
+      return () => window.removeEventListener("load", handleLoad);
     }
 
     previousPathnameRef.current = pathname;
