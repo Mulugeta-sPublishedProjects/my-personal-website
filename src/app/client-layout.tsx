@@ -45,10 +45,6 @@ export default function ClientLayout({
 }) {
   const mounted = useMounted();
 
-  if (!mounted) {
-    return <Splash />;
-  }
-
   return (
     <ThemeProvider
       attribute="class"
@@ -57,10 +53,14 @@ export default function ClientLayout({
       disableTransitionOnChange
       storageKey="theme"
     >
-      <Suspense fallback={<Splash />}>
-        {children}
-        <LightweightScrollToTop />
-      </Suspense>
+      {!mounted ? (
+        <Splash />
+      ) : (
+        <Suspense fallback={<Splash />}>
+          {children}
+          <LightweightScrollToTop />
+        </Suspense>
+      )}
     </ThemeProvider>
   );
 }

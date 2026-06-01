@@ -76,7 +76,7 @@ export const AboutMe = () => {
             <div className="space-y-5 text-foreground text-base sm:text-lg md:text-xl leading-relaxed">
               <p>
                 I’m Mulugeta Adamu, a Frontend Engineer based in Addis Ababa
-                with 3+ years of experience building performant products with
+                with 4+ years of experience building performant products with
                 React, Next.js, TypeScript, and React Native.
               </p>
               <p>
