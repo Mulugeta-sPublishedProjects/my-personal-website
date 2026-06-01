@@ -104,9 +104,19 @@ export function Expertise() {
     achievements: string[];
   }[] = [
     {
-      role: "Experienced Frontend Developer",
+      role: "Senior Frontend Developer",
+      company: "Owlevents — All-in-One Event Management Platform",
+      period: "11/2025 – Present",
+      achievements: [
+        "Built a drag-and-drop Name Badge and Car Pass Template Editor for customizable event credential generation",
+        "Developed an Email Marketing Template Builder enabling users to create and manage professional email campaigns",
+        "Improved overall repository performance through code optimization, component refactoring, and frontend architecture enhancements",
+      ],
+    },
+    {
+      role: "Senior Frontend Developer",
       company: "TopLink Technologies — WUMIS (20+ cities)",
-      period: "03/2023 – Present",
+      period: "03/2023 – May 2026",
       achievements: [
         "Built mobile-first React modules for HR, Finance, Billing, and Customer Service",
         "Created reusable RTK Query data-fetching modules",
@@ -115,7 +125,7 @@ export function Expertise() {
       ],
     },
     {
-      role: "Experienced Frontend Developer (Part-time)",
+      role: "Senior Frontend Developer (Part-time)",
       company: "Tria PLC — IFHCRS (city-wide health regulation)",
       period: "05/2023 – 07/2025",
       achievements: [
@@ -180,26 +190,44 @@ export function Expertise() {
           animate="visible"
           className="space-y-12"
         >
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8 lg:gap-12">
-            {/* Left: Experience */}
-            <div>
-              <div className="flex items-center gap-3 mb-6">
-                <Briefcase className="h-6 w-6 text-primary" />
-                <h3 className="text-xl md:text-2xl font-semibold">
-                  Professional Experience
-                </h3>
-              </div>
-              <div
-                className="space-y-6"
-                role="list"
-                aria-label="Professional experience"
-              >
-                {resumeExperiences.map((exp) => (
+          {/* Professional Experience */}
+          <div>
+            <div className="flex items-center justify-center gap-3 mb-8 md:mb-10">
+              <Briefcase className="h-6 w-6 text-primary" />
+              <h3 className="text-xl md:text-2xl font-semibold">
+                Professional Experience
+              </h3>
+            </div>
+
+            <div
+              className="max-w-3xl mx-auto"
+              role="list"
+              aria-label="Professional experience"
+            >
+              <div className="relative">
+                <div
+                  className="absolute left-4 top-5 bottom-5 w-px bg-gradient-to-b from-primary via-primary/40 to-primary/10"
+                  aria-hidden="true"
+                />
+
+                {resumeExperiences.map((exp, index) => (
                   <motion.div
                     key={`${exp.company}-${exp.period}`}
                     variants={itemVariants}
                     role="listitem"
+                    className="relative pl-12 pb-10 last:pb-0"
                   >
+                    <div
+                      className={`absolute left-0 top-6 z-10 flex h-8 w-8 items-center justify-center rounded-full border-2 text-xs font-bold shadow-sm ${
+                        index === 0
+                          ? "border-primary bg-primary text-primary-foreground"
+                          : "border-primary/60 bg-background text-primary"
+                      }`}
+                      aria-hidden="true"
+                    >
+                      {index + 1}
+                    </div>
+
                     <Card className="border-none bg-card/50 backdrop-blur-sm shadow-lg hover:shadow-xl transition-shadow duration-300">
                       <CardContent className="p-6 sm:p-8">
                         <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start mb-4 gap-3">
@@ -211,7 +239,7 @@ export function Expertise() {
                               {exp.company}
                             </p>
                           </div>
-                          <div className="flex items-center gap-2 text-sm md:text-base text-muted-foreground">
+                          <div className="flex items-center gap-2 text-sm md:text-base text-muted-foreground shrink-0">
                             <Calendar className="h-4 w-4" />
                             <span>{exp.period}</span>
                           </div>
@@ -238,56 +266,58 @@ export function Expertise() {
                 ))}
               </div>
             </div>
+          </div>
 
-            {/* Right: Skills */}
-            <div>
-              <h3 className="text-xl md:text-2xl font-semibold mb-6">
-                Technical Skills
-              </h3>
-              <div role="list" aria-label="Technical skills">
-                <div className="grid gap-4 sm:grid-cols-2">
-                  {resumeSkills.map((skill) => (
-                    <motion.div
-                      key={skill.title}
-                      variants={itemVariants}
-                      role="listitem"
-                    >
-                      <Card className="border-none bg-card/50 backdrop-blur-sm shadow-lg hover:shadow-xl transition-shadow duration-300">
-                        <CardContent className="p-6">
-                          <h4 className="font-medium text-base md:text-lg mb-3">
-                            {skill.title}
-                          </h4>
-                          <div
-                            className="flex flex-wrap gap-2"
-                            role="list"
-                            aria-label={`Skills in ${skill.title}`}
+          {/* Technical Skills */}
+          <div>
+            <h3 className="text-xl md:text-2xl font-semibold mb-8 md:mb-10 text-center">
+              Technical Skills
+            </h3>
+            <div
+              className="max-w-3xl mx-auto grid gap-4 grid-cols-1"
+              role="list"
+              aria-label="Technical skills"
+            >
+              {resumeSkills.map((skill) => (
+                <motion.div
+                  key={skill.title}
+                  variants={itemVariants}
+                  role="listitem"
+                >
+                  <Card className="border-none bg-card/50 backdrop-blur-sm shadow-lg hover:shadow-xl transition-shadow duration-300">
+                    <CardContent className="p-6 text-center">
+                      <h4 className="font-medium text-base md:text-lg mb-3">
+                        {skill.title}
+                      </h4>
+                      <div
+                        className="flex flex-wrap gap-2 justify-center"
+                        role="list"
+                        aria-label={`Skills in ${skill.title}`}
+                      >
+                        {skill.items.map((item) => (
+                          <span
+                            key={item}
+                            className="bg-primary/10 text-primary px-3 py-1.5 rounded-full text-sm font-medium hover:bg-primary/15 transition-colors duration-200"
+                            role="listitem"
                           >
-                            {skill.items.map((item) => (
-                              <span
-                                key={item}
-                                className="bg-primary/10 text-primary px-3 py-1.5 rounded-full text-sm font-medium hover:bg-primary/15 transition-colors duration-200"
-                                role="listitem"
-                              >
-                                {item}
-                              </span>
-                            ))}
-                          </div>
-                        </CardContent>
-                      </Card>
-                    </motion.div>
-                  ))}
-                </div>
-              </div>
+                            {item}
+                          </span>
+                        ))}
+                      </div>
+                    </CardContent>
+                  </Card>
+                </motion.div>
+              ))}
             </div>
           </div>
 
-          {/* Bottom: Education */}
+          {/* Education */}
           <div>
-            <div className="flex items-center gap-3 mb-6">
+            <div className="flex items-center justify-center gap-3 mb-8 md:mb-10">
               <GraduationCap className="h-6 w-6 text-primary" />
               <h3 className="text-xl md:text-2xl font-semibold">Education</h3>
             </div>
-            <motion.div variants={itemVariants}>
+            <motion.div variants={itemVariants} className="max-w-3xl mx-auto">
               <Card className="border-none bg-card/50 backdrop-blur-sm shadow-lg hover:shadow-xl transition-shadow duration-300">
                 <CardContent className="p-6 sm:p-8">
                   <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start mb-4 gap-3">
