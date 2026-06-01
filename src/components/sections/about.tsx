@@ -112,7 +112,7 @@ export const AboutMe = () => {
           {/* Image Section */}
           <motion.div
             variants={imageVariants}
-            className="relative w-full rounded-2xl overflow-hidden border border-primary/20 shadow-lg hover:shadow-xl transition-shadow duration-300"
+            className="relative w-full aspect-[4/5] lg:aspect-auto lg:h-full min-h-[280px] rounded-2xl overflow-hidden border border-primary/20 shadow-lg hover:shadow-xl transition-shadow duration-300"
             role="img"
             aria-label="Portrait of Mulugeta Adamu, Frontend Developer"
           >
@@ -120,6 +120,7 @@ export const AboutMe = () => {
               src="/about-img.webp"
               alt="Mulugeta Adamu - Frontend Developer"
               sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 50vw"
+              wrapperClassName="relative w-full h-full"
               className="object-cover w-full h-full transition-transform duration-500 ease-in-out hover:scale-[1.03]"
               priority
               decoding="async"

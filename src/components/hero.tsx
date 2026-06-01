@@ -1,7 +1,6 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
-import { ArrowDown, Download } from "lucide-react";
+import { ArrowDown, ExternalLink } from "lucide-react";
 import OptimizedImage from "@/components/ui/optimized-image";
 import { useCallback, memo } from "react";
 
@@ -10,11 +9,6 @@ export const Hero = memo(() => {
   const scrollToSection = useCallback((sectionId: string) => {
     const element = document.querySelector(sectionId);
     element?.scrollIntoView({ behavior: "smooth" });
-  }, []);
-
-  const handleDownloadResume = useCallback(() => {
-    // Using window.open for better cross-browser compatibility
-    window.open("/cv.pdf", "_blank");
   }, []);
 
   return (
@@ -65,14 +59,16 @@ export const Hero = memo(() => {
                 </span>
               </button>
 
-              <button
-                onClick={handleDownloadResume}
-                className="inline-flex items-center justify-center rounded-lg text-base font-semibold transition-all motion-reduce:transition-none motion-reduce:transform-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border-2 border-input bg-background shadow-sm hover:bg-accent hover:text-accent-foreground hover:shadow hover:-translate-y-0.5 h-12 px-8 py-6"
-                aria-label="Download resume"
+              <a
+                href="/cv.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center rounded-lg text-base font-semibold transition-all motion-reduce:transition-none motion-reduce:transform-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 border-2 border-input bg-background shadow-sm hover:bg-accent hover:text-accent-foreground hover:shadow hover:-translate-y-0.5 h-12 px-8 py-6"
+                aria-label="View resume (opens in new tab)"
               >
-                <Download className="mr-2 h-4 w-4" />
-                Download Resume
-              </button>
+                <ExternalLink className="mr-2 h-4 w-4" />
+                View Resume
+              </a>
             </div>
           </div>
 
