@@ -41,7 +41,7 @@ export const Hero = memo(() => {
 
             <p className="text-base sm:text-lg md:text-xl text-foreground mb-8 md:mb-10 max-w-2xl mx-auto lg:mx-0 leading-relaxed">
               I design and build scalable web and mobile experiences that feel
-              effortless and perform brilliantly. With 3+ years of experience, I
+              effortless and perform brilliantly. With 4+ years of experience, I
               focus on intuitive UX, clean architecture, and measurable
               outcomes.
             </p>
